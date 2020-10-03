@@ -14,6 +14,7 @@ class Jornadas extends Component {
 
         <Route exact location="/jornadas" component={Tabla} />
         <Route location="/jornadas/agregar" component={Agregar} />
+        
       </Container>
     );
   }

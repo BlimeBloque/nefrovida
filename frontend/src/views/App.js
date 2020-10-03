@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 
 import "../css/App.css";
+import Beneficiarios from "./Beneficiarios";
 import Jornadas from "./Jornadas";
 
 function App() {
@@ -34,14 +35,6 @@ function Home() {
   return (
     <div>
       <h1>Home</h1>
-    </div>
-  );
-}
-
-function Beneficiarios() {
-  return (
-    <div>
-      <h1>Beneficiarios</h1>
     </div>
   );
 }
