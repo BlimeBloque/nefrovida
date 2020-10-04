@@ -1,23 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 
 import "../css/App.css";
+
 import Jornadas from "./Jornadas";
+import Sidebar from "./Sidebar";
 
 function App() {
   return (
     <Router>
       <Container>
-        <div class="sidenav">
-          <Link to="/">Home</Link>
-          <Link to="/beneficiarios">Beneficiarios</Link>
-          <Link to="/jornadas">Jornadas</Link>
-          <Link to="/reportes">Reportes</Link>
-          <Link to="/evaluaciones">Evaluaciones</Link>
-          <Link to="/cuentas">Cuentas</Link>
-        </div>
-        <div class="main">
+        <Sidebar />
+        <div className="main">
           <Route exact path="/" component={Home} />
           <Route path="/beneficiarios" component={Beneficiarios} />
           <Route path="/jornadas" component={Jornadas} />
