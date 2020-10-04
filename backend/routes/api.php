@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BeneficiariosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,7 @@ Route::delete('/jornadas/{id}', 'App\Http\Controllers\JornadaController@delete')
 
 
 Route::get('/escolaridades', 'App\Http\Controllers\EscolaridadesController@all');
+
+//todas las rutas de beneficiarios
+Route::resource('beneficiarios', BeneficiariosController::class);
+
