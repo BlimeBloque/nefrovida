@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
 import { Grid } from 'semantic-ui-react';
 
-import Controls from "./FormComponents/Controls";
+import Controls from "../components/FormComponents/Controls";
 import * as serviciosBeneficiarios from "./BeneficiariosServices/GetEscolaridades"
 
 const genderItems = [
