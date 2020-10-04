@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Table, Button, Message } from "semantic-ui-react";
 
 import { API } from "../config";
@@ -27,20 +28,21 @@ class JornadasTabla extends Component {
         });
         const ListJornadas = await response.json();
         this.setState({ jornadas: ListJornadas.data, isLoading: false });
-        console.log(this.state.jornadas);
       } catch (err) {
         this.setState({ isLoading: false });
         console.error(err);
       }
     }
   }
-  state = {};
   render() {
     return (
       <div>
         {this.state.isLoading && <Message info header="Cargando Jornadas..." />}
         {this.state.jornadas && (
           <div>
+            <Link to="jornadas/agregar">
+              <Button>Agregar</Button>
+            </Link>
             <Table>
               <thead>
                 <tr>
@@ -61,8 +63,18 @@ class JornadasTabla extends Component {
                     <td>{jornada.municipio}</td>
                     <td className="center">{jornada.idEstado}</td>
                     <td className="center">
-                      <Button>Editar</Button>
-                      <Button>Eliminar</Button>
+                      <Link
+                        to={{
+                          pathname: "/jornadas/editar",
+                          id: jornada.id,
+                          nombre: jornada.nombre,
+                        }}
+                      >
+                        <Button>Editar</Button>
+                      </Link>
+                      <Link to="/jornadas/eliminar">
+                        <Button>Eliminar</Button>
+                      </Link>
                     </td>
                   </tr>
                 ))}
