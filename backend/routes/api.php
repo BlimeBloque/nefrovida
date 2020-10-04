@@ -22,3 +22,6 @@ Route::get('/jornadas', 'App\Http\Controllers\JornadaController@all');
 Route::get('/jornadas/{id}', 'App\Http\Controllers\JornadaController@search');
 Route::post('/jornadas', 'App\Http\Controllers\JornadaController@insert');
 Route::delete('/jornadas/{id}', 'App\Http\Controllers\JornadaController@delete');
+
+
+Route::get('/escolaridades', 'App\Http\Controllers\EscolaridadesController@all');
