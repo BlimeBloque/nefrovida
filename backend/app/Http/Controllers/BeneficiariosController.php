@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BeneficiarioCollection;
 use App\Models\Beneficiarios;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class BeneficiariosController extends Controller
      */
     public function index()
     {
-        return Beneficiarios::all();
+        return new BeneficiarioCollection(Beneficiarios::paginate());
     }
 
     /**
