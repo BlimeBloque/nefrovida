@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withOktaAuth, useOktaAuth } from '@okta/okta-react';
 import Button from '@material-ui/core/Button'
-import { Container, CssBaseline } from '@material-ui/core'
+import { Container, CssBaseline, Typography } from '@material-ui/core'
 import { makeStyles } from "@material-ui/core/styles";
 import Sidenav from './components/Nav/Sidenav';
 
@@ -9,7 +9,10 @@ const useStyles = makeStyles({
     container: {
       display: "flex",
       marginTop: "60px"
-    } 
+    },
+    watermark: {
+      opacity: "0.5"
+    }
 })
 
 const Home = () => { 
@@ -51,10 +54,11 @@ const Home = () => {
           <Container>
            
             <h3>
-              Hola, {userInfo && userInfo.name}. <br />
+              Hola {userInfo && userInfo.name}. <br />
               Bienvenido a Nefrosoftware.
             </h3>
-            {button}
+            <img className={classes.watermark} src={require("./img/blime.png")} alt="Logo de Blime" height="100px"/><br />
+            <Typography>© 2020 Blime Todos los derechos reservados.</Typography>
           </Container>
       </div>
     );

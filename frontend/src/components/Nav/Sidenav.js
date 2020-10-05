@@ -162,7 +162,7 @@ const Sidenav = props => {
                     </IconButton>
                     <img
                       alt="Logo de Nefrovida"
-                      src={require("./nefrovida_large.png")}
+                      src={require("../../img/nefrovida_large.png")}
                       height="36px"
                     />
                     <Typography variant="h6" noWrap className={classes.title}/>
