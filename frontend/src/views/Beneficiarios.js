@@ -1,10 +1,8 @@
-import React, { Component } from "react";
-import { Route } from "react-router-dom";
-import Sidenav from "../components/Sidenav";
+import React from "react";
 import Titulo from "./Titulo";
 import { Paper, makeStyles, Container } from '@material-ui/core';
-import AgregarBeneficiarioForm from './AgregarBeneficiarioForm'
-
+import AgregarBeneficiarioForm from './AgregarBeneficiarioForm';
+import Sidenav from "../components/Nav/Sidenav";
 
 const useStyle = makeStyles(theme => ({
   pageContent:{
@@ -12,7 +10,8 @@ const useStyle = makeStyles(theme => ({
       padding: theme.spacing(3)
   },
   container: {
-    display: "flex"
+    display: "flex",
+    marginTop: "40px"
   }
 }))
 
@@ -20,8 +19,8 @@ const useStyle = makeStyles(theme => ({
 const Beneficiarios = (props) => {
   const classes = useStyle();
     return (
-      <div>
-        <Sidenav />        
+      <div className={classes.container}>
+        <Sidenav />    
         <Container>
           <Titulo />
           <Paper className={classes.pageContent}>
