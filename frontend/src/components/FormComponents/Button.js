@@ -17,7 +17,7 @@ export default function Button(props) {
     const classes = useStyles();
 
     return (
-        <MuiButton
+        <MuiButton onClick={ () => this.onSubmit()}
             variant={variant || "contained"}
             size={size || "large"}
             color={color || "primary"}

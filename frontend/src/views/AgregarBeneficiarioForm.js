@@ -46,6 +46,30 @@ export default function AgregarBeneficiarioForm() {
         })
     }
 
+    const onSubmit = e => {
+
+        e.preventDefault();
+        const Nuevobeneficiario = {
+            nombre: values.nombre,
+            edad: values.edad,
+            idEscolaridad: values.idEscolaridad,
+            sexo: values.sexo, 
+            telefono: values.telefono,
+            direccion: values.direccion,
+            activo: values.activo,
+            fechaNacimiento: values.fechaNacimiento
+        }
+
+        try{
+
+            
+
+        } catch (e) {
+            console.log(e);
+        }
+
+    }
+
     return (
         <form className={classes.root} autoComplete="off">
             <Grid container spacing={3}>
@@ -112,6 +136,7 @@ export default function AgregarBeneficiarioForm() {
                         color="primaty"
                         size="large"
                         type="submit"
+                        onClick={onSubmit}
                         
                          />
                     </div>
