@@ -2,7 +2,7 @@ import React from "react";
 import Sidenav from "../components/Sidenav";
 import Titulo from "./Titulo";
 import { Paper, makeStyles, Container } from '@material-ui/core';
-import BeneficiariosTabla from './BeneficiariosTabla';
+import BuscarBeneficiarios from './BuscarBeneficiarios';
 
 
 const useStyle = makeStyles(theme => ({
@@ -25,7 +25,7 @@ const Beneficiarios = (props) => {
           <Titulo>Beneficiarios</Titulo>
           <Paper className={classes.pageContent}>
             {/*<AgregarBeneficiarioForm />*/}
-            <BeneficiariosTabla/>
+            <BuscarBeneficiarios/>
           </Paper>
         </Container>
       </div>

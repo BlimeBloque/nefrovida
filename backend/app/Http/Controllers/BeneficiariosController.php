@@ -15,7 +15,8 @@ class BeneficiariosController extends Controller
      */
     public function index()
     {
-        return new BeneficiarioCollection(Beneficiarios::paginate());
+        return new BeneficiarioCollection(Beneficiarios::all());
+        //return new BeneficiarioCollection(Beneficiarios::paginate());
     }
 
     /**
