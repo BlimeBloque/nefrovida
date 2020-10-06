@@ -14,18 +14,13 @@ const useStyle = makeStyles(theme => ({
 export default function Titulo(props) {
 
     const classes = useStyle();
-
     return (
         <>
             <Paper className={classes.pageContent}>
             <Typography variant="h3" component="h2" align="center">
                 {props.children}
             </Typography>
-            </Paper>
-
-
-            
-            
+            </Paper> 
         </>
     )
 }

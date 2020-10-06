@@ -3,16 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-/*
-protected $fillable = [
-        'id',
-        'nombre',
-        'fecha',
-        'localidad',
-        'municipio',
-        'idEstado'
-    ];
-*/
 
 class Jornada extends JsonResource {
     /**
@@ -23,7 +13,7 @@ class Jornada extends JsonResource {
      */
     public function toArray($request) {
         return [
-            'id' => $this->id,
+            'idJornada' => $this->idJornada,
             'nombre' => $this->nombre,
             'fecha' => $this->fecha,
             'localidad' => $this->localidad,

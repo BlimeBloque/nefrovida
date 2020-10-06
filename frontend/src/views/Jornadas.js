@@ -5,12 +5,15 @@ import { Header, Container } from "semantic-ui-react";
 import Tabla from "./JornadasTabla";
 import Agregar from "./JornadasAgregar";
 import Editar from "./JornadaEditar";
-import Sidenav from "../components/Sidenav";
+import Sidenav from "../components/Nav/Sidenav";
 
 class Jornadas extends Component {
   render() {
     return (
-      <div>
+      <div style={{
+        display: "flex",
+        marginTop: "40px"
+      }}>
         <Sidenav />
         <Container>
           <Header as="h1">Jornadas</Header>

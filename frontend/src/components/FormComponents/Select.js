@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, Menu, MenuItem, Select as MuiSelect } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select as MuiSelect } from '@material-ui/core';
 import React from 'react'
 
 export default function Select(props) {

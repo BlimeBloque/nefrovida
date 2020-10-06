@@ -13,11 +13,11 @@ const genderItems = [
 
 
 const useStyle = makeStyles(theme => ({
-    root:{
-       '& .MuiFormControl-root' :{
-           width: '40%',
-           margin: theme.spacing(1)
-       }
+    root: {
+        '& .MuiFormControl-root' : {
+            width: '40%',
+            margin: theme.spacing(1)
+        }
     }
 }))
 
@@ -44,6 +44,30 @@ export default function AgregarBeneficiarioForm(props) {
             ...values,
             [name]:value 
         })
+    }
+
+    const onSubmit = e => {
+
+        e.preventDefault();
+        const Nuevobeneficiario = {
+            nombre: values.nombre,
+            edad: values.edad,
+            idEscolaridad: values.idEscolaridad,
+            sexo: values.sexo, 
+            telefono: values.telefono,
+            direccion: values.direccion,
+            activo: values.activo,
+            fechaNacimiento: values.fechaNacimiento
+        }
+
+        try{
+
+            
+
+        } catch (e) {
+            console.log(e);
+        }
+
     }
 
     return (
@@ -112,6 +136,7 @@ export default function AgregarBeneficiarioForm(props) {
                         color="primaty"
                         size="large"
                         type="submit"
+                        onClick={onSubmit}
                         
                          />
                     </div>

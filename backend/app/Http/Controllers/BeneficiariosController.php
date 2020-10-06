@@ -37,7 +37,8 @@ class BeneficiariosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+       
     }
 
     /**
