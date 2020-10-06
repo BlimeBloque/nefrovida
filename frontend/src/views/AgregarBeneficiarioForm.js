@@ -4,13 +4,13 @@ import { Grid } from 'semantic-ui-react';
 
 import Controls from "../components/FormComponents/Controls";
 import * as serviciosBeneficiarios from "./BeneficiariosServices/GetEscolaridades"
+import {GetEscolaridades} from "./BeneficiariosServices/GetEscolaridades"
 
 const genderItems = [
-    {id:'hombre', title: 'Hombre'},
-    {id:'mujer', title: 'Mujer'}
+    {id:'H', title: 'Hombre'},
+    {id:'M', title: 'Mujer'}
 ]
     
-
 
 const useStyle = makeStyles(theme => ({
     root:{
@@ -22,7 +22,6 @@ const useStyle = makeStyles(theme => ({
 }))
 
 const initialFValues = {
-    id: 0,
     nombre: '',
     edad: '',
     idEscolaridad: '',
@@ -30,13 +29,15 @@ const initialFValues = {
     telefono: '',
     direccion: '',
     activo: true,
-    fechaNacimiento: new Date()
+    fechaNacimiento: new Date(),
 }
+
 
 export default function AgregarBeneficiarioForm() {
 
     const[values, setValues] = useState(initialFValues);
     const classes = useStyle();
+    const escolaridades = []
 
     const handleInputChange= e => {
         const {name , value} = e.target
@@ -46,11 +47,28 @@ export default function AgregarBeneficiarioForm() {
         })
     }
 
+    const componentDidMount = () => {
+
+        fetch('http://127.0.0.1:8000/api/escolaridades')
+        .then(res => res.json())
+        .then(json => {
+            this.setValues({
+                escolaridades: json,
+            })
+        });
+    }
+
+
+/*
+    const printObject = e => {
+        console.log(values)
+    }
+*/
     const onSubmit = e => {
 
         e.preventDefault();
         const Nuevobeneficiario = {
-            nombre: values.nombre,
+            nombreBeneficiario: values.nombre,
             edad: values.edad,
             idEscolaridad: values.idEscolaridad,
             sexo: values.sexo, 
@@ -62,7 +80,27 @@ export default function AgregarBeneficiarioForm() {
 
         try{
 
-            
+            let result =  fetch('http://localhost:8000/api/beneficiarios/insert', {
+                    method: 'POST',
+                    headers: {
+                        "Access-Control-Allow-Origin": "http://localhost:3000/",
+                        "Access-Control-Allow-Credentials": "true",
+                        'Accept': 'application/json',
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nombreBeneficiario: values.nombre,
+                        edad: values.edad,
+                        idEscolaridad: values.idEscolaridad,
+                        sexo: values.sexo, 
+                        telefono: values.telefono,
+                        direccion: values.direccion,
+                        activo: true,
+                        fechaNacimiento: values.fechaNacimiento
+                    })
+        });
+
+        console.log(values)
 
         } catch (e) {
             console.log(e);
@@ -74,6 +112,7 @@ export default function AgregarBeneficiarioForm() {
         <form className={classes.root} autoComplete="off">
             <Grid container spacing={3}>
                 <Grid item xs={6}>
+                  
                     <Controls.Input 
                         name="nombre" 
                         label="Nombre Completo" 
@@ -120,7 +159,7 @@ export default function AgregarBeneficiarioForm() {
                     <Controls.DatePicker 
                         name="fechaNacimiento"
                         label="Fecha de Nacimiento"
-                        valie={values.fechaNacimiento}
+                        value={values.fechaNacimiento}
                         onChange={handleInputChange}
                         />
                     <Controls.Checkbox 
@@ -133,7 +172,7 @@ export default function AgregarBeneficiarioForm() {
                         <Controls.Button
                         text="Submit"
                         variant="contained"
-                        color="primaty"
+                        color="primary"
                         size="large"
                         type="submit"
                         onClick={onSubmit}
@@ -144,5 +183,6 @@ export default function AgregarBeneficiarioForm() {
                 </Grid>
             </Grid>
         </form>
+
     )
 }
