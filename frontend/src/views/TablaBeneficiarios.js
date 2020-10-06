@@ -151,10 +151,11 @@ export default function TablaBeneficiarios(props) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+    const beneficiarios = props.sexo ? props.data.filter(x => x['sexo'].includes(props.sexo)) : props.data;
+
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
-        console.log(property);
         setOrderBy(property);
     };
 
@@ -186,10 +187,10 @@ export default function TablaBeneficiarios(props) {
                 order={order}
                 orderBy={orderBy}
                 onRequestSort={handleRequestSort}
-                rowCount={props.data.length}
+                rowCount={beneficiarios.length}
                 />
                 <TableBody>
-                {stableSort(props.data, getComparator(order, orderBy))
+                {stableSort(beneficiarios, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((beneficiario) => {
                     return (
@@ -226,7 +227,7 @@ export default function TablaBeneficiarios(props) {
             <TablePagination
             rowsPerPageOptions={[5, 10, 12]}
             component="div"
-            count={props.data.length}
+            count={beneficiarios.length}
             rowsPerPage={rowsPerPage}
             page={page}
             labelRowsPerPage="Registros por página"
