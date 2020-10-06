@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Jornada extends Model {
+class Estados extends Model {
+    protected $table = "estados_mexico";
     protected $fillable = [
-        'idJornada',
-        'nombre',
-        'fecha',
-        'localidad',
-        'municipio',
-        'idEstado'
+        'idEstado',
+        'nombreEstado',
+        'siglas'
     ];
 }
