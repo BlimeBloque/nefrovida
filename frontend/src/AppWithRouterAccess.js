@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
-
 import Home from './Home';
 import Login from './okta/Login';
-
 import Beneficiarios from './views/Beneficiarios';
 import Jornadas from './views/Jornadas';
 import Reportes from './views/Reportes';
@@ -28,7 +26,6 @@ export default withRouter(class AppWithRouterAccess extends Component {
                     clientId='0oa61ly4IzGGhU29v5d5'
                     redirectUri={window.location.origin + '/implicit/callback'}
                     onAuthRequired={this.onAuthRequired} >
-            
             <SecureRoute path='/' exact={true} component={Home} />
             <SecureRoute path='/beneficiarios' exact={true} component={Beneficiarios} />
             <SecureRoute path='/jornadas' exact={true} component={Jornadas} />
@@ -37,6 +34,7 @@ export default withRouter(class AppWithRouterAccess extends Component {
             
             <Route path='/login' render={() => <Login baseUrl='https://dev-377919.okta.com' />} />
             <Route path='/implicit/callback' component={LoginCallback} />
+
           </Security>
       </div>
     );

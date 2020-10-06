@@ -11,7 +11,8 @@ const useStyle = makeStyles(theme => ({
       padding: theme.spacing(3)
   },
   container: {
-    display: "flex"
+    display: "flex",
+    marginTop: "40px"
   }
 }))
 
@@ -19,8 +20,8 @@ const useStyle = makeStyles(theme => ({
 const Beneficiarios = (props) => {
   const classes = useStyle();
     return (
-      <div>
-        <Sidenav />        
+      <div className={classes.container}>
+        <Sidenav />    
         <Container>
           <Titulo>Beneficiarios</Titulo>
           <Paper className={classes.pageContent}>
