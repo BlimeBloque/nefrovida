@@ -8,6 +8,20 @@ export default class OktaSignInWidget extends Component {
     const el = ReactDOM.findDOMNode(this);
     this.widget = new OktaSignIn({
       baseUrl: this.props.baseUrl,
+      logo: 'https://static.wixstatic.com/media/e7ff7a_86ca9396460343348fe785dfa5e08832~mv2.png', //Cambiar por imagen local
+      logoText: 'Logo de Nefrovida',
+      i18n: { //Configuración de los texots y alertas del widget
+        es: { // WIDGET EN ESPAÑOL
+          'primaryauth.title': 'Iniciar Sesión',
+          'primaryauth.username.placeholder': 'Correo electrónico',
+          'error.username.required': 'Por favor introduzca su correo',
+          'error.password.required': 'Por favor introduzca su contraseña',
+        },
+        en: { // WIDGET EN INGLÉS
+          'primaryauth.title': 'Sign In',
+          'primaryauth.email': 'email@example.com'
+        }
+      },
       authParams: {
         clientId: '0oa61ly4IzGGhU29v5d5',
         issuer: 'https://dev-377919.okta.com/oauth2/default',

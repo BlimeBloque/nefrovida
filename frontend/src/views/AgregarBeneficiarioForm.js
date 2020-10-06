@@ -13,11 +13,11 @@ const genderItems = [
 
 
 const useStyle = makeStyles(theme => ({
-    root:{
-       '& .MuiFormControl-root' :{
-           width: '40%',
-           margin: theme.spacing(1)
-       }
+    root: {
+        '& .MuiFormControl-root' : {
+            width: '40%',
+            margin: theme.spacing(1)
+        }
     }
 }))
 
