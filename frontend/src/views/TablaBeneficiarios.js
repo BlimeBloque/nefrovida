@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { lighten, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -15,9 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import EditIcon from '@material-ui/icons/Edit';
-import Link from '@material-ui/core/Link';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -47,7 +45,7 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-    { id: 'nombre', numeric: false, disablePadding: true, label: 'Nombre Completo' },
+    { id: 'nombreBeneficiario', numeric: false, disablePadding: true, label: 'Nombre Completo' },
     { id: 'edad', numeric: true, disablePadding: false, label: 'Edad' },
     { id: 'sexo', numeric: false, disablePadding: false, label: 'Sexo' },
     { id: 'seguimiento', numeric: false, disablePadding: false, label: 'De Seguimiento' },
@@ -59,6 +57,7 @@ function EnhancedTableHead(props) {
     const createSortHandler = (property) => (event) => {
         onRequestSort(event, property);
 };
+
 
 return (
     <TableHead>
@@ -91,7 +90,6 @@ return (
 
 EnhancedTableHead.propTypes = {
     classes: PropTypes.object.isRequired,
-    numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
     order: PropTypes.oneOf(['asc', 'desc']).isRequired,
     orderBy: PropTypes.string.isRequired,
@@ -102,16 +100,8 @@ const useToolbarStyles = makeStyles((theme) => ({
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(1),
     },
-    highlight:
-        theme.palette.type === 'light'
-        ? {
-            color: theme.palette.secondary.main,
-            backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-            }
-        : {
-            color: theme.palette.text.primary,
-            backgroundColor: theme.palette.secondary.dark,
-            },
+
+    
     title: {
         flex: '1 1 100%',
     },
@@ -125,12 +115,6 @@ const EnhancedTableToolbar = (props) => {
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
         Beneficiarios
         </Typography>
-
-        <Tooltip title="Filter list">
-        <IconButton aria-label="filter list">
-            <FilterListIcon />
-        </IconButton>
-        </Tooltip>
     </Toolbar>
     );
 };
@@ -163,37 +147,18 @@ const useStyles = makeStyles((theme) => ({
 export default function TablaBeneficiarios(props) {
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('calories');
-    const [selected, setSelected] = React.useState([]);
+    const [orderBy, setOrderBy] = React.useState('');
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
+        console.log(property);
         setOrderBy(property);
     };
 
 
-    const handleClick = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
-        let newSelected = [];
-
-        if (selectedIndex === -1) {
-        newSelected = newSelected.concat(selected, name);
-        } else if (selectedIndex === 0) {
-        newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-        newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-        newSelected = newSelected.concat(
-            selected.slice(0, selectedIndex),
-            selected.slice(selectedIndex + 1),
-        );
-        }
-
-        setSelected(newSelected);
-    };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -205,25 +170,19 @@ export default function TablaBeneficiarios(props) {
     };
 
 
-
-    const isSelected = (name) => selected.indexOf(name) !== -1;
-
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
-
     return (
         <div className={classes.root}>
         <Paper className={classes.paper}>
-            <EnhancedTableToolbar numSelected={selected.length} />
+            <EnhancedTableToolbar />
             <TableContainer>
             <Table
                 className={classes.table}
                 aria-labelledby="tableTitle"
-                size='medium'
+                size='small'
                 aria-label="enhanced table"
             >
                 <EnhancedTableHead
                 classes={classes}
-                numSelected={selected.length}
                 order={order}
                 orderBy={orderBy}
                 onRequestSort={handleRequestSort}
@@ -232,19 +191,17 @@ export default function TablaBeneficiarios(props) {
                 <TableBody>
                 {stableSort(props.data, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((beneficiario, index) => {
-                    const isItemSelected = isSelected(beneficiario.nombreBeneficiario);
-                    const labelId = `enhanced-table-${index}`;
-
+                    .map((beneficiario) => {
                     return (
                         <TableRow
                         hover
                         tabIndex={-1}
                         key={beneficiario.idBeneficiario}
                         >
-                            <TableCell align="center" component="th" id={labelId} scope="row" >
-                                {beneficiario.nombreBeneficiario}
-                            </TableCell>
+                            {/*Modificar para acceder a beneficiario*/}
+                            <TableCell align="center">{beneficiario.nombreBeneficiario}</TableCell>
+
+
                             <TableCell align="center">{beneficiario.edad}</TableCell>
                             <TableCell align="center">{beneficiario.sexo}</TableCell>
                             <TableCell align="center">{beneficiario.seguimiento ? 'Si' : 'No'}</TableCell>
@@ -259,25 +216,20 @@ export default function TablaBeneficiarios(props) {
                                         <RemoveCircleIcon />
                                     </IconButton>
                                 </Tooltip>
-                                
                             </TableCell>
                         </TableRow>
                     );
                     })}
-                {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                    <TableCell colSpan={6} />
-                    </TableRow>
-                )}
                 </TableBody>
             </Table>
             </TableContainer>
             <TablePagination
-            rowsPerPageOptions={[5, 10, 15]}
+            rowsPerPageOptions={[5, 10, 12]}
             component="div"
             count={props.data.length}
             rowsPerPage={rowsPerPage}
             page={page}
+            labelRowsPerPage="Registros por página"
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
             />

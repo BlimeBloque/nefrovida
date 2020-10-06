@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import BeneficiariosDataService from '../services/beneficiarios.service';
-import Pagination from '@material-ui/lab/Pagination';
-import Typography from '@material-ui/core/Typography';
 import TablaBeneficiarios from './TablaBeneficiarios';
 
 export default class BuscarBeneficiarios extends Component

@@ -33,8 +33,8 @@ const initialFValues = {
     fechaNacimiento: new Date()
 }
 
-export default function AgregarBeneficiarioForm() {
-
+export default function AgregarBeneficiarioForm(props) {
+    console.log(props);
     const[values, setValues] = useState(initialFValues);
     const classes = useStyle();
 
