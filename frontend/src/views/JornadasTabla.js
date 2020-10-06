@@ -27,13 +27,29 @@ class JornadasTabla extends Component {
           headers: {},
         });
         const ListJornadas = await response.json();
-        this.setState({ jornadas: ListJornadas.data, isLoading: false });
+        this.setState({ jornadas: ListJornadas, isLoading: false });
       } catch (err) {
         this.setState({ isLoading: false });
         console.error(err);
       }
     }
   }
+
+  async deleteJornada(e) {
+    e.preventDefault();
+    const response = await fetch(API + "/jornadas/" + this.state.id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+        "Access-Control-Allow-Credentials": "true",
+      },
+    });
+
+    await response;
+    this.props.onDelete(this.state.id);
+  }
+
   render() {
     return (
       <div>
@@ -50,29 +66,36 @@ class JornadasTabla extends Component {
                   <th>Fecha</th>
                   <th>Localidad</th>
                   <th>Municipio</th>
-                  <th>idEstado</th>
+                  <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {this.state.jornadas.map((jornada) => (
-                  <tr id={jornada.id} key={jornada.id}>
+                  <tr id={jornada.idJornada} key={jornada.idJornada}>
                     <td>{jornada.nombre}</td>
                     <td>{jornada.fecha}</td>
                     <td>{jornada.localidad}</td>
                     <td>{jornada.municipio}</td>
-                    <td className="center">{jornada.idEstado}</td>
+                    <td>{jornada.nombreEstado}</td>
                     <td className="center">
                       <Link
                         to={{
                           pathname: "/jornadas/editar",
-                          id: jornada.id,
+                          id: jornada.idJornada,
                           nombre: jornada.nombre,
+                          fecha: jornada.fecha,
+                          localidad: jornada.localidad,
+                          municipio: jornada.municipio,
+                          idEstado: jornada.idEstado,
                         }}
                       >
                         <Button>Editar</Button>
                       </Link>
-                      <Link to="/jornadas/eliminar">
+                      <Link
+                        to="#"
+                        onClick={() => console.log(jornada.idJornada)}
+                      >
                         <Button>Eliminar</Button>
                       </Link>
                     </td>
@@ -85,7 +108,7 @@ class JornadasTabla extends Component {
                   <th>Fecha</th>
                   <th>Localidad</th>
                   <th>Municipio</th>
-                  <th>idEstado</th>
+                  <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
               </tfoot>

@@ -20,9 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/jornadas', 'App\Http\Controllers\JornadaController@all');
-Route::get('/jornadas/{id}', 'App\Http\Controllers\JornadaController@search');
+Route::get('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@search');
 Route::post('/jornadas', 'App\Http\Controllers\JornadaController@insert');
-Route::delete('/jornadas/{id}', 'App\Http\Controllers\JornadaController@delete');
+Route::post('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@edit');
+Route::delete('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@delete');
 
 
 Route::get('/escolaridades', 'App\Http\Controllers\EscolaridadesController@all');
@@ -30,3 +31,5 @@ Route::get('/escolaridades', 'App\Http\Controllers\EscolaridadesController@all')
 //todas las rutas de beneficiarios
 Route::resource('beneficiarios', BeneficiariosController::class);
 
+
+Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
