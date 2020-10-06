@@ -8,6 +8,7 @@ import Login from './okta/Login';
 import Beneficiarios from './views/Beneficiarios';
 import Jornadas from './views/Jornadas';
 import Reportes from './views/Reportes';
+import AgregarBeneficiarioForm from './views/AgregarBeneficiarioForm';
 
 export default withRouter(class AppWithRouterAccess extends Component {
   
@@ -29,9 +30,10 @@ export default withRouter(class AppWithRouterAccess extends Component {
                     onAuthRequired={this.onAuthRequired} >
             
             <SecureRoute path='/' exact={true} component={Home} />
-            <SecureRoute path='/beneficiarios' component={Beneficiarios} />
-            <SecureRoute path='/jornadas' component={Jornadas} />
-            <SecureRoute path='/reportes' component={Reportes} />
+            <SecureRoute path='/beneficiarios' exact={true} component={Beneficiarios} />
+            <SecureRoute path='/jornadas' exact={true} component={Jornadas} />
+            <SecureRoute path='/reportes' exact={true} component={Reportes} />
+            <SecureRoute path='/beneficiarios/agregar' exact={true} component={AgregarBeneficiarioForm}/>
             
             <Route path='/login' render={() => <Login baseUrl='https://dev-377919.okta.com' />} />
             <Route path='/implicit/callback' component={LoginCallback} />

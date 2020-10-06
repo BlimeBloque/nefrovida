@@ -1,18 +1,17 @@
 import React from 'react'
 import { withRouter } from "react-router-dom";
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar } from "@material-ui/core";
+import { Drawer, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import ArchiveIcon from '@material-ui/icons/Archive';
-import NoteIcon from '@material-ui/icons/Note';
 
 const useStyles = makeStyles({
     drawer: {
-      width: "250px"
+        width: "250px"
     }
-  })
-  
+})
+
 
 const Sidenav = props => {
     const { history } = props;

@@ -1,5 +1,4 @@
 import React from 'react'
-import AgregarBeneficiarioForm from './AgregarBeneficiarioForm'
 
 import Typography from '@material-ui/core/Typography';
 import { Paper, makeStyles } from '@material-ui/core';
@@ -12,7 +11,7 @@ const useStyle = makeStyles(theme => ({
 }))
 
 
-export default function Titulo() {
+export default function Titulo(props) {
 
     const classes = useStyle();
 
@@ -20,7 +19,7 @@ export default function Titulo() {
         <>
             <Paper className={classes.pageContent}>
             <Typography variant="h3" component="h2" align="center">
-                Agregar Beneficiario
+                {props.children}
             </Typography>
             </Paper>
 

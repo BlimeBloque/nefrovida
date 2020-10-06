@@ -1,9 +1,8 @@
-import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import React from "react";
 import Sidenav from "../components/Sidenav";
 import Titulo from "./Titulo";
 import { Paper, makeStyles, Container } from '@material-ui/core';
-import AgregarBeneficiarioForm from './AgregarBeneficiarioForm'
+import BuscarBeneficiarios from './BuscarBeneficiarios';
 
 
 const useStyle = makeStyles(theme => ({
@@ -23,9 +22,10 @@ const Beneficiarios = (props) => {
       <div>
         <Sidenav />        
         <Container>
-          <Titulo />
+          <Titulo>Beneficiarios</Titulo>
           <Paper className={classes.pageContent}>
-            <AgregarBeneficiarioForm />
+            {/*<AgregarBeneficiarioForm />*/}
+            <BuscarBeneficiarios/>
           </Paper>
         </Container>
       </div>
