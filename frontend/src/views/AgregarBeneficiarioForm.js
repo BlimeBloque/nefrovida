@@ -1,24 +1,30 @@
-import {makeStyles} from '@material-ui/core';
+import {CssBaseline, InputAdornment, makeStyles} from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
 import { Grid } from 'semantic-ui-react';
+import axios from 'axios'
+import AssignmentIndIcon  from '@material-ui/icons/AssignmentInd';
 
 import Controls from "../components/FormComponents/Controls";
-import * as serviciosBeneficiarios from "./BeneficiariosServices/GetEscolaridades"
-import {GetEscolaridades} from "./BeneficiariosServices/GetEscolaridades"
+
 
 const genderItems = [
     {id:'H', title: 'Hombre'},
     {id:'M', title: 'Mujer'}
 ]
-    
+
 
 const useStyle = makeStyles(theme => ({
     root:{
        '& .MuiFormControl-root' :{
-           width: '40%',
-           margin: theme.spacing(1)
-       }
+           width: '47%',
+           margin: theme.spacing(1),
+       } 
+    }, 
+    form: {
+            display: 'flex',
+            justifyContent: 'space-evenly'
     }
+
 }))
 
 const initialFValues = {
@@ -28,7 +34,7 @@ const initialFValues = {
     sexo: '',
     telefono: '',
     direccion: '',
-    activo: true,
+    deSeguimiento: true,
     fechaNacimiento: new Date(),
 }
 
@@ -37,7 +43,7 @@ export default function AgregarBeneficiarioForm() {
 
     const[values, setValues] = useState(initialFValues);
     const classes = useStyle();
-    const escolaridades = []
+    const [escolaridadesCollection, setEscolaridades]  = useState([]);
 
     const handleInputChange= e => {
         const {name , value} = e.target
@@ -47,16 +53,18 @@ export default function AgregarBeneficiarioForm() {
         })
     }
 
-    const componentDidMount = () => {
+    useEffect ( () => {
 
-        fetch('http://127.0.0.1:8000/api/escolaridades')
-        .then(res => res.json())
-        .then(json => {
-            this.setValues({
-                escolaridades: json,
-            })
-        });
-    }
+        axios.get('http://127.0.0.1:8000/api/escolaridades')
+        .then(res => { setEscolaridades (res.data.data)
+    })
+        .catch((e) => {
+            console.log(e)
+        })
+   }, []);
+    
+    
+  console.log(escolaridadesCollection)
 
 
 /*
@@ -67,20 +75,9 @@ export default function AgregarBeneficiarioForm() {
     const onSubmit = e => {
 
         e.preventDefault();
-        const Nuevobeneficiario = {
-            nombreBeneficiario: values.nombre,
-            edad: values.edad,
-            idEscolaridad: values.idEscolaridad,
-            sexo: values.sexo, 
-            telefono: values.telefono,
-            direccion: values.direccion,
-            activo: values.activo,
-            fechaNacimiento: values.fechaNacimiento
-        }
-
         try{
 
-            let result =  fetch('http://localhost:8000/api/beneficiarios/insert', {
+            let result =  fetch('http://localhost:8000/api/beneficiarios', {
                     method: 'POST',
                     headers: {
                         "Access-Control-Allow-Origin": "http://localhost:3000/",
@@ -95,8 +92,8 @@ export default function AgregarBeneficiarioForm() {
                         sexo: values.sexo, 
                         telefono: values.telefono,
                         direccion: values.direccion,
-                        activo: true,
-                        fechaNacimiento: values.fechaNacimiento
+                        activo: values.deSeguimiento,
+                        fechaNacimiento: '2020-10-10'
                     })
         });
 
@@ -107,12 +104,13 @@ export default function AgregarBeneficiarioForm() {
         }
 
     }
-
+ 
     return (
-        <form className={classes.root} autoComplete="off">
-            <Grid container spacing={3}>
+        <div className={classes.form}>
+        <CssBaseline/>
+        <form className={classes.root}>
+            <Grid container spacing={3} >
                 <Grid item xs={6}>
-                  
                     <Controls.Input 
                         name="nombre" 
                         label="Nombre Completo" 
@@ -154,7 +152,7 @@ export default function AgregarBeneficiarioForm() {
                         label="Escolaridad"
                         value={values.idEscolaridad}
                         onChange={handleInputChange}
-                        options={serviciosBeneficiarios.getEscolaridadesCollection()}
+                        options={escolaridadesCollection}
                     />
                     <Controls.DatePicker 
                         name="fechaNacimiento"
@@ -163,9 +161,9 @@ export default function AgregarBeneficiarioForm() {
                         onChange={handleInputChange}
                         />
                     <Controls.Checkbox 
-                        name="activo"
-                        label= "Beneficiario Activo"
-                        valie={values.activo}
+                        name="seguimiento"
+                        label= "De Seguimiento"
+                        value={values.activo}
                         onChange={handleInputChange}
                     />
                     <div>
@@ -183,6 +181,6 @@ export default function AgregarBeneficiarioForm() {
                 </Grid>
             </Grid>
         </form>
-
+        </div>
     )
 }

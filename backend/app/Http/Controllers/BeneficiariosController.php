@@ -34,7 +34,7 @@ class BeneficiariosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function insert(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
 

@@ -29,5 +29,5 @@ Route::get('/escolaridades', 'App\Http\Controllers\EscolaridadesController@all')
 
 //todas las rutas de beneficiarios
 Route::resource('beneficiarios', BeneficiariosController::class);
-Route::post('/beneficiarios/insert', 'App\Http\Controllers\BeneficiariosController@insert');
+//Route::post('/beneficiarios/insert', 'App\Http\Controllers\BeneficiariosController@insert');
 
