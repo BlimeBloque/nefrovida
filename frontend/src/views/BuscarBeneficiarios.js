@@ -5,8 +5,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { FormControl } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
+import TextField from '@material-ui/core/TextField';
 
 export default class BuscarBeneficiarios extends Component
 {
@@ -18,6 +17,10 @@ export default class BuscarBeneficiarios extends Component
         this.state = {
         beneficiarios: [],
         filtrarPorSexo:'',
+        filtrarPorSeguimiento:null,
+        filtrarPorActivo:1,
+        filtrarPorEdad:'', 
+        filtrarPorNombre:'',
         };
     }
 
@@ -42,6 +45,22 @@ export default class BuscarBeneficiarios extends Component
         this.setState({filtrarPorSexo: event.target.value});
     };
 
+    handleSeguimientoChange = (event) => {
+        this.setState({filtrarPorSeguimiento: event.target.value});
+    };
+
+    handleActivoChange = (event) => {
+        this.setState({filtrarPorActivo: event.target.value});
+    };
+
+    handleEdadChange = (event) => {
+        this.setState({filtrarPorEdad: event.target.value});
+    };
+
+    handleNombreChange = (event) => {
+        this.setState({filtrarPorNombre: event.target.value});
+    };
+
 
 
     render()
@@ -49,9 +68,26 @@ export default class BuscarBeneficiarios extends Component
         const {
             beneficiarios,
             filtrarPorSexo,
+            filtrarPorSeguimiento,
+            filtrarPorActivo,
+            filtrarPorEdad,
+            filtrarPorNombre,
         } = this.state;
         return (
             <div>
+                <FormControl style={{minWidth: 200}}>
+                    <InputLabel id="busca-por-activo-label">Buscar activos/inactivos</InputLabel>
+                    <Select
+                        labelId="busca-por-activo-label"
+                        id="busca-por-activo"
+                        value={this.state.filtrarPorActivo}
+                        onChange={this.handleActivoChange}
+                    >
+                        <MenuItem value={1}>Activos</MenuItem>
+                        <MenuItem value={0}>Inactivos</MenuItem>
+                    </Select>
+                </FormControl>
+
                 <FormControl style={{minWidth: 150}}>
                     <InputLabel id="busca-por-sexo-label">Buscar por sexo</InputLabel>
                     <Select
@@ -65,7 +101,46 @@ export default class BuscarBeneficiarios extends Component
                         <MenuItem value="M">Mujer</MenuItem>
                     </Select>
                 </FormControl>
-                <TablaBeneficiarios sexo={filtrarPorSexo} data={beneficiarios}/>
+
+                <FormControl style={{minWidth: 200}}>
+                    <InputLabel id="busca-por-seguimiento-label">Buscar por seguimiento</InputLabel>
+                    <Select
+                        labelId="busca-por-seguimiento-label"
+                        id="busca-por-seguimiento"
+                        value={this.state.filtrarPorSeguimiento}
+                        onChange={this.handleSeguimientoChange}
+                    >
+                        <MenuItem value={null}>Todos</MenuItem>
+                        <MenuItem value={1}>Si</MenuItem>
+                        <MenuItem value={0}>No</MenuItem>
+                    </Select>
+                </FormControl>
+
+                <FormControl style={{width: 150}}>
+                    <TextField 
+                        label="Buscar por edad"
+                        type="number"
+                        value={this.state.filtrarPorEdad}
+                        onChange={this.handleEdadChange}
+                    />
+                </FormControl>
+
+                <FormControl style={{minWidth: 200}}>
+                    <TextField 
+                        label="Buscar por nombre"
+                        value={this.state.filtrarPorNombre}
+                        onChange={this.handleNombreChange}
+                    />
+                </FormControl>
+
+                <TablaBeneficiarios 
+                    activo={filtrarPorActivo}
+                    sexo={filtrarPorSexo} 
+                    seguimiento={filtrarPorSeguimiento} 
+                    edad={filtrarPorEdad} 
+                    nombre={filtrarPorNombre}
+                    data={beneficiarios}
+                />
             </div>
         );
 

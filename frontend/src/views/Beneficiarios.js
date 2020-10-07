@@ -1,6 +1,5 @@
 import React from "react";
 import Sidenav from "../components/Nav/Sidenav";
-import Titulo from "./Titulo";
 import { Paper, makeStyles, Container } from '@material-ui/core';
 import BuscarBeneficiarios from './BuscarBeneficiarios';
 
@@ -21,9 +20,8 @@ const Beneficiarios = (props) => {
   const classes = useStyle();
     return (
       <div className={classes.container}>
-        <Sidenav />    
+        <Sidenav titulo="Beneficiarios" />    
         <Container>
-          <Titulo>Beneficiarios</Titulo>
           <Paper className={classes.pageContent}>
             {/*<AgregarBeneficiarioForm />*/}
             <BuscarBeneficiarios/>

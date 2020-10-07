@@ -113,7 +113,7 @@ const EnhancedTableToolbar = (props) => {
     return (
     <Toolbar>
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-        Beneficiarios
+        Tabla de Beneficiarios
         </Typography>
     </Toolbar>
     );
@@ -151,7 +151,15 @@ export default function TablaBeneficiarios(props) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const beneficiarios = props.sexo ? props.data.filter(x => x['sexo'].includes(props.sexo)) : props.data;
+    let beneficiarios = props.sexo ? props.data.filter(x => x['sexo'].includes(props.sexo)) : props.data;
+    
+    beneficiarios = props.seguimiento != null ? beneficiarios.filter(x => x['seguimiento'] === props.seguimiento) : beneficiarios;
+    
+    beneficiarios = props.activo != null ? beneficiarios.filter(x => x['activo'] === props.activo) : beneficiarios;
+
+    beneficiarios = props.edad ? beneficiarios.filter(x => x['edad'].toString().includes(props.edad)) : beneficiarios;
+
+    beneficiarios = props.nombre ? beneficiarios.filter(x => x['nombreBeneficiario'].toLowerCase().includes(props.nombre.toLowerCase())) : beneficiarios;
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -212,11 +220,15 @@ export default function TablaBeneficiarios(props) {
                                         <EditIcon />
                                     </IconButton>
                                 </Tooltip>
-                                <Tooltip title="Dar de baja" arrow>
-                                    <IconButton style={{color: 'red'}} aria-label="delete">
-                                        <RemoveCircleIcon />
-                                    </IconButton>
-                                </Tooltip>
+                                {beneficiario.activo ?
+                                    <Tooltip title="Dar de baja" arrow>
+                                        <IconButton style={{color: 'red'}} aria-label="delete">
+                                            <RemoveCircleIcon />
+                                        </IconButton>
+                                    </Tooltip> 
+                                :
+                                    <Typography/>
+                                }
                             </TableCell>
                         </TableRow>
                     );
