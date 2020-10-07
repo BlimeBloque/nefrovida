@@ -151,6 +151,8 @@ export default function TablaBeneficiarios(props) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+    
+
     let beneficiarios = props.sexo ? props.data.filter(x => x['sexo'].includes(props.sexo)) : props.data;
     
     beneficiarios = props.seguimiento != null ? beneficiarios.filter(x => x['seguimiento'] === props.seguimiento) : beneficiarios;
@@ -241,6 +243,7 @@ export default function TablaBeneficiarios(props) {
             component="div"
             count={beneficiarios.length}
             rowsPerPage={rowsPerPage}
+            
             page={page}
             labelRowsPerPage="Registros por página"
             onChangePage={handleChangePage}
