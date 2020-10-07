@@ -6,6 +6,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { FormControl } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import AddIcon from '@material-ui/icons/Add'; 
+import Fab from '@material-ui/core/Fab';
 
 export default class BuscarBeneficiarios extends Component
 {
@@ -75,7 +79,12 @@ export default class BuscarBeneficiarios extends Component
         } = this.state;
         return (
             <div>
-                <div>
+
+                <div style={{
+                    display:"flex",
+                    justifyContent:"space-between",
+                    margin: " 0px 40px 0px 40px"
+                }}>
                     <FormControl style={{minWidth: 200}}>
                         <InputLabel id="busca-por-activo-label">Buscar activos/inactivos</InputLabel>
                         <Select
@@ -88,12 +97,7 @@ export default class BuscarBeneficiarios extends Component
                             <MenuItem value={0}>Inactivos</MenuItem>
                         </Select>
                     </FormControl>
-                </div>
 
-                <div style={{
-                    display:"flex",
-                    justifyContent:"space-evenly"
-                }}>
                     <FormControl style={{minWidth: 150}}>
                         <InputLabel id="busca-por-sexo-label">Buscar por sexo</InputLabel>
                         <Select
@@ -131,18 +135,31 @@ export default class BuscarBeneficiarios extends Component
                         />
                     </FormControl>
                 </div>
-                
+
                 <div style={{
-                    display:"flex",
-                    justifyContent:"space-evenly"
+                    display: "flex",
+                    justifyContent: "space-between",
+                    margin: " 40px 40px 20px 40px",
                 }}>
-                    <FormControl style={{minWidth: 200}}>
+                    <FormControl style={{width: 400}}>
+                        
                         <TextField 
                             label="Buscar por nombre"
                             value={this.state.filtrarPorNombre}
                             onChange={this.handleNombreChange}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <SearchIcon/>
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                     </FormControl>
+
+                    <Fab color="primary">
+                        <AddIcon/>
+                    </Fab>
                 </div>
                 <TablaBeneficiarios 
                     activo={filtrarPorActivo}

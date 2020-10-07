@@ -4,6 +4,7 @@ import { Paper, makeStyles, Container } from '@material-ui/core';
 import BuscarBeneficiarios from './BuscarBeneficiarios';
 
 
+
 const useStyle = makeStyles(theme => ({
   pageContent:{
       margin: theme.spacing(5),
@@ -24,6 +25,7 @@ const Beneficiarios = (props) => {
         <Container>
           <Paper className={classes.pageContent}>
             {/*<AgregarBeneficiarioForm />*/}
+            
             <BuscarBeneficiarios/>
           </Paper>
         </Container>
