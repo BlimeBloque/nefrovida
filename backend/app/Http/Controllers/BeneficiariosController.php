@@ -6,6 +6,7 @@ use App\Http\Resources\BeneficiarioCollection;
 use App\Http\Resources\Beneficiario as BeneficiarioResource;
 use App\Models\Beneficiarios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BeneficiariosController extends Controller
 {
@@ -62,9 +63,9 @@ class BeneficiariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Beneficiarios $beneficiario)
+    public function show($idBeneficiario)
     {
-        return $beneficiario;
+        return DB::table('beneficiarios') -> where('idBeneficiario', '=', $idBeneficiario) -> get();
     }
 
     /**
