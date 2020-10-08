@@ -52,7 +52,7 @@ const Home = () => {
         <CssBaseline />
         <Sidenav />
           <Container>
-           
+          
             <h3>
               Hola {userInfo && userInfo.name}. <br />
               Bienvenido a Nefrosoftware.

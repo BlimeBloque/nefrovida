@@ -26,7 +26,7 @@ class Beneficiario extends JsonResource {
     public function toArray($request) {
         return [
             'idBeneficiario' => $this->idBeneficiario,
-            'nombreBeneficiario' => $this->nombre,
+            'nombreBeneficiario' => $this->nombreBeneficiario,
             'edad' => $this->edad,
             'idEscolaridad' => (int) $this->idEscolaridad,
             'sexo' => $this->sexo,
@@ -34,6 +34,7 @@ class Beneficiario extends JsonResource {
             'direccion' => $this->direccion,
             'activo' => $this->activo,
             'fechaNacimiento' => $this->fechaNacimiento,
+            'seguimiento' => $this->seguimiento,
         ];
     }
 }

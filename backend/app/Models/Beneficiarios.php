@@ -20,5 +20,6 @@ class Beneficiarios extends Model
         'direccion',
         'activo',
         'fechaNacimiento',
+        'seguimiento',
     ];
 }
