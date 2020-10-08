@@ -7,16 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Beneficiarios extends Model
 {
+
+    
     protected $fillable = [
+
+        'idBeneficiario',
         'nombreBeneficiario',
         'edad',
         'idEscolaridad',
         'sexo',
-        'enfermedad',
         'telefono',
         'direccion',
         'activo',
         'fechaNacimiento',
-        'seguimiento'
     ];
 }

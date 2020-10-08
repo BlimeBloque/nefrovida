@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\BeneficiarioCollection;
+use App\Http\Resources\Beneficiario as BeneficiarioResource;
 use App\Models\Beneficiarios;
 use Illuminate\Http\Request;
 
@@ -37,7 +38,21 @@ class BeneficiariosController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
 
+            'nombreBeneficiario' => 'required',
+            'edad' => 'required',
+            'idEscolaridad' => 'required',
+            'sexo' => 'required',
+            'direccion' => 'required',
+            'fechaNacimiento' => 'required',
+        ]);
+
+        $beneficiario = Beneficiarios::create($request->all());
+
+        return (new BeneficiarioResource($beneficiario))
+            ->response()
+            ->setStatusCode(201);
        
     }
 
