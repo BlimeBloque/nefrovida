@@ -148,7 +148,6 @@ export default function TablaBeneficiarios(props) {
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('');
-    const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     
@@ -169,15 +168,13 @@ export default function TablaBeneficiarios(props) {
         setOrderBy(property);
     };
 
-
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
+    const setPage = (event, newPage) => {
+            props.setPage(newPage);
+    }
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
+        props.setPage(0);
     };
 
 
@@ -201,7 +198,7 @@ export default function TablaBeneficiarios(props) {
                 />
                 <TableBody>
                 {stableSort(beneficiarios, getComparator(order, orderBy))
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .slice(props.page * rowsPerPage, props.page * rowsPerPage + rowsPerPage)
                     .map((beneficiario) => {
                     return (
                         <TableRow
@@ -239,14 +236,14 @@ export default function TablaBeneficiarios(props) {
             </Table>
             </TableContainer>
             <TablePagination
-            rowsPerPageOptions={[5, 10, 12]}
+            rowsPerPageOptions={[5, 10, 15]}
             component="div"
             count={beneficiarios.length}
             rowsPerPage={rowsPerPage}
             
-            page={page}
+            page={props.page}
             labelRowsPerPage="Registros por página"
-            onChangePage={handleChangePage}
+            onChangePage={setPage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
             />
         </Paper>

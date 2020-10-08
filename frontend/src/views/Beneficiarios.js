@@ -23,9 +23,7 @@ const Beneficiarios = (props) => {
       <div className={classes.container}>
         <Sidenav titulo="Beneficiarios" />    
         <Container>
-          <Paper className={classes.pageContent}>
-            {/*<AgregarBeneficiarioForm />*/}
-            
+          <Paper className={classes.pageContent}>            
             <BuscarBeneficiarios/>
           </Paper>
         </Container>

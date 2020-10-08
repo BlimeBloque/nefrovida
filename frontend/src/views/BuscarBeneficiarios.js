@@ -11,12 +11,14 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import AddIcon from '@material-ui/icons/Add'; 
 import Fab from '@material-ui/core/Fab';
 
+ 
 export default class BuscarBeneficiarios extends Component
 {
     constructor(props)
     {
         super(props);
         this.retrieveBeneficiarios = this.retrieveBeneficiarios.bind(this);
+        this.setPage = this.setPage.bind(this)
 
         this.state = {
         beneficiarios: [],
@@ -25,8 +27,12 @@ export default class BuscarBeneficiarios extends Component
         filtrarPorActivo:1,
         filtrarPorEdad:'', 
         filtrarPorNombre:'',
+        page: 0,
         };
+        
     }
+
+    
 
     componentDidMount()
     {
@@ -45,24 +51,34 @@ export default class BuscarBeneficiarios extends Component
             })
     }
 
+    setPage(newPage)
+    {
+        this.setState({page: newPage});
+    }
+
     handleSexoChange = (event) => {
         this.setState({filtrarPorSexo: event.target.value});
+        this.setPage(0);
     };
 
     handleSeguimientoChange = (event) => {
         this.setState({filtrarPorSeguimiento: event.target.value});
+        this.setPage(0);
     };
 
     handleActivoChange = (event) => {
         this.setState({filtrarPorActivo: event.target.value});
+        this.setPage(0);
     };
 
     handleEdadChange = (event) => {
         this.setState({filtrarPorEdad: event.target.value});
+        this.setPage(0);
     };
 
     handleNombreChange = (event) => {
         this.setState({filtrarPorNombre: event.target.value});
+        this.setPage(0);
     };
 
 
@@ -76,6 +92,7 @@ export default class BuscarBeneficiarios extends Component
             filtrarPorActivo,
             filtrarPorEdad,
             filtrarPorNombre,
+            page
         } = this.state;
         return (
             <div>
@@ -85,7 +102,7 @@ export default class BuscarBeneficiarios extends Component
                     justifyContent:"space-between",
                     margin: " 0px 40px 0px 40px"
                 }}>
-                    <FormControl style={{minWidth: 200}}>
+                    <FormControl style={{minWidth: "20%"}}>
                         <InputLabel id="busca-por-activo-label">Buscar activos/inactivos</InputLabel>
                         <Select
                             labelId="busca-por-activo-label"
@@ -98,7 +115,7 @@ export default class BuscarBeneficiarios extends Component
                         </Select>
                     </FormControl>
 
-                    <FormControl style={{minWidth: 150}}>
+                    <FormControl style={{minWidth: "15%"}}>
                         <InputLabel id="busca-por-sexo-label">Buscar por sexo</InputLabel>
                         <Select
                             labelId="busca-por-sexo-label"
@@ -112,7 +129,7 @@ export default class BuscarBeneficiarios extends Component
                         </Select>
                     </FormControl>
 
-                    <FormControl style={{minWidth: 200}}>
+                    <FormControl style={{minWidth: "20%"}}>
                         <InputLabel id="busca-por-seguimiento-label">Buscar por seguimiento</InputLabel>
                         <Select
                             labelId="busca-por-seguimiento-label"
@@ -126,7 +143,7 @@ export default class BuscarBeneficiarios extends Component
                         </Select>
                     </FormControl>
 
-                    <FormControl style={{width: 150}}>
+                    <FormControl style={{width: "15%"}}>
                         <TextField 
                             label="Buscar por edad"
                             type="number"
@@ -141,7 +158,7 @@ export default class BuscarBeneficiarios extends Component
                     justifyContent: "space-between",
                     margin: " 40px 40px 20px 40px",
                 }}>
-                    <FormControl style={{width: 400}}>
+                    <FormControl style={{width: "85%"}}>
                         
                         <TextField 
                             label="Buscar por nombre"
@@ -168,7 +185,8 @@ export default class BuscarBeneficiarios extends Component
                     edad={filtrarPorEdad} 
                     nombre={filtrarPorNombre}
                     data={beneficiarios}
-                    page={0}
+                    setPage={this.setPage}
+                    page={page}
                 />
             </div>
         );
