@@ -5,6 +5,7 @@ import Titulo from "./Titulo";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import AgregarBeneficiarioForm from "./AgregarBeneficiarioForm";
 import Typography from "@material-ui/core/Typography";
+import Detalles from "./Detalles";
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -16,16 +17,15 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const BeneficiarioDetalles = () => {
+const BeneficiarioDetalles = ({ match }) => {
   const classes = useStyle();
+
   return (
     <div>
       <Sidenav />
       <Container>
         <Paper className={classes.pageContent}>
-          <Typography variant="h3" component="h2" align="center">
-            Detalles
-          </Typography>
+          <Detalles idBenef={match.params.idBeneficiario} />
         </Paper>
       </Container>
     </div>
