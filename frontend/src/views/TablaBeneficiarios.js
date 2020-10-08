@@ -113,7 +113,7 @@ const EnhancedTableToolbar = (props) => {
     return (
     <Toolbar>
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-        Beneficiarios
+        Tabla de Beneficiarios
         </Typography>
     </Toolbar>
     );
@@ -148,25 +148,33 @@ export default function TablaBeneficiarios(props) {
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('');
-    const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    
+
+    let beneficiarios = props.sexo ? props.data.filter(x => x['sexo'].includes(props.sexo)) : props.data;
+    
+    beneficiarios = props.seguimiento != null ? beneficiarios.filter(x => x['seguimiento'] === props.seguimiento) : beneficiarios;
+    
+    beneficiarios = props.activo != null ? beneficiarios.filter(x => x['activo'] === props.activo) : beneficiarios;
+
+    beneficiarios = props.edad ? beneficiarios.filter(x => x['edad'].toString().includes(props.edad)) : beneficiarios;
+
+    beneficiarios = props.nombre ? beneficiarios.filter(x => x['nombreBeneficiario'].toLowerCase().includes(props.nombre.toLowerCase())) : beneficiarios;
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
-        console.log(property);
         setOrderBy(property);
     };
 
-
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
+    const setPage = (event, newPage) => {
+            props.setPage(newPage);
+    }
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
+        props.setPage(0);
     };
 
 
@@ -186,11 +194,11 @@ export default function TablaBeneficiarios(props) {
                 order={order}
                 orderBy={orderBy}
                 onRequestSort={handleRequestSort}
-                rowCount={props.data.length}
+                rowCount={beneficiarios.length}
                 />
                 <TableBody>
-                {stableSort(props.data, getComparator(order, orderBy))
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                {stableSort(beneficiarios, getComparator(order, orderBy))
+                    .slice(props.page * rowsPerPage, props.page * rowsPerPage + rowsPerPage)
                     .map((beneficiario) => {
                     return (
                         <TableRow
@@ -211,11 +219,15 @@ export default function TablaBeneficiarios(props) {
                                         <EditIcon />
                                     </IconButton>
                                 </Tooltip>
-                                <Tooltip title="Dar de baja" arrow>
-                                    <IconButton style={{color: 'red'}} aria-label="delete">
-                                        <RemoveCircleIcon />
-                                    </IconButton>
-                                </Tooltip>
+                                {beneficiario.activo ?
+                                    <Tooltip title="Dar de baja" arrow>
+                                        <IconButton style={{color: 'red'}} aria-label="delete">
+                                            <RemoveCircleIcon />
+                                        </IconButton>
+                                    </Tooltip> 
+                                :
+                                    <Typography/>
+                                }
                             </TableCell>
                         </TableRow>
                     );
@@ -224,13 +236,14 @@ export default function TablaBeneficiarios(props) {
             </Table>
             </TableContainer>
             <TablePagination
-            rowsPerPageOptions={[5, 10, 12]}
+            rowsPerPageOptions={[5, 10, 15]}
             component="div"
-            count={props.data.length}
+            count={beneficiarios.length}
             rowsPerPage={rowsPerPage}
-            page={page}
+            
+            page={props.page}
             labelRowsPerPage="Registros por página"
-            onChangePage={handleChangePage}
+            onChangePage={setPage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
             />
         </Paper>
