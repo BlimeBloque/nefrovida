@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BeneficiariosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,13 @@ Route::get('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@sear
 Route::post('/jornadas', 'App\Http\Controllers\JornadaController@insert');
 Route::post('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@edit');
 Route::delete('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@delete');
+
+
+Route::get('/escolaridades', 'App\Http\Controllers\EscolaridadesController@all');
+
+//todas las rutas de beneficiarios
+Route::resource('beneficiarios', BeneficiariosController::class);
+//Route::post('/beneficiarios/insert', 'App\Http\Controllers\BeneficiariosController@insert');
+
 
 Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
