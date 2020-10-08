@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import Sidenav from "../components/Sidenav";
+import Sidenav from "../components/Nav/Sidenav";
 import Titulo from "./Titulo";
 import { Paper, makeStyles, Container } from '@material-ui/core';
 import AgregarBeneficiarioForm from './AgregarBeneficiarioForm'

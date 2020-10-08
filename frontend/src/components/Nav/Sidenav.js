@@ -193,7 +193,9 @@ const Sidenav = props => {
                         open={openMenu}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={() => history.push("/profile")}>Mi Perfil</MenuItem>
+                        <a href="https://dev-377919.okta.com/enduser/profile" style={{textDecoration: 'none', color: '#202020'}}>
+                        <MenuItem >Mi Perfil</MenuItem>
+                        </a>
                         <MenuItem onClick={logout}>Cerrar sesión</MenuItem>
                     </Menu>
                 </Toolbar>

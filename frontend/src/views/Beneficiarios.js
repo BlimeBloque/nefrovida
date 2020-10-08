@@ -1,5 +1,5 @@
 import React from "react";
-import Sidenav from "../components/Sidenav";
+import Sidenav from "../components/Nav/Sidenav";
 import Titulo from "./Titulo";
 import { Paper, makeStyles, Container } from '@material-ui/core';
 import BuscarBeneficiarios from './BuscarBeneficiarios';
