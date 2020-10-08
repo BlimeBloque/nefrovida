@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
       flexGrow: 1,
-      textAlign: "left",
+      textAlign: "center",
   },
   content: {
     flexGrow: 1,
@@ -165,7 +165,7 @@ const Sidenav = props => {
                       src={require("../../img/nefrovida_large.png")}
                       height="36px"
                     />
-                    <Typography variant="h6" noWrap className={classes.title}/>
+                    <Typography variant="h5" className={classes.title}>{props.titulo}</Typography>
                     <Typography variant="h7" >
                         {userInfo && userInfo.name}
                     </Typography>
