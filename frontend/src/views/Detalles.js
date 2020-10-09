@@ -2,12 +2,45 @@ import React, { Component } from "react";
 import Titulo from "./Titulo";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import AgregarBeneficiarioForm from "./AgregarBeneficiarioForm";
-import Typography from "@material-ui/core/Typography";
+import Alert from "@material-ui/lab/Alert";
 import { Table } from "semantic-ui-react";
-import Sidenav from "../components/Sidenav";
+import Sidenav from "../components/Nav/Sidenav";
 import BeneficiariosDataService from "../services/beneficiarios.service";
+import axios from "axios";
 
 import { API } from "../config";
+
+function IsActive(props) {
+  const activeState = props.activeState;
+  if (activeState == 1) {
+    return <Alert severity="success">Este usuario está activo</Alert>;
+  }
+  return <Alert severity="error">Este usuario está inactivo</Alert>;
+}
+
+function EscolaridadNombre(props) {
+  const escolaridadNom = props.escolaridadNom;
+  if (escolaridadNom == 1) {
+    return <td>Profesional</td>;
+  } else if (escolaridadNom == 2) {
+    return <td>Medio Superior</td>;
+  } else if (escolaridadNom == 3) {
+    return <td>Secundaria</td>;
+  } else if (escolaridadNom == 4) {
+    return <td>Primaria</td>;
+  } else if (escolaridadNom == 5) {
+    return <td>Lee/Escribe</td>;
+  }
+  return <td>Analfabeta</td>;
+}
+
+function DeSeguimiento(props) {
+  const seg = props.seg;
+  if (seg == 1) {
+    return <td>Sí</td>;
+  }
+  return <td>No</td>;
+}
 
 class DetallesTabla extends Component {
   constructor(props) {
@@ -25,19 +58,32 @@ class DetallesTabla extends Component {
   }
 
   getDetalles() {
-    BeneficiariosDataService.axios.get(
-      API + "/beneficiarios/" + this.props.idBenef
-    );
+    axios
+      .get(API + "/beneficiarios/" + this.props.idBenef)
+      .then((detalles) => {
+        this.setState({ detalles: detalles.data });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   render() {
     const detalles = this.state;
+    console.log(detalles);
     return (
       <div>
         <Sidenav />
         <Container>
+          {this.state.detalles.map((detalle) => (
+            <IsActive
+              key={detalle.idBeneficiario}
+              activeState={detalle.activo}
+            />
+          ))}
+          ,
           <Paper>
-            <Table>
+            <Table textAlign="center">
               <thead>
                 <tr>
                   <th>Nombre</th>
@@ -52,17 +98,19 @@ class DetallesTabla extends Component {
                 </tr>
               </thead>
               <tbody>
-                {/*<tr>
-                  <td>{detalles.nombreBeneficiario}</td>
-                  <td>{detalles.edad}</td>
-                  <td>{detalles.idEscolaridad}</td>
-                  <td>{detalles.sexo}</td>
-                  <td>{detalles.enfermedad}</td>
-                  <td>{detalles.telefono}</td>
-                  <td>{detalles.direccion}</td>
-                  <td>{detalles.fechaNacimiento}</td>
-                  <td>{detalles.seguimiento}</td>
-                </tr>*/}
+                {this.state.detalles.map((detalle) => (
+                  <tr key={detalle.idBeneficiario}>
+                    <td>{detalle.nombreBeneficiario}</td>
+                    <td>{detalle.edad}</td>
+                    <EscolaridadNombre escolaridadNom={detalle.idEscolaridad} />
+                    <td>{detalle.sexo}</td>
+                    <td>{detalle.enfermedad}</td>
+                    <td>{detalle.telefono}</td>
+                    <td>{detalle.direccion}</td>
+                    <td>{detalle.fechaNacimiento}</td>
+                    <DeSeguimiento seg={detalle.seguimiento} />
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </Paper>
