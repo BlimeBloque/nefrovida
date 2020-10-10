@@ -7,6 +7,7 @@ import Beneficiarios from './views/Beneficiarios';
 import Jornadas from './views/Jornadas';
 import Reportes from './views/Reportes';
 import AgregarBeneficiario from './views/AgregarBeneficiario';
+import JornadaDetalles from './views/JornadaDetalles';
 
 export default withRouter(class AppWithRouterAccess extends Component {
   
@@ -29,6 +30,7 @@ export default withRouter(class AppWithRouterAccess extends Component {
             <SecureRoute path='/' exact={true} component={Home} />
             <SecureRoute path='/beneficiarios' exact={true} component={Beneficiarios} />
             <SecureRoute path='/jornadas' exact={true} component={Jornadas} />
+            <SecureRoute path='/jornadas/:idJornada' exact={true} component={JornadaDetalles} />
             <SecureRoute path='/reportes' exact={true} component={Reportes} />
             <SecureRoute path='/beneficiarios/agregar' exact={true} component={AgregarBeneficiario}/>
             
