@@ -30,7 +30,17 @@ export default class JornadaDetalleEspecifico extends Component {
             console.log(e);
           });
       }
+
+     
     render() {
+        console.log(this.state.detalles)
+        if(this.state.detalles.length == 0){
+            return(
+                <Typography variant="h4" gutterBottom align="center">
+                    ERROR 404 | Jornada no encontrada
+                </Typography>
+            )
+        } else {
         return (
             <div>
                 { this.state.detalles.map ((detalle) => (
@@ -48,7 +58,7 @@ export default class JornadaDetalleEspecifico extends Component {
                             </Grid>
                         </Grid>
                         <br></br><br></br>
-                        <Grid container spacing='3'> 
+                        <Grid container spacing='1'> 
                             <Grid item xs={12}> 
                             <Typography variant="h5" gutterBottom>
                                 Estado: {detalle.nombreEstado}  ({detalle.siglas})
@@ -75,4 +85,5 @@ export default class JornadaDetalleEspecifico extends Component {
             </div>
         )
     }
+}
 }
