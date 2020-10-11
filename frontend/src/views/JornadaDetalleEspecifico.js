@@ -34,7 +34,7 @@ export default class JornadaDetalleEspecifico extends Component {
      
     render() {
         console.log(this.state.detalles)
-        if(this.state.detalles.length == 0){
+        if(this.state.detalles.length === 0){
             return(
                 <Typography variant="h4" gutterBottom align="center">
                     ERROR 404 | Jornada no encontrada

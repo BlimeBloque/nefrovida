@@ -2,7 +2,8 @@ import {CssBaseline, InputAdornment, makeStyles} from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
 import { Grid } from 'semantic-ui-react';
 import axios from 'axios'
-import AssignmentIndIcon  from '@material-ui/icons/AssignmentInd';
+import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
 
 import Controls from "../components/FormComponents/Controls";
 
@@ -34,7 +35,8 @@ const initialFValues = {
     sexo: '',
     telefono: '',
     direccion: '',
-    deSeguimiento: true,
+    seguimiento: false,
+    activo: true,
     fechaNacimiento: new Date(),
 }
 
@@ -75,6 +77,11 @@ export default function AgregarBeneficiarioForm() {
     const onSubmit = e => {
 
         e.preventDefault();
+        if(values.seguimiento){
+            values.seguimiento = 1
+        } else {
+            values.seguimiento = 0
+        }
         try{
 
             let result =  fetch('http://localhost:8000/api/beneficiarios', {
@@ -92,12 +99,12 @@ export default function AgregarBeneficiarioForm() {
                         sexo: values.sexo, 
                         telefono: values.telefono,
                         direccion: values.direccion,
-                        activo: values.deSeguimiento,
-                        fechaNacimiento: '2020-10-10'
+                        seguimiento: values.seguimiento,
+                        activo: values.activo,
+                        fechaNacimiento: '2020-10-10',
                     })
         });
-
-        console.log(values)
+        console.log(values.fechaNacimiento)
 
         } catch (e) {
             console.log(e);
@@ -163,7 +170,7 @@ export default function AgregarBeneficiarioForm() {
                     <Controls.Checkbox 
                         name="seguimiento"
                         label= "De Seguimiento"
-                        value={values.activo}
+                        value={values.seguimiento}
                         onChange={handleInputChange}
                     />
                     <div>
