@@ -3,6 +3,8 @@ import { Container } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { Table } from "semantic-ui-react";
 import axios from "axios";
+import IconButton from '@material-ui/core/IconButton';
+import {Link} from "react-router-dom";
 
 import { API } from "../config";
 
@@ -46,6 +48,7 @@ class DetallesTabla extends Component {
 
     this.state = {
       detalles: [],
+      history: props.history,
     };
   }
 
@@ -65,7 +68,7 @@ class DetallesTabla extends Component {
   }
 
   render() {
-    const detalles = this.state;
+    const {detalles, history} = this.state;
     console.log(detalles);
     return (
       <Container>
@@ -103,6 +106,11 @@ class DetallesTabla extends Component {
             ))}
           </tbody>
         </Table>
+        <Link variant="body2" to="/beneficiarios">
+        <IconButton color="primary" aria-label="edit">
+              Regresar
+          </IconButton>
+          </Link>
       </Container>
     );
   }
