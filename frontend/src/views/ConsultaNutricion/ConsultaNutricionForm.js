@@ -6,10 +6,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+
+import Secciones from './secciones/Secciones';
 
 function hasNumber(myString) {
 	return /\d/.test(myString);
@@ -41,111 +39,13 @@ const useStyles = makeStyles((theme) => ({
         display: "block",
         visibility: "visible",
     },
-    texto: {
+    textoLargo: {
         width: "70%",
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
     },
 }));
 
-function DatosNutrimentales(props)
-{
-    const classes = useStyles();
-    const handleOcupacionChange = (event) => {
-        props.setOcupacion(event.target.value);
-        validateOcupacion(event.target.value);
-    }
-
-    const handleHorariosComidaChange = (event) => {
-        props.setHorariosComida(event.target.value);
-        validateHorariosComida(event.target.value);
-    }
-
-    const handleCantidadDestinadaAlimentosChange = (event) => {
-        props.setCantidadDestinadaAlimentos(event.target.value);
-        validateCantidadDestinadaAlimentos(event.target.value);
-    }
-
-    const validateOcupacion = (ocupacion) =>
-    {
-        if(hasNumber(ocupacion) | (ocupacion.length > 0 & isNullOrWhitespace(ocupacion)))
-        {
-            props.setOcupacionError(true);
-        }
-        else
-        {
-            props.setOcupacionError(false);
-        }
-    }
-
-    const validateHorariosComida = (horariosComida) =>
-    {
-        if(horariosComida.length > 0 & isNullOrWhitespace(horariosComida))
-        {
-            props.setHorariosComidaError(true);
-        }
-        else
-        {
-            props.setHorariosComidaError(false);
-        }
-    }
-
-    const validateCantidadDestinadaAlimentos = (cantidadDestinadaAlimentos) =>
-    {
-        if(cantidadDestinadaAlimentos.length > 0 & isNullOrWhitespace(cantidadDestinadaAlimentos))
-        {
-            props.setCantidadDestinadaAlimentos(true);
-        }
-        else
-        {
-            props.setCantidadDestinadaAlimentos(false);
-        }
-    }
-    
-    return(
-        <div className={props.className}>
-            <FormControl error={props.ocupacionError} className={classes.texto}>
-                <InputLabel htmlFor="component-error">Ocupación</InputLabel>
-                <Input
-                id="component-error"
-                value={props.ocupacion}
-                onChange={handleOcupacionChange}
-                aria-describedby="component-error-text"
-                />
-                <FormHelperText style={{display: props.ocupacionError ? "block" : "none"}} id="component-error-text">
-                    Escribe una ocupación válida (no puede tener números).
-                </FormHelperText>
-            </FormControl>
-
-            <FormControl error={props.horariosComidaError} className={classes.texto}>
-                <InputLabel htmlFor="component-error">Horarios de comida</InputLabel>
-                <Input
-                id="component-error"
-                value={props.horariosComida}
-                onChange={handleHorariosComidaChange}
-                aria-describedby="component-error-text"
-                />
-                <FormHelperText style={{display: props.horariosComidaError ? "block" : "none"}} id="component-error-text">
-                    Escribe un horario de comida válido.
-                </FormHelperText>
-            </FormControl>
-
-            <FormControl error={props.cantidadDestinadaAlimentosError} className={classes.texto}>
-                <InputLabel htmlFor="component-error">Cantidad destinada a alimentos</InputLabel>
-                <Input
-                id="component-error"
-                value={props.cantidadDestinadaAlimentos}
-                onChange={handleCantidadDestinadaAlimentosChange}
-                aria-describedby="component-error-text"
-                />
-                <FormHelperText style={{display: props.cantidadDestinadaAlimentosError ? "block" : "none"}} id="component-error-text">
-                    Escribe una cantidad de alimentos válida.
-                </FormHelperText>
-            </FormControl>
-
-        </div>
-    );
-}
 
 function getSteps() {
     return [
@@ -159,21 +59,115 @@ function getSteps() {
     ];
 }
 
+const initialValues = {
+    idBeneficiario: 0,
+    ocupacion: '',
+    horariosComida: '',
+    cantidadDestinadaAlimentos: '',
+    apetito: '',
+    distension: '',
+    estreñimiento: '',
+    flatulencias: '',
+    vomitos: '',
+    caries: '',
+    edema: '', 
+    mareo: '',
+    zumbido: '',
+    cefaleas: '',
+    disnea: '',
+    poliuria: '',
+    actividadFisica: '',
+    horasSueño: '',
+    comidasAlDia: '',
+    lugarComida: '',
+    preparaComida: '',
+    comeEntreComidas: '',
+    alimentosPreferidos: '',
+    alimentosOdiados: '',
+    suplementos: '',
+    medicamentosActuales: '',
+    consumoAguaNatural: '',
+    recordatorioDesayuno: '',
+    recordatorioColacionMañana: '',
+    recordatorioComida: '',
+    recordatorioColacionTarde: '',
+    recordatorioCena: '',
+    peso: '',
+    altura: '',
+    tipoDieta: '',
+    kilocaloriasTotales: '',
+    porcentajeHidratosCarbono: '',
+    kilocaloriasHidratosCarbono: '',
+    porcentajeProteinas: '',
+    porcentajeGrasas: '',
+    diagnostico: '',
+}
+
+const initialErrorValues = {
+    ocupacion: false,
+    horariosComida: false,
+    cantidadDestinadaAlimentos: false,
+    apetito: false,
+    distension: false,
+    estreñimiento: false,
+    flatulencias: false,
+    vomitos: false,
+    caries: false,
+    edema: false, 
+    mareo: false,
+    zumbido: false,
+    cefaleas: false,
+    disnea: false,
+    poliuria: false,
+    actividadFisica: false,
+    horasSueño: false,
+    comidasAlDia: false,
+    lugarComida: false,
+    preparaComida: false,
+    comeEntreComidas: false,
+    alimentosPreferidos: false,
+    alimentosOdiados: false,
+    suplementos: false,
+    medicamentosActuales: false,
+    consumoAguaNatural: false,
+    recordatorioDesayuno: false,
+    recordatorioColacionMañana: false,
+    recordatorioComida: false,
+    recordatorioColacionTarde: false,
+    recordatorioCena: false,
+    peso: false,
+    altura: false,
+    tipoDieta: false,
+    kilocaloriasTotales: false,
+    porcentajeHidratosCarbono: false,
+    kilocaloriasHidratosCarbono: false,
+    porcentajeProteinas: false,
+    porcentajeGrasas: false,
+    diagnostico: false,
+}
 
 export default function ConsultaNutricionForm(props) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(0);
     const steps = getSteps();
     const [beneficiario, setBeneficiario] = useState([]);
+    const [values, setValues] = useState(initialValues);
+    const [errores, setErrores] = useState(initialErrorValues);
 
-    const [ocupacion, setOcupacion] = useState('');
-    const [ocupacionError, setOcupacionError] = useState(false);
-    const [horariosComida, setHorariosComida] = useState('');
-    const [horariosComidaError, setHorariosComidaError] = useState(false);
-    const [cantidadDestinadaAlimentos, setCantidadDestinadaAlimentos] = useState('');
-    const [cantidadDestinadaAlimentosError, setCantidadDestinadaAlimentosError] = useState(false);
+    const handleInputChange= e => {
+        const {name , value} = e.target
+        setValues({
+            ...values,
+            [name]:value 
+        })
+    }
 
     useEffect ( () => {
+
+        setValues({
+            ...values,
+            ['idBeneficiario']: props.idBeneficiario
+        });
 
         axios.get('http://localhost:8000/api/beneficiarios/'+props.idBeneficiario)
             .then(res => { setBeneficiario(res.data[0])
@@ -189,13 +183,15 @@ export default function ConsultaNutricionForm(props) {
         switch(activeStep)
         {
             case 0:
-                if(ocupacionError | horariosComidaError | cantidadDestinadaAlimentosError)
+                if(errores.ocupacion | errores.horariosComida | errores.cantidadDestinadaAlimentos)
                     next = false;
             default:
 
         }
         if(next)
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
+        console.log(values);
     };
 
     const handleBack = () => {
@@ -219,22 +215,15 @@ export default function ConsultaNutricionForm(props) {
             </Stepper>
 
             <form>
-                <DatosNutrimentales
+                <Secciones.DatosNutrimentales
                     className={activeStep === 0 ? classes.show : classes.hide}
-                    ocupacion={ocupacion}
-                    setOcupacion={setOcupacion}
-                    ocupacionError={ocupacionError}
-                    setOcupacionError={setOcupacionError}
-
-                    horariosComida={horariosComida}
-                    setHorariosComida={setHorariosComida}
-                    horariosComidaError={horariosComidaError}
-                    setHorariosComidaError={setHorariosComidaError}
-
-                    cantidadDestinadaAlimentos={cantidadDestinadaAlimentos}
-                    setCantidadDestinadaAlimentos={setCantidadDestinadaAlimentos}
-                    cantidadDestinadaAlimentosError={cantidadDestinadaAlimentosError}
-                    setCantidadDestinadaAlimentosError={setCantidadDestinadaAlimentosError}
+                    classes={classes}
+                    hasNumber={hasNumber}
+                    isNullOrWhitespace={isNullOrWhitespace}
+                    values={values}
+                    handleInputChange={handleInputChange}
+                    errores={errores}
+                    setErrores={setErrores}
                 />
 
                 <div className={classes.botones}>
