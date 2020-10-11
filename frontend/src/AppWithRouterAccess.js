@@ -43,7 +43,7 @@ export default withRouter(
               component={AgregarBeneficiarioForm}
             />
             <SecureRoute
-              path="/beneficiarios/:idBeneficiario"
+              path="/beneficiarios/:idBeneficiario([0-9]*)"
               exact={true}
               component={BeneficiarioDetalles}
             />

@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import Titulo from "./Titulo";
-import { Paper, makeStyles, Container } from "@material-ui/core";
-import AgregarBeneficiarioForm from "./AgregarBeneficiarioForm";
+import { Container } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { Table } from "semantic-ui-react";
-import Sidenav from "../components/Nav/Sidenav";
-import BeneficiariosDataService from "../services/beneficiarios.service";
 import axios from "axios";
 
 import { API } from "../config";
@@ -72,50 +68,42 @@ class DetallesTabla extends Component {
     const detalles = this.state;
     console.log(detalles);
     return (
-      <div>
-        <Sidenav />
-        <Container>
-          {this.state.detalles.map((detalle) => (
-            <IsActive
-              key={detalle.idBeneficiario}
-              activeState={detalle.activo}
-            />
-          ))}
-          ,
-          <Paper>
-            <Table textAlign="center">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Edad</th>
-                  <th>Escolaridad</th>
-                  <th>Sexo</th>
-                  <th>Enfermedad</th>
-                  <th>Teléfono</th>
-                  <th>Dirección</th>
-                  <th>Fecha de Nacimiento</th>
-                  <th>De Seguimiento</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.detalles.map((detalle) => (
-                  <tr key={detalle.idBeneficiario}>
-                    <td>{detalle.nombreBeneficiario}</td>
-                    <td>{detalle.edad}</td>
-                    <EscolaridadNombre escolaridadNom={detalle.idEscolaridad} />
-                    <td>{detalle.sexo}</td>
-                    <td>{detalle.enfermedad}</td>
-                    <td>{detalle.telefono}</td>
-                    <td>{detalle.direccion}</td>
-                    <td>{detalle.fechaNacimiento}</td>
-                    <DeSeguimiento seg={detalle.seguimiento} />
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Paper>
-        </Container>
-      </div>
+      <Container>
+        {this.state.detalles.map((detalle) => (
+          <IsActive key={detalle.idBeneficiario} activeState={detalle.activo} />
+        ))}
+
+        <Table textAlign="center">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Edad</th>
+              <th>Escolaridad</th>
+              <th>Sexo</th>
+              <th>Enfermedad</th>
+              <th>Teléfono</th>
+              <th>Dirección</th>
+              <th>Fecha de Nacimiento</th>
+              <th>De Seguimiento</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.detalles.map((detalle) => (
+              <tr key={detalle.idBeneficiario}>
+                <td>{detalle.nombreBeneficiario}</td>
+                <td>{detalle.edad}</td>
+                <EscolaridadNombre escolaridadNom={detalle.idEscolaridad} />
+                <td>{detalle.sexo}</td>
+                <td>{detalle.enfermedad}</td>
+                <td>{detalle.telefono}</td>
+                <td>{detalle.direccion}</td>
+                <td>{detalle.fechaNacimiento}</td>
+                <DeSeguimiento seg={detalle.seguimiento} />
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Container>
     );
   }
 }

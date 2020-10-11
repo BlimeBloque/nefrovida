@@ -1,10 +1,7 @@
-import React, { Component } from "react";
-//import { Route } from "react-router-dom";
+import React from "react";
 import Sidenav from "../components/Nav/Sidenav";
 import Titulo from "./Titulo";
 import { Paper, makeStyles, Container } from "@material-ui/core";
-import AgregarBeneficiarioForm from "./AgregarBeneficiarioForm";
-import Typography from "@material-ui/core/Typography";
 import Detalles from "./Detalles";
 
 const useStyle = makeStyles((theme) => ({
@@ -25,6 +22,7 @@ const BeneficiarioDetalles = ({ match }) => {
       <Sidenav />
       <Container>
         <Paper className={classes.pageContent}>
+          <Titulo>Detalles de Beneficiario</Titulo>
           <Detalles idBenef={match.params.idBeneficiario} />
         </Paper>
       </Container>

@@ -207,7 +207,14 @@ export default function TablaBeneficiarios(props) {
                         key={beneficiario.idBeneficiario}
                         >
                             {/*Modificar para acceder a beneficiario*/}
-                            <TableCell align="center">{beneficiario.nombreBeneficiario}</TableCell>
+                            {/*Ya quedó :3*/}
+                            <TableCell align="center" 
+                            style={{cursor:'pointer'}} 
+                            onClick={
+                                () => props.url.push("/beneficiarios/" + beneficiario.idBeneficiario)
+                                }>
+                                {beneficiario.nombreBeneficiario}
+                            </TableCell>
 
 
                             <TableCell align="center">{beneficiario.edad}</TableCell>
