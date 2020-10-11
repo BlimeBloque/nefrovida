@@ -74,7 +74,7 @@ export default function AgregarBeneficiarioForm() {
       let temp = {}
       temp.nombre = values.nombre?"":"Este campo es requerido"
       temp.edad = values.nombre?"":"Este campo es requerido"
-      temp.telefono = values.telefono.length > 9?"":"Este campo debe tener al menos 10 digitos"
+      temp.telefono = (values.telefono.length > 9 || values.telefono.length == 0 )?"":"Este campo debe tener al menos 10 digitos"
       temp.idEscolaridad = values.idEscolaridad.length!=0?"":"Este campo es requerido"
       setErrors({
           ...temp
