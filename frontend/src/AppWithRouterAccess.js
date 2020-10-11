@@ -7,6 +7,7 @@ import Beneficiarios from './views/Beneficiarios';
 import Jornadas from './views/Jornadas';
 import Reportes from './views/Reportes';
 import AgregarBeneficiario from './views/AgregarBeneficiario';
+import AgregarConsultaNutricion from './views/ConsultaNutricion/AgregarConsultaNutricion';
 
 export default withRouter(class AppWithRouterAccess extends Component {
   
@@ -31,6 +32,7 @@ export default withRouter(class AppWithRouterAccess extends Component {
             <SecureRoute path='/jornadas' exact={true} component={Jornadas} />
             <SecureRoute path='/reportes' exact={true} component={Reportes} />
             <SecureRoute path='/beneficiarios/agregar' exact={true} component={AgregarBeneficiario}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaNutricion' exact={true} component={AgregarConsultaNutricion}/>
             
             <Route path='/login' render={() => <Login baseUrl='https://dev-377919.okta.com' />} />
             <Route path='/implicit/callback' component={LoginCallback} />
