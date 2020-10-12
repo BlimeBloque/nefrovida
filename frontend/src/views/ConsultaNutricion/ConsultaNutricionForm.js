@@ -44,6 +44,15 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
     },
+    textoCorto: {
+        width: "30%",
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+    },
+    flex: {
+        display: "flex",
+        justifyContent: "space-evenly",
+    }
 }));
 
 
@@ -183,7 +192,13 @@ export default function ConsultaNutricionForm(props) {
         switch(activeStep)
         {
             case 0:
-                if(errores.ocupacion | errores.horariosComida | errores.cantidadDestinadaAlimentos)
+                if(errores.ocupacion || errores.horariosComida || errores.cantidadDestinadaAlimentos)
+                    next = false;
+                break;
+            case 1:
+                if(errores.apetito || errores.edema || errores.distension || errores.mareo || errores.estreñimiento
+                    || errores.zumbido || errores.flatulencias || errores.cefaleas || errores.vomitos || errores.disnea
+                    || errores.caries || errores.poliuria)
                     next = false;
             default:
 
@@ -217,6 +232,17 @@ export default function ConsultaNutricionForm(props) {
             <form>
                 <Secciones.DatosNutrimentales
                     className={activeStep === 0 ? classes.show : classes.hide}
+                    classes={classes}
+                    hasNumber={hasNumber}
+                    isNullOrWhitespace={isNullOrWhitespace}
+                    values={values}
+                    handleInputChange={handleInputChange}
+                    errores={errores}
+                    setErrores={setErrores}
+                />
+
+                <Secciones.DatosClinicos
+                    className={activeStep === 1 ? classes.show : classes.hide}
                     classes={classes}
                     hasNumber={hasNumber}
                     isNullOrWhitespace={isNullOrWhitespace}

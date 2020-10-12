@@ -17,16 +17,6 @@ export default function DatosNutrimentales(props)
         validateOcupacion(event.target.value);
     }
 
-    const handleHorariosComidaChange = (event) => {
-        handleInputChange(event);
-        validateHorariosComida(event.target.value);
-    }
-
-    const handleCantidadDestinadaAlimentosChange = (event) => {
-        handleInputChange(event);
-        validateCantidadDestinadaAlimentos(event.target.value);
-    }
-
     const validateOcupacion = (ocupacion) =>
     {
         if(props.hasNumber(ocupacion) | (ocupacion.length > 0 & props.isNullOrWhitespace(ocupacion)))
@@ -45,6 +35,11 @@ export default function DatosNutrimentales(props)
         }
     }
 
+    const handleHorariosComidaChange = (event) => {
+        handleInputChange(event);
+        validateHorariosComida(event.target.value);
+    }
+
     const validateHorariosComida = (horariosComida) =>
     {
         if(horariosComida.length > 0 & props.isNullOrWhitespace(horariosComida))
@@ -61,6 +56,11 @@ export default function DatosNutrimentales(props)
                 ['horariosComida']: false
             });
         }
+    }
+
+    const handleCantidadDestinadaAlimentosChange = (event) => {
+        handleInputChange(event);
+        validateCantidadDestinadaAlimentos(event.target.value);
     }
 
     const validateCantidadDestinadaAlimentos = (cantidadDestinadaAlimentos) =>
