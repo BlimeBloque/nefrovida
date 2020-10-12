@@ -52,7 +52,17 @@ const useStyles = makeStyles((theme) => ({
     flex: {
         display: "flex",
         justifyContent: "space-evenly",
-    }
+    },
+    xs: {
+        width: "15%",
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+    },
+    m: {
+        width: "50%",
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+    },
 }));
 
 
@@ -205,6 +215,12 @@ export default function ConsultaNutricionForm(props) {
                 if(errores.actividadFisica || errores.horasSueño)
                     next = false;
                 break;
+            case 3:
+                if(errores.comidasAlDia || errores.lugarComida || errores.preparaComida || errores.comeEntreComidas
+                    || errores.alimentosPreferidos || errores.alimentosOdiados || errores.suplementos || errores.medicamentosActuales
+                    || errores.consumoAguaNatural)
+                    next = false;
+                break;
             default:
 
         }
@@ -259,6 +275,17 @@ export default function ConsultaNutricionForm(props) {
 
                 <Secciones.EstiloVida
                     className={activeStep === 2 ? classes.show : classes.hide}
+                    classes={classes}
+                    hasNumber={hasNumber}
+                    isNullOrWhitespace={isNullOrWhitespace}
+                    values={values}
+                    handleInputChange={handleInputChange}
+                    errores={errores}
+                    setErrores={setErrores}
+                />
+
+                <Secciones.DatosDieteticos
+                    className={activeStep === 3 ? classes.show : classes.hide}
                     classes={classes}
                     hasNumber={hasNumber}
                     isNullOrWhitespace={isNullOrWhitespace}
