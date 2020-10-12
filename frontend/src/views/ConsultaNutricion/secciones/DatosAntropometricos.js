@@ -114,6 +114,7 @@ export default function DatosAntropometricos(props)
                     value={values.altura}
                     onChange={handleAlturaChange}
                     aria-describedby="component-error-text"
+                    type="number"
                     />
                     <FormHelperText style={{display: errores.altura ? "block" : "none"}} id="component-error-text">
                         Escribe una estatura válida<br/> (Si es número cerrado escribir .0 Ej. 170.0).

@@ -21,6 +21,16 @@ function isDecimal(input)
     return /^\d{1,3}\.\d{1,2}$/.test(input);
 }
 
+function isKiloCaloria(input)
+{
+    return /^\d{1,5}\.\d{1,2}$/.test(input);
+}
+
+function isPorcentaje(input)
+{
+    return /^\d{1,2}\.\d{1,2}$|^\d{3}\.[0]{1,2}$/.test(input);
+}
+
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
@@ -235,8 +245,6 @@ export default function ConsultaNutricionForm(props) {
                 if(errores.peso || errores.altura || errores.diagnostico)
                     next = false;
                 break;
-            default:
-
         }
         if(next)
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -249,7 +257,14 @@ export default function ConsultaNutricionForm(props) {
     };
 
     const handleSubmit = () => {
-        setActiveStep(0);
+        let submit = true;
+        if(errores.tipoDieta || errores.kilocaloriasTotales || errores.porcentajeHidratosCarbono 
+            || errores.kilocaloriasHidratosCarbono || errores.porcentajeGrasas || errores.porcentajeProteinas)
+            submit = false;
+        if(submit)
+            setActiveStep(0);
+
+        console.log(values);
     };
 
     return (
@@ -323,9 +338,20 @@ export default function ConsultaNutricionForm(props) {
                 <Secciones.DatosAntropometricos
                     className={activeStep === 5 ? classes.show : classes.hide}
                     classes={classes}
-                    hasNumber={hasNumber}
                     isNullOrWhitespace={isNullOrWhitespace}
                     isDecimal={isDecimal}
+                    values={values}
+                    handleInputChange={handleInputChange}
+                    errores={errores}
+                    setErrores={setErrores}
+                />
+
+                <Secciones.Necesidades
+                    className={activeStep === 6 ? classes.show : classes.hide}
+                    classes={classes}
+                    isNullOrWhitespace={isNullOrWhitespace}
+                    isPorcentaje={isPorcentaje}
+                    isKiloCaloria={isKiloCaloria}
                     values={values}
                     handleInputChange={handleInputChange}
                     errores={errores}
