@@ -23,7 +23,7 @@ const AgregarConsultaNutricion = (props) => {
             <Sidenav titulo="Registrar Consulta de Nutriología" />        
             <Container>
             <Paper className={classes.pageContent}>
-            <ConsultaNutricionForm idBeneficiario={props.match.params.idBeneficiario} />
+            <ConsultaNutricionForm history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
             </Paper>
             </Container>
         </div>

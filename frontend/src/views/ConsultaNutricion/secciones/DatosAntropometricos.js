@@ -84,7 +84,7 @@ export default function DatosAntropometricos(props)
     
     return(
         <div className={props.className}>
-            <Typography variant="p">
+            <Typography variant="body1">
             Nota:<br/>
             La edad se obtiene de los datos del beneficiario.<br/>
             El IMC y el PI se calculan automáticamente y se pueden consultar al ver el detalle de la consulta que se está registrando.

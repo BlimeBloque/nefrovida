@@ -94,7 +94,7 @@ function getSteps() {
 }
 
 const initialValues = {
-    idBeneficiario: 0,
+    idBeneficiario:0,
     ocupacion: '',
     horariosComida: '',
     cantidadDestinadaAlimentos: '',
@@ -195,13 +195,14 @@ export default function ConsultaNutricionForm(props) {
             [name]:value 
         })
     }
-
     useEffect ( () => {
 
         setValues({
             ...values,
             'idBeneficiario': props.idBeneficiario
         });
+
+        
 
         axios.get('http://localhost:8000/api/beneficiarios/'+props.idBeneficiario)
             .then(res => { setBeneficiario(res.data[0])
@@ -211,6 +212,7 @@ export default function ConsultaNutricionForm(props) {
         })
     }, []);
 
+    
 
     const handleNext = () => {
         let next = true;
@@ -262,9 +264,71 @@ export default function ConsultaNutricionForm(props) {
             || errores.kilocaloriasHidratosCarbono || errores.porcentajeGrasas || errores.porcentajeProteinas)
             submit = false;
         if(submit)
-            setActiveStep(0);
+        {
+            setValues({
+                ...values,
+                'peso': Number(values.peso),
+                'altura': parseFloat(values.altura),
+                'kilocaloriasTotales': parseFloat(values.kilocaloriasTotales),
+                'porcentajeHidratosCarbono': parseFloat(values.porcentajeHidratosCarbono),
+                'kilocaloriasHidratosCarbono': parseFloat(values.kilocaloriasHidratosCarbono),
+                'porcentajeGrasas': parseFloat(values.porcentajeGrasas),
+                'porcentajeProteinas': parseFloat(values.porcentajeProteinas),
+            });
+            console.log(values);
 
-        console.log(values);
+            const data = {
+                idBeneficiario: values.idBeneficiario,
+                ocupacion: values.ocupacion ,
+                horariosComida: values.horariosComida ,
+                cantidadDestinadaAlimentos: values.cantidadDestinadaAlimentos ,
+                apetito: values.apetito ,
+                distension: values.distension ,
+                estreñimiento: values.estreñimiento ,
+                flatulencias: values.flatulencias ,
+                vomitos: values.vomitos ,
+                caries: values.caries ,
+                edema: values.edema , 
+                mareo: values.mareo ,
+                zumbido: values.zumbido ,
+                cefaleas: values.cefaleas ,
+                disnea: values.disnea ,
+                poliuria: values.poliuria ,
+                actividadFisica: values.actividadFisica ,
+                horasSueño: values.horasSueño ,
+                comidasAlDia: values.comidasAlDia ,
+                lugarComida: values.lugarComida ,
+                preparaComida: values.preparaComida ,
+                comeEntreComidas: values.comeEntreComidas ,
+                alimentosPreferidos: values.alimentosPreferidos ,
+                alimentosOdiados: values.alimentosOdiados ,
+                suplementos: values.suplementos ,
+                medicamentosActuales: values.medicamentosActuales ,
+                consumoAguaNatural: values.consumoAguaNatural ,
+                recordatorioDesayuno: values.recordatorioDesayuno ,
+                recordatorioColacionMañana: values.recordatorioColacionMañana ,
+                recordatorioComida: values.recordatorioComida ,
+                recordatorioColacionTarde: values.recordatorioColacionTarde ,
+                recordatorioCena: values.recordatorioCena ,
+                peso: values.peso ,
+                altura: values.altura ,
+                tipoDieta: values.tipoDieta ,
+                kilocaloriasTotales: values.kilocaloriasTotales ,
+                porcentajeHidratosCarbono: values.porcentajeHidratosCarbono ,
+                kilocaloriasHidratosCarbono: values.kilocaloriasHidratosCarbono ,
+                porcentajeProteinas: values.porcentajeProteinas ,
+                porcentajeGrasas: values.porcentajeGrasas ,
+                diagnostico: values.diagnostico ,
+            };
+
+            axios.post('http://localhost:8000/api/consultaNutricion', data, {headers: {"Accept": "application/json"}})
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+
+            props.history.push("/beneficiarios");
+        }
+
+        
     };
 
     return (

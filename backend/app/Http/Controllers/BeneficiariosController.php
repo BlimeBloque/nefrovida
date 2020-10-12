@@ -54,7 +54,7 @@ class BeneficiariosController extends Controller
         return (new BeneficiarioResource($beneficiario))
             ->response()
             ->setStatusCode(201);
-       
+        
     }
 
     /**
