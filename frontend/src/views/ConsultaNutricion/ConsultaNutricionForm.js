@@ -200,6 +200,11 @@ export default function ConsultaNutricionForm(props) {
                     || errores.zumbido || errores.flatulencias || errores.cefaleas || errores.vomitos || errores.disnea
                     || errores.caries || errores.poliuria)
                     next = false;
+                break;
+            case 2:
+                if(errores.actividadFisica || errores.horasSueño)
+                    next = false;
+                break;
             default:
 
         }
@@ -243,6 +248,17 @@ export default function ConsultaNutricionForm(props) {
 
                 <Secciones.DatosClinicos
                     className={activeStep === 1 ? classes.show : classes.hide}
+                    classes={classes}
+                    hasNumber={hasNumber}
+                    isNullOrWhitespace={isNullOrWhitespace}
+                    values={values}
+                    handleInputChange={handleInputChange}
+                    errores={errores}
+                    setErrores={setErrores}
+                />
+
+                <Secciones.EstiloVida
+                    className={activeStep === 2 ? classes.show : classes.hide}
                     classes={classes}
                     hasNumber={hasNumber}
                     isNullOrWhitespace={isNullOrWhitespace}
