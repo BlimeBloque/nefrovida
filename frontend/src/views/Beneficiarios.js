@@ -2,6 +2,7 @@ import React from "react";
 import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from '@material-ui/core';
 import BuscarBeneficiarios from './BuscarBeneficiarios';
+import MensajeAgregarConsultaNutricion from './ConsultaNutricion/MensajeAgregarConsultaNutricion';
 
 
 
@@ -19,7 +20,9 @@ const useStyle = makeStyles(theme => ({
 
 const Beneficiarios = (props) => {
   const classes = useStyle();
-  console.log(props);
+
+
+
     return (
       <div className={classes.container}>
         <Sidenav titulo="Beneficiarios" />    
@@ -27,6 +30,7 @@ const Beneficiarios = (props) => {
           <Paper className={classes.pageContent}>            
             <BuscarBeneficiarios history={props.history}/>
           </Paper>
+          <MensajeAgregarConsultaNutricion success={props.location.search.slice(-1)} />
         </Container>
       </div>
     );

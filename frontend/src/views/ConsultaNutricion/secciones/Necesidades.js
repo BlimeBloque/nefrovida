@@ -3,7 +3,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import { Typography } from '@material-ui/core';
 
 export default function Necesidades(props)
 {
