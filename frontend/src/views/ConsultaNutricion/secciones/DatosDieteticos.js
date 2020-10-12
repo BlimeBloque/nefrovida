@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
@@ -23,14 +23,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['comidasAlDia']: true
+                'comidasAlDia': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['comidasAlDia']: false
+                'comidasAlDia': false
             });
         }
     }
@@ -46,14 +46,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['lugarComida']: true
+                'lugarComida': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['lugarComida']: false
+                'lugarComida': false
             });
         }
     }
@@ -69,14 +69,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['preparaComida']: true
+                'preparaComida': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['preparaComida']: false
+                'preparaComida': false
             });
         }
     }
@@ -92,14 +92,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['comeEntreComidas']: true
+                'comeEntreComidas': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['comeEntreComidas']: false
+                'comeEntreComidas': false
             });
         }
     }
@@ -115,14 +115,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['alimentosPreferidos']: true
+                'alimentosPreferidos': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['alimentosPreferidos']: false
+                'alimentosPreferidos': false
             });
         }
     }
@@ -138,14 +138,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['alimentosOdiados']: true
+                'alimentosOdiados': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['alimentosOdiados']: false
+                'alimentosOdiados': false
             });
         }
     }
@@ -161,14 +161,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['suplementos']: true
+                'suplementos': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['suplementos']: false
+                'suplementos': false
             });
         }
     }
@@ -184,14 +184,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['medicamentosActuales']: true
+                'medicamentosActuales': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['medicamentosActuales']: false
+                'medicamentosActuales': false
             });
         }
     }
@@ -207,14 +207,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['consumoAguaNatural']: true
+                'consumoAguaNatural': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['consumoAguaNatural']: false
+                'consumoAguaNatural': false
             });
         }
     }

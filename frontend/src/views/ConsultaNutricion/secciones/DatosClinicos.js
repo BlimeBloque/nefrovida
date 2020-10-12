@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
@@ -23,14 +23,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['apetito']: true
+                'apetito': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['apetito']: false
+                'apetito': false
             });
         }
     }
@@ -46,14 +46,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['edema']: true
+                'edema': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['edema']: false
+                'edema': false
             });
         }
     }
@@ -69,14 +69,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['distension']: true
+                'distension': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['distension']: false
+                'distension': false
             });
         }
     }
@@ -92,14 +92,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['mareo']: true
+                'mareo': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['mareo']: false
+                'mareo': false
             });
         }
     }
@@ -115,14 +115,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['estreñimiento']: true
+                'estreñimiento': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['estreñimiento']: false
+                'estreñimiento': false
             });
         }
     }
@@ -138,14 +138,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['zumbido']: true
+                'zumbido': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['zumbido']: false
+                'zumbido': false
             });
         }
     }
@@ -161,14 +161,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['flatulencias']: true
+                'flatulencias': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['flatulencias']: false
+                'flatulencias': false
             });
         }
     }
@@ -184,14 +184,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['cefaleas']: true
+                'cefaleas': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['cefaleas']: false
+                'cefaleas': false
             });
         }
     }
@@ -207,14 +207,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['vomitos']: true
+                'vomitos': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['vomitos']: false
+                'vomitos': false
             });
         }
     }
@@ -230,14 +230,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['disnea']: true
+                'disnea': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['disnea']: false
+                'disnea': false
             });
         }
     }
@@ -253,14 +253,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['caries']: true
+                'caries': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['caries']: false
+                'caries': false
             });
         }
     }
@@ -276,14 +276,14 @@ export default function DatosClinicos(props)
         {
             setErrores({
                 ...errores,
-                ['poliuria']: true
+                'poliuria': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['poliuria']: false
+                'poliuria': false
             });
         }
     }

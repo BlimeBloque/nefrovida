@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
@@ -23,14 +23,14 @@ export default function DatosNutrimentales(props)
         {
             setErrores({
                 ...errores,
-                ['ocupacion']: true
+                'ocupacion': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['ocupacion']: false
+                'ocupacion': false
             });
         }
     }
@@ -46,14 +46,14 @@ export default function DatosNutrimentales(props)
         {
             setErrores({
                 ...errores,
-                ['horariosComida']: true
+                'horariosComida': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['horariosComida']: false
+                'horariosComida': false
             });
         }
     }
@@ -69,14 +69,14 @@ export default function DatosNutrimentales(props)
         {
             setErrores({
                 ...errores,
-                ['cantidadDestinadaAlimentos']: true
+                'cantidadDestinadaAlimentos': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['cantidadDestinadaAlimentos']: false
+                'cantidadDestinadaAlimentos': false
             });
         }
     }

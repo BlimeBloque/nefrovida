@@ -185,7 +185,7 @@ export default function ConsultaNutricionForm(props) {
 
         setValues({
             ...values,
-            ['idBeneficiario']: props.idBeneficiario
+            'idBeneficiario': props.idBeneficiario
         });
 
         axios.get('http://localhost:8000/api/beneficiarios/'+props.idBeneficiario)
@@ -219,6 +219,11 @@ export default function ConsultaNutricionForm(props) {
                 if(errores.comidasAlDia || errores.lugarComida || errores.preparaComida || errores.comeEntreComidas
                     || errores.alimentosPreferidos || errores.alimentosOdiados || errores.suplementos || errores.medicamentosActuales
                     || errores.consumoAguaNatural)
+                    next = false;
+                break;
+            case 4:
+                if(errores.recordatorioDesayuno || errores.recordatorioColacionMañana || errores.recordatorioComida
+                    || errores.recordatorioColacionTarde || errores.recordatorioCena)
                     next = false;
                 break;
             default:
@@ -295,6 +300,17 @@ export default function ConsultaNutricionForm(props) {
                     setErrores={setErrores}
                 />
 
+                <Secciones.Recordatorios
+                    className={activeStep === 4 ? classes.show : classes.hide}
+                    classes={classes}
+                    hasNumber={hasNumber}
+                    isNullOrWhitespace={isNullOrWhitespace}
+                    values={values}
+                    handleInputChange={handleInputChange}
+                    errores={errores}
+                    setErrores={setErrores}
+                />
+
                 <div className={classes.botones}>
                     <Button
                         disabled={activeStep === 0}
@@ -303,7 +319,7 @@ export default function ConsultaNutricionForm(props) {
                     >
                         Regresar
                     </Button>
-                    <Button variant="contained" color="primary" onClick={ activeStep === steps.length-1 ? handleSubmit : handleNext}>
+                    <Button variant="contained" color='primary' onClick={ activeStep === steps.length-1 ? handleSubmit : handleNext}>
                         {activeStep === steps.length - 1 ? 'Registrar' : 'Siguiente'}
                     </Button>
                 </div>

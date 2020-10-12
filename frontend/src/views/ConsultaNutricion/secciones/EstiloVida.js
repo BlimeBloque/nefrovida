@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
@@ -23,14 +23,14 @@ export default function EstiloVida(props)
         {
             setErrores({
                 ...errores,
-                ['actividadFisica']: true
+                'actividadFisica': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['actividadFisica']: false
+                'actividadFisica': false
             });
         }
     }
@@ -46,14 +46,14 @@ export default function EstiloVida(props)
         {
             setErrores({
                 ...errores,
-                ['horasSueño']: true
+                'horasSueño': true
             });
         }
         else
         {
             setErrores({
                 ...errores,
-                ['horasSueño']: false
+                'horasSueño': false
             });
         }
     }
