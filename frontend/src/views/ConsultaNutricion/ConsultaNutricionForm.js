@@ -16,6 +16,11 @@ function isNullOrWhitespace( input ) {
 	return !input || !input.trim();
 }
 
+function isDecimal(input)
+{
+    return /^\d{1,3}\.\d{1,2}$/.test(input);
+}
+
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
@@ -226,6 +231,10 @@ export default function ConsultaNutricionForm(props) {
                     || errores.recordatorioColacionTarde || errores.recordatorioCena)
                     next = false;
                 break;
+            case 5:
+                if(errores.peso || errores.altura || errores.diagnostico)
+                    next = false;
+                break;
             default:
 
         }
@@ -305,6 +314,18 @@ export default function ConsultaNutricionForm(props) {
                     classes={classes}
                     hasNumber={hasNumber}
                     isNullOrWhitespace={isNullOrWhitespace}
+                    values={values}
+                    handleInputChange={handleInputChange}
+                    errores={errores}
+                    setErrores={setErrores}
+                />
+
+                <Secciones.DatosAntropometricos
+                    className={activeStep === 5 ? classes.show : classes.hide}
+                    classes={classes}
+                    hasNumber={hasNumber}
+                    isNullOrWhitespace={isNullOrWhitespace}
+                    isDecimal={isDecimal}
                     values={values}
                     handleInputChange={handleInputChange}
                     errores={errores}
