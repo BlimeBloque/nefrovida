@@ -50,14 +50,13 @@ class CreateConsultaNutricionalTable extends Migration
             $table->string("recordatorioCena")->nullable();
             $table->decimal("peso", 5,2)->nullable();
             $table->decimal("altura", 5,2)->nullable();
-            //falta PI y DX
             $table->string("tipoDieta")->nullable();
             $table->decimal("kilocaloriasTotales", 7, 2)->nullable();
             $table->decimal("porcentajeHidratosCarbono", 5,2)->nullable();
             $table->decimal("kilocaloriasHidratosCarbono", 7, 2)->nullable();
             //no se cual es LS y cual PS
-            $table->decimal("porcentajeProteinas", 5,2)->nullable();
-            $table->decimal("porcentajeGrasas", 5,2)->nullable();
+            $table->decimal("porcentajeProteinas", 5,2)->nullable(); //PS en el formulario
+            $table->decimal("porcentajeGrasas", 5,2)->nullable(); //LS en el formulario (Lipidos)
             $table->timestamps();
         });
     }
