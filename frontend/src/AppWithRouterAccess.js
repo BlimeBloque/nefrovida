@@ -8,17 +8,18 @@ import Jornadas from './views/Jornadas';
 import Reportes from './views/Reportes';
 import AgregarBeneficiario from './views/AgregarBeneficiario';
 import AgregarConsultaNutricion from './views/ConsultaNutricion/AgregarConsultaNutricion';
+import BeneficiarioDetalles from "./views/BeneficiarioDetalles";
 
-export default withRouter(class AppWithRouterAccess extends Component {
-  
-  constructor(props) {
-    super(props);
-    this.onAuthRequired = this.onAuthRequired.bind(this);
-  }
+export default withRouter(
+  class AppWithRouterAccess extends Component {
+    constructor(props) {
+      super(props);
+      this.onAuthRequired = this.onAuthRequired.bind(this);
+    }
 
-  onAuthRequired() {
-    this.props.history.push('/login')
-  }
+    onAuthRequired() {
+      this.props.history.push("/login");
+    }
 
   render() {
     return (
@@ -36,9 +37,20 @@ export default withRouter(class AppWithRouterAccess extends Component {
             
             <Route path='/login' render={() => <Login baseUrl='https://dev-377919.okta.com' />} />
             <Route path='/implicit/callback' component={LoginCallback} />
+            <SecureRoute
+              path="/beneficiarios/:idBeneficiario([0-9]*)"
+              exact={true}
+              component={BeneficiarioDetalles}
+            />
 
+            <Route
+              path="/login"
+              render={() => <Login baseUrl="https://dev-377919.okta.com" />}
+            />
+            <Route path="/implicit/callback" component={LoginCallback} />
           </Security>
-      </div>
-    );
+        </div>
+      );
+    }
   }
-});
+);

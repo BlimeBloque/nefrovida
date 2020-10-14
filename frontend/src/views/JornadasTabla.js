@@ -28,6 +28,7 @@ class JornadasTabla extends Component {
         });
         const ListJornadas = await response.json();
         this.setState({ jornadas: ListJornadas, isLoading: false });
+        console.log(this.state.jornadas);
       } catch (err) {
         this.setState({ isLoading: false });
         console.error(err);

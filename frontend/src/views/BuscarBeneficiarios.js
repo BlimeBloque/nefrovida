@@ -10,7 +10,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AddIcon from '@material-ui/icons/Add'; 
 import Fab from '@material-ui/core/Fab';
-import { withRouter } from "react-router-dom";
 
  
 export default class BuscarBeneficiarios extends Component
@@ -29,6 +28,7 @@ export default class BuscarBeneficiarios extends Component
         filtrarPorActivo:1,
         filtrarPorEdad:'', 
         filtrarPorNombre:'',
+        filtrarPorId:null,
         page: 0,
         history: props.history,
         };
@@ -191,6 +191,7 @@ export default class BuscarBeneficiarios extends Component
                     data={beneficiarios}
                     setPage={this.setPage}
                     page={page}
+                    url={history}
                 />
             </div>
         );
