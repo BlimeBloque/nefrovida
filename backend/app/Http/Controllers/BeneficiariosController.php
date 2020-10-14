@@ -47,6 +47,8 @@ class BeneficiariosController extends Controller
             'sexo' => 'required',
             'direccion' => 'required',
             'fechaNacimiento' => 'required',
+            'seguimiento' => 'required',
+            'activo' => 'required',
         ]);
 
         $beneficiario = Beneficiarios::create($request->all());

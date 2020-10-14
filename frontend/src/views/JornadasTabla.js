@@ -74,7 +74,7 @@ class JornadasTabla extends Component {
               <tbody>
                 {this.state.jornadas.map((jornada) => (
                   <tr id={jornada.idJornada} key={jornada.idJornada}>
-                    <td>{jornada.nombre}</td>
+                    <td><a href={'/jornadas/'+jornada.idJornada}> {jornada.nombre}</a></td>
                     <td>{jornada.fecha}</td>
                     <td>{jornada.localidad}</td>
                     <td>{jornada.municipio}</td>
