@@ -5,6 +5,9 @@ import { Table } from "semantic-ui-react";
 import axios from "axios";
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
+import Fab from '@material-ui/core/Fab';
+import BlockRoundedIcon from '@material-ui/icons/BlockRounded';
+
 
 import { API } from "../config";
 
@@ -111,6 +114,12 @@ class DetallesTabla extends Component {
               Regresar
           </IconButton>
           </Link>
+
+          <Fab color="secondary" aria-label="add">
+           <BlockRoundedIcon />
+          </Fab>
+
+
       </Container>
     );
   }
