@@ -34,7 +34,7 @@ export default withRouter(
             <SecureRoute path='/' exact={true} component={Home} />
             <SecureRoute path='/beneficiarios' exact={true} component={Beneficiarios} />
             <SecureRoute path='/jornadas' exact={true} component={Jornadas} />
-            <SecureRoute path='/jornadas/:idJornada' exact={true} component={JornadaDetalles} />
+            <SecureRoute path='/jornadas/:idJornada([0-9])*' exact={true} component={JornadaDetalles} />
             <SecureRoute path='/reportes' exact={true} component={Reportes} />
             <SecureRoute path='/beneficiarios/agregar' exact={true} component={AgregarBeneficiario}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaNutricion' exact={true} component={AgregarConsultaNutricion}/>
@@ -46,19 +46,13 @@ export default withRouter(
               exact={true}
               component={BeneficiarioDetalles}
             />
-
-            <Route
-              path="/login"
-              render={() => <Login baseUrl="https://dev-377919.okta.com" />}
-            />
-            <Route path="/implicit/callback" component={LoginCallback} />
             <SecureRoute
               path="/jornadas/agregar"
               exact={true}
               component={JornadasAgregar}
             />
             <SecureRoute
-              path="/jornadas/editar/:idJornada"
+              path="/jornadas/editar/:idJornada([0-9]*)"
               exact={true}
               component={JornadasEditar}
             />
