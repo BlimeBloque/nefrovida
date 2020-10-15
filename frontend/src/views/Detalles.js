@@ -13,6 +13,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import { Grid, Typography } from '@material-ui/core';
 
 
 
@@ -152,72 +153,89 @@ class DetallesTabla extends Component {
     console.log(detalles);
     return (
       <Container>
-        {this.state.detalles.map((detalle) => (
-          <IsActive key={detalle.idBeneficiario} activeState={detalle.activo} />
-        ))}
-
-        <Table textAlign="center">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Edad</th>
-              <th>Escolaridad</th>
-              <th>Sexo</th>
-              <th>Enfermedad</th>
-              <th>Teléfono</th>
-              <th>Dirección</th>
-              <th>Fecha de Nacimiento</th>
-              <th>De Seguimiento</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.detalles.map((detalle) => (
-              <tr key={detalle.idBeneficiario}>
-                <td>{detalle.nombreBeneficiario}</td>
-                <td>{detalle.edad}</td>
-                <EscolaridadNombre escolaridadNom={detalle.idEscolaridad} />
-                <td>{detalle.sexo}</td>
-                <td>{detalle.enfermedad}</td>
-                <td>{detalle.telefono}</td>
-                <td>{detalle.direccion}</td>
-                <td>{detalle.fechaNacimiento}</td>
-                <DeSeguimiento seg={detalle.seguimiento} />
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <Link variant="body2" to="/beneficiarios">
-        <IconButton color="primary" aria-label="edit">
-              Regresar
-          </IconButton>
-          </Link>
-
-          <Fab color="secondary" onClick={this.handleDialogOpen}>
-            <RemoveCircleOutlineIcon />
-          </Fab>
-          {this.state.detalles.map((detalle) => (
-          <Dialog
-            open={this.state.open}
-            keepMounted
-            onClose={this.handleDialogClose}
-          >
-            <DialogTitle>¿Seguro que quieres dar de baja a este beneficiario?</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Esta accion solo cambiará el estatus del beneficiario. No se borrara su registro de la base de datos
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleDialogClose} color="primary">
-                No
-              </Button>
-              <Button onClick={this.handleDialogDischarge} color="primary">
-                Si
-              </Button>
-            </DialogActions>
-          </Dialog>
-           ))}
-           
+        { this.state.detalles.map ((detalle) => (
+            <div>
+                <Grid container spacing='3' justify="space-between">
+                    <Grid item xs={6}> 
+                    <Typography variant="h3" gutterBottom>
+                        {detalle.nombreBeneficiario}
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={1}>
+                    <Typography variant="h3" gutterBottom>
+                        {detalle.idBeneficiario}
+                    </Typography>
+                    </Grid>
+                </Grid>
+                <br></br><br></br><br></br>
+                <Grid container spacing='1'> 
+                    <Grid item xs={12}> 
+                    <Typography variant="h5" gutterBottom>
+                        Fecha de Nacimiento: {detalle.fechaNacimiento}  ({detalle.edad} años)
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={12}> 
+                    <Typography variant="h5" gutterBottom>
+                        Sexo: {detalle.sexo}
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={12}> 
+                    <Typography variant="h5" gutterBottom>
+                        Telefono: {detalle.telefono}
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={12}> 
+                    <Typography variant="h5" gutterBottom>
+                        Direccion: {detalle.direccion}
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={12}> 
+                    <Typography variant="h5" gutterBottom>
+                        De Seguimiento: {detalle.seguimiento}
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={12}> 
+                    <IsActive key={detalle.idBeneficiario} activeState={detalle.activo} />
+                    </Grid>
+                  </Grid>
+                    <Grid container justify="flex-end" spacing="2">
+                      <Grid justify="flex-end" item xs={2}>          
+                        <Link variant="body2" to="/beneficiarios">
+                        <IconButton color="primary" aria-label="edit">
+                              Regresar
+                          </IconButton>
+                          </Link>
+                      </Grid>
+                      <Grid justify="flex-end" item xs={2}> 
+                          <Fab color="secondary" onClick={this.handleDialogOpen}>
+                            <RemoveCircleOutlineIcon />
+                          </Fab>
+                          {this.state.detalles.map((detalle) => (
+                          <Dialog
+                            open={this.state.open}
+                            keepMounted
+                            onClose={this.handleDialogClose}
+                          >
+                            <DialogTitle>¿Seguro que quieres dar de baja a este beneficiario?</DialogTitle>
+                            <DialogContent>
+                              <DialogContentText>
+                                Esta accion solo cambiará el estatus del beneficiario. No se borrara su registro de la base de datos
+                              </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={this.handleDialogClose} color="primary">
+                                No
+                              </Button>
+                              <Button onClick={this.handleDialogDischarge} color="primary">
+                                Si
+                              </Button>
+                            </DialogActions>
+                          </Dialog>
+                          ))}
+                      </Grid>
+                    </Grid>
+            </div>                
+          ))}    
       </Container>
     );
   }
