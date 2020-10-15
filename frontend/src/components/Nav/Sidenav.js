@@ -166,7 +166,7 @@ const Sidenav = props => {
                       height="36px"
                     />
                     <Typography variant="h5" className={classes.title}>{props.titulo}</Typography>
-                    <Typography variant="h6" >
+                    <Typography variant="subtitle2" >
                         {userInfo && userInfo.name}
                     </Typography>
                     <IconButton
