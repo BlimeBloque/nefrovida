@@ -82,7 +82,7 @@ class JornadasTabla extends Component {
                     <td className="center">
                       <Link
                         to={{
-                          pathname: "/jornadas/editar",
+                          pathname: "/jornadas/editar/"+jornada.idJornada,
                           id: jornada.idJornada,
                           nombre: jornada.nombre,
                           fecha: jornada.fecha,
