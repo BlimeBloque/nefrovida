@@ -1,12 +1,19 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Container } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { Table } from "semantic-ui-react";
 import axios from "axios";
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
-import BlockRoundedIcon from '@material-ui/icons/BlockRounded';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+
 
 
 import { API } from "../config";
@@ -52,9 +59,23 @@ class DetallesTabla extends Component {
     this.state = {
       detalles: [],
       history: props.history,
+      open: false,
+
     };
   }
+ 
+  handleDialogOpen = () => {
+    this.setState({open: true});
+  }
 
+  handleDialogClose = () => {
+    this.setState({open: false});
+  }
+
+  handleDialogDischarge = () => {
+    this.setState({open: false});
+  }
+   
   componentDidMount() {
     this.getDetalles();
   }
@@ -71,7 +92,10 @@ class DetallesTabla extends Component {
   }
 
   render() {
+
+   
     const {detalles, history} = this.state;
+    
     console.log(detalles);
     return (
       <Container>
@@ -115,11 +139,32 @@ class DetallesTabla extends Component {
           </IconButton>
           </Link>
 
-          <Fab color="secondary" aria-label="add">
-           <BlockRoundedIcon />
+          <Fab color="secondary" onClick={this.handleDialogOpen}>
+            <RemoveCircleOutlineIcon />
           </Fab>
-
-
+          {this.state.detalles.map((detalle) => (
+          <Dialog
+            open={this.state.open}
+            keepMounted
+            onClose={this.handleDialogClose}
+          >
+            <DialogTitle>¿Seguro que quieres dar de baja a este beneficiario?</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Esta accion solo cambiará el estatus del beneficiario. No se borrara su registro de la base de datos
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleDialogClose} color="primary">
+                No
+              </Button>
+              <Button onClick={this.handleDialogDischarge} color="primary">
+                Si
+              </Button>
+            </DialogActions>
+          </Dialog>
+           ))}
+           
       </Container>
     );
   }

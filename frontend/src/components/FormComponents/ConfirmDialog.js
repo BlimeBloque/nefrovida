@@ -1,6 +1,9 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@material-ui/core'
 import React from 'react'
 import Controls from "./Controls"
+
+
+
 export default function ConfirmDialog(props) {
 
     const {confirmDialog, setConfirmDialog} = props;
@@ -23,7 +26,7 @@ export default function ConfirmDialog(props) {
                 <Controls.Button
                     text="No"
                     color="primary"/>
-                    <Controls.Button
+                <Controls.Button
                     text="Si"
                     color="secondary"/>
             </DialogActions>
