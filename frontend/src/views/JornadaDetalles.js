@@ -14,6 +14,7 @@ const useStyle = makeStyles(theme => ({
       marginTop: "40px"
     }
   }))
+  
 const JornadaDetalles = ({ match }) => {
   const classes = useStyle();
 
