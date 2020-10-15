@@ -60,7 +60,16 @@ class DetallesTabla extends Component {
       detalles: [],
       history: props.history,
       open: false,
-
+      idBeneficiario: '',
+      idEscolaridad:'',
+      nombre: '',
+      edad:'',
+      sexo:'',
+      direccion:'',
+      telefono: '',
+      fecha:'',
+      seguimiento:'',
+      activo:''
     };
   }
  
@@ -72,8 +81,52 @@ class DetallesTabla extends Component {
     this.setState({open: false});
   }
 
-  handleDialogDischarge = () => {
-    this.setState({open: false});
+  handleDialogDischarge = (e) => {
+
+    this.state.detalles.map((detalle) => (
+      this.state.idBeneficiario = detalle.idBeneficiario,
+      this.state.nombre = detalle.nombreBeneficiario,
+      this.state.edad = detalle.edad,
+      this.state.idEscolaridad = detalle.idEscolaridad,
+      this.state.sexo = detalle.sexo,
+      this.state.direccion = detalle.direccion,
+      this.state.fecha = detalle.fechaNacimiento,
+      this.state.seguimiento = detalle.seguimiento,
+      this.state.telefono = detalle.telefono
+    ))
+
+    e.preventDefault();
+    try {
+
+      let activoVal = 0;
+      let result = fetch(
+        "http://localhost:8000/api/beneficiarios/" + this.state.idBeneficiario ,
+        {
+          method: "PUT",
+          headers: {
+            "Access-Control-Allow-Origin": "http://localhost:3000/",
+            "Access-Control-Allow-Credentials": "true",
+            'Accept': "application/json",
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            nombreBeneficiario: this.state.nombre,
+            edad: this.state.edad,
+            idEscolaridad: this.state.idEscolaridad,
+            sexo: this.state.sexo, 
+            telefono: this.state.telefono,
+            direccion: this.state.direccion,
+            seguimiento:  this.state.seguimiento,
+            activo: 0,
+            fechaNacimiento:  this.state.fecha,
+          }),
+        }
+      );
+      this.setState({open: false});
+      window.alert("Se dio de baja correctamente al beneficiario");
+    } catch (e) {
+      console.log(e);
+    }
   }
    
   componentDidMount() {

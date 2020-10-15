@@ -76,9 +76,9 @@ class BeneficiariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idBeneficiario)
     {
-        //
+       
     }
 
     /**
@@ -88,9 +88,22 @@ class BeneficiariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idBeneficiario)
     {
-        //
+        $request->validate([
+
+            'nombreBeneficiario' => 'required',
+            'edad' => 'required',
+            'idEscolaridad' => 'required',
+            'sexo' => 'required',
+            'direccion' => 'required',
+            'fechaNacimiento' => 'required',
+            'seguimiento' => 'required',
+            'activo' => 'required',
+        ]);
+
+        $query = DB::table('beneficiarios')->where('idBeneficiario', $idBeneficiario)->update(['nombreBeneficiario'=> $request->get('nombreBeneficiario') , 'edad'=> $request->get('edad') , 'idEscolaridad' => $request->get('idEscolaridad') , 'sexo' => $request->get('sexo') , 'direccion' => $request->get('direccion') , 'fechaNacimiento' => $request->get('fechaNacimiento') , 'seguimiento' => $request->get('seguimiento') ,  'activo' => $request->get('activo')]);
+        return $query;
     }
 
     /**
