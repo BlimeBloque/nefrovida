@@ -18,6 +18,7 @@ import { Grid, Typography } from '@material-ui/core';
 
 
 import { API } from "../config";
+import TarjetaEvaluaciones from "../components/Beneficiarios/TarjetaEvaluaciones";
 
 function IsActive(props) {
   const activeState = props.activeState;
@@ -224,6 +225,7 @@ class DetallesTabla extends Component {
             ))}
         </Grid>
         </Grid>
+        <TarjetaEvaluaciones />
       </Container>
     );
   }
