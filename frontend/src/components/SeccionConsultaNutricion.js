@@ -30,7 +30,7 @@ const SeccionConsultaNutricion = (props) => {
     const [consultas, setConsultas] = useState([]);
 
     useEffect ( () => {
-        axios.get('http://localhost:8000/api/consultaNutricion/'+props.idBeneficiario)
+        axios.get('http://localhost:8000/api/consultaNutricion/beneficiario/'+props.idBeneficiario)
             .then(res => { setConsultas(res.data)
                 })
                     .catch((e) => {
