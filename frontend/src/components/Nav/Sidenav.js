@@ -83,7 +83,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Sidenav = props => {
     const { history } = props;
-    console.log(history);
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ConsultaNutricional;
 use App\Http\Resources\ConsultaNutricionalCollection;
 use App\Http\Resources\ConsultaNutricional as ConsultaNutricionalResource;
+use Illuminate\Support\Facades\DB;
 
 class ConsultaNutricionController extends Controller
 {
@@ -94,9 +95,9 @@ class ConsultaNutricionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idBeneficiario)
     {
-        //
+        return DB::table('consulta_nutricional')->where('idBeneficiario', '=', $idBeneficiario)->get();
     }
 
     /**
