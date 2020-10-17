@@ -18,7 +18,7 @@ import { Grid, Typography } from '@material-ui/core';
 
 
 import { API } from "../config";
-import TarjetaEvaluaciones from "../components/Beneficiarios/TarjetaEvaluaciones";
+import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 
 function IsActive(props) {
   const activeState = props.activeState;
