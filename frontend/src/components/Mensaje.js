@@ -18,7 +18,6 @@ const Mensaje = (props) => {
         if (reason === 'clickaway') {
             return;
         }
-        props.setArgs("");
         setOpen(false);
     };
 
