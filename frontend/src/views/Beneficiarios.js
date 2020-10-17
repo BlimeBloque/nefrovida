@@ -2,7 +2,6 @@ import React from "react";
 import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from '@material-ui/core';
 import BuscarBeneficiarios from './BuscarBeneficiarios';
-import MensajeAgregarConsultaNutricion from './ConsultaNutricion/MensajeAgregarConsultaNutricion';
 
 
 
@@ -30,7 +29,6 @@ const Beneficiarios = (props) => {
           <Paper className={classes.pageContent}>            
             <BuscarBeneficiarios history={props.history}/>
           </Paper>
-          <MensajeAgregarConsultaNutricion success={props.location.search.slice(-1)} />
         </Container>
       </div>
     );

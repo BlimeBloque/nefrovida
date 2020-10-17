@@ -3,6 +3,7 @@ import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import Detalles from "./Detalles";
 import SeccionConsultaNutricion from '../components/SeccionConsultaNutricion';
+import Mensaje from '../components/Mensaje';
 
 
 const useStyle = makeStyles(theme => ({
@@ -34,6 +35,8 @@ const useStyle = makeStyles(theme => ({
 const BeneficiarioDetalles = (props) => {
   const classes = useStyle();
 
+  const args = props.location.search;
+
   return (
     <div className={classes.container}>
       <Sidenav titulo="Detalle de Beneficiario" />        
@@ -47,6 +50,16 @@ const BeneficiarioDetalles = (props) => {
           </Paper>
         </div>
       </Container>
+
+
+
+
+      <Mensaje 
+        success={args.includes("agregarNutricion") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró la consulta de nutrición."}
+        mensajeError={"Hubo un error al registrar la consulta de nutrición"}
+      />
+      
     </div>
   );
 };

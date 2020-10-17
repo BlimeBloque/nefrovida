@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
-const MensajeAgregarConsultaNutricion = (props) => {
+const Mensaje = (props) => {
     const [open, setOpen] = React.useState('');
     const [success, setSuccess] = React.useState(props.success);
 
-    const mensajeExito = "Se registró la consulta de nutrición.";
-    const mensajeError = "Hubo un error al registrar la consulta de nutrición";
+    const mensajeExito = props.mensajeExito;
+    const mensajeError = props.mensajeError;
     
     useEffect ( () => {
         if(success !== '')
@@ -18,21 +18,25 @@ const MensajeAgregarConsultaNutricion = (props) => {
         if (reason === 'clickaway') {
             return;
         }
-    
+        props.setArgs("");
         setOpen(false);
     };
 
     return(
         <div>
+        {   success !== -1 ?
             <Snackbar open={open ? true : false} autoHideDuration={6000} onClose={handleClose}>
                 <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity={success == 1 ? "success" : "error"}>
                     {success == 1 ? mensajeExito : mensajeError}
                 </MuiAlert>
             </Snackbar>
+            :
+            <p></p>
+        }
         </div>
     );
 
 
 }
 
-export default MensajeAgregarConsultaNutricion;
+export default Mensaje;
