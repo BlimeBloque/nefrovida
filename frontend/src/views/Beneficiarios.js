@@ -19,7 +19,9 @@ const useStyle = makeStyles(theme => ({
 
 const Beneficiarios = (props) => {
   const classes = useStyle();
-  console.log(props);
+
+
+
     return (
       <div className={classes.container}>
         <Sidenav titulo="Beneficiarios" />    

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeneficiariosController;
+use App\Http\Controllers\ConsultaNutricionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,10 @@ Route::get('/escolaridades', 'App\Http\Controllers\EscolaridadesController@all')
 
 //todas las rutas de beneficiarios
 Route::resource('beneficiarios', BeneficiariosController::class);
-//Route::post('/beneficiarios/insert', 'App\Http\Controllers\BeneficiariosController@insert');
+
 
 
 Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
+
+Route::resource('consultaNutricion', ConsultaNutricionController::class);
+Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');

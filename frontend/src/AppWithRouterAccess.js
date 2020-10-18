@@ -5,9 +5,14 @@ import Home from "./Home";
 import Login from "./okta/Login";
 import Beneficiarios from "./views/Beneficiarios";
 import Jornadas from "./views/Jornadas";
+import JornadasAgregar from "./views/JornadasAgregar";
+import JornadasEditar from "./views/JornadasEditar";
 import Reportes from "./views/Reportes";
-import AgregarBeneficiarioForm from "./views/AgregarBeneficiarioForm";
+import AgregarBeneficiario from "./views/AgregarBeneficiario";
+import AgregarConsultaNutricion from './views/ConsultaNutricion/AgregarConsultaNutricion';
 import BeneficiarioDetalles from "./views/BeneficiarioDetalles";
+import JornadaDetalles from './views/JornadaDetalles';
+import DetalleConsultaNutricion from "./views/ConsultaNutricion/DetalleConsultaNutricion";
 
 export default withRouter(
   class AppWithRouterAccess extends Component {
@@ -20,39 +25,39 @@ export default withRouter(
       this.props.history.push("/login");
     }
 
-    render() {
-      return (
-        <div>
-          <Security
-            issuer="https://dev-377919.okta.com/oauth2/default"
-            clientId="0oa61ly4IzGGhU29v5d5"
-            redirectUri={window.location.origin + "/implicit/callback"}
-            onAuthRequired={this.onAuthRequired}
-          >
-            <SecureRoute path="/" exact={true} component={Home} />
-            <SecureRoute
-              path="/beneficiarios"
-              exact={true}
-              component={Beneficiarios}
-            />
-            <SecureRoute path="/jornadas" exact={true} component={Jornadas} />
-            <SecureRoute path="/reportes" exact={true} component={Reportes} />
-            <SecureRoute
-              path="/beneficiarios/agregar"
-              exact={true}
-              component={AgregarBeneficiarioForm}
-            />
+  render() {
+    return (
+      <div>
+          <Security issuer='https://dev-377919.okta.com/oauth2/default'
+                    clientId='0oa61ly4IzGGhU29v5d5'
+                    redirectUri={window.location.origin + '/implicit/callback'}
+                    onAuthRequired={this.onAuthRequired} >
+            <SecureRoute path='/' exact={true} component={Home} />
+            <SecureRoute path='/beneficiarios' exact={true} component={Beneficiarios} />
+            <SecureRoute path='/jornadas' exact={true} component={Jornadas} />
+            <SecureRoute path='/jornadas/:idJornada([0-9]*)' exact={true} component={JornadaDetalles} />
+            <SecureRoute path='/reportes' exact={true} component={Reportes} />
+            <SecureRoute path='/beneficiarios/agregar' exact={true} component={AgregarBeneficiario}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaNutricion' exact={true} component={AgregarConsultaNutricion}/>
+            <SecureRoute path='/consultaNutricion/:idConsultaNutricion([0-9]*)' exact={true} component={DetalleConsultaNutricion}/>
+
+            <Route path='/login' render={() => <Login baseUrl='https://dev-377919.okta.com' />} />
+            <Route path='/implicit/callback' component={LoginCallback} />
             <SecureRoute
               path="/beneficiarios/:idBeneficiario([0-9]*)"
               exact={true}
               component={BeneficiarioDetalles}
             />
-
-            <Route
-              path="/login"
-              render={() => <Login baseUrl="https://dev-377919.okta.com" />}
+            <SecureRoute
+              path="/jornadas/agregar"
+              exact={true}
+              component={JornadasAgregar}
             />
-            <Route path="/implicit/callback" component={LoginCallback} />
+            <SecureRoute
+              path="/jornadas/editar/:idJornada([0-9]*)"
+              exact={true}
+              component={JornadasEditar}
+            />
           </Security>
         </div>
       );

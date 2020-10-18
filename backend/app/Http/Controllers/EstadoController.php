@@ -7,6 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class EstadoController extends Controller {
     public function all() {
-        return DB::table('estados_mexico')->get();
+        return DB::table('estados_mexico')->select('idEstado as id', 'nombreEstado as nombre')->get();
     }
 }

@@ -83,7 +83,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Sidenav = props => {
     const { history } = props;
-    console.log(history);
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -166,7 +165,7 @@ const Sidenav = props => {
                       height="36px"
                     />
                     <Typography variant="h5" className={classes.title}>{props.titulo}</Typography>
-                    <Typography variant="h6" >
+                    <Typography variant="subtitle2" >
                         {userInfo && userInfo.name}
                     </Typography>
                     <IconButton
