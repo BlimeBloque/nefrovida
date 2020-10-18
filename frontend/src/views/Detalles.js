@@ -30,13 +30,13 @@ function IsActive(props) {
 function EscolaridadNombre(props) {
   const escolaridadNom = props.escolaridadNom;
   if (escolaridadNom == 1) {
-    return <td>Profesional</td>;
+    return <td>Primaria</td>;
   } else if (escolaridadNom == 2) {
     return <td>Medio Superior</td>;
   } else if (escolaridadNom == 3) {
     return <td>Secundaria</td>;
   } else if (escolaridadNom == 4) {
-    return <td>Primaria</td>;
+    return <td>Universidad</td>;
   } else if (escolaridadNom == 5) {
     return <td>Lee/Escribe</td>;
   }
@@ -83,6 +83,8 @@ class DetallesTabla extends Component {
   }
 
   handleDialogDischarge = (e) => {
+
+    console.log(this.state.detalles[0].nombreBeneficiario);
 
     this.state.detalles.map((detalle) => (
       this.state.idBeneficiario = detalle.idBeneficiario,
@@ -138,12 +140,15 @@ class DetallesTabla extends Component {
     axios
       .get(API + "/beneficiarios/" + this.props.idBenef)
       .then((detalles) => {
-        this.setState({ detalles: detalles.data });
+        this.setState({ detalles: detalles.data});
       })
       .catch((e) => {
         console.log(e);
       });
+
+      
   }
+
 
   render() {
 
