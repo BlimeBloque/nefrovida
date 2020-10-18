@@ -1,9 +1,8 @@
 import React from 'react';
-import { Route } from "react-router-dom";
 import Sidenav from "../../components/Nav/Sidenav";
+import AgregarEvaluacionForm from './AgregarEvaluacionForm';
 
 import { Paper, makeStyles, Container } from '@material-ui/core';
-import AgregarEvaluacionForm from './AgregarEvaluacionForm';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -13,7 +12,10 @@ const useStyle = makeStyles(theme => ({
     container: {
       display: "flex",
       marginTop: "40px"
-    }
+    },
+    largeIcon: {
+        fontSize: '3em'
+      },
   }))
 
 const AgregarEvaluacion = (props) => {

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 
-import {CssBaseline, FormControl, FormGroup, FormLabel, Grid, InputAdornment, makeStyles, Radio, Typography} from '@material-ui/core';
+import {CssBaseline, FormControl, FormGroup, FormLabel, Grid, InputAdornment, makeStyles, Radio, Typography, Button} from '@material-ui/core';
 import Controls from '../../components/FormComponents/Controls';
 import RadioGroup from '../../components/FormComponents/RadioGroup';
+import { withRouter } from 'react-router-dom';
 
 
 const useStyle = makeStyles(theme => ({
@@ -10,11 +11,26 @@ const useStyle = makeStyles(theme => ({
         display: 'block',
     }, 
     form: {
-        textAlign: 'center'
+        textAlign: 'center',
     },
     title: {
         textAlign: 'center',
-    }
+    },
+    buttons: {
+        display: 'inline',
+        alignSelf: 'center',
+    },
+    back : {
+        marginRight: '10px'
+    },
+    answer: {
+        display: 'block',
+        alignItems: 'center',
+        '&$checked': {
+            color: '#3f51b5'
+        }
+    },
+    checked:{}
 
 }))
 
@@ -28,8 +44,8 @@ const initialValues = {
 }
 
 
-
-export default function AgregarEvaluacionForm() {
+function AgregarEvaluacionForm(props) {
+    const { history } = props;
     const classes = useStyle();
     const[values, setValues] = useState(initialValues);
 
@@ -49,7 +65,7 @@ export default function AgregarEvaluacionForm() {
             <FormControl component='fieldset'>
                 <FormLabel component="legend">HC ¿La diabetes es el aumento de glucosa (azúcar) presente en la sangre?</FormLabel>
                 <Controls.RadioGroup 
-                    className={classes.answer}
+                    classes={{root: classes.answer, checked: classes.checked}}
                     name='pregunta1'
                     label=''
                     value={values.siNo}
@@ -89,9 +105,16 @@ export default function AgregarEvaluacionForm() {
                     value={values.siNo}
                     items={respuestasPosibles}
                     onChange={handleInputChange}
-                /> 
+                />
+                <div className={classes.buttons}>
+                    <Button color="default" className={classes.back} onClick={() => history.push('/beneficiarios')}>Cancelar</Button>
+                    <Button variant="contained" color="primary">Completar</Button>
+                </div>
             </FormControl>
             </form>
         </div>
     )
 }
+
+
+export default withRouter(AgregarEvaluacionForm);
