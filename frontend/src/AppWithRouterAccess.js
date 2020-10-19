@@ -13,6 +13,7 @@ import AgregarConsultaNutricion from './views/ConsultaNutricion/AgregarConsultaN
 import BeneficiarioDetalles from "./views/BeneficiarioDetalles";
 import JornadaDetalles from './views/JornadaDetalles';
 import DetalleConsultaNutricion from "./views/ConsultaNutricion/DetalleConsultaNutricion";
+import AgregarConsultaMedica from './views/ConsultaMedica/AgregarConsultaMedica';
 
 export default withRouter(
   class AppWithRouterAccess extends Component {
@@ -40,6 +41,7 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/agregar' exact={true} component={AgregarBeneficiario}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaNutricion' exact={true} component={AgregarConsultaNutricion}/>
             <SecureRoute path='/consultaNutricion/:idConsultaNutricion([0-9]*)' exact={true} component={DetalleConsultaNutricion}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaMedica' exact={true} component={AgregarConsultaMedica}/>
 
             <Route path='/login' render={() => <Login baseUrl='https://dev-377919.okta.com' />} />
             <Route path='/implicit/callback' component={LoginCallback} />

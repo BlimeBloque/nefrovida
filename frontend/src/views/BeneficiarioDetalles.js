@@ -3,6 +3,7 @@ import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import Detalles from "./Detalles";
 import SeccionConsultaNutricion from '../components/SeccionConsultaNutricion';
+import SeccionConsultaMedica from '../components/SeccionConsultaMedica';
 import Mensaje from '../components/Mensaje';
 
 
@@ -47,6 +48,9 @@ const BeneficiarioDetalles = (props) => {
         <div id="consultas">
           <Paper className={classes.consultaNutricion}>
             <SeccionConsultaNutricion history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
+          </Paper>
+          <Paper className={classes.consultaNutricion}>
+            <SeccionConsultaMedica history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
           </Paper>
         </div>
       </Container>
