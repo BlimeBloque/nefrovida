@@ -91,7 +91,7 @@ export default function DatosAntropometricos(props)
             </Typography>
             <div className={classes.flex}>
                 <FormControl error={errores.peso} className={classes.xs}>
-                    <InputLabel htmlFor="component-error">Peso Actual</InputLabel>
+                    <InputLabel htmlFor="component-error">Peso Actual (kg)</InputLabel>
                     <Input
                     id="component-error"
                     value={values.peso}
@@ -107,7 +107,7 @@ export default function DatosAntropometricos(props)
             </div>
             <div className={classes.flex}>
                 <FormControl error={errores.altura} className={classes.xs}>
-                    <InputLabel htmlFor="component-error">Estatura</InputLabel>
+                    <InputLabel htmlFor="component-error">Estatura(cm)</InputLabel>
                     <Input
                     id="component-error"
                     name="altura"
