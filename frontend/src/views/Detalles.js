@@ -228,12 +228,15 @@ class DetallesTabla extends Component {
               </DialogActions>
             </Dialog>
             ))}
-            <Link variant="body2" to=''>
-            <Fab color="primary" >
+              {this.state.detalles.map((detalle) => (
+            <a href={"/beneficiarios/" + detalle.idBeneficiario + "/editar"}>
+              <Fab color="primary" >
               <EditIcon />
             </Fab>
-            </Link>
-             
+            </a>
+            ))}
+            
+           
         </Grid>
         </Grid>
       </Container>

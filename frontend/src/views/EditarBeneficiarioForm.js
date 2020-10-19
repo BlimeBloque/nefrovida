@@ -138,6 +138,7 @@ export default function AgregarBeneficiarioForm(props) {
                   );
             console.log(values.fechaNacimiento)
             window.alert("El beneficiario fue actualizado  existosamente")
+            window.location.replace("http://localhost:3000/beneficiarios/" + values.idBeneficiario)
     
             } catch (e) {
                 console.log(e);

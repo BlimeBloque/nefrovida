@@ -123,6 +123,8 @@ export default function AgregarBeneficiarioForm() {
             });
             console.log(values.fechaNacimiento)
             window.alert("El beneficiario fue registrado existosamente")
+            window.location.replace("http://localhost:3000/beneficiarios")
+
     
             } catch (e) {
                 console.log(e);
