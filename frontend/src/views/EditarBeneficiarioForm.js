@@ -86,7 +86,6 @@ export default function AgregarBeneficiarioForm(props) {
       let temp = {}
       temp.nombre = values.nombreBeneficiario?"":"Este campo es requerido"
       temp.edad = values.nombreBeneficiario?"":"Este campo es requerido"
-      temp.telefono = (values.telefono.length > 9 || values.telefono.length == 0 )?"":"Este campo debe tener al menos 10 digitos"
       temp.idEscolaridad = values.idEscolaridad.length!=0?"":"Este campo es requerido"
       setErrors({
           ...temp
@@ -178,7 +177,6 @@ export default function AgregarBeneficiarioForm(props) {
                         name="telefono"
                         value={values.telefono}
                         onChange = {handleInputChange}
-                        error={errors.telefono}
                         />
                         <Controls.Input 
                         variant="outlined"

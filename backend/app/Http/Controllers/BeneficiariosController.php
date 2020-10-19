@@ -98,11 +98,12 @@ class BeneficiariosController extends Controller
             'sexo' => 'required',
             'direccion' => 'required',
             'fechaNacimiento' => 'required',
+            'telefono' => 'required',
             'seguimiento' => 'required',
             'activo' => 'required',
         ]);
 
-        $query = DB::table('beneficiarios')->where('idBeneficiario', $idBeneficiario)->update(['nombreBeneficiario'=> $request->get('nombreBeneficiario') , 'edad'=> $request->get('edad') , 'idEscolaridad' => $request->get('idEscolaridad') , 'sexo' => $request->get('sexo') , 'direccion' => $request->get('direccion') , 'fechaNacimiento' => $request->get('fechaNacimiento') , 'seguimiento' => $request->get('seguimiento') ,  'activo' => $request->get('activo')]);
+        $query = DB::table('beneficiarios')->where('idBeneficiario', $idBeneficiario)->update(['nombreBeneficiario'=> $request->get('nombreBeneficiario') , 'edad'=> $request->get('edad') , 'idEscolaridad' => $request->get('idEscolaridad') , 'telefono' => $request->get('telefono') , 'sexo' => $request->get('sexo') , 'direccion' => $request->get('direccion') , 'fechaNacimiento' => $request->get('fechaNacimiento') , 'seguimiento' => $request->get('seguimiento') ,  'activo' => $request->get('activo')]);
         return $query;
     }
 
