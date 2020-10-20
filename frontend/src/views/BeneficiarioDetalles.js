@@ -53,11 +53,18 @@ const BeneficiarioDetalles = (props) => {
 
 
 
-
+      {/* CONSULTA NUTRICIÓN RETRO*/}
       <Mensaje 
         success={args.includes("agregarNutricion") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró la consulta de nutrición."}
-        mensajeError={"Hubo un error al registrar la consulta de nutrición"}
+        mensajeError={"Hubo un error al registrar la consulta de nutrición."}
+      />
+
+      {/* EVALUACIÓN RETRO*/}
+      <Mensaje 
+        success={args.includes("agregarEvaluacion") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró la evaluación."}
+        mensajeError={"Hubo un error al registrar la evaluación."}
       />
       
     </div>
