@@ -8,7 +8,7 @@ const useStyles = makeStyles( {
         maxWidth: '50%',
     },
 })
-export default function TarjetaEvaluaciones() {
+export default function TarjetaEvaluaciones(props) {
     const classes = useStyles();
         return (
             <Card className={classes.root}>
@@ -16,7 +16,7 @@ export default function TarjetaEvaluaciones() {
                     <Typography variant="h5" align="center">
                         Evaluaciones
                     </Typography>
-                    <BotonEvaluaciones />
+                    <BotonEvaluaciones idBeneficiario={props.idBeneficiario} />
                 </CardContent>
             </Card>
         )

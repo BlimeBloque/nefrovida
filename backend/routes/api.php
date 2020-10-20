@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeneficiariosController;
 use App\Http\Controllers\ConsultaNutricionController;
 use App\Http\Controllers\EvaluacionesController;
+use App\Http\Controllers\EvaluacionesPreguntasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,4 @@ Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
 Route::resource('consultaNutricion', ConsultaNutricionController::class);
 
 Route::resource('evaluacion', EvaluacionesController::class);
+Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasController@all');

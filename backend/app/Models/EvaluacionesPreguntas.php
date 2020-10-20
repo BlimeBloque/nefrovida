@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class EvaluacionesPreguntas extends Model
 {
     protected $primaryKey = 'idEvaluacionPregunta';
+    protected $fillable = [
+        'evaluacionPregunta'
+    ];
 }

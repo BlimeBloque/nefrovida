@@ -225,7 +225,9 @@ class DetallesTabla extends Component {
             ))}
         </Grid>
         </Grid>
-        <TarjetaEvaluaciones />
+        {this.state.detalles.map((detalle) => (
+          <TarjetaEvaluaciones idBeneficiario={detalle.idBeneficiario}/>
+        ))}
       </Container>
     );
   }

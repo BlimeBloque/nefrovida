@@ -21,9 +21,8 @@ function BotonEvaluaciones(props) {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleClick = () => {
-    /* DESCOMENTAR CUANDO SEPAS USAR ID AQUI
-    options[selectedIndex] === 'Agregar inicio de jornada' ? history.push(`/beneficiarios/`$`/agregarEvaluacionInicio`) : history.push(`/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionFin`);
-    */
+    
+    options[selectedIndex] === 'Agregar inicio de jornada' ? history.push('/beneficiarios/'+props.idBeneficiario+'/agregarEvaluacionInicio') : history.push('/beneficiarios/'+props.idBeneficiario+'/agregarEvaluacionFin');
   };
 
   const handleMenuItemClick = (event, index) => {
