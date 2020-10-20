@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ConsultaNutricional;
 use App\Http\Resources\ConsultaNutricionalCollection;
 use App\Http\Resources\ConsultaNutricional as ConsultaNutricionalResource;
+use Illuminate\Support\Facades\DB;
 
 class ConsultaNutricionController extends Controller
 {
@@ -94,9 +95,17 @@ class ConsultaNutricionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idConsultaNutricional)
     {
-        //
+        return DB::table('consulta_nutricional')->leftJoin('beneficiarios', 'consulta_nutricional.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
+            -> where('idConsultaNutricional', '=', $idConsultaNutricional) 
+            -> select('consulta_nutricional.*', 'beneficiarios.nombreBeneficiario', 'beneficiarios.edad', 'beneficiarios.sexo') -> get();
+    }
+
+    public function searchByBenef($idBeneficiario)
+    {
+        return DB::table('consulta_nutricional')->where('idBeneficiario', '=', $idBeneficiario)->select('idBeneficiario', 'idConsultaNutricional', 'created_at')
+            -> latest()->get();
     }
 
     /**

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
 import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from '@material-ui/core';
-import BuscarBeneficiarios from './BuscarBeneficiarios';
-
+import EditarBeneficiarioForm from './EditarBeneficiarioForm'
 
 
 const useStyle = makeStyles(theme => ({
@@ -17,17 +17,14 @@ const useStyle = makeStyles(theme => ({
 }))
 
 
-const Beneficiarios = (props) => {
+const AgregarBeneficiario = (props) => {
   const classes = useStyle();
-
-
-
     return (
       <div className={classes.container}>
-        <Sidenav titulo="Beneficiarios" />    
+        <Sidenav titulo="Editar Beneficiario" />        
         <Container>
-          <Paper className={classes.pageContent}>            
-            <BuscarBeneficiarios history={props.history}/>
+          <Paper className={classes.pageContent}>
+            <EditarBeneficiarioForm idBenef={props.match.params.idBeneficiario} />
           </Paper>
         </Container>
       </div>
@@ -35,4 +32,4 @@ const Beneficiarios = (props) => {
 
 }
 
-export default Beneficiarios;
+export default AgregarBeneficiario;

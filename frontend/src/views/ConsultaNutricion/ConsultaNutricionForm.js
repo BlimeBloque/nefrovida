@@ -270,11 +270,11 @@ export default function ConsultaNutricionForm(props) {
             axios.post('http://localhost:8000/api/consultaNutricion', values, {headers: {"Accept": "application/json"}})
                 .then(res => {
                     console.log(res)
-                    props.history.push("/beneficiarios?agregarNutricion=1");
+                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=1");
                 })
                 .catch(err => {
                     console.log(err)
-                    props.history.push("/beneficiarios?agregarNutricion=0");
+                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=0");
                 });
 
             

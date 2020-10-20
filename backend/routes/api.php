@@ -40,6 +40,7 @@ Route::resource('beneficiarios', BeneficiariosController::class);
 Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
 
 Route::resource('consultaNutricion', ConsultaNutricionController::class);
+Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');
 
 Route::resource('evaluacion', EvaluacionesController::class);
 Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasController@all');

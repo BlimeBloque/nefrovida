@@ -14,6 +14,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { Grid, Typography } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 
@@ -31,13 +33,13 @@ function IsActive(props) {
 function EscolaridadNombre(props) {
   const escolaridadNom = props.escolaridadNom;
   if (escolaridadNom == 1) {
-    return <td>Profesional</td>;
+    return <td>Primaria</td>;
   } else if (escolaridadNom == 2) {
     return <td>Medio Superior</td>;
   } else if (escolaridadNom == 3) {
     return <td>Secundaria</td>;
   } else if (escolaridadNom == 4) {
-    return <td>Primaria</td>;
+    return <td>Universidad</td>;
   } else if (escolaridadNom == 5) {
     return <td>Lee/Escribe</td>;
   }
@@ -84,6 +86,8 @@ class DetallesTabla extends Component {
   }
 
   handleDialogDischarge = (e) => {
+
+    console.log(this.state.detalles[0].nombreBeneficiario);
 
     this.state.detalles.map((detalle) => (
       this.state.idBeneficiario = detalle.idBeneficiario,
@@ -139,12 +143,15 @@ class DetallesTabla extends Component {
     axios
       .get(API + "/beneficiarios/" + this.props.idBenef)
       .then((detalles) => {
-        this.setState({ detalles: detalles.data });
+        this.setState({ detalles: detalles.data});
       })
       .catch((e) => {
         console.log(e);
       });
+
+      
   }
+
 
   render() {
 
@@ -190,17 +197,17 @@ class DetallesTabla extends Component {
       </Table>
       <br></br><br></br><br></br>
         <Grid container justify="flex-end" spacing="2">
-          <Grid justify="flex-end" item xs={2}>          
+          <Grid item xs={10}>          
             <Link variant="body2" to="/beneficiarios">
             <IconButton color="primary" aria-label="edit">
-                  Regresar
+                <ArrowBackIcon/>
               </IconButton>
               </Link>
           </Grid>
-          <Grid justify="flex-end" item xs={2}> 
-            <Fab color="secondary" onClick={this.handleDialogOpen}>
+          <Grid justify="flex-end" item xs={2} spacing="2"> 
+            <IconButton  color="secondary" onClick={this.handleDialogOpen}>
               <RemoveCircleOutlineIcon />
-            </Fab>
+            </IconButton >
             {this.state.detalles.map((detalle) => (
             <Dialog
               open={this.state.open}
@@ -223,6 +230,15 @@ class DetallesTabla extends Component {
               </DialogActions>
             </Dialog>
             ))}
+              {this.state.detalles.map((detalle) => (
+            <a href={"/beneficiarios/" + detalle.idBeneficiario + "/editar"}>
+              <IconButton  color="primary" >
+              <EditIcon />
+            </IconButton >
+            </a>
+            ))}
+            
+           
         </Grid>
         </Grid>
         {this.state.detalles.map((detalle) => (
