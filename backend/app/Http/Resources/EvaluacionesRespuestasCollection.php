@@ -17,7 +17,8 @@ class EvaluacionesRespuestasCollection extends JsonResource
         return [
             'idOpcionEvaluacion' => $this->idOpcionEvaluacion,
             'idBeneficiario' => $this->idBeneficiario,
-            'otraRespuesta' => $this->otraRespuesta
+            'otraRespuesta' => $this->otraRespuesta,
+            'respuestasPosibles' => $this->respuestasPosibles
         ];
     }
 }
