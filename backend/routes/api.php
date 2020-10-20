@@ -6,6 +6,7 @@ use App\Http\Controllers\BeneficiariosController;
 use App\Http\Controllers\ConsultaNutricionController;
 use App\Http\Controllers\EvaluacionesController;
 use App\Http\Controllers\EvaluacionesPreguntasController;
+use App\Http\Controllers\OpcionEvaluacionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,4 @@ Route::resource('consultaNutricion', ConsultaNutricionController::class);
 
 Route::resource('evaluacion', EvaluacionesController::class);
 Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasController@all');
+Route::get('/opcionEvaluacion/evaluaciones/{idEvaluacion}', 'App\Http\Controllers\OpcionEvaluacionController@searchByTipoJornada');

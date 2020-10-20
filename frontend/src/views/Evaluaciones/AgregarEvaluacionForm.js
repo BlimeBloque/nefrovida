@@ -48,6 +48,10 @@ function AgregarEvaluacionForm(props) {
         })
         
     }, []);
+
+    submitForm(() => {
+        
+    })
     
     return (
         <div className={classes.root}>
@@ -59,15 +63,15 @@ function AgregarEvaluacionForm(props) {
                     <>
                         <FormLabel component="legend">{opcion.evaluacionPregunta}</FormLabel>
                         <RadioGroup row aria-label="respuestas" name="pregunta-respuestas" onChange={handleChange}>
-                            <FormControlLabel value={opcion.si} control={<Radio />} label="Sí" />
-                            <FormControlLabel value={opcion.no} control={<Radio />} label="No" />
+                            <FormControlLabel value="Sí" control={<Radio />} label="Sí" />
+                            <FormControlLabel value="No" control={<Radio />} label="No" />
                         </RadioGroup> <br/>
                     </>
                     ))
                 }
                 <div className={classes.formItems}>
                     <Button color="default" className={classes.back} onClick={() => history.goBack()}>Cancelar</Button>
-                    <Button variant="contained" color="primary">Completar</Button>
+                    <Button variant="contained" color="primary" onClick={submitForm}>Completar</Button>
                 </div>
               
             </form>

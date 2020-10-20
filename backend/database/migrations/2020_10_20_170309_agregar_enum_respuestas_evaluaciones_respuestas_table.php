@@ -14,7 +14,7 @@ class AgregarEnumRespuestasEvaluacionesRespuestasTable extends Migration
     public function up()
     {
         Schema::table('evaluaciones_respuestas', function (Blueprint $table) {
-            $table->enum('respuestasPosibles', ['Sí', 'No'])->nullable();
+            $table->enum('respuestasPosibles', ['Sí', 'No', 'Otro'])->nullable()->before('created_at');
         });
     }
 
