@@ -203,9 +203,9 @@ class DetallesTabla extends Component {
               </Link>
           </Grid>
           <Grid justify="flex-end" item xs={2} spacing="2"> 
-            <Fab color="secondary" onClick={this.handleDialogOpen}>
+            <IconButton  color="secondary" onClick={this.handleDialogOpen}>
               <RemoveCircleOutlineIcon />
-            </Fab>
+            </IconButton >
             {this.state.detalles.map((detalle) => (
             <Dialog
               open={this.state.open}
@@ -230,9 +230,9 @@ class DetallesTabla extends Component {
             ))}
               {this.state.detalles.map((detalle) => (
             <a href={"/beneficiarios/" + detalle.idBeneficiario + "/editar"}>
-              <Fab color="primary" >
+              <IconButton  color="primary" >
               <EditIcon />
-            </Fab>
+            </IconButton >
             </a>
             ))}
             
