@@ -33,6 +33,7 @@ export default function JornadasAgregarForm(props) {
   const [EstadosCollection, setEstados] = useState([]);
 
   const handleInputChange = (e) => {
+    console.log(e);
     const { name, value } = e.target;
     setValues({
       ...values,
@@ -100,47 +101,49 @@ export default function JornadasAgregarForm(props) {
   return (
     <div className={classes.form}>
       <CssBaseline />
-      <form className={classes.root}>
-        <Controls.Input
-          name="nombre"
-          label="Nombre"
-          value={values.nombre}
-          onChange={handleInputChange}
-        />
-        <Controls.DatePicker
-          name="fecha"
-          label="Fecha"
-          value={values.fecha}
-          onChange={handleInputChange}
-        />
-        <Controls.Input
-          name="localidad"
-          label="Localidad"
-          value={values.localidad}
-          onChange={handleInputChange}
-        />
-        <Controls.Input
-          name="municipio"
-          label="Municipio"
-          value={values.municipio}
-          onChange={handleInputChange}
-        />
-        <Controls.Select
-          name="idEstado"
-          label="Estado"
-          value={values.idEstado}
-          onChange={handleInputChange}
-          options={EstadosCollection}
-        />
-        <Controls.Button
-          text="Submit"
-          variant="contained"
-          color="primary"
-          size="large"
-          type="submit"
-          onClick={onSubmit}
-        />
-      </form>
+      {values.fecha != "" && (
+        <form className={classes.root}>
+          <Controls.Input
+            name="nombre"
+            label="Nombre"
+            value={values.nombre}
+            onChange={handleInputChange}
+          />
+          <Controls.DatePicker
+            name="fecha"
+            label="Fecha"
+            value={values.fecha}
+            onChange={handleInputChange}
+          />
+          <Controls.Input
+            name="localidad"
+            label="Localidad"
+            value={values.localidad}
+            onChange={handleInputChange}
+          />
+          <Controls.Input
+            name="municipio"
+            label="Municipio"
+            value={values.municipio}
+            onChange={handleInputChange}
+          />
+          <Controls.Select
+            name="idEstado"
+            label="Estado"
+            value={values.idEstado}
+            onChange={handleInputChange}
+            options={EstadosCollection}
+          />
+          <Controls.Button
+            text="Submit"
+            variant="contained"
+            color="primary"
+            size="large"
+            type="submit"
+            onClick={onSubmit}
+          />
+        </form>
+      )}
     </div>
   );
 }

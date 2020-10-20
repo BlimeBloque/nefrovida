@@ -18,7 +18,7 @@ const JornadasAgregar = (props) => {
   const classes = useStyle();
   return (
     <div className={classes.container}>
-      <Sidenav titulo="Registrar Beneficiario" />
+      <Sidenav titulo="Registrar Jornada" />
       <Container>
         <Paper className={classes.pageContent}>
           <JornadaAgregarForm />

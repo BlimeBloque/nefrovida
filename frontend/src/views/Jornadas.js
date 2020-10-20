@@ -1,32 +1,32 @@
-import React, { Component } from "react";
-import { Route } from "react-router-dom";
-import { Header, Container } from "semantic-ui-react";
-
-import Tabla from "./JornadasTabla";
+import React from "react";
 import Sidenav from "../components/Nav/Sidenav";
+import { Paper, makeStyles, Container } from "@material-ui/core";
+import BuscarJornadas from "./JornadasBuscar";
 
-class Jornadas extends Component {
-  render() {
-    return (
-      <div
-        style={{
-          display: "flex",
-          marginTop: "40px",
-        }}
-      >
-        <Sidenav />
-        <Container>
-          <Header as="h1">Jornadas</Header>
-          <Route
-            exact
-            path="/jornadas"
-            component={Tabla}
-            parentCallback={this.callbackFunction}
-          ></Route>
-        </Container>
-      </div>
-    );
-  }
-}
+const useStyle = makeStyles((theme) => ({
+  pageContent: {
+    margin: theme.spacing(5),
+    padding: theme.spacing(3),
+  },
+  container: {
+    display: "flex",
+    marginTop: "40px",
+  },
+}));
 
-export default Jornadas;
+const Beneficiarios = (props) => {
+  const classes = useStyle();
+
+  return (
+    <div className={classes.container}>
+      <Sidenav titulo="Jornadas" />
+      <Container>
+        <Paper className={classes.pageContent}>
+          <BuscarJornadas history={props.history} />
+        </Paper>
+      </Container>
+    </div>
+  );
+};
+
+export default Beneficiarios;
