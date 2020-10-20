@@ -49,7 +49,7 @@ const BeneficiarioDetalles = (props) => {
           <Paper className={classes.consultaNutricion}>
             <SeccionConsultaNutricion history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
           </Paper>
-          <Paper className={classes.consultaNutricion}>
+          <Paper className={classes.consultaMedica}>
             <SeccionConsultaMedica history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
           </Paper>
         </div>
@@ -62,6 +62,12 @@ const BeneficiarioDetalles = (props) => {
         success={args.includes("agregarNutricion") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró la consulta de nutrición."}
         mensajeError={"Hubo un error al registrar la consulta de nutrición"}
+      />
+
+<Mensaje 
+        success={args.includes("agregarMedica") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró la consulta médica."}
+        mensajeError={"Hubo un error al registrar la consulta médica"}
       />
       
     </div>

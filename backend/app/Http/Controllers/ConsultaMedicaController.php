@@ -39,7 +39,6 @@ class ConsultaMedicaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'idConsultaMedica' => 'required|numeric',
             'idBeneficiario' => 'required|numeric',
             'padecimientoActual' => 'max:255|nullable',
             'taDerecho' => 'max:255|nullable',
@@ -61,7 +60,7 @@ class ConsultaMedicaController extends Controller
 
         $consultaMedica = ConsultaMedica::create($request->all());
 
-        return (new ConsultaMedicaResource($consultaNutricional))
+        return (new ConsultaMedicaResource($consultaMedica))
             ->response()
             ->setStatusCode(201);
     }

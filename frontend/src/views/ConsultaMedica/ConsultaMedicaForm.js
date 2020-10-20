@@ -82,7 +82,6 @@ function getSteps() {
 }
 
 const initialValues = {
-    idConsultaMedica:0,
     idBeneficiario:0,
     padecimientoActual:'',
     taDerecho:'',
@@ -177,10 +176,6 @@ export default function ConsultaMedicaForm(props) {
                 if(errores.otros)
                     next = false;
                 break;
-            case 4:
-                if(errores.diagnosticos || errores.planDeTratamiento)
-                    next = false;
-                break;
         }
         if(next)
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -194,6 +189,8 @@ export default function ConsultaMedicaForm(props) {
 
     const handleSubmit = () => {
         let submit = true;
+        if(errores.diagnosticos || errores.planDeTratamiento)
+            submit = false;
         if(submit)
         {
             console.log(values);
@@ -238,7 +235,7 @@ export default function ConsultaMedicaForm(props) {
                     setErrores={setErrores}
                 />
 
-                {/*<Secciones.ExploracionFisica
+                <Secciones.ExploracionFisica
                     className={activeStep === 1 ? classes.show : classes.hide}
                     classes={classes}
                     hasNumber={hasNumber}
@@ -281,7 +278,7 @@ export default function ConsultaMedicaForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
-                />*/}
+                />*
 
                 <div className={classes.botones}>
                     <Button

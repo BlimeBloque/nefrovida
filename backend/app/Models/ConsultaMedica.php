@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ConsultaNutricional extends Model
+class ConsultaMedica extends Model
 {
-    protected $table = "consulta_nutricional";
+    protected $table = "consulta_medica";
 
     protected $fillable = [
-        'idConsultaMedica',
         'idBeneficiario',
         'padecimientoActual',
         'taDerecho',
