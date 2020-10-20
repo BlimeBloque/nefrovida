@@ -101,6 +101,10 @@ export default function AgregarBeneficiarioForm(props) {
 */
     const onSubmit = e => {
 
+        let day = values.fechaNacimiento.getUTCDay();
+        let month = values.fechaNacimiento.getUTCMonth() + 1;
+        let year = values.fechaNacimiento.getUTCFullYear();
+
         e.preventDefault();
 
         if(validate()){
@@ -131,7 +135,7 @@ export default function AgregarBeneficiarioForm(props) {
                         direccion: values.direccion,
                         seguimiento:  values.seguimiento,
                         activo: values.activo,
-                        fechaNacimiento:  values.fechaNacimiento,
+                        fechaNacimiento:  year + "-" + month + "-" + day,
                       }),
                     }
                   );

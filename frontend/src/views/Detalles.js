@@ -15,6 +15,7 @@ import Fab from '@material-ui/core/Fab';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { Grid, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 
@@ -195,10 +196,10 @@ class DetallesTabla extends Component {
       </Table>
       <br></br><br></br><br></br>
         <Grid container justify="flex-end" spacing="2">
-          <Grid justify="flex-end" item xs={2}>          
+          <Grid item xs={10}>          
             <Link variant="body2" to="/beneficiarios">
             <IconButton color="primary" aria-label="edit">
-                  Regresar
+                <ArrowBackIcon/>
               </IconButton>
               </Link>
           </Grid>

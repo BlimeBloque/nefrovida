@@ -90,6 +90,11 @@ export default function AgregarBeneficiarioForm() {
 */
     const onSubmit = e => {
 
+        let day = values.fechaNacimiento.getUTCDay();
+        let month = values.fechaNacimiento.getUTCMonth() + 1;
+        let year = values.fechaNacimiento.getUTCFullYear();
+        console.log(day + "/" + month + "/" + year);
+
         e.preventDefault();
 
         if(validate()){
@@ -99,6 +104,7 @@ export default function AgregarBeneficiarioForm() {
             } else {
                 values.seguimiento = 0
             }
+           
             try{
     
                 let result =  fetch('http://localhost:8000/api/beneficiarios', {
@@ -118,7 +124,7 @@ export default function AgregarBeneficiarioForm() {
                             direccion: values.direccion,
                             seguimiento: values.seguimiento,
                             activo: values.activo,
-                            fechaNacimiento: '2020-10-10',
+                            fechaNacimiento: year + "-" + month + "-" + day,
                         })
             });
             console.log(values.fechaNacimiento)
