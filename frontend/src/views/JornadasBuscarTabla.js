@@ -14,7 +14,6 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
-import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import EditIcon from "@material-ui/icons/Edit";
 
 function descendingComparator(a, b, orderBy) {

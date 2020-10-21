@@ -1,6 +1,6 @@
-import { Card, CardContent, Typography, Button } from '@material-ui/core';
+import { Card, CardContent, Paper, Typography } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import React, { Component } from 'react';
+import React from 'react';
 import BotonEvaluaciones from './BotonEvaluaciones';
 
 const useStyles = makeStyles( {
@@ -11,14 +11,15 @@ const useStyles = makeStyles( {
 export default function TarjetaEvaluaciones(props) {
     const classes = useStyles();
         return (
-            <Card className={classes.root}>
-                <CardContent>
-                    <Typography variant="h5" align="center">
+            <div>
+                <Typography variant="h6" align="center">
+                    <strong>
                         Evaluaciones
-                    </Typography>
-                    <BotonEvaluaciones idBeneficiario={props.idBeneficiario} />
-                </CardContent>
-            </Card>
+                    </strong>
+                </Typography>
+                <BotonEvaluaciones idBeneficiario={props.idBeneficiario} />
+            </div>
+                
         )
     
 }

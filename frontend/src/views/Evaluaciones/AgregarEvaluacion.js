@@ -25,7 +25,7 @@ const AgregarEvaluacion = (props) => {
                 <Sidenav titulo='Agregar Evaluación'/>
                 <Container>
                     <Paper className={classes.pageContent}>
-                        <AgregarEvaluacionForm />
+                        <AgregarEvaluacionForm idEvaluacion={props.idEval}/>
                     </Paper>
                 </Container>
             </div>

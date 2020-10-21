@@ -4,6 +4,7 @@ import { Paper, makeStyles, Container } from "@material-ui/core";
 import Detalles from "./Detalles";
 import SeccionConsultaNutricion from '../components/SeccionConsultaNutricion';
 import Mensaje from '../components/Mensaje';
+import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 
 
 const useStyle = makeStyles(theme => ({
@@ -44,10 +45,17 @@ const BeneficiarioDetalles = (props) => {
         <Paper className={classes.pageContent}>
           <Detalles idBenef={props.match.params.idBeneficiario} />
         </Paper>
-        <div id="consultas">
-          <Paper className={classes.consultaNutricion}>
-            <SeccionConsultaNutricion history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
-          </Paper>
+        <div>
+          <div id="consultas">
+            <Paper className={classes.consultaNutricion}>
+              <SeccionConsultaNutricion history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
+            </Paper>
+          </div>
+          <div id="evaluaciones">
+            <Paper className={classes.consultaNutricion}>
+              <TarjetaEvaluaciones idBeneficiario={props.match.params.idBeneficiario}/>
+            </Paper>
+          </div>
         </div>
       </Container>
 

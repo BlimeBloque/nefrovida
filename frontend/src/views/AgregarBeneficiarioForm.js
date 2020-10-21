@@ -1,18 +1,14 @@
-import {CssBaseline, InputAdornment, makeStyles} from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
+import {CssBaseline, makeStyles} from '@material-ui/core';
 import { Grid } from 'semantic-ui-react';
 import axios from 'axios'
-import Alert from '@material-ui/lab/Alert';
-import Button from '@material-ui/core/Button';
 
 import Controls from "../components/FormComponents/Controls";
-
 
 const genderItems = [
     {id:'H', title: 'Hombre'},
     {id:'M', title: 'Mujer'}
 ]
-
 
 const useStyle = makeStyles(theme => ({
     root:{
@@ -39,7 +35,6 @@ const initialFValues = {
     activo: true,
     fechaNacimiento: new Date(),
 }
-
 
 export default function AgregarBeneficiarioForm() {
 

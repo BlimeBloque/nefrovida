@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import JornadaAgregarForm from "./JornadasAgregarForm";

@@ -237,13 +237,8 @@ class DetallesTabla extends Component {
             </IconButton >
             </a>
             ))}
-            
-           
         </Grid>
         </Grid>
-        {this.state.detalles.map((detalle) => (
-          <TarjetaEvaluaciones idBeneficiario={detalle.idBeneficiario}/>
-        ))}
       </Container>
     );
   }

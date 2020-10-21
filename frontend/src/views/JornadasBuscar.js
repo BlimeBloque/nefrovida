@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import JornadasDataService from "../services/jornadas.service";
 import TablaJornadas from "./JornadasBuscarTabla";
 import Select from "@material-ui/core/Select";
@@ -10,7 +10,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
-import axios from "axios";
 
 export default class JornadasBuscar extends Component {
   constructor(props) {
