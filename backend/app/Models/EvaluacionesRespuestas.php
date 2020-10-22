@@ -9,4 +9,12 @@ class EvaluacionesRespuestas extends Model
 {
     protected $table = 'evaluaciones_respuestas';
     protected $primaryKey = 'idEvaluacionRespuesta';
+
+    protected $fillable = [
+        'idEvaluacionRespuesta',
+        'idOpcionEvaluacion',
+        'idBeneficiario',
+        'otraRespuesta',
+        'respuestasPosibles'
+    ];
 }

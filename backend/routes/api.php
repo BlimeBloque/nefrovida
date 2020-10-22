@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeneficiariosController;
 use App\Http\Controllers\ConsultaNutricionController;
-use App\Http\Controllers\EvaluacionesController;
+use App\Http\Controllers\EvaluacionesRespuestasController;
 use App\Http\Controllers\EvaluacionesPreguntasController;
 use App\Http\Controllers\OpcionEvaluacionController;
 
@@ -42,6 +42,6 @@ Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
 Route::resource('consultaNutricion', ConsultaNutricionController::class);
 Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');
 
-Route::resource('evaluacion', EvaluacionesController::class);
+Route::resource('evaluacion', EvaluacionesRespuestasController::class);
 Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasController@all');
 Route::get('/opcionEvaluacion/evaluaciones/{idEvaluacion}', 'App\Http\Controllers\OpcionEvaluacionController@searchByTipoJornada');

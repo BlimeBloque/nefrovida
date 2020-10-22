@@ -25,7 +25,6 @@ function BotonEvaluaciones(props) {
     setIdEval(selectedIndex+1);
     if(selectedIndex == 0) {
       history.push('/beneficiarios/'+props.idBeneficiario+'/agregarEvaluacionInicio');
-
     }
     else {
       setIdEval(2);

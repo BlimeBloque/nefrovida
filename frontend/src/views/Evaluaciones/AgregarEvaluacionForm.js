@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, createRef} from 'react'
 
 import axios from 'axios'
 
-import {CssBaseline, FormLabel, makeStyles, Typography, Button, RadioGroup, FormControlLabel, Radio, Divider} from '@material-ui/core';
+import {CssBaseline, FormLabel, makeStyles, Typography, Button, RadioGroup, FormControlLabel, Radio, Divider, FormControl} from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
 
@@ -19,6 +19,12 @@ const useStyle = makeStyles(theme => ({
     },
     formItems: {
         textAlign: 'center'
+    },
+    formAlert: {
+        display: 'none'
+    },
+    missing: {
+        color: 'red'
     },
     title: {
         textAlign: 'center',
@@ -58,7 +64,10 @@ function AgregarEvaluacionForm(props) {
     const [valueInicio, setValueInicio] = useState(respuestasInicio);
     const [valueFin, setValueFin] = useState(respuestasFin);
     const[opciones, setOpciones] = useState([]);
-    const [idEvaluacion, setIdEvaluacion] = useState(window.location.pathname.split("/").pop() === 'agregarEvaluacionInicio' ? 1 : 2) ;
+    const [idEvaluacion] = useState(window.location.pathname.split("/").pop() === 'agregarEvaluacionInicio' ? 1 : 2);
+    const [disabled, setDisabled] = useState(false);
+    const preguntasSinContestar = []
+    const [missing, setMissing] = useState(false);
 
     const handleChange = (event) => {
         const idRespuesta = event.target.parentElement.parentElement.parentElement.parentElement.id; 
@@ -71,9 +80,10 @@ function AgregarEvaluacionForm(props) {
         else {
             setValueFin({
                 ...valueFin,
-                idRespuesta: event.target.value
+                [idRespuesta]: event.target.value
             })
         }
+        
     };
     
     useEffect (() => {
@@ -85,85 +95,99 @@ function AgregarEvaluacionForm(props) {
         })
     }, []);
     
-    var valuesForm = {};
-    const handleSubmit = () => {
-       let isComplete = true;
-        if(idEvaluacion == 1) {
-            for (let i = 1; i < 10; i++) {
-                
-                valuesForm = {
-                    idOpcionEvaluacion: i,
-                    idBeneficiario: props.match.params.idBeneficiario,
-                    respuestasPosibles: valueInicio[i]
-                }   
-                if(valueInicio[i] == "")
-                    isComplete = false;
-                } 
-                
+    const handleSubmit = (event) => {
+        setDisabled(true);
+        let valueRespuesta = {};
+        let arrayForm = [];
+
+        let i = idEvaluacion == 1 ? 1 : 10 // Decidir en donde empieza el contador del ciclo for
+        for (i; i < (idEvaluacion == 1 ? 10 : 19); i++) {
+            valueRespuesta = {
+                idOpcionEvaluacion: i,
+                idBeneficiario: props.match.params.idBeneficiario,
+                otraRespuesta: null,
+                respuestasPosibles: (idEvaluacion == 1 ? valueInicio[i] : valueFin[i])
+            }
+            if(idEvaluacion == 1) arrayForm[i] = valueRespuesta;
+            else arrayForm[i-9] = valueRespuesta;
         }
-        else {
-            for (let i = 10; i < 19; i++) {
-                valuesForm = {
-                    idOpcionEvaluacion: i,
-                    idBeneficiario: props.match.params.idBeneficiario,
-                    respuestasPosibles: valueFin[i]
-                }
-                if(valueFin[i] == "")
-                    isComplete = false;
+        if(arrayForm.every((value) => value.respuestasPosibles != "")) { // Valida que haya contestado todas las respuestas
+            for (let i = 1; i < 10; i++) {
+                axios.post('http://localhost:8000/api/evaluacion', arrayForm[i], {headers: {"Accept": "application/json"}})
+                    .then(res => {
+                        console.log(res)
+                        props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?agregarEvaluacion=1");
+    
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?agregarEvaluacion=0");
+    
+                    });
             }
         }
-        if(!isComplete)
-            return;        
-        
-        console.log(valuesForm)
-        /*axios.post('http://localhost:8000/api/'path para evaluaciones_repuestas, valuesForm, {headers: {"Accept": "application/json"}})
-        .then(res => {
-            console.log(res)
-            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarEvaluacion=1");
-        })
-            .catch(err => {
-                console.log(err)
-                props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarEvaluacion=0");
-            });*/
-            
-
+        else { // Si hay al menos una respuesta vacía, cambia el color de la pregunta sin contestar en rojo, y avisa al usuario
+            setMissing(true);
+            arrayForm.forEach(pregunta => {
+                if(pregunta.respuestasPosibles == "")
+                preguntasSinContestar.push(pregunta.idOpcionEvaluacion)
+            });
+            console.log(missing)
+            setDisabled(false);
+        } 
     }
     
     return (
         <div className={classes.root}>
             <CssBaseline/>
-            {
+                <Typography variant="h4" className={classes.title}>Formulario de Evaluación</Typography>
+            {   
+                // Definir Título de formulario
                 idEvaluacion == 1 ? 
                 <div>
-                    <Typography variant="h4" className={classes.title}>Formulario de Evaluación</Typography>
                     <Typography variant="overline">Inicio de Jornada</Typography><br />
                 </div> :  
 
                 <div>
-                    <Typography variant="h4" className={classes.title}>Formulario de Evaluación</Typography>
                     <Typography variant="overline">Fin de Jornada</Typography><br />
                 </div>
             }
-            <Divider style={{marginBottom: '10px'}}/>
+            <Divider style={{marginBottom: '20px', marginTop: '2px'}}/>
+            {console.log(missing)}
             <form className={classes.form}>   
                 {
                     opciones.map((opcion) => (
-                    <>
-                        {idEvaluacion == 1 ? 
-                        <FormLabel component="legend">{opcion.idOpcionEvaluacion}.- {opcion.evaluacionPregunta}</FormLabel> :
-                        <FormLabel component="legend">{opcion.idOpcionEvaluacion-9}.- {opcion.evaluacionPregunta}</FormLabel>
+                        <FormControl component="fieldset" style={{display: 'block'}}>
+                        {   // Numerar preguntas
+                            idEvaluacion == 1 ? 
+                            <FormLabel>{opcion.idOpcionEvaluacion}.- {opcion.evaluacionPregunta}</FormLabel> :
+                            <FormLabel>{opcion.idOpcionEvaluacion-9}.- {opcion.evaluacionPregunta}</FormLabel>
                         }
-                        
-                        <RadioGroup row aria-label="respuestas" name="pregunta-respuestas" onChange={handleChange} id={opcion.idOpcionEvaluacion}>
+                        <RadioGroup 
+                            row 
+                            aria-label="respuestas" 
+                            name="pregunta-respuestas" 
+                            onChange={handleChange}
+                            id={opcion.idOpcionEvaluacion}
+                            style={{textAlign: 'center'}}    
+                        >
                             <FormControlLabel value="Sí" control={<Radio required />} label="Sí" />
                             <FormControlLabel value="No" control={<Radio required />} label="No" />
-                        </RadioGroup> <br/>
-                    </>
+                        </RadioGroup> 
+                        </FormControl> 
                     ))
                 }
                 <div className={classes.formItems}>
+                    <Typography variant="body1" className={missing ?  {} : classes.formAlert}><em>Por favor conteste todas las preguntas antes de continuar</em></Typography>
                     <Button color="default" className={classes.back} onClick={() => history.push('/beneficiarios/'+props.match.params.idBeneficiario)}>Cancelar</Button>
-                    <Button variant="contained" color="primary" onClick={handleSubmit}>Completar</Button>
+                    <Button 
+                        disabled={disabled} 
+                        variant="contained" 
+                        color="primary" 
+                        onClick={handleSubmit}
+                    >
+                        {disabled ? 'Procesando' : 'Completar'}
+                    </Button>
                 </div>
             </form>
         </div>

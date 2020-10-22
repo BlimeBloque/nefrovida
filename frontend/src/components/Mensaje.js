@@ -24,7 +24,7 @@ const Mensaje = (props) => {
     return(
         <div>
         {   success !== -1 ?
-            <Snackbar open={open ? true : false} autoHideDuration={6000} onClose={handleClose}>
+            <Snackbar open={open ? true : false} autoHideDuration={3000} onClose={handleClose}>
                 <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity={success == 1 ? "success" : "error"}>
                     {success == 1 ? mensajeExito : mensajeError}
                 </MuiAlert>

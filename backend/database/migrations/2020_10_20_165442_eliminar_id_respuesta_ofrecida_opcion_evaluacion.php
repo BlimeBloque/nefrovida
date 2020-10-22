@@ -13,11 +13,13 @@ class EliminarIdRespuestaOfrecidaOpcionEvaluacion extends Migration
      */
     public function up()
     {
-        Schema::table('opcion_evaluacion', function (Blueprint $table) {
-            $table->dropForeign(['idRespuestaOfrecida']);
-            $table->dropColumn('idRespuestaOfrecida');
-            $table->dropColumn('idRespuestaOfrecida');
-        });
+        if (Schema::hasColumn('opcion_evaluacion', 'idRespuestaOfrecida'))
+        {
+            Schema::table('opcion_evaluacion', function (Blueprint $table) {
+                $table->dropForeign(['idRespuestaOfrecida']);
+                $table->dropColumn('idRespuestaOfrecida');
+            });
+        }
     }
 
     /**

@@ -1,1 +1,10 @@
-GET http://localhost:8000/api/opcionEvaluacion/evaluaciones/1
+POST  http://localhost:8000/api/evaluacion HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "idOpcionEvaluacion": 4, 
+    "idBeneficiario": "4", 
+    "otraRespuesta": "", 
+    "respuestasPosibles": "No"
+}
