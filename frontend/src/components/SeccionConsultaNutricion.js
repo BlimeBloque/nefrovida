@@ -1,4 +1,4 @@
-import { Typography, makeStyles, Paper } from '@material-ui/core'
+import { Typography, makeStyles, Paper, Tooltip } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
 import AddIcon from '@material-ui/icons/Add'; 
 import Fab from '@material-ui/core/Fab';
@@ -45,9 +45,11 @@ const SeccionConsultaNutricion = (props) => {
                 <Typography className={classes.flexContent} style={{margin: "10px 0px 0px 0px"}} variant="h6">
                 <strong>Consultas de Nutrición</strong>
                 </Typography>
+                <Tooltip title="Agregar Consulta de Nutrición" arrow>
                 <Fab className={classes.flexContent} color="primary" onClick={() => props.history.push("/beneficiarios/"+props.idBeneficiario+"/agregarConsultaNutricion")}>
                     <AddIcon/>
                 </Fab>
+                </Tooltip>
             </div>
 
                 <Grid container justify="center" spacing={4}>
@@ -59,7 +61,8 @@ const SeccionConsultaNutricion = (props) => {
                                 <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push("/consultaNutricion/"+consulta.idConsultaNutricional)}>
                                     <RestaurantIcon fontSize="large" />
                                 </IconButton>
-                                Consulta del: {consulta.created_at}
+                                Consulta del: {(new Date(consulta.created_at)).getDate()+"/"+((new Date(consulta.created_at)).getMonth()+1)
+                                                +"/"+(new Date(consulta.created_at)).getFullYear()}
                             </Paper>
                         </Grid>
                         
