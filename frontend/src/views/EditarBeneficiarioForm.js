@@ -51,8 +51,12 @@ export default function AgregarBeneficiarioForm(props) {
     useEffect ( () => {
 
         axios.get('http://127.0.0.1:8000/api/beneficiarios/' + props.idBenef)
-        .then(res => { setValues (res.data[0])
-    })
+        .then((res) => {
+            let temp = res.data[0].fechaNacimiento.split("-");
+            res.data[0].fechaNacimiento = new Date(temp[0], temp[1], temp[2]);
+            console.log(res.data[0]);
+            setValues(res.data[0]);
+          })
         .catch((e) => {
             console.log(e)
         })
@@ -101,9 +105,10 @@ export default function AgregarBeneficiarioForm(props) {
 */
     const onSubmit = e => {
 
-        let day = values.fechaNacimiento.getUTCDay();
+        let day = values.fechaNacimiento.getDate();
         let month = values.fechaNacimiento.getUTCMonth() + 1;
         let year = values.fechaNacimiento.getUTCFullYear();
+
 
         e.preventDefault();
 
@@ -115,7 +120,7 @@ export default function AgregarBeneficiarioForm(props) {
                 values.seguimiento = 0
             }
             try{
-    
+
                 let result = fetch(
                     "http://localhost:8000/api/beneficiarios/" + values.idBeneficiario ,
                     {
@@ -135,19 +140,19 @@ export default function AgregarBeneficiarioForm(props) {
                         direccion: values.direccion,
                         seguimiento:  values.seguimiento,
                         activo: values.activo,
-                        fechaNacimiento:  year + "-" + month + "-" + day,
+                        fechaNacimiento: year + "-" + month + "-" + day,
                       }),
                     }
                   );
-            console.log(values.fechaNacimiento)
-            window.alert("El beneficiario fue actualizado  existosamente")
-            window.location.replace("http://localhost:3000/beneficiarios/" + values.idBeneficiario)
-    
+            console.log(year + "-" + month + "-" + day)
+            props.history.push("/beneficiarios/"+ props.idBenef +"?editarBeneficiario=1");
+          
             } catch (e) {
                 console.log(e);
+                props.history.push("/beneficiarios/" + props.idBenef + "?editarBeneficiario=0");
+               
             }
         } else {
-           window.alert("Todos los campos obligatorios deben ser llenados")
         }
 
  
@@ -181,6 +186,7 @@ export default function AgregarBeneficiarioForm(props) {
                         name="telefono"
                         value={values.telefono}
                         onChange = {handleInputChange}
+                        error={errors.telefono}
                         />
                         <Controls.Input 
                         variant="outlined"

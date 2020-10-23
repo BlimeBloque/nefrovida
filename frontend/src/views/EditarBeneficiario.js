@@ -24,7 +24,7 @@ const AgregarBeneficiario = (props) => {
         <Sidenav titulo="Editar Beneficiario" />        
         <Container>
           <Paper className={classes.pageContent}>
-            <EditarBeneficiarioForm idBenef={props.match.params.idBeneficiario} />
+            <EditarBeneficiarioForm history={props.history} idBenef={props.match.params.idBeneficiario} />
           </Paper>
         </Container>
       </div>

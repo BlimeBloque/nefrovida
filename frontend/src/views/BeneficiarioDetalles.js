@@ -42,7 +42,7 @@ const BeneficiarioDetalles = (props) => {
       <Sidenav titulo="Detalle de Beneficiario" />        
       <Container>
         <Paper className={classes.pageContent}>
-          <Detalles idBenef={props.match.params.idBeneficiario} />
+          <Detalles history={props.history} idBenef={props.match.params.idBeneficiario} />
         </Paper>
         <div id="consultas">
           <Paper className={classes.consultaNutricion}>
@@ -52,6 +52,11 @@ const BeneficiarioDetalles = (props) => {
       </Container>
 
 
+      <Mensaje 
+        success={args.includes("editarBeneficiario") ? args.slice(-1) : -1} 
+        mensajeExito={"Se editó el beneficiario correctamente."}
+        mensajeError={"Hubo un error al editar al beneficiario"}
+      />
 
 
       <Mensaje 
