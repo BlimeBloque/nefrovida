@@ -13,7 +13,6 @@ class Beneficiarios extends Model
 
         'idBeneficiario',
         'nombreBeneficiario',
-        'edad',
         'idEscolaridad',
         'sexo',
         'telefono',

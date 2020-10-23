@@ -4,6 +4,8 @@ import Sidenav from "../../components/Nav/Sidenav";
 import ConsultaNutricion from './ConsultaNutricion';
 import { Paper, makeStyles, Container, Button } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import IconButton from '@material-ui/core/IconButton';
+import {Link} from "react-router-dom";
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -40,11 +42,11 @@ const DetalleConsultaNutricion = (props) => {
             <Container>
             
             <Paper className={classes.pageContent}>
-                <Button variant="contained" color="primary" className={classes.button} startIcon={<ArrowBackIcon />}
-                onClick={() => props.history.push("/beneficiarios/"+detalle.idBeneficiario)}
-                >
-                    Regresar
-                </Button>
+                <Link variant="body2" to={"/beneficiarios/"+detalle.idBeneficiario}>
+                    <IconButton color="primary" aria-label="edit">
+                        <ArrowBackIcon/>
+                    </IconButton>
+                </Link>
                 
                 <ConsultaNutricion detalle={detalle} history={props.history}/>
             </Paper>

@@ -26,7 +26,6 @@ const useStyle = makeStyles(theme => ({
 
 const initialFValues = {
     nombre: '',
-    edad: '',
     idEscolaridad: '',
     sexo: 'H',
     telefono: '',
@@ -68,7 +67,6 @@ export default function AgregarBeneficiarioForm() {
   const validate = () => {
       let temp = {}
       temp.nombre = values.nombre?"":"Este campo es requerido"
-      temp.edad = values.nombre?"":"Este campo es requerido"
       temp.telefono = (values.telefono.length > 9 || values.telefono.length == 0 )?"":"Este campo debe tener al menos 10 digitos"
       temp.idEscolaridad = values.idEscolaridad.length!=0?"":"Este campo es requerido"
       setErrors({
@@ -112,7 +110,6 @@ export default function AgregarBeneficiarioForm() {
                         },
                         body: JSON.stringify({
                             nombreBeneficiario: values.nombre,
-                            edad: values.edad,
                             idEscolaridad: values.idEscolaridad,
                             sexo: values.sexo, 
                             telefono: values.telefono,
@@ -151,14 +148,6 @@ export default function AgregarBeneficiarioForm() {
                         onChange = {handleInputChange}
                         error={errors.nombre}
                     />
-                        <Controls.Input 
-                        variant="outlined"
-                        label="Edad *"
-                        name="edad"
-                        value={values.edad}
-                        onChange = {handleInputChange}
-                        error={errors.nombre}
-                        />
                         <Controls.Input 
                         variant="outlined"
                         label="Numero de Teléfono"

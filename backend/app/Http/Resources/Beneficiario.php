@@ -27,7 +27,6 @@ class Beneficiario extends JsonResource {
         return [
             'idBeneficiario' => $this->idBeneficiario,
             'nombreBeneficiario' => $this->nombreBeneficiario,
-            'edad' => $this->edad,
             'idEscolaridad' => (int) $this->idEscolaridad,
             'sexo' => $this->sexo,
             'telefono' => $this->telefono,

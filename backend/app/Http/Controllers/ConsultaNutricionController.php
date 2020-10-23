@@ -99,7 +99,7 @@ class ConsultaNutricionController extends Controller
     {
         return DB::table('consulta_nutricional')->leftJoin('beneficiarios', 'consulta_nutricional.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
             -> where('idConsultaNutricional', '=', $idConsultaNutricional) 
-            -> select('consulta_nutricional.*', 'beneficiarios.nombreBeneficiario', 'beneficiarios.edad', 'beneficiarios.sexo') -> get();
+            -> select('consulta_nutricional.*', 'beneficiarios.nombreBeneficiario', 'beneficiarios.fechaNacimiento', 'beneficiarios.sexo') -> get();
     }
 
     public function searchByBenef($idBeneficiario)

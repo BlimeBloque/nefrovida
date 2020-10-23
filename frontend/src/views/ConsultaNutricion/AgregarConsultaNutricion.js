@@ -2,6 +2,9 @@ import React from "react";
 import Sidenav from "../../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from '@material-ui/core';
 import ConsultaNutricionForm from './ConsultaNutricionForm';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import IconButton from '@material-ui/core/IconButton';
+import {Link} from "react-router-dom";
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -22,6 +25,11 @@ const AgregarConsultaNutricion = (props) => {
             <Sidenav titulo="Registrar Consulta de Nutriología" />        
             <Container>
             <Paper className={classes.pageContent}>
+            <Link variant="body2" to={"/beneficiarios/"+props.match.params.idBeneficiario}>
+                <IconButton color="primary" aria-label="edit">
+                    <ArrowBackIcon/>
+                </IconButton>
+            </Link>
             <ConsultaNutricionForm history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
             </Paper>
             </Container>

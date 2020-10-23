@@ -19,7 +19,6 @@ class BeneficiariosSeeder extends Seeder
         {
             Beneficiarios::create([
                 'nombreBeneficiario' => $faker->name,
-                'edad' => $faker->numberBetween($min = 8, $max = 30),
                 'idEscolaridad' => $faker->numberBetween($min = 1, $max = 6),
                 'sexo' => $faker->randomElement($array = array('H', 'M')),
                 'enfermedad' => $faker->word,
