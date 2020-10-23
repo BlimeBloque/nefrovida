@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import JornadaEditarForm from "./JornadasEditarForm";
@@ -19,7 +19,7 @@ const JornadasAgregar = (props) => {
   //console.log(props);
   return (
     <div className={classes.container}>
-      <Sidenav titulo="Registrar Beneficiario" />
+      <Sidenav titulo="Editar Joranda" />
       <Container>
         <Paper className={classes.pageContent}>
           <JornadaEditarForm idJornada={props.match.params.idJornada} />

@@ -1,21 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
-import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  Toolbar,
+  Typography,
+  Paper,
+  IconButton,
+  Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+
+import JornadasDataService from "../services/jornadas.service";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -164,6 +174,9 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  deletewindow: {
+    width: "50%",
+  },
 }));
 
 export default function JornadasBuscarTabla(props) {
@@ -171,7 +184,16 @@ export default function JornadasBuscarTabla(props) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  console.log(props);
+  const [jornadaEliminar, setJornadaEliminar] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = (jornada) => {
+    setJornadaEliminar(jornada);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   let jornadas = props.estado
     ? props.data.filter((x) => x["nombreEstado"].includes(props.estado))
@@ -198,6 +220,18 @@ export default function JornadasBuscarTabla(props) {
     props.setPage(0);
   };
 
+  const EliminarJornada = (id) => {
+    console.log(JornadasDataService.delete(id));
+    let length = jornadas.length;
+    for (let i = 0; i < length; i++) {
+      if (jornadas[i].idJornada === id) {
+        jornadas.splice(i, 1);
+        handleClose();
+        break;
+      }
+    }
+  };
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -217,6 +251,11 @@ export default function JornadasBuscarTabla(props) {
               rowCount={jornadas.length}
             />
             <TableBody>
+              {jornadas.length === 0 && props.retrieve !== -1 && (
+                <TableCell colSpan={6}>
+                  <Alert severity="info">No se encontró ninguna jornada.</Alert>
+                </TableCell>
+              )}
               {stableSort(jornadas, getComparator(order, orderBy))
                 .slice(
                   props.page * rowsPerPage,
@@ -225,8 +264,6 @@ export default function JornadasBuscarTabla(props) {
                 .map((jornada) => {
                   return (
                     <TableRow hover tabIndex={-1} key={jornada.idJornada}>
-                      {/*Modificar para acceder a jornada*/}
-                      {/*Ya quedó :3*/}
                       <TableCell
                         align="center"
                         style={{ cursor: "pointer" }}
@@ -257,6 +294,15 @@ export default function JornadasBuscarTabla(props) {
                             <EditIcon />
                           </IconButton>
                         </Tooltip>
+                        <Tooltip title="Eliminar" arrow>
+                          <IconButton
+                            color="secondary"
+                            aria-label="edit"
+                            onClick={() => handleClickOpen(jornada)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                   );
@@ -275,6 +321,40 @@ export default function JornadasBuscarTabla(props) {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
+      <Dialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          Seguro que desea eliminar esta jornada?
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>Nombre: {jornadaEliminar.nombre}</Typography>
+          <Typography gutterBottom>Fecha: {jornadaEliminar.fecha}</Typography>
+          <Typography gutterBottom>
+            Localidad: {jornadaEliminar.localidad}
+          </Typography>
+          <Typography gutterBottom>
+            Municipio: {jornadaEliminar.municipio}
+          </Typography>
+          <Typography gutterBottom>
+            Estado: {jornadaEliminar.nombreEstado}
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            autoFocus
+            onClick={() => EliminarJornada(jornadaEliminar.idJornada)}
+            color="primary"
+          >
+            Eliminar
+          </Button>
+          <Button autoFocus onClick={handleClose} color="primary">
+            Cancelar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

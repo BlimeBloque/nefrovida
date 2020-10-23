@@ -1,16 +1,20 @@
-import React, { Component, useState, useEffect } from "react";
-import JornadasDataService from "../services/jornadas.service";
-import TablaJornadas from "./JornadasBuscarTabla";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
-import { FormControl, Tooltip } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
+import React, { Component } from "react";
+import {
+  FormControl,
+  Tooltip,
+  Select,
+  MenuItem,
+  InputLabel,
+  TextField,
+  InputAdornment,
+  Fab,
+} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-import axios from "axios";
+
+import JornadasDataService from "../services/jornadas.service";
+
+import TablaJornadas from "./JornadasBuscarTabla";
 
 export default class JornadasBuscar extends Component {
   constructor(props) {
@@ -26,6 +30,7 @@ export default class JornadasBuscar extends Component {
       filtrarEstado: "",
       page: 0,
       history: props.history,
+      retrieve: -1,
     };
   }
 
@@ -37,6 +42,11 @@ export default class JornadasBuscar extends Component {
     JornadasDataService.getAll()
       .then((jornadas) => {
         this.setState({ jornadas: jornadas.data });
+        if (jornadas.data.length !== 0) {
+          this.setState({ retrieve: 0 });
+        } else {
+          this.setState({ retrieve: 1 });
+        }
       })
       .catch((e) => {
         console.log(e);
@@ -66,7 +76,6 @@ export default class JornadasBuscar extends Component {
   };
 
   render() {
-    console.log(this.state);
     const {
       jornadas,
       estados,
@@ -104,14 +113,15 @@ export default class JornadasBuscar extends Component {
             <InputLabel id="buscarEstadoLabel">Buscar por estado</InputLabel>
             <Select
               labelId="buscarEstadoLabel"
-              id="busca-por-activo"
               value={this.state.filtrarEstado}
               onChange={this.handleEstado}
               options={estados}
             >
               <MenuItem value="">Todos</MenuItem>
               {this.state.estados.map((estado) => (
-                <MenuItem value={estado.nombre}>{estado.nombre}</MenuItem>
+                <MenuItem value={estado.nombre} key={estado.id}>
+                  {estado.nombre}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -131,6 +141,7 @@ export default class JornadasBuscar extends Component {
           setPage={this.setPage}
           page={page}
           url={history}
+          retrieve={this.state.retrieve}
         />
       </div>
     );
