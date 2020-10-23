@@ -19,7 +19,7 @@ const JornadasAgregar = (props) => {
   //console.log(props);
   return (
     <div className={classes.container}>
-      <Sidenav titulo="Registrar Beneficiario" />
+      <Sidenav titulo="Editar Joranda" />
       <Container>
         <Paper className={classes.pageContent}>
           <JornadaEditarForm idJornada={props.match.params.idJornada} />

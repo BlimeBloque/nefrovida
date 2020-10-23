@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CssBaseline, InputAdornment, makeStyles } from "@material-ui/core";
-import { Grid } from "semantic-ui-react";
+import { CssBaseline, makeStyles } from "@material-ui/core";
 import axios from "axios";
 
 import Controls from "../components/FormComponents/Controls";
@@ -26,8 +25,17 @@ const initialFValues = {
   idEstado: "",
 };
 
+const ErrorDValues = {
+  nombre: "",
+  fecha: new Date(),
+  localidad: "",
+  municipio: "",
+  idEstado: "",
+};
+
 export default function JornadasAgregarForm() {
   const [values, setValues] = useState(initialFValues);
+  const [errors, setErrors] = useState(ErrorDValues);
   const classes = useStyle();
   const [EstadosCollection, setEstados] = useState([]);
 
@@ -39,6 +47,48 @@ export default function JornadasAgregarForm() {
     });
     console.log(e.target);
     console.log(values);
+  };
+
+  const validateFront = () => {
+    let val = {};
+    val.nombre = values.nombre ? "" : "Este campo es requerido";
+    val.localidad = values.localidad ? "" : "Este campo es requerido";
+    val.municipio = values.municipio ? "" : "Este campo es requerido";
+    val.idEstado =
+      values.idEstado.length !== 0 ? "" : "Este campo es requerido";
+    setErrors({
+      ...val,
+    });
+
+    return Object.values(val).every((x) => x === "");
+  };
+
+  const validateBack = (backResponse) => {
+    if (typeof backResponse === "undefined") {
+      window.location.replace("http://localhost:3000/jornadas");
+    } else {
+      let val = {};
+      val.nombre =
+        typeof backResponse.nombre === "undefined"
+          ? ""
+          : "Este campo es requerido";
+      val.localidad =
+        typeof backResponse.localidad === "undefined"
+          ? ""
+          : "Este campo es requerido";
+      val.municipio =
+        typeof backResponse.municipio === "undefined"
+          ? ""
+          : "Este campo es requerido";
+      val.idEstado =
+        typeof backResponse.idEstado === "undefined"
+          ? ""
+          : "Este campo es requerido";
+
+      setErrors({
+        ...val,
+      });
+    }
   };
 
   useEffect(() => {
@@ -53,12 +103,14 @@ export default function JornadasAgregarForm() {
   }, []);
 
   const onSubmit = (e) => {
+    console.log(errors);
     e.preventDefault();
-    try {
+    //? Front validation
+    if (validateFront()) {
       let day = values.fecha.getUTCDay();
       let month = values.fecha.getUTCMonth() + 1;
       let year = values.fecha.getUTCFullYear();
-      let result = fetch("http://localhost:8000/api/jornadas", {
+      fetch("http://localhost:8000/api/jornadas", {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000/",
@@ -73,13 +125,11 @@ export default function JornadasAgregarForm() {
           municipio: values.municipio,
           idEstado: values.idEstado,
         }),
-      });
-      console.log(values);
-    } catch (e) {
-      console.log(e);
+      })
+        .then((response) => response.json())
+        .then((data) => validateBack(data.errors));
     }
   };
-
   return (
     <div className={classes.form}>
       <CssBaseline />
@@ -89,6 +139,7 @@ export default function JornadasAgregarForm() {
           label="Nombre"
           value={values.nombre}
           onChange={handleInputChange}
+          error={errors.nombre}
         />
         <Controls.DatePicker
           name="fecha"
@@ -101,12 +152,14 @@ export default function JornadasAgregarForm() {
           label="Localidad"
           value={values.localidad}
           onChange={handleInputChange}
+          error={errors.localidad}
         />
         <Controls.Input
           name="municipio"
           label="Municipio"
           value={values.municipio}
           onChange={handleInputChange}
+          error={errors.municipio}
         />
         <Controls.Select
           name="idEstado"
@@ -114,6 +167,7 @@ export default function JornadasAgregarForm() {
           value={values.idEstado}
           onChange={handleInputChange}
           options={EstadosCollection}
+          error={errors.idEstado}
         />
         <Controls.Button
           text="Submit"
