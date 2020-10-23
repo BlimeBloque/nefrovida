@@ -1,8 +1,8 @@
-import React, {useState, useEffect, createRef} from 'react'
+import React, {useState, useEffect } from 'react'
 
 import axios from 'axios'
 
-import {CssBaseline, FormLabel, makeStyles, Typography, Button, RadioGroup, FormControlLabel, Radio, Divider, FormControl} from '@material-ui/core';
+import {CssBaseline, FormLabel, makeStyles, Typography, Button, RadioGroup, FormControlLabel, Radio, Divider, FormControl, CircularProgress} from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
 
@@ -21,10 +21,10 @@ const useStyle = makeStyles(theme => ({
         textAlign: 'center'
     },
     formAlert: {
-        display: 'none'
-    },
-    missing: {
         color: 'red'
+    },
+    hide: {
+        display: 'none',
     },
     title: {
         textAlign: 'center',
@@ -101,6 +101,11 @@ function AgregarEvaluacionForm(props) {
         let arrayForm = [];
 
         let i = idEvaluacion == 1 ? 1 : 10 // Decidir en donde empieza el contador del ciclo for
+        /* 
+            Todos los operadores ternarios aquí los utilicé para no hacer dos ciclos for.
+            El que está dentro de la declaración del ciclo delimita si termina en 10 o 19
+            El que está en el valor de respuestasPosibles agrega el valor sacado del arreglo correspondiente (valueInicio/valueFin)
+        */
         for (i; i < (idEvaluacion == 1 ? 10 : 19); i++) {
             valueRespuesta = {
                 idOpcionEvaluacion: i,
@@ -111,11 +116,12 @@ function AgregarEvaluacionForm(props) {
             if(idEvaluacion == 1) arrayForm[i] = valueRespuesta;
             else arrayForm[i-9] = valueRespuesta;
         }
+        console.log(arrayForm)
         if(arrayForm.every((value) => value.respuestasPosibles != "")) { // Valida que haya contestado todas las respuestas
             for (let i = 1; i < 10; i++) {
+                
                 axios.post('http://localhost:8000/api/evaluacion', arrayForm[i], {headers: {"Accept": "application/json"}})
                     .then(res => {
-                        console.log(res)
                         props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?agregarEvaluacion=1");
     
                     })
@@ -126,13 +132,12 @@ function AgregarEvaluacionForm(props) {
                     });
             }
         }
-        else { // Si hay al menos una respuesta vacía, cambia el color de la pregunta sin contestar en rojo, y avisa al usuario
+        else { // Si hay al menos una respuesta vacía, avisa al usuario
             setMissing(true);
             arrayForm.forEach(pregunta => {
                 if(pregunta.respuestasPosibles == "")
                 preguntasSinContestar.push(pregunta.idOpcionEvaluacion)
             });
-            console.log(missing)
             setDisabled(false);
         } 
     }
@@ -153,7 +158,6 @@ function AgregarEvaluacionForm(props) {
                 </div>
             }
             <Divider style={{marginBottom: '20px', marginTop: '2px'}}/>
-            {console.log(missing)}
             <form className={classes.form}>   
                 {
                     opciones.map((opcion) => (
@@ -178,7 +182,7 @@ function AgregarEvaluacionForm(props) {
                     ))
                 }
                 <div className={classes.formItems}>
-                    <Typography variant="body1" className={missing ?  {} : classes.formAlert}><em>Por favor conteste todas las preguntas antes de continuar</em></Typography>
+                    <Typography variant="body1" className={missing ?  classes.formAlert : classes.hide}><em>Por favor conteste todas las preguntas antes de continuar</em></Typography>
                     <Button color="default" className={classes.back} onClick={() => history.push('/beneficiarios/'+props.match.params.idBeneficiario)}>Cancelar</Button>
                     <Button 
                         disabled={disabled} 
@@ -186,7 +190,7 @@ function AgregarEvaluacionForm(props) {
                         color="primary" 
                         onClick={handleSubmit}
                     >
-                        {disabled ? 'Procesando' : 'Completar'}
+                        {disabled ? <CircularProgress size={24} /> : 'Completar'}
                     </Button>
                 </div>
             </form>
