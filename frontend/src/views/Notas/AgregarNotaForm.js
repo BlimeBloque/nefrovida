@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import Controls from "../../components/FormComponents/Controls";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import Button from '../../components/FormComponents/Button';
 
 
 
@@ -23,7 +24,10 @@ const useStyle = makeStyles(theme => ({
     form: {
             display: 'flex',
             justifyContent: 'space-evenly'
-    }
+    },
+    input: {
+        display: 'none',
+      }
 
 }))
 
@@ -34,6 +38,12 @@ const initialFValues = {
     urlArchivo: '',
 }
 
+const initialFileValues = {
+    archivo: null,
+    archivoNombre: '',
+}
+
+
 
 export default function AgregarNotaForm(props) {
 
@@ -42,6 +52,7 @@ export default function AgregarNotaForm(props) {
     const[errors, setErrors] = useState({});
     const classes = useStyle();
     const [beneficiario, setBeneficiario] = useState([]);
+    const [archivo, setArchivo] = useState(initialFileValues);
 
     const handleInputChange= e => {
         const {name , value} = e.target
@@ -85,6 +96,15 @@ export default function AgregarNotaForm(props) {
 
     return Object.values(temp).every(x => x == "")
 }
+
+
+const fileSelectedHandler = (e) => {
+    setArchivo({
+        archivo: e.target.files[0],
+        archivoNombre: e.target.files[0].name
+    })
+}
+
 
 const onSubmit = e => {
     console.log('submit');
@@ -133,11 +153,25 @@ const onSubmit = e => {
                             />
                     </Grid>
                     <Grid item xs={1}>
-                        <Tooltip title="Adjuntar archivo">
-                            <IconButton color="primary">
-                                <AttachFileIcon fontSize="large"/>
-                            </IconButton>
-                        </Tooltip>
+                        <input
+                            className={classes.input}
+                            id="contained-button-file"
+                            type="file"
+                            onChange={fileSelectedHandler}
+                        />
+                        <label htmlFor="contained-button-file">
+                            <Tooltip title ="Adjuntar archivo">
+                                <IconButton color="primary" component="span">
+                                    <AttachFileIcon fontSize="large"/>
+                                </IconButton>
+                            </Tooltip>
+                        </label>
+                        
+                    </Grid>
+                </Grid>
+                <Grid container justify="flex-end" direction="row">
+                    <Grid item xs={3}>
+                            <Typography color="primary">{archivo.archivoNombre}</Typography>
                     </Grid>
                 </Grid>
                 </div>
