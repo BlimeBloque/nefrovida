@@ -1,5 +1,4 @@
 import React from "react";
-//import { Route } from "react-router-dom";
 import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import JornadaDetalleEspecifico from "./JornadaDetalleEspecifico";

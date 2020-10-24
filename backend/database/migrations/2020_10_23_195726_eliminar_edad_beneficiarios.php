@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AgregarDxTablaConsultaNutricional extends Migration
+class EliminarEdadBeneficiarios extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AgregarDxTablaConsultaNutricional extends Migration
      */
     public function up()
     {
-        Schema::table('consulta_nutricional', function (Blueprint $table) {
-            $table->string('diagnostico')->nullable(); //DX
+        Schema::table('beneficiarios', function (Blueprint $table) {
+            $table->dropColumn('edad');
+            $table->dropColumn('enfermedad');
         });
     }
 
@@ -25,8 +26,9 @@ class AgregarDxTablaConsultaNutricional extends Migration
      */
     public function down()
     {
-        Schema::table('consulta_nutricional', function (Blueprint $table) {
-            $table->dropColumn('diagnostico');
+        Schema::table('beneficiarios', function (Blueprint $table) {
+            $table->unsignedInteger("edad");
+            $table->string("enfermedad");
         });
     }
 }

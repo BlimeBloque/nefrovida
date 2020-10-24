@@ -42,10 +42,10 @@ class BeneficiariosController extends Controller
         $request->validate([
 
             'nombreBeneficiario' => 'required',
-            'edad' => 'required',
             'idEscolaridad' => 'required',
             'sexo' => 'required',
-            'direccion' => 'required',
+            'telefono' => 'nullable',
+            'direccion' => 'nullable',
             'fechaNacimiento' => 'required',
             'seguimiento' => 'required',
             'activo' => 'required',
@@ -93,7 +93,6 @@ class BeneficiariosController extends Controller
         $request->validate([
 
             'nombreBeneficiario' => 'required',
-            'edad' => 'required',
             'idEscolaridad' => 'required',
             'sexo' => 'required',
             'direccion' => 'required',
@@ -103,7 +102,7 @@ class BeneficiariosController extends Controller
             'activo' => 'required',
         ]);
 
-        $query = DB::table('beneficiarios')->where('idBeneficiario', $idBeneficiario)->update(['nombreBeneficiario'=> $request->get('nombreBeneficiario') , 'edad'=> $request->get('edad') , 'idEscolaridad' => $request->get('idEscolaridad') , 'telefono' => $request->get('telefono') , 'sexo' => $request->get('sexo') , 'direccion' => $request->get('direccion') , 'fechaNacimiento' => $request->get('fechaNacimiento') , 'seguimiento' => $request->get('seguimiento') ,  'activo' => $request->get('activo')]);
+        $query = DB::table('beneficiarios')->where('idBeneficiario', $idBeneficiario)->update(['nombreBeneficiario'=> $request->get('nombreBeneficiario') , 'idEscolaridad' => $request->get('idEscolaridad') , 'telefono' => $request->get('telefono') , 'sexo' => $request->get('sexo') , 'direccion' => $request->get('direccion') , 'fechaNacimiento' => $request->get('fechaNacimiento') , 'seguimiento' => $request->get('seguimiento') ,  'activo' => $request->get('activo')]);
         return $query;
     }
 

@@ -16,10 +16,10 @@ export default class BuscarBeneficiarios extends Component
 {
     constructor(props)
     {
-        console.log(props);
         super(props);
         this.retrieveBeneficiarios = this.retrieveBeneficiarios.bind(this);
         this.setPage = this.setPage.bind(this)
+        this.sinFiltro = this.sinFiltro.bind(this);
         
         this.state = {
         beneficiarios: [],
@@ -28,7 +28,6 @@ export default class BuscarBeneficiarios extends Component
         filtrarPorActivo:1,
         filtrarPorEdad:'', 
         filtrarPorNombre:'',
-        filtrarPorId:null,
         page: 0,
         history: props.history,
         };
@@ -48,6 +47,7 @@ export default class BuscarBeneficiarios extends Component
         BeneficiariosDataService.getAll()
             .then(beneficiarios => {
                 this.setState({beneficiarios: beneficiarios.data.data});
+                
             })
             .catch((e) => {
                 console.log(e);
@@ -84,7 +84,15 @@ export default class BuscarBeneficiarios extends Component
         this.setPage(0);
     };
 
-
+    sinFiltro()
+    {
+        this.setState({filtrarPorSexo: ''});
+        this.setState({filtrarPorSeguimiento: null});
+        this.setState({filtrarPorActivo: 1});
+        this.setState({filtrarPorEdad: ''});
+        this.setState({filtrarPorNombre: ''});
+        this.setPage(0);
+    }
 
     render()
     {
@@ -96,11 +104,10 @@ export default class BuscarBeneficiarios extends Component
             filtrarPorEdad,
             filtrarPorNombre,
             page,
-            history
+            history,
         } = this.state;
         return (
             <div>
-
                 <div style={{
                     display:"flex",
                     justifyContent:"space-between",
@@ -116,6 +123,7 @@ export default class BuscarBeneficiarios extends Component
                         >
                             <MenuItem value={1}>Activos</MenuItem>
                             <MenuItem value={0}>Inactivos</MenuItem>
+                            <MenuItem value={null}>Todos</MenuItem>
                         </Select>
                     </FormControl>
 
@@ -192,6 +200,7 @@ export default class BuscarBeneficiarios extends Component
                     setPage={this.setPage}
                     page={page}
                     url={history}
+                    sinFiltro={this.sinFiltro}
                 />
             </div>
         );

@@ -504,14 +504,28 @@ const ConsultaNutricion = (props) => {
     const detalle = props.detalle;
     const classes = useStyle();
 
+    const getAge = (dateString) =>
+    {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+        {
+            age--;
+        }
+        return age;
+    }
+
     //Dar formato a fecha
     const date = new Date(detalle.created_at);
     const fecha = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
 
     //Obtener campos calculados
+    const edad = getAge(detalle.fechaNacimiento);
     const pesoIdeal = obtenerPesoIdeal(detalle.sexo, detalle.altura);
     const imc = obtenerIMC(detalle.altura, detalle.peso);
-    const diagnosticoIMC = obtenerDiagnosticoIMC(imc, detalle.sexo, detalle.edad);
+    const diagnosticoIMC = obtenerDiagnosticoIMC(imc, detalle.sexo, edad);
 
     return(
         <center>
@@ -706,9 +720,9 @@ const ConsultaNutricion = (props) => {
                     {detalle.diagnostico ? detalle.diagnostico : "No registrado"}
                 </Typography>
                 <div className={classes.flexNormal}>
-                    <Typography variant="body1" style={{marginLeft: "5%", marginRight: "5%"}} className={detalle.edad ? classes.normal : classes.faltante}>
+                    <Typography variant="body1" style={{marginLeft: "5%", marginRight: "5%"}} className={edad ? classes.normal : classes.faltante}>
                         <strong className={classes.normal}>Edad: </strong>
-                        {detalle.edad ? detalle.edad : "No registrado"}
+                        {edad ? edad : "No registrado"}
                     </Typography>
                     <Typography variant="body1" className={detalle.peso ? classes.normal : classes.faltante}>
                         <strong className={classes.normal}>Peso (kg): </strong>

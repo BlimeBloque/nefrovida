@@ -13,6 +13,7 @@ import EditarBeneficiario from "./views/EditarBeneficiario";
 import AgregarConsultaNutricion from './views/ConsultaNutricion/AgregarConsultaNutricion';
 import BeneficiarioDetalles from "./views/BeneficiarioDetalles";
 import JornadaDetalles from './views/JornadaDetalles';
+import AgregarEvaluacion from './views/Evaluaciones/AgregarEvaluacion';
 import DetalleConsultaNutricion from "./views/ConsultaNutricion/DetalleConsultaNutricion";
 import AgregarConsultaMedica from './views/ConsultaMedica/AgregarConsultaMedica';
 import DetalleConsultaMedica from './views/ConsultaMedica/DetalleConsultaMedica';
@@ -42,6 +43,9 @@ export default withRouter(
             <SecureRoute path='/reportes' exact={true} component={Reportes} />
             <SecureRoute path='/beneficiarios/agregar' exact={true} component={AgregarBeneficiario}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaNutricion' exact={true} component={AgregarConsultaNutricion}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionInicio' exact={true} component={AgregarEvaluacion}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionFin' exact={true} component={AgregarEvaluacion}/>
+            
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editar' exact={true} component={EditarBeneficiario}/>
             <SecureRoute path='/consultaNutricion/:idConsultaNutricion([0-9]*)' exact={true} component={DetalleConsultaNutricion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaMedica' exact={true} component={AgregarConsultaMedica}/>

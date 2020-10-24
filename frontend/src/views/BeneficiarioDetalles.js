@@ -5,6 +5,7 @@ import Detalles from "./Detalles";
 import SeccionConsultaNutricion from '../components/SeccionConsultaNutricion';
 import SeccionConsultaMedica from '../components/SeccionConsultaMedica';
 import Mensaje from '../components/Mensaje';
+import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 
 
 const useStyle = makeStyles(theme => ({
@@ -53,15 +54,27 @@ const BeneficiarioDetalles = (props) => {
             <SeccionConsultaMedica history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
           </Paper>
         </div>
+          <div id="evaluaciones">
+            <Paper className={classes.consultaNutricion}>
+              <TarjetaEvaluaciones idBeneficiario={props.match.params.idBeneficiario}/>
+            </Paper>
+          </div>
       </Container>
 
 
 
-
+      {/* CONSULTA NUTRICIÓN RETRO*/}
       <Mensaje 
         success={args.includes("agregarNutricion") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró la consulta de nutrición."}
-        mensajeError={"Hubo un error al registrar la consulta de nutrición"}
+        mensajeError={"Hubo un error al registrar la consulta de nutrición."}
+      />
+
+      {/* EVALUACIÓN RETRO*/}
+      <Mensaje 
+        success={args.includes("agregarEvaluacion") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró la evaluación."}
+        mensajeError={"Hubo un error al registrar la evaluación."}
       />
 
 <Mensaje 

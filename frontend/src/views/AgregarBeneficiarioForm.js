@@ -1,18 +1,14 @@
-import {CssBaseline, InputAdornment, makeStyles} from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
+import {CssBaseline, makeStyles} from '@material-ui/core';
 import { Grid } from 'semantic-ui-react';
 import axios from 'axios'
-import Alert from '@material-ui/lab/Alert';
-import Button from '@material-ui/core/Button';
 
 import Controls from "../components/FormComponents/Controls";
-
 
 const genderItems = [
     {id:'H', title: 'Hombre'},
     {id:'M', title: 'Mujer'}
 ]
-
 
 const useStyle = makeStyles(theme => ({
     root:{
@@ -30,7 +26,6 @@ const useStyle = makeStyles(theme => ({
 
 const initialFValues = {
     nombre: '',
-    edad: '',
     idEscolaridad: '',
     sexo: 'H',
     telefono: '',
@@ -39,7 +34,6 @@ const initialFValues = {
     activo: true,
     fechaNacimiento: new Date(),
 }
-
 
 export default function AgregarBeneficiarioForm() {
 
@@ -73,7 +67,6 @@ export default function AgregarBeneficiarioForm() {
   const validate = () => {
       let temp = {}
       temp.nombre = values.nombre?"":"Este campo es requerido"
-      temp.edad = values.nombre?"":"Este campo es requerido"
       temp.telefono = (values.telefono.length > 9 || values.telefono.length == 0 )?"":"Este campo debe tener al menos 10 digitos"
       temp.idEscolaridad = values.idEscolaridad.length!=0?"":"Este campo es requerido"
       setErrors({
@@ -90,6 +83,11 @@ export default function AgregarBeneficiarioForm() {
 */
     const onSubmit = e => {
 
+        let day = values.fechaNacimiento.getUTCDay();
+        let month = values.fechaNacimiento.getUTCMonth() + 1;
+        let year = values.fechaNacimiento.getUTCFullYear();
+        console.log(day + "/" + month + "/" + year);
+
         e.preventDefault();
 
         if(validate()){
@@ -99,6 +97,7 @@ export default function AgregarBeneficiarioForm() {
             } else {
                 values.seguimiento = 0
             }
+           
             try{
     
                 let result =  fetch('http://localhost:8000/api/beneficiarios', {
@@ -111,14 +110,13 @@ export default function AgregarBeneficiarioForm() {
                         },
                         body: JSON.stringify({
                             nombreBeneficiario: values.nombre,
-                            edad: values.edad,
                             idEscolaridad: values.idEscolaridad,
                             sexo: values.sexo, 
                             telefono: values.telefono,
                             direccion: values.direccion,
                             seguimiento: values.seguimiento,
                             activo: values.activo,
-                            fechaNacimiento: '2020-10-10',
+                            fechaNacimiento: year + "-" + month + "-" + day,
                         })
             });
             console.log(values.fechaNacimiento)
@@ -150,14 +148,6 @@ export default function AgregarBeneficiarioForm() {
                         onChange = {handleInputChange}
                         error={errors.nombre}
                     />
-                        <Controls.Input 
-                        variant="outlined"
-                        label="Edad *"
-                        name="edad"
-                        value={values.edad}
-                        onChange = {handleInputChange}
-                        error={errors.nombre}
-                        />
                         <Controls.Input 
                         variant="outlined"
                         label="Numero de Teléfono"

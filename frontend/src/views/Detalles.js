@@ -15,10 +15,12 @@ import Fab from '@material-ui/core/Fab';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { Grid, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 
 import { API } from "../config";
+import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 
 function IsActive(props) {
   const activeState = props.activeState;
@@ -57,6 +59,7 @@ class DetallesTabla extends Component {
     super(props);
 
     this.getDetalles = this.getDetalles.bind(this);
+    this.getAge = this.getAge.bind(this);
 
     this.state = {
       detalles: [],
@@ -65,7 +68,6 @@ class DetallesTabla extends Component {
       idBeneficiario: '',
       idEscolaridad:'',
       nombre: '',
-      edad:'',
       sexo:'',
       direccion:'',
       telefono: '',
@@ -90,7 +92,6 @@ class DetallesTabla extends Component {
     this.state.detalles.map((detalle) => (
       this.state.idBeneficiario = detalle.idBeneficiario,
       this.state.nombre = detalle.nombreBeneficiario,
-      this.state.edad = detalle.edad,
       this.state.idEscolaridad = detalle.idEscolaridad,
       this.state.sexo = detalle.sexo,
       this.state.direccion = detalle.direccion,
@@ -115,7 +116,6 @@ class DetallesTabla extends Component {
           },
           body: JSON.stringify({
             nombreBeneficiario: this.state.nombre,
-            edad: this.state.edad,
             idEscolaridad: this.state.idEscolaridad,
             sexo: this.state.sexo, 
             telefono: this.state.telefono,
@@ -150,10 +150,23 @@ class DetallesTabla extends Component {
       
   }
 
+  getAge(dateString)
+  {
+    console.log(dateString);
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    {
+        age--;
+    }
+    return age;
+  }
+
 
   render() {
 
-   
     const {detalles, history} = this.state;
     
     console.log(detalles);
@@ -181,7 +194,7 @@ class DetallesTabla extends Component {
           {this.state.detalles.map((detalle) => (
             <tr key={detalle.idBeneficiario}>
               <td>{detalle.nombreBeneficiario}</td>
-              <td>{detalle.edad}</td>
+              <td>{this.getAge(detalle.fechaNacimiento)}</td>
               <EscolaridadNombre escolaridadNom={detalle.idEscolaridad} />
               <td>{detalle.sexo}</td>
               <td>{detalle.enfermedad}</td>
@@ -195,17 +208,17 @@ class DetallesTabla extends Component {
       </Table>
       <br></br><br></br><br></br>
         <Grid container justify="flex-end" spacing="2">
-          <Grid justify="flex-end" item xs={2}>          
+          <Grid item xs={10}>          
             <Link variant="body2" to="/beneficiarios">
             <IconButton color="primary" aria-label="edit">
-                  Regresar
-              </IconButton>
-              </Link>
+                <ArrowBackIcon/>
+            </IconButton>
+            </Link>
           </Grid>
           <Grid justify="flex-end" item xs={2} spacing="2"> 
-            <Fab color="secondary" onClick={this.handleDialogOpen}>
+            <IconButton  color="secondary" onClick={this.handleDialogOpen}>
               <RemoveCircleOutlineIcon />
-            </Fab>
+            </IconButton >
             {this.state.detalles.map((detalle) => (
             <Dialog
               open={this.state.open}
@@ -230,13 +243,11 @@ class DetallesTabla extends Component {
             ))}
               {this.state.detalles.map((detalle) => (
             <a href={"/beneficiarios/" + detalle.idBeneficiario + "/editar"}>
-              <Fab color="primary" >
+              <IconButton  color="primary" >
               <EditIcon />
-            </Fab>
+            </IconButton >
             </a>
             ))}
-            
-           
         </Grid>
         </Grid>
       </Container>

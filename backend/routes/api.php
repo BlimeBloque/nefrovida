@@ -4,7 +4,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeneficiariosController;
 use App\Http\Controllers\ConsultaNutricionController;
+<<<<<<< HEAD
 use App\Http\Controllers\ConsultaMedicaController;
+=======
+use App\Http\Controllers\EvaluacionesRespuestasController;
+use App\Http\Controllers\EvaluacionesPreguntasController;
+use App\Http\Controllers\OpcionEvaluacionController;
+>>>>>>> aacbafddb765d3862638de5bf1d8f688348c7a67
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +50,7 @@ Route::resource('consultaMedica', ConsultaMedicaController::class);
 Route::get('/consultaMedica/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaMedicaController@searchByBenef');
 Route::post('/consultaMedica/{idConsultaMedica}', 'App\Http\Controllers\ConsultaMedicaController@edit');
 Route::delete('consultaMedica/eliminar/{idConsultaMedica}', 'App\Http\Controllers\ConsultaMedicaController@delete');
+
+Route::resource('evaluacion', EvaluacionesRespuestasController::class);
+Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasController@all');
+Route::get('/opcionEvaluacion/evaluaciones/{idEvaluacion}', 'App\Http\Controllers\OpcionEvaluacionController@searchByTipoJornada');

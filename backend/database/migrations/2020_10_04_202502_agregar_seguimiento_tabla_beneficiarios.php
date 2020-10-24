@@ -26,7 +26,7 @@ class AgregarSeguimientoTablaBeneficiarios extends Migration
     public function down()
     {
         Schema::table('beneficiarios', function (Blueprint $table) {
-            //
+            $table->dropColumn('seguimiento');
         });
     }
 }

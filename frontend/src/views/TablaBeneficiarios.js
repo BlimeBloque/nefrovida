@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import { Alert } from "@material-ui/lab";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -16,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import EditIcon from '@material-ui/icons/Edit';
+import FilterListIcon from '@material-ui/icons/FilterList';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -49,7 +51,6 @@ const headCells = [
     { id: 'edad', numeric: true, disablePadding: false, label: 'Edad' },
     { id: 'sexo', numeric: false, disablePadding: false, label: 'Sexo' },
     { id: 'seguimiento', numeric: false, disablePadding: false, label: 'De Seguimiento' },
-    { id: 'opciones', numeric: false, disablePadding: false, label: 'Opciones' },
 ];
 
 function EnhancedTableHead(props) {
@@ -115,6 +116,11 @@ const EnhancedTableToolbar = (props) => {
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
         Tabla de Beneficiarios
         </Typography>
+        <Tooltip title="Quitar Filtros">
+            <IconButton onClick={props.sinFiltro}aria-label="filter list">
+                <FilterListIcon />
+            </IconButton>
+        </Tooltip>
     </Toolbar>
     );
 };
@@ -150,14 +156,17 @@ export default function TablaBeneficiarios(props) {
     const [orderBy, setOrderBy] = React.useState('');
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    
+    const sinFiltro = (event) => {
+        props.sinFiltro();
+        handleRequestSort(event, 'sin filtro');
+    }
 
     let beneficiarios = props.sexo ? props.data.filter(x => x['sexo'].includes(props.sexo)) : props.data;
     
     beneficiarios = props.seguimiento != null ? beneficiarios.filter(x => x['seguimiento'] === props.seguimiento) : beneficiarios;
     
     beneficiarios = props.activo != null ? beneficiarios.filter(x => x['activo'] === props.activo) : beneficiarios;
-
+    
     beneficiarios = props.edad ? beneficiarios.filter(x => x['edad'].toString().includes(props.edad)) : beneficiarios;
 
     beneficiarios = props.nombre ? beneficiarios.filter(x => x['nombreBeneficiario'].toLowerCase().includes(props.nombre.toLowerCase())) : beneficiarios;
@@ -177,16 +186,28 @@ export default function TablaBeneficiarios(props) {
         props.setPage(0);
     };
 
+    const getAge = (dateString) =>
+    {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+        {
+            age--;
+        }
+        return age;
+    }
+
 
     return (
         <div className={classes.root}>
         <Paper className={classes.paper}>
-            <EnhancedTableToolbar />
+            <EnhancedTableToolbar sinFiltro={sinFiltro}/>
             <TableContainer>
             <Table
                 className={classes.table}
                 aria-labelledby="tableTitle"
-                size='small'
                 aria-label="enhanced table"
             >
                 <EnhancedTableHead
@@ -197,9 +218,18 @@ export default function TablaBeneficiarios(props) {
                 rowCount={beneficiarios.length}
                 />
                 <TableBody>
+                {
+                    beneficiarios.length === 0 && props.retrieve !== -1 && (
+                        <TableCell colSpan={5}>
+                            <Alert severity="info">No se encontró ningún beneficiario.</Alert>
+                        </TableCell>
+                    )
+                }
                 {stableSort(beneficiarios, getComparator(order, orderBy))
                     .slice(props.page * rowsPerPage, props.page * rowsPerPage + rowsPerPage)
                     .map((beneficiario) => {
+
+                    let edad = getAge(beneficiario.fechaNacimiento);
                     return (
                         <TableRow
                         hover
@@ -217,25 +247,9 @@ export default function TablaBeneficiarios(props) {
                             </TableCell>
 
 
-                            <TableCell align="center">{beneficiario.edad}</TableCell>
+                            <TableCell align="center">{edad}</TableCell>
                             <TableCell align="center">{beneficiario.sexo}</TableCell>
                             <TableCell align="center">{beneficiario.seguimiento ? 'Si' : 'No'}</TableCell>
-                            <TableCell align="center">
-                                <Tooltip title="Editar" arrow>
-                                    <IconButton color="primary" aria-label="edit">
-                                        <EditIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                {beneficiario.activo ?
-                                    <Tooltip title="Dar de baja" arrow>
-                                        <IconButton style={{color: 'red'}} aria-label="delete">
-                                            <RemoveCircleIcon />
-                                        </IconButton>
-                                    </Tooltip> 
-                                :
-                                    <Typography/>
-                                }
-                            </TableCell>
                         </TableRow>
                     );
                     })}

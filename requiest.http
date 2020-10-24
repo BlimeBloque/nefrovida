@@ -1,1 +1,10 @@
-POST http://127.0.0.1:8000/api/beneficiarios/insert
+POST  http://localhost:8000/api/evaluacion HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "idOpcionEvaluacion": 4, 
+    "idBeneficiario": "4", 
+    "otraRespuesta": "", 
+    "respuestasPosibles": "No"
+}
