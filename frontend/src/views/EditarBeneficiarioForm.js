@@ -2,8 +2,6 @@ import {CssBaseline, InputAdornment, makeStyles} from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
 import { Grid } from 'semantic-ui-react';
 import axios from 'axios'
-import Alert from '@material-ui/lab/Alert';
-import Button from '@material-ui/core/Button';
 
 import Controls from "../components/FormComponents/Controls";
 
@@ -29,7 +27,7 @@ const useStyle = makeStyles(theme => ({
 }))
 
 const initialFValues = {
-    nombre: '',
+    nombreBeneficiario: '',
     edad: '',
     idEscolaridad: '',
     sexo: 'H',
@@ -41,12 +39,26 @@ const initialFValues = {
 }
 
 
-export default function AgregarBeneficiarioForm() {
+export default function AgregarBeneficiarioForm(props) {
 
     const[values, setValues] = useState(initialFValues);
     const[errors, setErrors] = useState({});
     const classes = useStyle();
     const [escolaridadesCollection, setEscolaridades]  = useState([]);
+    
+
+
+    useEffect ( () => {
+
+        axios.get('http://127.0.0.1:8000/api/beneficiarios/' + props.idBenef)
+        .then(res => { setValues (res.data[0])
+    })
+        .catch((e) => {
+            console.log(e)
+        })
+   }, []);
+
+   console.log(values)
 
     const handleInputChange= e => {
         const {name , value} = e.target
@@ -72,9 +84,8 @@ export default function AgregarBeneficiarioForm() {
 
   const validate = () => {
       let temp = {}
-      temp.nombre = values.nombre?"":"Este campo es requerido"
-      temp.edad = values.nombre?"":"Este campo es requerido"
-      temp.telefono = (values.telefono.length > 9 || values.telefono.length == 0 )?"":"Este campo debe tener al menos 10 digitos"
+      temp.nombre = values.nombreBeneficiario?"":"Este campo es requerido"
+      temp.edad = values.nombreBeneficiario?"":"Este campo es requerido"
       temp.idEscolaridad = values.idEscolaridad.length!=0?"":"Este campo es requerido"
       setErrors({
           ...temp
@@ -101,30 +112,32 @@ export default function AgregarBeneficiarioForm() {
             }
             try{
     
-                let result =  fetch('http://localhost:8000/api/beneficiarios', {
-                        method: 'POST',
-                        headers: {
-                            "Access-Control-Allow-Origin": "http://localhost:3000/",
-                            "Access-Control-Allow-Credentials": "true",
-                            'Accept': 'application/json',
-                            'Content-type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            nombreBeneficiario: values.nombre,
-                            edad: values.edad,
-                            idEscolaridad: values.idEscolaridad,
-                            sexo: values.sexo, 
-                            telefono: values.telefono,
-                            direccion: values.direccion,
-                            seguimiento: values.seguimiento,
-                            activo: values.activo,
-                            fechaNacimiento: '2020-10-10',
-                        })
-            });
+                let result = fetch(
+                    "http://localhost:8000/api/beneficiarios/" + values.idBeneficiario ,
+                    {
+                      method: "PUT",
+                      headers: {
+                        "Access-Control-Allow-Origin": "http://localhost:3000/",
+                        "Access-Control-Allow-Credentials": "true",
+                        'Accept': "application/json",
+                        "Content-type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        nombreBeneficiario: values.nombreBeneficiario,
+                        edad: values.edad,
+                        idEscolaridad: values.idEscolaridad,
+                        sexo: values.sexo, 
+                        telefono: values.telefono,
+                        direccion: values.direccion,
+                        seguimiento:  values.seguimiento,
+                        activo: values.activo,
+                        fechaNacimiento:  values.fechaNacimiento,
+                      }),
+                    }
+                  );
             console.log(values.fechaNacimiento)
-            window.alert("El beneficiario fue registrado existosamente")
-            window.location.replace("http://localhost:3000/beneficiarios")
-
+            window.alert("El beneficiario fue actualizado  existosamente")
+            window.location.replace("http://localhost:3000/beneficiarios/" + values.idBeneficiario)
     
             } catch (e) {
                 console.log(e);
@@ -144,9 +157,9 @@ export default function AgregarBeneficiarioForm() {
             <Grid container spacing={3} >
                 <Grid item xs={6}>
                     <Controls.Input 
-                        name="nombre" 
+                        name="nombreBeneficiario" 
                         label="Nombre Completo *" 
-                        value={values.nombre}
+                        value={values.nombreBeneficiario}
                         onChange = {handleInputChange}
                         error={errors.nombre}
                     />
@@ -164,7 +177,6 @@ export default function AgregarBeneficiarioForm() {
                         name="telefono"
                         value={values.telefono}
                         onChange = {handleInputChange}
-                        error={errors.telefono}
                         />
                         <Controls.Input 
                         variant="outlined"

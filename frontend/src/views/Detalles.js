@@ -14,6 +14,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { Grid, Typography } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 
 
 
@@ -201,7 +202,7 @@ class DetallesTabla extends Component {
               </IconButton>
               </Link>
           </Grid>
-          <Grid justify="flex-end" item xs={2}> 
+          <Grid justify="flex-end" item xs={2} spacing="2"> 
             <Fab color="secondary" onClick={this.handleDialogOpen}>
               <RemoveCircleOutlineIcon />
             </Fab>
@@ -227,6 +228,15 @@ class DetallesTabla extends Component {
               </DialogActions>
             </Dialog>
             ))}
+              {this.state.detalles.map((detalle) => (
+            <a href={"/beneficiarios/" + detalle.idBeneficiario + "/editar"}>
+              <Fab color="primary" >
+              <EditIcon />
+            </Fab>
+            </a>
+            ))}
+            
+           
         </Grid>
         </Grid>
       </Container>
