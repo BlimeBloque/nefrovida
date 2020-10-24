@@ -89,9 +89,45 @@ class ConsultaMedicaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        //
+        $request->validate([
+            'padecimientoActual' => 'max:255|nullable',
+            'taDerecho' => 'max:255|nullable',
+            'taIzquierdo' => 'max:255|nullable',
+            'frecuenciaCardiaca' => 'numeric|nullable',
+            'frecuenciaRespiratoria' => 'numeric|nullable',
+            'temperatura' => 'numeric|nullable',
+            'peso' => 'numeric|nullable',
+            'talla' => 'numeric|nullable',
+            'cabezaCuello' => 'max:255|nullable',
+            'torax' => 'max:255|nullable',
+            'abdomen' => 'max:255|nullable',
+            'extremidades' => 'max:255|nullable',
+            'neurologicoEstadoMental' => 'max:255|nullable',
+            'otros' => 'max:255|nullable',
+            'diagnosticos' => 'max:255|nullable',
+            'plan de tratamiento' => 'max:255|nullable',
+        ]);
+
+        $query = DB::table('consulta_medica')->where('idConsultaMedica', $id)->update(
+            ['padecimientoActual' => $request->get('padecimientoActual'), 
+            'taDerecho' => $request->get('taDerecho'), 
+            'taIzquierdo' => $request->get('taIzquierdo'), 
+            'frecuenciaCardiaca' => $request->get('frecuenciaCardiaca'), 
+            'frecuenciaRespiratoria' => $request->get('frecuenciaRespiratoria'),
+            'temperatura' => $request->get('temperatura'),
+            'peso' => $request->get('peso'),
+            'talla' => $request->get('talla'),
+            'cabezaCuello' => $request->get('cabezaCuello'),
+            'torax' => $request->get('torax'),
+            'abdomen' => $request->get('abdomen'),
+            'extremidades' => $request->get('extremidades'),
+            'neurologicoEstadoMental' => $request->get('neurologicoEstadoMental'),
+            'otros' => $request->get('otros'),
+            'diagnosticos' => $request->get('diagnosticos'),
+            'plan de tratamiento' => $request->get('plan de tratamiento')]);
+        return $query;
     }
 
     /**
@@ -112,8 +148,9 @@ class ConsultaMedicaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function delete($id) {
+        $query = DB::table('consulta_medica')->where('idConsultaMedica', $id)->delete();
+
+        return response()->json(null, 204);
     }
 }
