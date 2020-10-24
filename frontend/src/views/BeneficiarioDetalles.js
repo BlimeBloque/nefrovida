@@ -3,6 +3,7 @@ import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import Detalles from "./Detalles";
 import SeccionConsultaNutricion from '../components/SeccionConsultaNutricion';
+import SeccionNota from '../components/SeccionNota';
 import Mensaje from '../components/Mensaje';
 
 
@@ -49,6 +50,11 @@ const BeneficiarioDetalles = (props) => {
             <SeccionConsultaNutricion history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
           </Paper>
         </div>
+        <div id="notas">
+          <Paper className={classes.consultaMedica}>
+            <SeccionNota history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
+          </Paper>
+        </div>
       </Container>
 
 
@@ -56,6 +62,12 @@ const BeneficiarioDetalles = (props) => {
         success={args.includes("editarBeneficiario") ? args.slice(-1) : -1} 
         mensajeExito={"Se editó el beneficiario correctamente."}
         mensajeError={"Hubo un error al editar al beneficiario"}
+      />
+
+    <Mensaje 
+        success={args.includes("agregarNota") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró la nota correctamente."}
+        mensajeError={"Hubo un error al registrar la nota"}
       />
 
 

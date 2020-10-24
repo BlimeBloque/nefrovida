@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeneficiariosController;
 use App\Http\Controllers\ConsultaNutricionController;
+use App\Http\Controllers\NotaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::delete('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@d
 
 
 Route::get('/escolaridades', 'App\Http\Controllers\EscolaridadesController@all');
+Route::get('/tiponota', 'App\Http\Controllers\TipoNotaController@all');
 
 //todas las rutas de beneficiarios
 Route::resource('beneficiarios', BeneficiariosController::class);
@@ -37,4 +39,7 @@ Route::resource('beneficiarios', BeneficiariosController::class);
 Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
 
 Route::resource('consultaNutricion', ConsultaNutricionController::class);
+
+Route::resource('nota', NotaController::class);
+
 Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');

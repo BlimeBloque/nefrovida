@@ -6,6 +6,7 @@ import DatePicker from "./DatePicker"
 import Button from "./Button"
 import ConfirmDialog from "./ConfirmDialog"
 import ActionButton from "./ActionButton"
+import InputMultiline from "./InputMultiline"
 
 const Controls = {
     Input,
@@ -16,6 +17,7 @@ const Controls = {
     Button,
     ActionButton,
     ConfirmDialog,
+    InputMultiline,
 }
 
 export default Controls;
