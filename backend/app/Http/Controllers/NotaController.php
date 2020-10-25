@@ -42,6 +42,7 @@ class NotaController extends Controller
             'idBeneficiario' => 'required|numeric',
             'idTipoNota' => 'required|numeric',
             'comentario' => 'required',
+            'url_archivo' => 'nullable',
         ]);
 
         $nota = Nota::create($request->all());

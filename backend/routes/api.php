@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeneficiariosController;
 use App\Http\Controllers\ConsultaNutricionController;
 use App\Http\Controllers\NotaController;
+use App\Http\Controllers\ArchivoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,5 @@ Route::resource('consultaNutricion', ConsultaNutricionController::class);
 Route::resource('nota', NotaController::class);
 
 Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');
+
+Route::post("upload", [ArchivoController::Class, 'upload']);

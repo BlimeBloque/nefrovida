@@ -13,5 +13,6 @@ class Nota extends Model
         'idBeneficiario',
         'idTipoNota',
         'comentario',
+        'url_archivo',
     ];
 }

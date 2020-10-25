@@ -4,7 +4,12 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import Controls from "../../components/FormComponents/Controls";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 import Button from '../../components/FormComponents/Button';
+import { formatDuration } from 'date-fns';
+import http from "../../http-common"
+import { Link } from 'react-router-dom';
 
 
 
@@ -35,12 +40,13 @@ const initialFValues = {
     idBeneficiario: '',
     idTipoNota: '',
     comentario: '',
-    urlArchivo: '',
+    url_archivo: '',
 }
 
 const initialFileValues = {
     archivo: null,
     archivoNombre: '',
+    archivoURL: '',
 }
 
 
@@ -64,7 +70,7 @@ export default function AgregarNotaForm(props) {
 
     useEffect ( () => {
 
-        axios.get('http://127.0.0.1:8000/api/tiponota')
+        http.get('/tiponota')
         .then(res => { setTiposNotas (res.data.data)
     })
         .catch((e) => {
@@ -75,7 +81,7 @@ export default function AgregarNotaForm(props) {
 
    useEffect ( () => {
 
-    axios.get('http://localhost:8000/api/beneficiarios/'+props.idBeneficiario)
+    http.get('/beneficiarios/'+props.idBeneficiario)
         .then(res => { setBeneficiario(res.data[0])
     })
         .catch((e) => {
@@ -101,7 +107,7 @@ export default function AgregarNotaForm(props) {
 const fileSelectedHandler = (e) => {
     setArchivo({
         archivo: e.target.files[0],
-        archivoNombre: e.target.files[0].name
+        archivoNombre: e.target.files[0].name   
     })
 }
 
@@ -109,23 +115,39 @@ const fileSelectedHandler = (e) => {
 const onSubmit = e => {
     console.log('submit');
     values.idBeneficiario = props.idBeneficiario;
-    console.log(values);
+    console.log(archivo);
 
     e.preventDefault();
 
     if(validate()){
 
-        axios.post('http://localhost:8000/api/nota', values, {headers: {"Accept": "application/json"}})
-        .then(res => {
-            console.log(res)
-            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNota=1");
-        })
-        .catch(err => {
-            console.log(err)
-            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNota=0");
-        });
+        if (archivo.archivo === null) {
 
+        } else {
+            const fd = new FormData();
+            fd.append('file', archivo.archivo, archivo.archivoNombre);
+            http.post('/upload', fd, {
+                onUploadProgress: progressEvent => {
+                    console.log('Upload progress: ' + Math.round(progressEvent.loaded / progressEvent.total *100) + "%");
+                }
+            })
+                 .then(res => {
+                     console.log(res.data.result);
+                     values.url_archivo = res.data.result;
+                     console.log(values);
+                        http.post('/nota', values)
+                        .then(res => {
+                            console.log(res)
+                            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNota=1");
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNota=0");
+                        });
 
+                                })
+        }
+                    
     } else {
        
     }
@@ -134,6 +156,11 @@ const onSubmit = e => {
 
     return (
         <div >
+            <Link variant="body2" to="/beneficiarios">
+            <IconButton color="primary" aria-label="edit">
+                <ArrowBackIcon/>
+              </IconButton>
+              </Link>
             <div className={classes.form}>
             <Typography variant="h5" gutterBottom>Nota para {beneficiario.nombreBeneficiario}</Typography>
             </div>
