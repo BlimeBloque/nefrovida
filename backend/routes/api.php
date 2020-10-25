@@ -9,6 +9,7 @@ use App\Http\Controllers\EvaluacionesPreguntasController;
 use App\Http\Controllers\OpcionEvaluacionController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\ArchivoController;
+use App\Http\Controllers\ConsultaMedicaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,3 +55,5 @@ Route::resource('nota', NotaController::class);
 Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');
 
 Route::post("upload", [ArchivoController::Class, 'upload']);
+Route::resource('consultaMedica', ConsultaMedicaController::class);
+Route::get('/consultaMedica/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaMedicaController@searchByBenef');

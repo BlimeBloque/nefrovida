@@ -24,7 +24,7 @@ import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/Tarjet
 
 function IsActive(props) {
   const activeState = props.activeState;
-  if (activeState == 1) {
+  if (activeState === 1) {
     return <Alert severity="success">Este usuario está activo</Alert>;
   }
   return <Alert severity="error">Este usuario está inactivo</Alert>;
@@ -32,15 +32,15 @@ function IsActive(props) {
 
 function EscolaridadNombre(props) {
   const escolaridadNom = props.escolaridadNom;
-  if (escolaridadNom == 1) {
+  if (escolaridadNom === 1) {
     return <td>Primaria</td>;
-  } else if (escolaridadNom == 2) {
+  } else if (escolaridadNom === 2) {
     return <td>Medio Superior</td>;
-  } else if (escolaridadNom == 3) {
+  } else if (escolaridadNom === 3) {
     return <td>Secundaria</td>;
-  } else if (escolaridadNom == 4) {
+  } else if (escolaridadNom === 4) {
     return <td>Universidad</td>;
-  } else if (escolaridadNom == 5) {
+  } else if (escolaridadNom === 5) {
     return <td>Lee/Escribe</td>;
   }
   return <td>Analfabeta</td>;
@@ -48,7 +48,7 @@ function EscolaridadNombre(props) {
 
 function DeSeguimiento(props) {
   const seg = props.seg;
-  if (seg == 1) {
+  if (seg === 1) {
     return <td>Sí</td>;
   }
   return <td>No</td>;

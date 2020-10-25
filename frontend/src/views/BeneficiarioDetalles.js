@@ -4,6 +4,7 @@ import { Paper, makeStyles, Container } from "@material-ui/core";
 import Detalles from "./Detalles";
 import SeccionConsultaNutricion from '../components/SeccionConsultaNutricion';
 import SeccionNota from '../components/SeccionNota';
+import SeccionConsultaMedica from '../components/SeccionConsultaMedica';
 import Mensaje from '../components/Mensaje';
 import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 
@@ -62,6 +63,9 @@ const BeneficiarioDetalles = (props) => {
           <Paper className={classes.consultaMedica}>
             <SeccionNota history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
           </Paper>
+          <Paper className={classes.consultaMedica}>
+            <SeccionConsultaMedica history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
+          </Paper>
         </div>
       </Container>
 
@@ -90,6 +94,12 @@ const BeneficiarioDetalles = (props) => {
         success={args.includes("agregarEvaluacion") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró la evaluación."}
         mensajeError={"Hubo un error al registrar la evaluación."}
+      />
+
+<Mensaje 
+        success={args.includes("agregarMedica") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró la consulta médica."}
+        mensajeError={"Hubo un error al registrar la consulta médica"}
       />
       
     </div>
