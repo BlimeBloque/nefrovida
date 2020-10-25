@@ -5,7 +5,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import axios from 'axios';
+import http from "../../http-common";
 
 import Secciones from './secciones/Secciones';
 
@@ -188,6 +188,8 @@ export default function ConsultaNutricionForm(props) {
     const [values, setValues] = useState(initialValues);
     const [errores, setErrores] = useState(initialErrorValues);
 
+
+
     const handleInputChange= e => {
         const {name , value} = e.target
         setValues({
@@ -197,19 +199,68 @@ export default function ConsultaNutricionForm(props) {
     }
     useEffect ( () => {
 
-        setValues({
-            ...values,
-            'idBeneficiario': props.idBeneficiario
-        });
-
         
 
-        axios.get('http://localhost:8000/api/beneficiarios/'+props.idBeneficiario)
+        if(props.editar)
+        {
+            setValues({
+                idBeneficiario: props.consulta.idBeneficiario,
+                ocupacion: props.consulta.ocupacion,
+                horariosComida: props.consulta.horariosComida,
+                cantidadDestinadaAlimentos: props.consulta.cantidadDestinadaAlimentos,
+                apetito: props.consulta.apetito,
+                distension: props.consulta.distension,
+                estreñimiento: props.consulta.estreñimiento,
+                flatulencias: props.consulta.flatulencias,
+                vomitos: props.consulta.vomitos,
+                caries: props.consulta.caries,
+                edema: props.consulta.edema, 
+                mareo: props.consulta.mareo,
+                zumbido: props.consulta.zumbido,
+                cefaleas: props.consulta.cefaleas,
+                disnea: props.consulta.disnea,
+                poliuria: props.consulta.poliuria,
+                actividadFisica: props.consulta.actividadFisica,
+                horasSueño: props.consulta.horasSueño,
+                comidasAlDia: props.consulta.comidasAlDia,
+                lugarComida: props.consulta.lugarComida,
+                preparaComida: props.consulta.preparaComida,
+                comeEntreComidas: props.consulta.comeEntreComidas,
+                alimentosPreferidos: props.consulta.alimentosPreferidos,
+                alimentosOdiados: props.consulta.alimentosOdiados,
+                suplementos: props.consulta.suplementos,
+                medicamentosActuales: props.consulta.medicamentosActuales,
+                consumoAguaNatural: props.consulta.consumoAguaNatural,
+                recordatorioDesayuno: props.consulta.recordatorioDesayuno,
+                recordatorioColacionMañana: props.consulta.recordatorioColacionMañana,
+                recordatorioComida: props.consulta.recordatorioComida,
+                recordatorioColacionTarde: props.consulta.recordatorioColacionTarde,
+                recordatorioCena: props.consulta.recordatorioCena,
+                peso: props.consulta.peso,
+                altura: props.consulta.altura,
+                tipoDieta: props.consulta.tipoDieta,
+                kilocaloriasTotales: props.consulta.kilocaloriasTotales,
+                porcentajeHidratosCarbono: props.consulta.porcentajeHidratosCarbono,
+                kilocaloriasHidratosCarbono: props.consulta.kilocaloriasHidratosCarbono,
+                porcentajeProteinas: props.consulta.porcentajeProteinas,
+                porcentajeGrasas: props.consulta.porcentajeGrasas,
+                diagnostico: props.consulta.diagnostico,
+            });
+        }
+        else
+        {
+            setValues({
+                ...values,
+                'idBeneficiario': props.idBeneficiario
+            });
+
+            http.get('/beneficiarios/'+props.idBeneficiario)
             .then(res => { setBeneficiario(res.data[0])
-        })
+            })
             .catch((e) => {
             console.log(e)
-        })
+            })
+        }
     }, []);
 
     
@@ -267,16 +318,30 @@ export default function ConsultaNutricionForm(props) {
         {
             console.log(values);
 
-            axios.post('http://localhost:8000/api/consultaNutricion', values, {headers: {"Accept": "application/json"}})
-                .then(res => {
-                    console.log(res)
-                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=1");
-                })
-                .catch(err => {
-                    console.log(err)
-                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=0");
-                });
-
+            if(props.editar)
+            {
+                http.put('/consultaNutricion/'+props.consulta.idConsultaNutricional, values)
+                    .then(res => {
+                        console.log(res)
+                        props.history.push("/consultaNutricion/"+props.consulta.idConsultaNutricional+"?editarNutricion=1");
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        props.history.push("/consultaNutricion/"+props.consulta.idConsultaNutricional+"?editarNutricion=0");
+                    });
+            }
+            else
+            {
+                http.post('/consultaNutricion', values)
+                    .then(res => {
+                        console.log(res)
+                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=1");
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=0");
+                    });
+            }
             
         }
 
@@ -285,7 +350,9 @@ export default function ConsultaNutricionForm(props) {
 
     return (
         <center className={classes.root}>
-            <Typography variant="h5">Consulta Nutricional de {beneficiario.nombreBeneficiario} </Typography>
+            {console.log(values)}
+            <Typography variant="h5">Consulta Nutricional de {props.editar ?  props.consulta.nombreBeneficiario :  beneficiario.nombreBeneficiario} 
+            </Typography>
 
             <Stepper activeStep={activeStep} alternativeLabel>
                 {steps.map((label) => (
@@ -305,6 +372,7 @@ export default function ConsultaNutricionForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
+                    consulta={props.consulta}
                 />
 
                 <Secciones.DatosClinicos
@@ -316,6 +384,7 @@ export default function ConsultaNutricionForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
+                    consulta={props.consulta}
                 />
 
                 <Secciones.EstiloVida
@@ -327,6 +396,7 @@ export default function ConsultaNutricionForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
+                    consulta={props.consulta}
                 />
 
                 <Secciones.DatosDieteticos
@@ -338,6 +408,7 @@ export default function ConsultaNutricionForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
+                    consulta={props.consulta}
                 />
 
                 <Secciones.Recordatorios
@@ -349,6 +420,7 @@ export default function ConsultaNutricionForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
+                    consulta={props.consulta}
                 />
 
                 <Secciones.DatosAntropometricos
@@ -360,6 +432,7 @@ export default function ConsultaNutricionForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
+                    consulta={props.consulta}
                 />
 
                 <Secciones.Necesidades
@@ -372,6 +445,7 @@ export default function ConsultaNutricionForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
+                    consulta={props.consulta}
                 />
 
                 <div className={classes.botones}>
@@ -383,7 +457,7 @@ export default function ConsultaNutricionForm(props) {
                         Regresar
                     </Button>
                     <Button variant="contained" color='primary' onClick={ activeStep === steps.length-1 ? handleSubmit : handleNext}>
-                        {activeStep === steps.length - 1 ? 'Registrar' : 'Siguiente'}
+                        {activeStep === steps.length - 1 ? props.editar ? 'Editar': 'Registrar' : 'Siguiente'}
                     </Button>
                 </div>
             </form>

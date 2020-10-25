@@ -6,6 +6,7 @@ import { Paper, makeStyles, Container, Button } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
+import Mensaje from '../../components/Mensaje'
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -25,6 +26,7 @@ const DetalleConsultaNutricion = (props) => {
     const classes = useStyle();
     const [detalle, setDetalle] = useState([]);
     const idConsultaNutricion = props.match.params.idConsultaNutricion;
+    const args = props.location.search;
 
     useEffect ( () => {
         axios.get('http://localhost:8000/api/consultaNutricion/'+idConsultaNutricion)
@@ -51,6 +53,14 @@ const DetalleConsultaNutricion = (props) => {
                 <ConsultaNutricion detalle={detalle} history={props.history}/>
             </Paper>
             </Container>
+
+
+            {/* CONSULTA NUTRICIÓN RETRO*/}
+            <Mensaje 
+                success={args.includes("editarNutricion") ? args.slice(-1) : -1} 
+                mensajeExito={"Se actualizó la consulta de nutrición."}
+                mensajeError={"Hubo un error al editar la consulta de nutrición."}
+            />
         </div>
     );
 
