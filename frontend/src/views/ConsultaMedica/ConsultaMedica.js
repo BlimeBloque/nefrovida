@@ -1,8 +1,9 @@
 import { makeStyles, Typography, IconButton, Tooltip, Card, CardContent, Paper, Table, TableBody, TableCell, 
-    TableContainer, TableHead, TableRow} from '@material-ui/core';
+    TableContainer, TableHead, TableRow, Dialog, DialogTitle, DialogContent, DialogActions, Button} from '@material-ui/core';
 import React from 'react'
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import axios from 'axios';
 
 const useStyle = makeStyles(theme => ({
 flexTitulo:{
@@ -53,6 +54,29 @@ table: {
 
 
 const ConsultaMedica = (props) => {
+
+      const [open, setOpen] = React.useState(false);
+
+      const handleClickOpen = () => {
+        setOpen(true);
+      };
+      const handleClose = () => {
+        setOpen(false);
+      };
+    
+      const handleSubmit = () => {
+        axios.delete(`http://localhost:8000/api/consultaMedica/${props.idConsultaMedica}`)
+          .then(res => {
+            console.log(res);
+            console.log(res.data);
+            props.history.push("/beneficiarios/"+props.idBeneficiario+"?deleteMedica=1");
+          })
+          .catch(err => {
+            console.log(err)
+            props.history.push("/beneficiarios/"+props.idBeneficiario+"?deleteMedica=0");
+        });
+      }
+
 const detalle = props.detalle;
 const classes = useStyle();
 
@@ -72,7 +96,7 @@ return(
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Eliminar" arrow>
-                    <IconButton aria-label="Eliminar" color="secondary"  onClick={() => props.history.push("/consultaMedica/eliminar/"+detalle.idConsultaMedica)}>
+                    <IconButton aria-label="Eliminar" color="secondary"  onClick={() => handleClickOpen()}>
                         <RemoveCircleIcon fontSize="large" />
                     </IconButton>
                 </Tooltip>
@@ -153,6 +177,29 @@ return(
                     </Typography>
                 </div>
             </div>
+            <Dialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          ¿Seguro que desea eliminar esta consulta médica?
+        </DialogTitle>
+        <DialogContent dividers>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            autoFocus
+            onClick={handleSubmit}
+            color="primary"
+          >
+            Eliminar
+          </Button>
+          <Button autoFocus onClick={handleClose} color="primary">
+            Cancelar
+          </Button>
+        </DialogActions>
+      </Dialog>
         </div>
     </center>
 )

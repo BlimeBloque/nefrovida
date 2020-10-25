@@ -46,7 +46,7 @@ const DetalleConsultaMedica = (props) => {
                     Regresar
                 </Button>
                 
-                <ConsultaMedica detalle={detalle} history={props.history}/>
+                <ConsultaMedica detalle={detalle} history={props.history} idConsultaMedica={idConsultaMedica} idBeneficiario={detalle.idBeneficiario}/>
             </Paper>
             </Container>
         </div>
