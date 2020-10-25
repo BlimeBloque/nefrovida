@@ -7,6 +7,8 @@ use App\Http\Controllers\ConsultaNutricionController;
 use App\Http\Controllers\EvaluacionesRespuestasController;
 use App\Http\Controllers\EvaluacionesPreguntasController;
 use App\Http\Controllers\OpcionEvaluacionController;
+use App\Http\Controllers\NotaController;
+use App\Http\Controllers\ArchivoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,7 @@ Route::delete('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@d
 
 
 Route::get('/escolaridades', 'App\Http\Controllers\EscolaridadesController@all');
+Route::get('/tiponota', 'App\Http\Controllers\TipoNotaController@all');
 
 //todas las rutas de beneficiarios
 Route::resource('beneficiarios', BeneficiariosController::class);
@@ -45,3 +48,9 @@ Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Control
 Route::resource('evaluacion', EvaluacionesRespuestasController::class);
 Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasController@all');
 Route::get('/opcionEvaluacion/evaluaciones/{idEvaluacion}', 'App\Http\Controllers\OpcionEvaluacionController@searchByTipoJornada');
+
+Route::resource('nota', NotaController::class);
+
+Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');
+
+Route::post("upload", [ArchivoController::Class, 'upload']);

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 POST  http://localhost:8000/api/evaluacion HTTP/1.1
 Accept: application/json
 Content-Type: application/json
@@ -7,4 +8,23 @@ Content-Type: application/json
     "idBeneficiario": "4", 
     "otraRespuesta": "", 
     "respuestasPosibles": "No"
+=======
+POST http://127.0.0.1:8000/api/nota HTTP/1.1
+Accept: application/json 
+Content-Type: application/json
+
+{
+    "idBeneficiario": "29",
+    "idTipoNota": "4",
+    "comentario": "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                     sed do eiusmod tempor incididunt ut labore et dolore
+                     magna aliqua. Ut enim ad minim veniam, quis nostrud 
+                    exercitation ullamco laboris nisi ut aliquip ex ea 
+                    commodo consequat. Duis aute irure dolor in reprehenderit
+                     in voluptate velit esse cillum dolore eu fugiat nulla 
+                     pariatur. Excepteur sint occaecat cupidatat non proident, 
+                     sunt in culpa qui officia deserunt mollit anim id 
+                     est laborum."
+
+>>>>>>> jan/agregar-nota
 }

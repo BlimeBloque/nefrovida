@@ -30,7 +30,7 @@ const AgregarBeneficiario = (props) => {
                   <ArrowBackIcon/>
               </IconButton>
             </Link>
-            <EditarBeneficiarioForm idBenef={props.match.params.idBeneficiario} />
+            <EditarBeneficiarioForm history={props.history} idBenef={props.match.params.idBeneficiario} />
           </Paper>
         </Container>
       </div>

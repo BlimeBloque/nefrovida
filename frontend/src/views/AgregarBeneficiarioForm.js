@@ -83,7 +83,7 @@ export default function AgregarBeneficiarioForm() {
 */
     const onSubmit = e => {
 
-        let day = values.fechaNacimiento.getUTCDay();
+        let day = values.fechaNacimiento.getDate();
         let month = values.fechaNacimiento.getUTCMonth() + 1;
         let year = values.fechaNacimiento.getUTCFullYear();
         console.log(day + "/" + month + "/" + year);
@@ -119,9 +119,9 @@ export default function AgregarBeneficiarioForm() {
                             fechaNacimiento: year + "-" + month + "-" + day,
                         })
             });
-            console.log(values.fechaNacimiento)
+            console.log(values)
             window.alert("El beneficiario fue registrado existosamente")
-            window.location.replace("http://localhost:3000/beneficiarios")
+            //window.location.replace("http://localhost:3000/beneficiarios")
 
     
             } catch (e) {

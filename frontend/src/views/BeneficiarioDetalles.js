@@ -3,6 +3,7 @@ import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import Detalles from "./Detalles";
 import SeccionConsultaNutricion from '../components/SeccionConsultaNutricion';
+import SeccionNota from '../components/SeccionNota';
 import Mensaje from '../components/Mensaje';
 import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 
@@ -43,7 +44,7 @@ const BeneficiarioDetalles = (props) => {
       <Sidenav titulo="Detalle de Beneficiario" />        
       <Container>
         <Paper className={classes.pageContent}>
-          <Detalles idBenef={props.match.params.idBeneficiario} />
+          <Detalles history={props.history} idBenef={props.match.params.idBeneficiario} />
         </Paper>
         <div>
           <div id="consultas">
@@ -57,9 +58,25 @@ const BeneficiarioDetalles = (props) => {
             </Paper>
           </div>
         </div>
+        <div id="notas">
+          <Paper className={classes.consultaMedica}>
+            <SeccionNota history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
+          </Paper>
+        </div>
       </Container>
 
 
+      <Mensaje 
+        success={args.includes("editarBeneficiario") ? args.slice(-1) : -1} 
+        mensajeExito={"Se editó el beneficiario correctamente."}
+        mensajeError={"Hubo un error al editar al beneficiario"}
+      />
+
+    <Mensaje 
+        success={args.includes("agregarNota") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró la nota correctamente."}
+        mensajeError={"Hubo un error al registrar la nota"}
+      />
 
       {/* CONSULTA NUTRICIÓN RETRO*/}
       <Mensaje 
