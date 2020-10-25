@@ -1,8 +1,9 @@
 import { makeStyles, Typography, IconButton, Tooltip, Card, CardContent, Paper, Table, TableBody, TableCell, 
         TableContainer, TableHead, TableRow} from '@material-ui/core';
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import EliminarConsultaNutricion from './EliminarConsultaNutricion';
 
 const useStyle = makeStyles(theme => ({
     flexTitulo:{
@@ -503,6 +504,15 @@ function obtenerDiagnosticoIMC(imc, sexo, edad)
 const ConsultaNutricion = (props) => {
     const detalle = props.detalle;
     const classes = useStyle();
+    const [eliminarOpen, setEliminarOpen] = useState(false);
+
+    const handleEliminarOpen = () => {
+        setEliminarOpen(true);
+    }
+
+    const handleEliminarClose = () => {
+        setEliminarOpen(false);
+    }
 
     const getAge = (dateString) =>
     {
@@ -539,7 +549,7 @@ const ConsultaNutricion = (props) => {
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Eliminar" arrow>
-                        <IconButton aria-label="Eliminar" color="secondary"  onClick={() => props.history.push("/consultaNutricion/eliminar/"+detalle.idConsultaNutricional)}>
+                        <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
                             <RemoveCircleIcon fontSize="large" />
                         </IconButton>
                     </Tooltip>
@@ -799,6 +809,17 @@ const ConsultaNutricion = (props) => {
                     </Table>
                 </TableContainer>
             </div>
+
+            <EliminarConsultaNutricion
+                open={eliminarOpen}
+                handleOpen={handleEliminarOpen}
+                handleClose={handleEliminarClose}
+                history={props.history}
+                idBeneficiario={detalle.idBeneficiario}
+                idConsultaNutricional={detalle.idConsultaNutricional}
+                nombre={detalle.nombreBeneficiario}
+                fecha={fecha}
+            />
         </center>
     )
 }
