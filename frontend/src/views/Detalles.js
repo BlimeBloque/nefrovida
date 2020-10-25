@@ -183,7 +183,6 @@ class DetallesTabla extends Component {
             <th>Edad</th>
             <th>Escolaridad</th>
             <th>Sexo</th>
-            <th>Enfermedad</th>
             <th>Teléfono</th>
             <th>Dirección</th>
             <th>Fecha de Nacimiento</th>
@@ -197,7 +196,6 @@ class DetallesTabla extends Component {
               <td>{this.getAge(detalle.fechaNacimiento)}</td>
               <EscolaridadNombre escolaridadNom={detalle.idEscolaridad} />
               <td>{detalle.sexo}</td>
-              <td>{detalle.enfermedad}</td>
               <td>{detalle.telefono}</td>
               <td>{detalle.direccion}</td>
               <td>{detalle.fechaNacimiento}</td>
