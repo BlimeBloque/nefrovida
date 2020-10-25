@@ -16,7 +16,7 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { Grid, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
+import {getAge} from '../components/utils';
 
 
 import { API } from "../config";
@@ -59,7 +59,6 @@ class DetallesTabla extends Component {
     super(props);
 
     this.getDetalles = this.getDetalles.bind(this);
-    this.getAge = this.getAge.bind(this);
 
     this.state = {
       detalles: [],
@@ -150,19 +149,6 @@ class DetallesTabla extends Component {
       
   }
 
-  getAge(dateString)
-  {
-    console.log(dateString);
-    var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
-    {
-        age--;
-    }
-    return age;
-  }
 
 
   render() {
@@ -193,7 +179,7 @@ class DetallesTabla extends Component {
           {this.state.detalles.map((detalle) => (
             <tr key={detalle.idBeneficiario}>
               <td>{detalle.nombreBeneficiario}</td>
-              <td>{this.getAge(detalle.fechaNacimiento)}</td>
+              <td>{getAge(detalle.fechaNacimiento)}</td>
               <EscolaridadNombre escolaridadNom={detalle.idEscolaridad} />
               <td>{detalle.sexo}</td>
               <td>{detalle.telefono}</td>
