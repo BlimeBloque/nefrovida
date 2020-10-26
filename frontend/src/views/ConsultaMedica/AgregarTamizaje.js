@@ -1,7 +1,8 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import Sidenav from "../../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
-import ConsultaMedicaForm from "./ConsultaMedicaForm";
+import TamizajeForm from "./AgregarTamizajeForm";
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -18,9 +19,14 @@ const AgregarConsultaMedica = (props) => {
   const classes = useStyle();
   return (
     <div className={classes.container}>
-      <Sidenav titulo="Registrar Consulta Médica" />
+      <Sidenav titulo="Registrar Tamizaje" />
       <Container>
-        <Paper className={classes.pageContent}></Paper>
+        <Paper className={classes.pageContent}>
+          <TamizajeForm
+            history={props.history}
+            idBeneficiario={props.match.params.idBeneficiario}
+          />
+        </Paper>
       </Container>
     </div>
   );

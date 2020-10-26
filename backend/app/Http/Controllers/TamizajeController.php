@@ -2,38 +2,41 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\Jornada;
-use App\Http\Resources\Jornada as JornadaResource;
+use App\Models\Tamizaje;
+use App\Http\Resources\Tamizaje as TamizajeResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class JornadaController extends Controller {
+class TamizajeController extends Controller {
     public function all() {
-        return DB::table('jornadas')->leftJoin('estados_mexico', 'jornadas.idEstado', '=', 'estados_mexico.idEstado')->select('jornadas.*', 'estados_mexico.nombreEstado', 'estados_mexico.siglas')->get();
+        return DB::table('tamizajes')->get();
     }
 
-    public function search($idJornada) {
-        return DB::table('jornadas')->leftJoin('estados_mexico', 'jornadas.idEstado', '=', 'estados_mexico.idEstado')->where('idJornada', '=', $idJornada)->select('jornadas.*', 'estados_mexico.nombreEstado', 'estados_mexico.siglas')->get();
+    public function search($id) {
+        return DB::table('tamizajes')->where('idTamizaje', '=', $id)->get();
     }
 
     public function insert(Request $request) {
         $request->validate([
-            'nombre' => 'required',
-            'fecha' => 'required',
-            'localidad' => 'required',
-            'municipio' => 'required',
-            'idEstado' => 'required',
+            'idBeneficiario' => 'required',
+            'presionArterial' => 'required',
+            'peso' => 'required',
+            'circunferenciaCintura' => 'required',
+            'circunferenciaCadera' => 'required',
+            'glucosaCapilar' => 'required',
+            'talla' => 'required',
+            'comentario' => 'required',
         ]);
 
-        $jornada = Jornada::create($request->all());
+        $tamizaje = Tamizaje::create($request->all());
 
-        return (new JornadaResource($jornada))
+        return (new TamizajeResource($tamizaje))
             ->response()
             ->setStatusCode(201);
     }
 
     public function edit($id, Request $request) {
+        /*
         //$request->merge(['correct' => (bool) json_decode($request->get('correct'))]);
         $request->validate([
             'nombre' => 'required',
@@ -45,11 +48,14 @@ class JornadaController extends Controller {
 
         $query = DB::table('jornadas')->where('idJornada', $id)->update(['nombre' => $request->get('nombre'), 'fecha' => $request->get('fecha'), 'localidad' => $request->get('localidad'), 'municipio' => $request->get('municipio'), 'idEstado' => $request->get('idEstado')]);
         return $query;
+        */
     }
 
     public function delete($id) {
+        /*
         $query = DB::table('jornadas')->where('idJornada', $id)->delete();
 
         return response()->json(null, 204);
+        */
     }
 }
