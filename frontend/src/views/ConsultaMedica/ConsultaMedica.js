@@ -1,9 +1,8 @@
-import { makeStyles, Typography, IconButton, Tooltip, Card, CardContent, Paper, Table, TableBody, TableCell, 
-    TableContainer, TableHead, TableRow, Dialog, DialogTitle, DialogContent, DialogActions, Button} from '@material-ui/core';
-import React from 'react'
+import { makeStyles, Typography, IconButton, Tooltip} from '@material-ui/core';
+import React, {useState} from 'react';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import axios from 'axios';
+import EliminarConsultaMedica from './EliminarConsultaMedica';
 
 const useStyle = makeStyles(theme => ({
 flexTitulo:{
@@ -54,31 +53,17 @@ table: {
 
 
 const ConsultaMedica = (props) => {
+    const detalle = props.detalle;
+    const classes = useStyle();
+    const [eliminarOpen, setEliminarOpen] = useState(false);
 
-      const [open, setOpen] = React.useState(false);
+    const handleEliminarOpen = () => {
+        setEliminarOpen(true);
+    }
 
-      const handleClickOpen = () => {
-        setOpen(true);
-      };
-      const handleClose = () => {
-        setOpen(false);
-      };
-    
-      const handleSubmit = () => {
-        axios.delete(`http://localhost:8000/api/consultaMedica/${props.idConsultaMedica}`)
-          .then(res => {
-            console.log(res);
-            console.log(res.data);
-            props.history.push("/beneficiarios/"+props.idBeneficiario+"?deleteMedica=1");
-          })
-          .catch(err => {
-            console.log(err)
-            props.history.push("/beneficiarios/"+props.idBeneficiario+"?deleteMedica=0");
-        });
-      }
-
-const detalle = props.detalle;
-const classes = useStyle();
+    const handleEliminarClose = () => {
+        setEliminarOpen(false);
+    }
 
 //Dar formato a fecha
 const date = new Date(detalle.created_at);
@@ -96,7 +81,7 @@ return(
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Eliminar" arrow>
-                    <IconButton aria-label="Eliminar" color="secondary"  onClick={() => handleClickOpen()}>
+                    <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
                         <RemoveCircleIcon fontSize="large" />
                     </IconButton>
                 </Tooltip>
@@ -177,29 +162,16 @@ return(
                     </Typography>
                 </div>
             </div>
-            <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          ¿Seguro que desea eliminar esta consulta médica?
-        </DialogTitle>
-        <DialogContent dividers>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            autoFocus
-            onClick={handleSubmit}
-            color="primary"
-          >
-            Eliminar
-          </Button>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Cancelar
-          </Button>
-        </DialogActions>
-      </Dialog>
+            <EliminarConsultaMedica
+                open={eliminarOpen}
+                handleOpen={handleEliminarOpen}
+                handleClose={handleEliminarClose}
+                history={props.history}
+                idBeneficiario={detalle.idBeneficiario}
+                idConsultaMedica={detalle.idConsultaMedica}
+                nombre={detalle.nombreBeneficiario}
+                fecha={fecha}
+            />
         </div>
     </center>
 )
