@@ -219,7 +219,7 @@ export default function TablaBeneficiarios(props) {
                 />
                 <TableBody>
                 {
-                    beneficiarios.length === 0 && props.retrieve !== -1 && (
+                    beneficiarios.length === 0 && props.retrieve == 0 && (
                         <TableCell colSpan={5}>
                             <Alert severity="info">No se encontró ningún beneficiario.</Alert>
                         </TableCell>

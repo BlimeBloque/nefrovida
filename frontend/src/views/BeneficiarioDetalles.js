@@ -7,6 +7,7 @@ import SeccionNota from '../components/SeccionNota';
 import SeccionConsultaMedica from '../components/SeccionConsultaMedica';
 import Mensaje from '../components/Mensaje';
 import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
+import Tamizaje from "../components/Tamizaje"
 
 
 const useStyle = makeStyles(theme => ({
@@ -63,6 +64,11 @@ const BeneficiarioDetalles = (props) => {
         <div id="notas">
           <Paper className={classes.consultaMedica}>
             <SeccionNota history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
+          </Paper>
+        </div>
+        <div id="tamizaje">
+          <Paper className={classes.consultaMedica}>
+            <Tamizaje history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
           </Paper>
         </div>
       </Container>
