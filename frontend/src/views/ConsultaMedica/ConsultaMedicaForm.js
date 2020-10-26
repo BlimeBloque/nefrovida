@@ -5,7 +5,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import axios from 'axios';
+import http from "../../http-common";
 
 import Secciones from './secciones/Secciones';
 
@@ -137,6 +137,28 @@ export default function ConsultaMedicaForm(props) {
     }
     useEffect ( () => {
 
+        if(props.editar){
+            setValues({
+                idBeneficiario: props.consulta.idBeneficiario,
+                padecimientoActual: props.consulta.padecimientoActual,
+                taDerecho: props.consulta.taDerecho,
+                taIzquierdo: props.consulta.taIzquierdo,
+                frecuenciaCardiaca: props.consulta.frecuenciaCardiaca,
+                frecuenciaRespiratoria: props.consulta.frecuenciaRespiratoria,
+                temperatura: props.consulta.temperatura,
+                peso: props.consulta.peso,
+                talla: props.consulta.talla,
+                cabezaCuello: props.consulta.cabezaCuello,
+                torax: props.consulta.torax,
+                abdomen: props.consulta.abdomen,
+                extremidades: props.consulta.extremidades,
+                neurologicoEstadoMental: props.consulta.neurologicoEstadoMental,
+                otros: props.consulta.otros,
+                diagnosticos: props.consulta.diagnosticos,
+                planDeTratamiento: props.consulta.planDeTratamiento,
+            });
+        }
+        else {
         setValues({
             ...values,
             'idBeneficiario': props.idBeneficiario
@@ -144,12 +166,13 @@ export default function ConsultaMedicaForm(props) {
 
         
 
-        axios.get('http://localhost:8000/api/beneficiarios/'+props.idBeneficiario)
+        http.get('/beneficiarios/'+props.idBeneficiario)
             .then(res => { setBeneficiario(res.data[0])
         })
             .catch((e) => {
             console.log(e)
         })
+    }
     }, []);
 
     
@@ -195,16 +218,29 @@ export default function ConsultaMedicaForm(props) {
         {
             console.log(values);
 
-            axios.post('http://localhost:8000/api/consultaMedica', values, {headers: {"Accept": "application/json"}})
-                .then(res => {
-                    console.log(res)
-                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarMedica=1");
-                })
-                .catch(err => {
-                    console.log(err)
-                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarMedica=0");
-                });
-
+            if(props.editar)
+            {
+                http.put('/consultaMedica/'+props.consulta.idConsultaMedica, values)
+                    .then(res => {
+                        console.log(res)
+                        props.history.push("/consultaMedica/"+props.consulta.idConsultaMedica+"?editarMedica=1");
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        props.history.push("/consultaMedica/"+props.consulta.idConsultaMedica+"?editarMedica=0");
+                    });
+            }
+            else{
+                http.post('/consultaMedica', values)
+                    .then(res => {
+                        console.log(res)
+                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarMedica=1");
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarMedica=0");
+                    });
+            }
             
         }
 
@@ -213,7 +249,7 @@ export default function ConsultaMedicaForm(props) {
 
     return (
         <center className={classes.root}>
-            <Typography variant="h5">Consulta Médica de {beneficiario.nombreBeneficiario} </Typography>
+            <Typography variant="h5">Consulta Médica de {props.editar ?  props.consulta.nombreBeneficiario :  beneficiario.nombreBeneficiario} </Typography>
 
             <Stepper activeStep={activeStep} alternativeLabel>
                 {steps.map((label) => (
@@ -233,6 +269,7 @@ export default function ConsultaMedicaForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
+                    consulta={props.consulta}
                 />
 
                 <Secciones.ExploracionFisica
@@ -245,6 +282,7 @@ export default function ConsultaMedicaForm(props) {
                     errores={errores}
                     setErrores={setErrores}
                     isDecimal={isDecimal}
+                    consulta={props.consulta}
                 />
 
                 <Secciones.Neurologico
@@ -256,6 +294,7 @@ export default function ConsultaMedicaForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
+                    consulta={props.consulta}
                 />
 
                 <Secciones.Otros
@@ -267,6 +306,7 @@ export default function ConsultaMedicaForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
+                    consulta={props.consulta}
                 />
 
                 <Secciones.DiagnosticoTratamiento
@@ -278,6 +318,7 @@ export default function ConsultaMedicaForm(props) {
                     handleInputChange={handleInputChange}
                     errores={errores}
                     setErrores={setErrores}
+                    consulta={props.consulta}
                 />*
 
                 <div className={classes.botones}>
@@ -289,7 +330,7 @@ export default function ConsultaMedicaForm(props) {
                         Regresar
                     </Button>
                     <Button variant="contained" color='primary' onClick={ activeStep === steps.length-1 ? handleSubmit : handleNext}>
-                        {activeStep === steps.length - 1 ? 'Registrar' : 'Siguiente'}
+                    {activeStep === steps.length - 1 ? props.editar ? 'Editar': 'Registrar' : 'Siguiente'}
                     </Button>
                 </div>
             </form>

@@ -45,8 +45,6 @@ Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Control
 
 Route::resource('consultaMedica', ConsultaMedicaController::class);
 Route::get('/consultaMedica/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaMedicaController@searchByBenef');
-Route::post('/consultaMedica/{idConsultaMedica}', 'App\Http\Controllers\ConsultaMedicaController@edit');
-Route::delete('consultaMedica/eliminar/{idConsultaMedica}', 'App\Http\Controllers\ConsultaMedicaController@delete');
 
 Route::resource('evaluacion', EvaluacionesRespuestasController::class);
 Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasController@all');
