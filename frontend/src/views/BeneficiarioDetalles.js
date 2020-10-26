@@ -47,24 +47,22 @@ const BeneficiarioDetalles = (props) => {
         <Paper className={classes.pageContent}>
           <Detalles history={props.history} idBenef={props.match.params.idBeneficiario} />
         </Paper>
-        <div>
-          <div id="consultas">
-            <Paper className={classes.consultaNutricion}>
-              <SeccionConsultaNutricion history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
-            </Paper>
-          </div>
+        <div id="consultas">
+          <Paper className={classes.consultaNutricion}>
+            <SeccionConsultaNutricion history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
+          </Paper>
+          <Paper className={classes.consultaMedica}>
+            <SeccionConsultaMedica history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
+          </Paper>
+        </div>
           <div id="evaluaciones">
             <Paper className={classes.consultaNutricion}>
               <TarjetaEvaluaciones idBeneficiario={props.match.params.idBeneficiario}/>
             </Paper>
           </div>
-        </div>
         <div id="notas">
           <Paper className={classes.consultaMedica}>
             <SeccionNota history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
-          </Paper>
-          <Paper className={classes.consultaMedica}>
-            <SeccionConsultaMedica history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
           </Paper>
         </div>
       </Container>

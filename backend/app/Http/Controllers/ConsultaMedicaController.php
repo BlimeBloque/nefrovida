@@ -75,12 +75,13 @@ class ConsultaMedicaController extends Controller
     {
         return DB::table('consulta_medica')->leftJoin('beneficiarios', 'consulta_medica.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
             -> where('idConsultaMedica', '=', $idConsultaMedica) 
-            -> select('consulta_medica.*', 'beneficiarios.nombreBeneficiario') -> get();
+            -> select('consulta_medica.*', 'beneficiarios.nombreBeneficiario', 'beneficiarios.fechaNacimiento', 'beneficiarios.sexo') -> get();
     }
 
     public function searchByBenef($idBeneficiario)
     {
-        return DB::table('consulta_medica')->where('idBeneficiario', '=', $idBeneficiario)->select('idBeneficiario', 'idConsultaMedica', 'created_at')->get();
+        return DB::table('consulta_medica')->where('idBeneficiario', '=', $idBeneficiario)->select('idBeneficiario', 'idConsultaMedica', 'created_at')
+        -> latest()->get();
     }
 
     /**
@@ -91,7 +92,7 @@ class ConsultaMedicaController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -101,9 +102,49 @@ class ConsultaMedicaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idConsultaMedica)
     {
-        //
+        $request->validate([
+            'idBeneficiario' => 'required|numeric',
+            'padecimientoActual' => 'max:255|nullable',
+            'taDerecho' => 'max:255|nullable',
+            'taIzquierdo' => 'max:255|nullable',
+            'frecuenciaCardiaca' => 'numeric|nullable',
+            'frecuenciaRespiratoria' => 'numeric|nullable',
+            'temperatura' => 'numeric|nullable',
+            'peso' => 'numeric|nullable',
+            'talla' => 'numeric|nullable',
+            'cabezaCuello' => 'max:255|nullable',
+            'torax' => 'max:255|nullable',
+            'abdomen' => 'max:255|nullable',
+            'extremidades' => 'max:255|nullable',
+            'neurologicoEstadoMental' => 'max:255|nullable',
+            'otros' => 'max:255|nullable',
+            'diagnosticos' => 'max:255|nullable',
+            'plan de tratamiento' => 'max:255|nullable',
+        ]);
+
+        $consultaMedica = ConsultaMedica::find($idConsultaMedica);
+        
+        $consultaMedica->idBeneficiario = $request->input('idBeneficiario');
+        $consultaMedica->padecimientoActual = $request->input('padecimientoActual');
+        $consultaMedica->taDerecho = $request->input('taDerecho');
+        $consultaMedica->taIzquierdo = $request->input('taIzquierdo');
+        $consultaMedica->frecuenciaCardiaca = $request->input('frecuenciaCardiaca');
+        $consultaMedica->frecuenciaRespiratoria = $request->input('frecuenciaRespiratoria');
+        $consultaMedica->temperatura = $request->input('temperatura');
+        $consultaMedica->peso = $request->input('peso');
+        $consultaMedica->talla = $request->input('talla');
+        $consultaMedica->cabezaCuello = $request->input('cabezaCuello');
+        $consultaMedica->torax = $request->input('torax');
+        $consultaMedica->abdomen = $request->input('abdomen');
+        $consultaMedica->extremidades = $request->input('extremidades');
+        $consultaMedica->neurologicoEstadoMental = $request->input('neurologicoEstadoMental');
+        $consultaMedica->otros = $request->input('otros');
+        $consultaMedica->diagnosticos = $request->input('diagnosticos');
+        $consultaMedica->{'plan de tratamiento'} = $request->input('plan de tratamiento');
+
+        $consultaMedica->save();
     }
 
     /**
