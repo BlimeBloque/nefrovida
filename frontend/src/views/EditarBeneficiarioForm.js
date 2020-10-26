@@ -28,7 +28,6 @@ const useStyle = makeStyles(theme => ({
 
 const initialFValues = {
     nombreBeneficiario: '',
-    edad: '',
     idEscolaridad: '',
     sexo: 'H',
     telefono: '',
@@ -85,7 +84,6 @@ export default function AgregarBeneficiarioForm(props) {
   const validate = () => {
       let temp = {}
       temp.nombre = values.nombreBeneficiario?"":"Este campo es requerido"
-      temp.edad = values.nombreBeneficiario?"":"Este campo es requerido"
       temp.idEscolaridad = values.idEscolaridad.length!=0?"":"Este campo es requerido"
       setErrors({
           ...temp
@@ -128,7 +126,6 @@ export default function AgregarBeneficiarioForm(props) {
                       },
                       body: JSON.stringify({
                         nombreBeneficiario: values.nombreBeneficiario,
-                        edad: values.edad,
                         idEscolaridad: values.idEscolaridad,
                         sexo: values.sexo, 
                         telefono: values.telefono,
@@ -167,14 +164,7 @@ export default function AgregarBeneficiarioForm(props) {
                         onChange = {handleInputChange}
                         error={errors.nombre}
                     />
-                        <Controls.Input 
-                        variant="outlined"
-                        label="Edad *"
-                        name="edad"
-                        value={values.edad}
-                        onChange = {handleInputChange}
-                        error={errors.nombre}
-                        />
+                        
                         <Controls.Input 
                         variant="outlined"
                         label="Numero de Teléfono"
