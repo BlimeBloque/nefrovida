@@ -75,12 +75,13 @@ class ConsultaMedicaController extends Controller
     {
         return DB::table('consulta_medica')->leftJoin('beneficiarios', 'consulta_medica.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
             -> where('idConsultaMedica', '=', $idConsultaMedica) 
-            -> select('consulta_medica.*', 'beneficiarios.nombreBeneficiario') -> get();
+            -> select('consulta_medica.*', 'beneficiarios.nombreBeneficiario', 'beneficiarios.fechaNacimiento', 'beneficiarios.sexo') -> get();
     }
 
     public function searchByBenef($idBeneficiario)
     {
-        return DB::table('consulta_medica')->where('idBeneficiario', '=', $idBeneficiario)->select('idBeneficiario', 'idConsultaMedica', 'created_at')->get();
+        return DB::table('consulta_medica')->where('idBeneficiario', '=', $idBeneficiario)->select('idBeneficiario', 'idConsultaMedica', 'created_at')
+        -> latest()->get();
     }
 
     /**
@@ -89,9 +90,22 @@ class ConsultaMedicaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Request $request)
+    public function edit($id)
+    {
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $idConsultaMedica)
     {
         $request->validate([
+            'idBeneficiario' => 'required|numeric',
             'padecimientoActual' => 'max:255|nullable',
             'taDerecho' => 'max:255|nullable',
             'taIzquierdo' => 'max:255|nullable',
@@ -110,36 +124,27 @@ class ConsultaMedicaController extends Controller
             'plan de tratamiento' => 'max:255|nullable',
         ]);
 
-        $query = DB::table('consulta_medica')->where('idConsultaMedica', $id)->update(
-            ['padecimientoActual' => $request->get('padecimientoActual'), 
-            'taDerecho' => $request->get('taDerecho'), 
-            'taIzquierdo' => $request->get('taIzquierdo'), 
-            'frecuenciaCardiaca' => $request->get('frecuenciaCardiaca'), 
-            'frecuenciaRespiratoria' => $request->get('frecuenciaRespiratoria'),
-            'temperatura' => $request->get('temperatura'),
-            'peso' => $request->get('peso'),
-            'talla' => $request->get('talla'),
-            'cabezaCuello' => $request->get('cabezaCuello'),
-            'torax' => $request->get('torax'),
-            'abdomen' => $request->get('abdomen'),
-            'extremidades' => $request->get('extremidades'),
-            'neurologicoEstadoMental' => $request->get('neurologicoEstadoMental'),
-            'otros' => $request->get('otros'),
-            'diagnosticos' => $request->get('diagnosticos'),
-            'plan de tratamiento' => $request->get('plan de tratamiento')]);
-        return $query;
-    }
+        $consultaMedica = ConsultaMedica::find($idConsultaMedica);
+        
+        $consultaMedica->idBeneficiario = $request->input('idBeneficiario');
+        $consultaMedica->padecimientoActual = $request->input('padecimientoActual');
+        $consultaMedica->taDerecho = $request->input('taDerecho');
+        $consultaMedica->taIzquierdo = $request->input('taIzquierdo');
+        $consultaMedica->frecuenciaCardiaca = $request->input('frecuenciaCardiaca');
+        $consultaMedica->frecuenciaRespiratoria = $request->input('frecuenciaRespiratoria');
+        $consultaMedica->temperatura = $request->input('temperatura');
+        $consultaMedica->peso = $request->input('peso');
+        $consultaMedica->talla = $request->input('talla');
+        $consultaMedica->cabezaCuello = $request->input('cabezaCuello');
+        $consultaMedica->torax = $request->input('torax');
+        $consultaMedica->abdomen = $request->input('abdomen');
+        $consultaMedica->extremidades = $request->input('extremidades');
+        $consultaMedica->neurologicoEstadoMental = $request->input('neurologicoEstadoMental');
+        $consultaMedica->otros = $request->input('otros');
+        $consultaMedica->diagnosticos = $request->input('diagnosticos');
+        $consultaMedica->{'plan de tratamiento'} = $request->input('plan de tratamiento');
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        $consultaMedica->save();
     }
 
     /**
@@ -148,9 +153,8 @@ class ConsultaMedicaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id) {
-        $query = DB::table('consulta_medica')->where('idConsultaMedica', $id)->delete();
-
-        return response()->json(null, 204);
+    public function destroy($id)
+    {
+        //
     }
 }

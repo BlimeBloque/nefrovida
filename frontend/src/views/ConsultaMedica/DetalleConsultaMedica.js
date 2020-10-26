@@ -4,6 +4,9 @@ import Sidenav from "../../components/Nav/Sidenav";
 import ConsultaMedica from './ConsultaMedica';
 import { Paper, makeStyles, Container, Button } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {Link} from "react-router-dom";
+import Mensaje from '../../components/Mensaje';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -23,6 +26,7 @@ const DetalleConsultaMedica = (props) => {
     const classes = useStyle();
     const [detalle, setDetalle] = useState([]);
     const idConsultaMedica = props.match.params.idConsultaMedica;
+    const args = props.location.search;
 
     useEffect ( () => {
         axios.get('http://localhost:8000/api/consultaMedica/'+idConsultaMedica)
@@ -40,15 +44,21 @@ const DetalleConsultaMedica = (props) => {
             <Container>
             
             <Paper className={classes.pageContent}>
-                <Button variant="contained" color="primary" className={classes.button} startIcon={<ArrowBackIcon />}
-                onClick={() => props.history.push("/beneficiarios/"+detalle.idBeneficiario)}
-                >
-                    Regresar
-                </Button>
+            <Link variant="body2" to={"/beneficiarios/"+detalle.idBeneficiario}>
+                    <IconButton color="primary" aria-label="edit">
+                        <ArrowBackIcon/>
+                    </IconButton>
+                </Link>
                 
                 <ConsultaMedica detalle={detalle} history={props.history} idConsultaMedica={idConsultaMedica} idBeneficiario={detalle.idBeneficiario}/>
             </Paper>
             </Container>
+
+            <Mensaje 
+                success={args.includes("editarMedica") ? args.slice(-1) : -1} 
+                mensajeExito={"Se actualizó la consulta médica."}
+                mensajeError={"Hubo un error al editar la consulta médica."}
+            />
         </div>
     );
 
