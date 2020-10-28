@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\ExamenOrina;
 use Illuminate\Http\Request;
+use App\Http\Resources\ExamenOrinaCollection;
+use App\Http\Resources\ExamenOrina as ExamenOrinaResource;
+use Illuminate\Support\Facades\DB;
 
 class ExamenOrinaController extends Controller
 {
@@ -25,7 +28,15 @@ class ExamenOrinaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+
+        ]);
+
+        $examenOrina = ExamenOrina::create($request->all());
+
+        return (new ExamenOrinaResource($examenOrina))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**

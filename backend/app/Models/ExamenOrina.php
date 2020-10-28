@@ -7,5 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExamenOrina extends Model
 {
-    use HasFactory;
+    protected $table = "examen_orina";
+    protected $primaryKey = "idExamenOrina";
+
+    protected $fillable = [
+        'idBeneficiario',
+        'color',
+        'aspecto',
+        'ph',
+        'densidad',
+        'nitritos',
+        'glucosa',
+        'proteinas',
+        'hemoglobina',
+        'cuerposCetonicos',
+        'bilirribuna',
+        'urobilinogeno',
+        'leucocitos',
+        'eritrocitosIntactos',
+        'eritrocitosCrenados',
+        'observacionLeucocitos',
+        'cristales',
+        'cilindros',
+        'celulasEpiteliales',
+        'bacterias',
+        'nota',
+        'metodo',
+    ];
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\OpcionEvaluacionController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\ConsultaMedicaController;
+use App\Http\Controllers\ExamenOrinaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,8 @@ Route::get('/tiponota', 'App\Http\Controllers\TipoNotaController@all');
 //todas las rutas de beneficiarios
 Route::resource('beneficiarios', BeneficiariosController::class);
 
-
+//todas las rutas del examen de orina
+Route::resource('examenOrina', ExamenOrinaController::class);
 
 Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
 
@@ -53,8 +55,8 @@ Route::get('/opcionEvaluacion/evaluaciones/{idEvaluacion}', 'App\Http\Controller
 Route::resource('nota', NotaController::class);
 Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaController@searchByBenef');
 
-Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');
 
-Route::post("upload", [ArchivoController::Class, 'upload']);
+Route::post("upload", [ArchivoController::class, 'upload']);
+
 Route::resource('consultaMedica', ConsultaMedicaController::class);
 Route::get('/consultaMedica/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaMedicaController@searchByBenef');
