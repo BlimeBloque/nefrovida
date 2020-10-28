@@ -18,6 +18,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import {getAge} from '../components/utils';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -185,19 +186,6 @@ export default function TablaBeneficiarios(props) {
         setRowsPerPage(parseInt(event.target.value, 10));
         props.setPage(0);
     };
-
-    const getAge = (dateString) =>
-    {
-        var today = new Date();
-        var birthDate = new Date(dateString);
-        var age = today.getFullYear() - birthDate.getFullYear();
-        var m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
-        {
-            age--;
-        }
-        return age;
-    }
 
 
     return (

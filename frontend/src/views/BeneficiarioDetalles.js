@@ -80,11 +80,18 @@ const BeneficiarioDetalles = (props) => {
         mensajeError={"Hubo un error al registrar la nota"}
       />
 
-      {/* CONSULTA NUTRICIÓN RETRO*/}
+      {/* AGREGAR CONSULTA NUTRICIÓN RETRO*/}
       <Mensaje 
         success={args.includes("agregarNutricion") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró la consulta de nutrición."}
         mensajeError={"Hubo un error al registrar la consulta de nutrición."}
+      />
+
+      {/* ELIMINAR CONSULTA NUTRICIÓN RETRO*/}
+      <Mensaje 
+        success={args.includes("eliminarNutricion") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminó la consulta de nutrición."}
+        mensajeError={"Hubo un error al eliminar la consulta de nutrición."}
       />
 
       {/* EVALUACIÓN RETRO*/}
