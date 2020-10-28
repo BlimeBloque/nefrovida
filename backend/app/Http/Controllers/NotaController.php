@@ -88,9 +88,17 @@ class NotaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idNota)
     {
-        //
+        $request->validate([
+            'idBeneficiario' => 'required|numeric',
+            'idTipoNota' => 'required|numeric',
+            'comentario' => 'required',
+            'url_archivo' => 'nullable',
+        ]);
+
+        $query = DB::table('notas')->where('idNota', $idNota)->update(['idBeneficiario'=> $request->get('idBeneficiario') , 'idTipoNota' => $request->get('idTipoNota') , 'comentario' => $request->get('comentario') , 'url_archivo' => $request->get('url_archivo')]);
+        return $query;
     }
 
     /**

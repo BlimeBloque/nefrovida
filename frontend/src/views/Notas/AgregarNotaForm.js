@@ -122,7 +122,15 @@ const onSubmit = e => {
     if(validate()){
 
         if (archivo.archivo === null) {
-
+            http.post('/nota', values)
+            .then(res => {
+                console.log(res)
+                props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNota=1");
+            })
+            .catch(err => {
+                console.log(err)
+                props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNota=0");
+            });
         } else {
             const fd = new FormData();
             fd.append('file', archivo.archivo, archivo.archivoNombre);
