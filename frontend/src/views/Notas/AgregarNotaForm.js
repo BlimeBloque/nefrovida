@@ -115,7 +115,7 @@ const fileSelectedHandler = (e) => {
 const onSubmit = e => {
     console.log('submit');
     values.idBeneficiario = props.idBeneficiario;
-    console.log(archivo);
+    console.log(archivo.archivoNombre);
 
     e.preventDefault();
 

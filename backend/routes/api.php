@@ -56,5 +56,8 @@ Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaCon
 Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');
 
 Route::post("upload", [ArchivoController::Class, 'upload']);
+Route::get("download", [ArchivoController::Class, 'download']);
+
+
 Route::resource('consultaMedica', ConsultaMedicaController::class);
 Route::get('/consultaMedica/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaMedicaController@searchByBenef');

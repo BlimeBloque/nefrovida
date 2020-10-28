@@ -66,8 +66,9 @@ class NotaController extends Controller
      */
     public function show($idNota)
     {
-        return DB::table('notas')->leftJoin('beneficiarios', 'notas.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
-            -> where('idNota', '=', $idNota)->get();
+        return DB::table('notas')->leftJoin('beneficiarios', 'notas.idBeneficiario', '=', 'beneficiarios.idBeneficiario')
+                                ->leftJoin('tipo_nota', 'notas.idTipoNota', '=', 'tipo_nota.idTipoNota')
+                                -> where('idNota', '=', $idNota)->get();
     }
     /**
      * Show the form for editing the specified resource.
