@@ -5,7 +5,7 @@ import Fab from '@material-ui/core/Fab';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-import RestaurantIcon from '@material-ui/icons/Restaurant';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 
 const useStyle = makeStyles(theme => ({
@@ -29,14 +29,14 @@ const SeccionNota = (props) => {
     const classes = useStyle();
     const [notas, setNotas] = useState([]);
 
-   /* useEffect ( () => {
-        axios.get('http://localhost:8000/api/consultaNutricion/beneficiario/'+props.idBeneficiario)
-            .then(res => { setConsultas(res.data)
+    useEffect ( () => {
+        axios.get('http://localhost:8000/api/notas/beneficiario/'+props.idBeneficiario)
+            .then(res => { setNotas(res.data)
                 })
                     .catch((e) => {
                     console.log(e)
                 });
-    }, []);*/
+    }, []);
 
     return(
         <div>
@@ -55,14 +55,14 @@ const SeccionNota = (props) => {
                 <Grid container justify="center" spacing={4}>
                 {
                     notas.length ? 
-                    notas.map((consulta) => (
-                        <Grid key={consulta.idConsultaNutricional} item>
+                    notas.map((nota) => (
+                        <Grid key={nota.idNota} item>
                             <Paper className={classes.paper}>
-                                <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push("/consultaNutricion/"+consulta.idConsultaNutricional)}>
-                                    <RestaurantIcon fontSize="large" />
+                                <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push("/nota/"+nota.idNota)}>
+                                    <AssignmentIcon fontSize="large" />
                                 </IconButton>
-                                Nota hecha el: {(new Date(consulta.created_at)).getDate()+"/"+((new Date(consulta.created_at)).getMonth()+1)
-                                                +"/"+(new Date(consulta.created_at)).getFullYear()}
+                                Nota hecha el: {(new Date(nota.created_at)).getDate()+"/"+((new Date(nota.created_at)).getMonth()+1)
+                                                +"/"+(new Date(nota.created_at)).getFullYear()}
                             </Paper>
                         </Grid>
                         

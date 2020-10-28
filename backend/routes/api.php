@@ -51,6 +51,7 @@ Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasCo
 Route::get('/opcionEvaluacion/evaluaciones/{idEvaluacion}', 'App\Http\Controllers\OpcionEvaluacionController@searchByTipoJornada');
 
 Route::resource('nota', NotaController::class);
+Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaController@searchByBenef');
 
 Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');
 

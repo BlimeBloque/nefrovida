@@ -52,6 +52,12 @@ class NotaController extends Controller
             ->setStatusCode(201);
     }
 
+    public function searchByBenef($idBeneficiario)
+    {
+        return DB::table('notas')->where('idBeneficiario', '=', $idBeneficiario)->select('idBeneficiario', 'idNota', 'created_at')
+            -> latest()->get();
+    }
+
     /**
      * Display the specified resource.
      *
@@ -60,16 +66,9 @@ class NotaController extends Controller
      */
     public function show($idNota)
     {
-        /*return DB::table('consulta_nutricional')->leftJoin('beneficiarios', 'consulta_nutricional.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
-            -> where('idConsultaNutricional', '=', $idConsultaNutricional) 
-            -> select('consulta_nutricional.*', 'beneficiarios.nombreBeneficiario', 'beneficiarios.edad', 'beneficiarios.sexo') -> get();*/
+        return DB::table('notas')->leftJoin('beneficiarios', 'notas.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
+            -> where('idNota', '=', $idNota)->get();
     }
-
-    public function searchByBenef($idBeneficiario)
-    {
-        
-    }
-
     /**
      * Show the form for editing the specified resource.
      *

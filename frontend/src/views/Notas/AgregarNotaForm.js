@@ -156,7 +156,7 @@ const onSubmit = e => {
 
     return (
         <div >
-            <Link variant="body2" to="/beneficiarios">
+            <Link variant="body2" to={"/beneficiarios/" + props.idBeneficiario}>
             <IconButton color="primary" aria-label="edit">
                 <ArrowBackIcon/>
               </IconButton>
