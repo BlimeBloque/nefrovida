@@ -10,6 +10,7 @@ use App\Http\Controllers\OpcionEvaluacionController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\ConsultaMedicaController;
+use App\Http\Controllers\AntecedentesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,8 +54,10 @@ Route::get('/opcionEvaluacion/evaluaciones/{idEvaluacion}', 'App\Http\Controller
 Route::resource('nota', NotaController::class);
 Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaController@searchByBenef');
 
-Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');
-
 Route::post("upload", [ArchivoController::Class, 'upload']);
+
 Route::resource('consultaMedica', ConsultaMedicaController::class);
 Route::get('/consultaMedica/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaMedicaController@searchByBenef');
+
+Route::resource('antecedentes', AntecedentesController::class);
+Route::get('/antecedentes/beneficiario/{idBeneficiario}', 'App\Http\Controllers\AntecedentesController@searchByBenef');
