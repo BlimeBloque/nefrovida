@@ -29,7 +29,28 @@ class ExamenOrinaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
+            'idBeneficiario' => 'required|numeric',
+            'color' => 'max:255|nullable',
+            'aspecto' => 'max:255|nullable',
+            'ph' => 'numeric|nullable',
+            'densidad' => 'numeric|nullable',
+            'nitritos' => 'max:255|nullable',
+            'glucosa' => 'max:255|nullable',
+            'proteinas' => 'max:255|nullable',
+            'hemoglobina' => 'max:255|nullable',
+            'cuerposCetonicos' => 'max:255|nullable',
+            'bilirribuna' => 'max:255|nullable',
+            'urobilinogeno' => 'max:255|nullable',
+            'leucocitos' => 'max:255|nullable',
+            'eritrocitosIntactos' => 'max:255|nullable',
+            'eritrocitosCrenados' => 'max:255|nullable',
+            'observacionLeucocitos' => 'max:255|nullable',
+            'cristales' => 'max:255|nullable',
+            'cilindros' => 'max:255|nullable',
+            'celulasEpiteliales' => 'max:255|nullable',
+            'bacterias' => 'max:255|nullable',
+            'nota' => 'max:400|nullable',
+            'metodo' => 'max:255|nullable',
         ]);
 
         $examenOrina = ExamenOrina::create($request->all());
