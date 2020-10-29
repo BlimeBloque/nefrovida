@@ -14,7 +14,7 @@ class CrearTablaMicroalbuminuria extends Migration
     public function up()
     {
         Schema::create('microalbuminuria', function (Blueprint $table) {
-            $table->increments("idQuimicaSanguinea");
+            $table->increments("idMicroalbuminuria");
             $table->unsignedInteger("idBeneficiario");
             $table->foreign('idBeneficiario')->references('idBeneficiario')->on('beneficiarios')->onDelete('cascade');
             $table->decimal("microAlbumina", 5,2)->nullable();

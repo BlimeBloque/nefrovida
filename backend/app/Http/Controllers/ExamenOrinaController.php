@@ -49,7 +49,7 @@ class ExamenOrinaController extends Controller
             'cilindros' => 'max:255|nullable',
             'celulasEpiteliales' => 'max:255|nullable',
             'bacterias' => 'max:255|nullable',
-            'nota' => 'max:400|nullable',
+            'nota' => 'nullable',
             'metodo' => 'max:255|nullable',
         ]);
 

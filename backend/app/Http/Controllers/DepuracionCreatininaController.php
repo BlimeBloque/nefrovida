@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\DepuracionCreatinina;
 use Illuminate\Http\Request;
+use App\Http\Resources\DepuracionCreatininaCollection;
+use App\Http\Resources\DepuracionCreatinina as DepuracionCreatininaResource;
+use Illuminate\Support\Facades\DB;
 
 class DepuracionCreatininaController extends Controller
 {
@@ -25,7 +28,31 @@ class DepuracionCreatininaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'idBeneficiario' => 'required|numeric',
+            'talla' => 'numeric|nullable',
+            'peso' => 'numeric|nullable',
+            'volumen' => 'numeric|nullable',
+            'superficieCorporal' => 'numeric|nullable',
+            'creatininaEnSuero' => 'numeric|nullable',
+            'valorCreatininaBajoMujer' => 'numeric|nullable',
+            'valorCreatininaAltoMujer' => 'numeric|nullable',
+            'valorCreatininaBajoHombre' => 'numeric|nullable',
+            'valorCreatininaBajoHombre' => 'numeric|nullable',
+            'depuracionCreatinina' => 'numeric|nullable',
+            'valorDepuracionBajoMujer' => 'numeric|nullable',
+            'valorDepuracionAltoMujer' => 'numeric|nullable',
+            'valorDepuracionBajoHombre' => 'numeric|nullable',
+            'valorDepuracionAltoHombre' => 'numeric|nullable',
+            'nota' => 'nullable',
+            'metodo' => 'max:255|nullable',
+        ]);
+
+        $depuracionCreatinina = DepuracionCreatinina::create($request->all());
+
+        return (new DepuracionCreatininaResource($depuracionCreatinina))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**

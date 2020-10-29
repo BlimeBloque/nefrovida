@@ -7,5 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Microalbuminuria extends Model
 {
-    use HasFactory;
+    protected $table = "microalbuminuria";
+    protected $primaryKey = "idMicroalbuminuria";
+
+    protected $fillable = [
+        'idBeneficiario',
+        'microAlbumina',
+        'valorMicroAlbuminaBajo',
+        'valorMicroAlbuminaAlto',
+        'creatinina',
+        'valorCreatininaBajo',
+        'valorCreatininaAlto',
+        'valorRelacionNormalBajo',
+        'valorRelacionNormalAlto',
+        'valorRelacionAnormalBajo',
+        'valorRelacionAnormalAlto',
+        'nota',
+        'metodo',
+    ];
 }
