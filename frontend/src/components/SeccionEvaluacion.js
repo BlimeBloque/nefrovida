@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import BotonEvaluaciones from './Beneficiarios/Evaluaciones/BotonEvaluaciones';
 import TarjetaEvaluaciones from './Beneficiarios/Evaluaciones/TarjetaEvaluaciones';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 
 const useStyle = makeStyles(theme => ({
@@ -27,12 +28,21 @@ const useStyle = makeStyles(theme => ({
 
 const SeccionEvaluacion = (props) => {
     const classes = useStyle();
-    const [evaluaciones, setEvaluaciones] = useState([]);
+    const [evaluacionesInicio, setEvaluacionesIncio] = useState();
+    const [evaluacionesFin, setEvaluacionesFin] = useState();
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/evaluaciones/beneficiario/' + props.idBeneficiario)
+        axios.get('http://localhost:8000/api/evaluacionesInicio/' + props.idBeneficiario)
             .then(res => {
-                setEvaluaciones(res.data)
+                setEvaluacionesIncio(res.data)
+            })
+            .catch((e) => {
+                console.log(e)
+            });
+
+            axios.get('http://localhost:8000/api/evaluacionesFin/' + props.idBeneficiario)
+            .then(res => {
+                setEvaluacionesFin(res.data)
             })
             .catch((e) => {
                 console.log(e)
@@ -41,12 +51,8 @@ const SeccionEvaluacion = (props) => {
 
     return (
         <div>
-            {console.log(evaluaciones)}
-            
-
-
-            <Grid container justify="center" spacing={4}>
-            <div>
+            <Grid container justify="center" spacing={4} >
+            <div style={{marginBottom: '10px'}}>
                 <Typography variant="h6" align="center">
                     <strong>
                         Evaluaciones
@@ -55,14 +61,14 @@ const SeccionEvaluacion = (props) => {
                 <BotonEvaluaciones idBeneficiario={props.idBeneficiario} />
             </div>
                 {
-                    evaluaciones.length ?
-                        evaluaciones.map((evaluacion) => (
-                            <Grid key={evaluacion.idEvaluacionRespuestas} item>
+                    evaluacionesInicio ?
+                    evaluacionesInicio.map((evaluacionInicio) => (
+                            <Grid key={evaluacionInicio.idEvaluacionRespuestas} item>
                                 <Paper className={classes.paper}>
-                                    <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push("/evaluaciones/" + evaluacion.idEvaluacionRespuestas)}>
-                                        <LocalHospitalIcon fontSize="large" />
+                                    <IconButton aria-label="Consultar" className={classes.margin} /*onClick={() => props.history.push("/evaluaciones/" + evaluacionInicio.grupo)}*/>
+                                        <AssessmentIcon fontSize="large" />
                                     </IconButton>
-                                Evaluacion del: {evaluacion.created_at}
+                                Evaluacion de {evaluacionInicio.nombreEvaluacion}
                                 </Paper>
                             </Grid>
 
@@ -71,6 +77,22 @@ const SeccionEvaluacion = (props) => {
                         :
                         <Typography variant="body">No hay evaluaciones registradas para este beneficiario</Typography>
 
+                }
+                {
+                    evaluacionesFin ?
+                    evaluacionesFin.map((evaluacionFin) => (
+                            <Grid key={evaluacionFin.idEvaluacionRespuestas} item>
+                                <Paper className={classes.paper}>
+                                    <IconButton aria-label="Consultar" className={classes.margin} /*onClick={() => props.history.push("/evaluaciones/" + evaluacionFin.grupo)}*/>
+                                        <AssessmentIcon fontSize="large" />
+                                    </IconButton>
+                                Evaluacion de {evaluacionFin.nombreEvaluacion}
+                                </Paper>
+                            </Grid>
+
+                        ))
+                        :
+                        <Typography variant="body">No hay evaluaciones registradas para este beneficiario</Typography>
                 }
             </Grid>
         </div>

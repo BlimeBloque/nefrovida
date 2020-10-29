@@ -15,6 +15,7 @@ class EvaluacionesRespuestas extends Model
         'idOpcionEvaluacion',
         'idBeneficiario',
         'otraRespuesta',
-        'respuestasPosibles'
+        'respuestasPosibles',
+        'grupo'
     ];
 }
