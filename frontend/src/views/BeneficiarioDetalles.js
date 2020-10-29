@@ -6,7 +6,7 @@ import SeccionConsultaNutricion from '../components/SeccionConsultaNutricion';
 import SeccionNota from '../components/SeccionNota';
 import SeccionConsultaMedica from '../components/SeccionConsultaMedica';
 import Mensaje from '../components/Mensaje';
-import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
+import SeccionEvaluacion from "../components/SeccionEvaluacion";
 
 
 const useStyle = makeStyles(theme => ({
@@ -57,7 +57,7 @@ const BeneficiarioDetalles = (props) => {
         </div>
           <div id="evaluaciones">
             <Paper className={classes.consultaNutricion}>
-              <TarjetaEvaluaciones idBeneficiario={props.match.params.idBeneficiario}/>
+              <SeccionEvaluacion idBeneficiario={props.match.params.idBeneficiario}/>
             </Paper>
           </div>
         <div id="notas">
