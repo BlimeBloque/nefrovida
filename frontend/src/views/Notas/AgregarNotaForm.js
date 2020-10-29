@@ -5,6 +5,7 @@ import axios from 'axios'
 import Controls from "../../components/FormComponents/Controls";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 import Button from '../../components/FormComponents/Button';
 import { formatDuration } from 'date-fns';
@@ -32,7 +33,13 @@ const useStyle = makeStyles(theme => ({
     },
     input: {
         display: 'none',
-      }
+      },
+      botones: {
+        '& > *': {
+          margin: theme.spacing(1),
+          float: "right",
+        },
+    }
 
 }))
 
@@ -67,6 +74,15 @@ export default function AgregarNotaForm(props) {
             [name]:value 
         })
     }
+
+    const removeFile = () => {
+        setArchivo({
+            archivo: null,
+            archivoNombre: null   
+        })
+        values.url_archivo = null;
+    }
+    
 
     useEffect ( () => {
 
@@ -171,6 +187,13 @@ const onSubmit = e => {
               </Link>
             <div className={classes.form}>
             <Typography variant="h5" gutterBottom>Nota para {beneficiario.nombreBeneficiario}</Typography>
+            </div>
+            <div className={classes.botones}>
+            <Tooltip title ="Eliminar archivo adjunto">
+                <IconButton color="secondary" component="span" onClick={removeFile}>
+                    <RemoveCircleOutlineIcon fontSize="small"/>
+                </IconButton>
+             </Tooltip>
             </div>
             <br></br><br></br>
             <CssBaseline/>

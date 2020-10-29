@@ -14,7 +14,7 @@ class ArchivoController extends Controller
 
     function download(Request $req){
 
-        $file = public_path()."/file";
-        return response()->download($file);
+        $path = storage_path('app\ArchivosNotas\aKcONxvxfYU23ztfvO4wYUZ8ErEgoWeFLiBUcw1U.pdf');
+        return response()->download($path);
     }
 }

@@ -52,7 +52,7 @@ export default function AgregarBeneficiarioForm(props) {
         axios.get('http://127.0.0.1:8000/api/beneficiarios/' + props.idBenef)
         .then((res) => {
             let temp = res.data[0].fechaNacimiento.split("-");
-            res.data[0].fechaNacimiento = new Date(temp[0], temp[1], temp[2]);
+            res.data[0].fechaNacimiento = new Date(temp[0], temp[1]-1, temp[2]);
             console.log(res.data[0]);
             setValues(res.data[0]);
           })
