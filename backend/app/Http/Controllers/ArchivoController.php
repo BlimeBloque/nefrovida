@@ -12,9 +12,9 @@ class ArchivoController extends Controller
         return ["result"=>$result];
     }
 
-    function download(Request $req){
+    function download(Request $req, String $folder, String $file){
 
-        $path = storage_path('app\ArchivosNotas\aKcONxvxfYU23ztfvO4wYUZ8ErEgoWeFLiBUcw1U.pdf');
+        $path = storage_path('app\\' . $folder . '\\' . $file);
         return response()->download($path);
     }
 }

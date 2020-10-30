@@ -69,14 +69,16 @@ const useStyle = makeStyles(theme => ({
 function download(props){
 
     axios({
-        url: 'http://127.0.0.1:8000/api/download', //your url
+        url: 'http://127.0.0.1:8000/api/download/' + props, //your url
         method: 'GET',
         responseType: 'blob', // important
       }).then((response) => {
          const url = window.URL.createObjectURL(new Blob([response.data]));
          const link = document.createElement('a');
          link.href = url;
-         link.setAttribute('download', 'NefrovidaArchivoDeNota.pdf'); //or any other extension
+         const arr = props.split('.');
+         console.log(arr);
+         link.setAttribute('download', 'archivo.'+arr[1]); //or any other extension
          document.body.appendChild(link);
          link.click();
       });
