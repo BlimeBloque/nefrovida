@@ -34,7 +34,7 @@ export default function DetalleEvaluacionValores(props) {
         if(idEvaluacion == 1) {
             axios.get('http://localhost:8000/api/detallesEvaluacionesInicio/'+ props.idBeneficiario)
             .then(res => { 
-                setValoresInicio(res.data, console.log(res.data))
+                setValoresInicio(res.data)
             })
             .catch((e) => {
                 console.log(e)
@@ -76,7 +76,7 @@ export default function DetalleEvaluacionValores(props) {
                             <Typography variant="body1">Respuesta: <em><strong>{valor.respuestasPosibles}</strong></em></Typography> <br/>
                         </>
                     )) :
-                <div className={classes.centerItem}>
+                <div>
                 </div>
             }
             {
@@ -87,10 +87,10 @@ export default function DetalleEvaluacionValores(props) {
                         <Typography variant="subtitle1">Respuesta: <em><strong>{valor.respuestasPosibles}</strong></em></Typography> <br/>
                     </>
                  )) :
-                 <div className={classes.centerItem}>
-                    
+                 <div>                    
                 </div>
             }
+            
         </div>
     )
 }
