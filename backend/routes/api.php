@@ -11,6 +11,9 @@ use App\Http\Controllers\NotaController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\ConsultaMedicaController;
 use App\Http\Controllers\ExamenOrinaController;
+use App\Http\Controllers\DepuracionCreatininaController;
+use App\Http\Controllers\QuimicaSanguineaController;
+use App\Http\Controllers\MicroalbuminuriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +45,12 @@ Route::resource('beneficiarios', BeneficiariosController::class);
 
 //todas las rutas del examen de orina
 Route::resource('examenOrina', ExamenOrinaController::class);
+//todas las rutas de la depuración de creatinina
+Route::resource('depuracionCreatinina', DepuracionCreatininaController::class);
+//todas las rutas de la química sanguínea
+Route::resource('quimicaSanguinea', QuimicaSanguineaController::class);
+//todas las rutas de la microalbuminuria
+Route::resource('microalbuminuria', MicroalbuminuriaController::class);
 
 Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
 
