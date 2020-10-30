@@ -51,7 +51,8 @@ Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasCo
 Route::get('/opcionEvaluacion/evaluaciones/{idEvaluacion}', 'App\Http\Controllers\OpcionEvaluacionController@searchByTipoJornada');
 Route::get('evaluacionesInicio/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@searchByBenefStart');
 Route::get('evaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@searchByBenefEnd');
-Route::get('evaluaciones', 'App\Http\Controllers\EvaluacionesRespuestasController@searchByBenefEnd');
+Route::get('detallesEvaluacionesInicio/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@detalleInicio');
+Route::get('detallesEvaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@detalleFin');
 
 Route::resource('nota', NotaController::class);
 Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaController@searchByBenef');

@@ -154,4 +154,28 @@ class EvaluacionesRespuestasController extends Controller
         ORDER BY er.idEvaluacionRespuesta
         */
     }
+
+    public function detalleInicio($idBeneficiario) {
+        return DB::table('evaluaciones_respuestas AS er')
+            ->join('opcion_evaluacion AS oe', 'er.idOpcionEvaluacion' , '=', 'oe.idOpcionEvaluacion')
+            ->join('evaluaciones_preguntas AS ep', 'oe.idEvaluacionPregunta' , '=', 'ep.idEvaluacionPregunta')
+            ->join('evaluacion AS e', 'oe.idEvaluacion' , '=', 'e.idEvaluacion')
+            ->join('beneficiarios AS b', 'er.idBeneficiario' , '=', 'b.idBeneficiario')
+            ->where('b.idBeneficiario', '=', $idBeneficiario)
+            ->where('e.idEvaluacion', '=', 1)
+            ->select('e.idEvaluacion', 'oe.idOpcionEvaluacion', 'ep.evaluacionPregunta', 'er.respuestasPosibles', 'e.nombreEvaluacion')
+            ->get();
+    }
+
+    public function detalleFin($idBeneficiario) {
+        return DB::table('evaluaciones_respuestas AS er')
+            ->join('opcion_evaluacion AS oe', 'er.idOpcionEvaluacion' , '=', 'oe.idOpcionEvaluacion')
+            ->join('evaluaciones_preguntas AS ep', 'oe.idEvaluacionPregunta' , '=', 'ep.idEvaluacionPregunta')
+            ->join('evaluacion AS e', 'oe.idEvaluacion' , '=', 'e.idEvaluacion')
+            ->join('beneficiarios AS b', 'er.idBeneficiario' , '=', 'b.idBeneficiario')
+            ->where('b.idBeneficiario', '=', $idBeneficiario)
+            ->where('e.idEvaluacion', '=', 2)
+            ->select('e.idEvaluacion', 'oe.idOpcionEvaluacion', 'ep.evaluacionPregunta', 'er.respuestasPosibles', 'e.nombreEvaluacion')
+            ->get();
+    }
 }

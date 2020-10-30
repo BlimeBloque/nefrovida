@@ -24,6 +24,11 @@ const useStyle = makeStyles(theme => ({
     margin: {
         margin: theme.spacing(1),
     },
+    grid: {
+        marginTop: "10px",
+        marginBottom: "10px",
+    }
+    
 }));
 
 const SeccionEvaluacion = (props) => {
@@ -51,50 +56,49 @@ const SeccionEvaluacion = (props) => {
 
     return (
         <div>
-            <Grid container justify="center" spacing={4} >
-            <div style={{marginBottom: '10px'}}>
+            <div>
                 <Typography variant="h6" align="center">
                     <strong>
                         Evaluaciones
                     </strong>
                 </Typography>
-                <BotonEvaluaciones idBeneficiario={props.idBeneficiario} />
+                
             </div>
-                {
-                    evaluacionesInicio ?
-                    evaluacionesInicio.map((evaluacionInicio) => (
+            <Grid container spacing={2} justify="center" alignItems="baseline" className={classes.grid}>
+                {console.log(evaluacionesInicio)}
+                {   
+                        evaluacionesInicio ?
+                        evaluacionesInicio.map((evaluacionInicio) => (
                             <Grid key={evaluacionInicio.idEvaluacionRespuestas} item>
                                 <Paper className={classes.paper}>
-                                    <IconButton aria-label="Consultar" className={classes.margin} /*onClick={() => props.history.push("/evaluaciones/" + evaluacionInicio.grupo)}*/>
+                                    <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push("/evaluaciones/" + evaluacionInicio.grupo)}>
                                         <AssessmentIcon fontSize="large" />
                                     </IconButton>
-                                Evaluacion de {evaluacionInicio.nombreEvaluacion}
+                                    Evaluacion de <strong>{evaluacionInicio.nombreEvaluacion}</strong>
                                 </Paper>
                             </Grid>
-
                         ))
-
                         :
-                        <Typography variant="body">No hay evaluaciones registradas para este beneficiario</Typography>
-
+                        <Typography variant="caption">No hay evaluaciones de inicio de jornada.</Typography>   
                 }
                 {
                     evaluacionesFin ?
                     evaluacionesFin.map((evaluacionFin) => (
                             <Grid key={evaluacionFin.idEvaluacionRespuestas} item>
                                 <Paper className={classes.paper}>
-                                    <IconButton aria-label="Consultar" className={classes.margin} /*onClick={() => props.history.push("/evaluaciones/" + evaluacionFin.grupo)}*/>
+                                    <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push("/evaluaciones/" + evaluacionFin.grupo)}>
                                         <AssessmentIcon fontSize="large" />
                                     </IconButton>
-                                Evaluacion de {evaluacionFin.nombreEvaluacion}
+                                Evaluacion de <strong>{evaluacionFin.nombreEvaluacion}</strong>
                                 </Paper>
                             </Grid>
-
                         ))
                         :
                         <Typography variant="body">No hay evaluaciones registradas para este beneficiario</Typography>
+
                 }
-            </Grid>
+            </Grid> 
+            <BotonEvaluaciones idBeneficiario={props.idBeneficiario} />
         </div>
     );
 }

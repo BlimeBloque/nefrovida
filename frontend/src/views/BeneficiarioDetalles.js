@@ -57,7 +57,7 @@ const BeneficiarioDetalles = (props) => {
         </div>
           <div id="evaluaciones">
             <Paper className={classes.consultaNutricion}>
-              <SeccionEvaluacion idBeneficiario={props.match.params.idBeneficiario}/>
+              <SeccionEvaluacion idBeneficiario={props.match.params.idBeneficiario} history={props.history}/>
             </Paper>
           </div>
         <div id="notas">
