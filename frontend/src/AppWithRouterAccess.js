@@ -21,6 +21,7 @@ import DetalleNota from './views/Notas/DetalleNota';
 import AgregarConsultaMedica from './views/ConsultaMedica/AgregarConsultaMedica';
 import DetalleConsultaMedica from './views/ConsultaMedica/DetalleConsultaMedica';
 import EditarConsultaMedica from "./views/ConsultaMedica/EditarConsultaMedica";
+import DetalleEvaluacion from "./views/Evaluaciones/DetalleEvaluacion";
 
 export default withRouter(
   class AppWithRouterAccess extends Component {
@@ -49,6 +50,8 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaNutricion' exact={true} component={AgregarConsultaNutricion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionInicio' exact={true} component={AgregarEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionFin' exact={true} component={AgregarEvaluacion}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/detalleEvaluacionesInicio' exact={true} component={DetalleEvaluacion}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/detalleEvaluacionesFin' exact={true} component={DetalleEvaluacion}/>
             
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editar' exact={true} component={EditarBeneficiario}/>
             <SecureRoute path='/consultaNutricion/:idConsultaNutricion([0-9]*)' exact={true} component={DetalleConsultaNutricion}/>

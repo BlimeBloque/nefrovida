@@ -71,7 +71,7 @@ const SeccionEvaluacion = (props) => {
                         evaluacionesInicio.map((evaluacionInicio) => (
                             <Grid key={evaluacionInicio.idEvaluacionRespuestas} item>
                                 <Paper className={classes.paper}>
-                                    <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push("/evaluaciones/" + evaluacionInicio.grupo)}>
+                                    <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push(props.idBeneficiario + '/detalleEvaluacionesInicio')}>
                                         <AssessmentIcon fontSize="large" />
                                     </IconButton>
                                     Evaluacion de <strong>{evaluacionInicio.nombreEvaluacion}</strong>
@@ -86,7 +86,7 @@ const SeccionEvaluacion = (props) => {
                     evaluacionesFin.map((evaluacionFin) => (
                             <Grid key={evaluacionFin.idEvaluacionRespuestas} item>
                                 <Paper className={classes.paper}>
-                                    <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push("/evaluaciones/" + evaluacionFin.grupo)}>
+                                    <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push(props.idBeneficiario + '/detalleEvaluacionesFin')}>
                                         <AssessmentIcon fontSize="large" />
                                     </IconButton>
                                 Evaluacion de <strong>{evaluacionFin.nombreEvaluacion}</strong>
