@@ -18,7 +18,8 @@ class EvaluacionesRespuestas extends JsonResource
             'idOpcionEvaluacion' => $this->idOpcionEvaluacion,
             'idBeneficiario' => $this->idBeneficiario,
             'otraRespuesta' => $this->otraRespuesta,
-            'respuestasPosibles' => $this->respuestasPosibles
+            'respuestasPosibles' => $this->respuestasPosibles,
+            'grupo' => $this->grupo
         ];
     }
 }
