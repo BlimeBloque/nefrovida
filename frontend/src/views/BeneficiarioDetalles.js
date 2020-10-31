@@ -68,6 +68,13 @@ const BeneficiarioDetalles = (props) => {
       </Container>
 
 
+
+      <Mensaje 
+        success={args.includes("editarNota") ? args.slice(-1) : -1} 
+        mensajeExito={"Se editó la nota correctamente."}
+        mensajeError={"Hubo un error al editar la nota"}
+      />
+
       <Mensaje 
         success={args.includes("editarBeneficiario") ? args.slice(-1) : -1} 
         mensajeExito={"Se editó el beneficiario correctamente."}

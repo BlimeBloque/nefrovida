@@ -11,4 +11,10 @@ class ArchivoController extends Controller
         $result=$req->file('file')->store('ArchivosNotas');
         return ["result"=>$result];
     }
+
+    function download(Request $req, String $folder, String $file){
+
+        $path = storage_path('app\\' . $folder . '\\' . $file);
+        return response()->download($path);
+    }
 }

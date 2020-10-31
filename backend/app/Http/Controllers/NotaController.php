@@ -66,8 +66,9 @@ class NotaController extends Controller
      */
     public function show($idNota)
     {
-        return DB::table('notas')->leftJoin('beneficiarios', 'notas.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
-            -> where('idNota', '=', $idNota)->get();
+        return DB::table('notas')->leftJoin('beneficiarios', 'notas.idBeneficiario', '=', 'beneficiarios.idBeneficiario')
+                                ->leftJoin('tipo_nota', 'notas.idTipoNota', '=', 'tipo_nota.idTipoNota')
+                                -> where('idNota', '=', $idNota)->get();
     }
     /**
      * Show the form for editing the specified resource.
@@ -87,9 +88,17 @@ class NotaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idNota)
     {
-        //
+        $request->validate([
+            'idBeneficiario' => 'required|numeric',
+            'idTipoNota' => 'required|numeric',
+            'comentario' => 'required',
+            'url_archivo' => 'nullable',
+        ]);
+
+        $query = DB::table('notas')->where('idNota', $idNota)->update(['idBeneficiario'=> $request->get('idBeneficiario') , 'idTipoNota' => $request->get('idTipoNota') , 'comentario' => $request->get('comentario') , 'url_archivo' => $request->get('url_archivo')]);
+        return $query;
     }
 
     /**

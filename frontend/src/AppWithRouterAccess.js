@@ -18,6 +18,7 @@ import DetalleConsultaNutricion from "./views/ConsultaNutricion/DetalleConsultaN
 import EditarConsultaNutricion from "./views/ConsultaNutricion/EditarConsultaNutricion";
 import AgregarNota from './views/Notas/AgregarNota';
 import DetalleNota from './views/Notas/DetalleNota';
+import EditarNota from './views/Notas/EditarNota';
 import AgregarConsultaMedica from './views/ConsultaMedica/AgregarConsultaMedica';
 import DetalleConsultaMedica from './views/ConsultaMedica/DetalleConsultaMedica';
 import EditarConsultaMedica from "./views/ConsultaMedica/EditarConsultaMedica";
@@ -55,6 +56,8 @@ export default withRouter(
             <SecureRoute path='/consultaNutricion/editar/:idConsultaNutricion([0-9]*)' exact={true} component={EditarConsultaNutricion}/>
 
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarNota' exact={true} component={AgregarNota}/>
+            <SecureRoute path='/nota/editar/:idNota([0-9]*)' exact={true} component={EditarNota}/>
+
             <SecureRoute path='/nota/:idConsultaMedica([0-9]*)' exact={true} component={DetalleNota}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaMedica' exact={true} component={AgregarConsultaMedica}/>
             <SecureRoute path='/consultaMedica/:idConsultaMedica([0-9]*)' exact={true} component={DetalleConsultaMedica}/>
