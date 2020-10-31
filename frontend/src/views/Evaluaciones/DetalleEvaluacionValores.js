@@ -76,8 +76,7 @@ export default function DetalleEvaluacionValores(props) {
                             <Typography variant="body1">Respuesta: <em><strong>{valor.respuestasPosibles}</strong></em></Typography> <br/>
                         </>
                     )) :
-                <div>
-                </div>
+                <div/>
             }
             {
                  valoresFin ?
@@ -86,9 +85,8 @@ export default function DetalleEvaluacionValores(props) {
                         <Typography variant="h6">{valor.idOpcionEvaluacion-9}.- {valor.evaluacionPregunta}</Typography>
                         <Typography variant="subtitle1">Respuesta: <em><strong>{valor.respuestasPosibles}</strong></em></Typography> <br/>
                     </>
-                 )) :
-                 <div>                    
-                </div>
+                 )) :                  
+                <div/>
             }
             
         </div>
