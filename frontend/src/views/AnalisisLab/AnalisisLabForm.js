@@ -72,7 +72,7 @@ export default function AnalisisLabForm (props)
                 </Select>
             </FormControl>
             <div className={classes.botones}>
-            <Button variant="contained" color='primary' onClick={handleNext}>Siguiente</Button>
+                <Button variant="contained" color='primary' onClick={handleNext}>Siguiente</Button>
             </div>
         </center>
     )
