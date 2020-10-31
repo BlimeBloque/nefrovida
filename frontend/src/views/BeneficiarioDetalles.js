@@ -119,6 +119,13 @@ const BeneficiarioDetalles = (props) => {
         mensajeExito={"Se registró el examen de orina."}
         mensajeError={"Hubo un error al registrar el examen de orina."}
       />
+
+      {/*AGREGAR DEPURACION DE CREATININA RETRO*/}
+      <Mensaje 
+        success={args.includes("agregarDepuracionCreatinina") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró la depuración de creatinina."}
+        mensajeError={"Hubo un error al registrar la depuración de creatinina."}
+      />
       
     </div>
   );

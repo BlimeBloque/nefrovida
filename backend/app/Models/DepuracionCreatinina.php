@@ -20,7 +20,7 @@ class DepuracionCreatinina extends Model
         'valorCreatininaBajoMujer',
         'valorCreatininaAltoMujer',
         'valorCreatininaBajoHombre',
-        'valorCreatininaBajoHombre',
+        'valorCreatininaAltoHombre',
         'depuracionCreatinina',
         'valorDepuracionBajoMujer',
         'valorDepuracionAltoMujer',

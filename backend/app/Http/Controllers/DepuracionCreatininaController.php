@@ -38,7 +38,7 @@ class DepuracionCreatininaController extends Controller
             'valorCreatininaBajoMujer' => 'numeric|nullable',
             'valorCreatininaAltoMujer' => 'numeric|nullable',
             'valorCreatininaBajoHombre' => 'numeric|nullable',
-            'valorCreatininaBajoHombre' => 'numeric|nullable',
+            'valorCreatininaAltoHombre' => 'numeric|nullable',
             'depuracionCreatinina' => 'numeric|nullable',
             'valorDepuracionBajoMujer' => 'numeric|nullable',
             'valorDepuracionAltoMujer' => 'numeric|nullable',

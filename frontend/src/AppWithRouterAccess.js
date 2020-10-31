@@ -23,6 +23,8 @@ import DetalleConsultaMedica from './views/ConsultaMedica/DetalleConsultaMedica'
 import EditarConsultaMedica from "./views/ConsultaMedica/EditarConsultaMedica";
 import AgregarAnalisisLab from './views/AnalisisLab/AgregarAnalisisLab';
 import AgregarExamenOrina from "./views/AnalisisLab/ExamenOrina/AgregarExamenOrina";
+import AgregarDepuracionCreatinina from "./views/AnalisisLab/DepuracionCreatinina/AgregarDepuracionCreatinina";
+
 
 export default withRouter(
   class AppWithRouterAccess extends Component {
@@ -58,7 +60,7 @@ export default withRouter(
           
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarAnalisisLab' exact={true} component={AgregarAnalisisLab}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarExamenOrina' exact={true} component={AgregarExamenOrina}/>
-            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarDepuracionCreatinina' exact={true} component={AgregarAnalisisLab}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarDepuracionCreatinina' exact={true} component={AgregarDepuracionCreatinina}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarQuimicaSanguinea' exact={true} component={AgregarAnalisisLab}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarMicroalbuminuria' exact={true} component={AgregarAnalisisLab}/>
 
