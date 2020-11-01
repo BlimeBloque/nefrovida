@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { Container } from "@material-ui/core";
+import { Container, Tooltip } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { Table } from "semantic-ui-react";
 import axios from "axios";
@@ -33,25 +33,33 @@ function IsActive(props) {
 function EscolaridadNombre(props) {
   const escolaridadNom = props.escolaridadNom;
   if (escolaridadNom === 1) {
-    return <td>Primaria</td>;
+    return <td>Escolaridad: Primaria</td>;
   } else if (escolaridadNom === 2) {
-    return <td>Medio Superior</td>;
+    return <td>Escolaridad: Medio Superior</td>;
   } else if (escolaridadNom === 3) {
-    return <td>Secundaria</td>;
+    return <td>Escolaridad: Secundaria</td>;
   } else if (escolaridadNom === 4) {
-    return <td>Universidad</td>;
+    return <td>Escolaridad: Universidad</td>;
   } else if (escolaridadNom === 5) {
-    return <td>Lee/Escribe</td>;
+    return <td>Escolaridad: Lee/Escribe</td>;
   }
-  return <td>Analfabeta</td>;
+  return <td>Escolaridad: Analfabeta</td>;
 }
 
 function DeSeguimiento(props) {
   const seg = props.seg;
   if (seg === 1) {
-    return <td>Sí</td>;
+    return <td> De Seguimiento: Sí</td>;
   }
-  return <td>No</td>;
+  return <td> De Seguimiento: No</td>;
+}
+
+function GetSexo(props){
+  if(props.sexo === 'H'){
+    return <td>Sexo: Hombre</td>
+  } else {
+    return <td>Sexo: Mujer</td>
+  }
 }
 
 class DetallesTabla extends Component {
@@ -72,7 +80,8 @@ class DetallesTabla extends Component {
       telefono: '',
       fecha:'',
       seguimiento:'',
-      activo:''
+      activo:'',
+      idJornada: '',
     };
   }
  
@@ -158,51 +167,76 @@ class DetallesTabla extends Component {
     console.log(detalles);
     return (
       <Container>
-      {this.state.detalles.map((detalle) => (
-        <IsActive key={detalle.idBeneficiario} activeState={detalle.activo} />
-      ))}
 
-      <Table textAlign="center">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Edad</th>
-            <th>Escolaridad</th>
-            <th>Sexo</th>
-            <th>Teléfono</th>
-            <th>Dirección</th>
-            <th>Fecha de Nacimiento</th>
-            <th>De Seguimiento</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.detalles.map((detalle) => (
-            <tr key={detalle.idBeneficiario}>
-              <td>{detalle.nombreBeneficiario}</td>
-              <td>{getAge(detalle.fechaNacimiento)}</td>
-              <EscolaridadNombre escolaridadNom={detalle.idEscolaridad} />
-              <td>{detalle.sexo}</td>
-              <td>{detalle.telefono}</td>
-              <td>{detalle.direccion}</td>
-              <td>{detalle.fechaNacimiento}</td>
-              <DeSeguimiento seg={detalle.seguimiento} />
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-      <br></br><br></br><br></br>
-        <Grid container justify="flex-end" spacing="2">
-          <Grid item xs={10}>          
-            <Link variant="body2" to="/beneficiarios">
-            <IconButton color="primary" aria-label="edit">
-                <ArrowBackIcon/>
-            </IconButton>
-            </Link>
+  { this.state.detalles.map ((detalle) => (
+    <div>
+        <Link variant="body2" to="/beneficiarios">
+              <IconButton color="primary" aria-label="edit">
+                  <ArrowBackIcon/>
+              </IconButton>
+              </Link>
+        <Grid container spacing='3' justify="space-between">
+            <Grid item xs={6}> 
+            <Typography variant="h3" gutterBottom>
+                {detalle.nombreBeneficiario}
+            </Typography>
+            </Grid>
+            <br/><br/><br/><br/><br/><br/>
+            <Grid item xs={1}>
+            <Typography variant="h3" gutterBottom>
+                {detalle.idBeneficiario}
+            </Typography>
+            </Grid>
+        </Grid>
+        <Grid container spacing='1'> 
+            <Grid item xs={12}> 
+            <Typography variant="subtitle1" >
+                Jornada: {detalle.idJornada}
+            </Typography>
+            </Grid>
+            <Grid item xs={12}> 
+            <Typography variant="subtitle1" gutterBottom>
+                Fecha de Nacimiento: {detalle.fechaNacimiento}
+            </Typography>
+            </Grid>
+            <Grid item xs={12}> 
+            <Typography variant="subtitle1" >
+               <GetSexo sexo={detalle.sexo} />
+            </Typography>
+            </Grid>
+            <Grid item xs={12}> 
+            <Typography variant="subtitle1" >
+                Telefono: {detalle.telefono}
+            </Typography>
+            </Grid>
+            <Grid item xs={12}> 
+            <Typography variant="subtitle1" >
+                Direccion: {detalle.direccion}
+            </Typography>
+            </Grid>
+            <Grid item xs={12}> 
+            <Typography variant="subtitle1" >
+                <EscolaridadNombre escolaridadNom= {detalle.idEscolaridad} />
+            </Typography>
+            </Grid>
+            <Grid item xs={12}> 
+            <Typography variant="subtitle1" >
+               <DeSeguimiento seg = {detalle.seguimiento} />
+            </Typography>
+            </Grid>
+            <Grid item xs={12}> 
+            <IsActive key={detalle.idBeneficiario} activeState={detalle.activo} />
+            </Grid>
           </Grid>
+          </div>
+           ))}  
+        <Grid container justify="flex-end" spacing="2">
           <Grid justify="flex-end" item xs={2} spacing="2"> 
-            <IconButton  color="secondary" onClick={this.handleDialogOpen}>
-              <RemoveCircleOutlineIcon />
-            </IconButton >
+          <Tooltip title="Dar de baja beneficiario" arrow>
+              <IconButton  color="secondary" onClick={this.handleDialogOpen}>
+                <RemoveCircleOutlineIcon fontSize="large"/>
+              </IconButton >
+            </Tooltip>
             {this.state.detalles.map((detalle) => (
             <Dialog
               open={this.state.open}
@@ -227,9 +261,11 @@ class DetallesTabla extends Component {
             ))}
               {this.state.detalles.map((detalle) => (
             <a href={"/beneficiarios/" + detalle.idBeneficiario + "/editar"}>
-              <IconButton  color="primary" >
-              <EditIcon />
-            </IconButton >
+              <Tooltip title="Editar beneficiario" arrow>
+                  <IconButton  color="primary" >
+                  <EditIcon fontSize="large"/>
+                </IconButton >
+              </Tooltip>
             </a>
             ))}
         </Grid>

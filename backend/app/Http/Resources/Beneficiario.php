@@ -34,6 +34,7 @@ class Beneficiario extends JsonResource {
             'activo' => $this->activo,
             'fechaNacimiento' => $this->fechaNacimiento,
             'seguimiento' => $this->seguimiento,
+            'idJornada' => $this->idJornada,
         ];
     }
 }

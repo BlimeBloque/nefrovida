@@ -13,7 +13,7 @@ const genderItems = [
 const useStyle = makeStyles(theme => ({
     root:{
        '& .MuiFormControl-root' :{
-           width: '47%',
+           width: '90%',
            margin: theme.spacing(1),
        } 
     }, 
@@ -33,9 +33,10 @@ const initialFValues = {
     seguimiento: false,
     activo: true,
     fechaNacimiento: new Date(),
+    idJornada: '',
 }
 
-export default function AgregarBeneficiarioForm() {
+export default function AgregarBeneficiarioForm(props) {
 
     const[values, setValues] = useState(initialFValues);
     const[errors, setErrors] = useState({});
@@ -60,8 +61,9 @@ export default function AgregarBeneficiarioForm() {
         })
    }, []);
     
-    
-  console.log(escolaridadesCollection)
+   values.idJornada = props.idJornada;
+
+  console.log(values)
 
 
   const validate = () => {
@@ -117,15 +119,15 @@ export default function AgregarBeneficiarioForm() {
                             seguimiento: values.seguimiento,
                             activo: values.activo,
                             fechaNacimiento: year + "-" + month + "-" + day,
+                            idJornada: values.idJornada,
                         })
             });
             console.log(values)
-            window.alert("El beneficiario fue registrado existosamente")
-            //window.location.replace("http://localhost:3000/beneficiarios")
-
+            props.history.push("/jornadas/"+ props.idJornada +"?agregarBeneficiario=1");
     
             } catch (e) {
                 console.log(e);
+                props.history.push("/jornadas/"+ props.idJornada +"?agregarBeneficiario=0");
             }
         } else {
            window.alert("Todos los campos obligatorios deben ser llenados")

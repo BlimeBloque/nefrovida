@@ -13,6 +13,7 @@ class Jornada extends JsonResource {
      */
     public function toArray($request) {
         return [
+            'id' => $this->idJornada,
             'idJornada' => $this->idJornada,
             'nombre' => $this->nombre,
             'fecha' => $this->fecha,

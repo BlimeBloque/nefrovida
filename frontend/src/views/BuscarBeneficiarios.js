@@ -185,10 +185,6 @@ export default class BuscarBeneficiarios extends Component
                             }}
                         />
                     </FormControl>
-
-                    <Fab color="primary" onClick={() => history.push("/beneficiarios/agregar")}>
-                        <AddIcon/>
-                    </Fab>
                 </div>
                 <TablaBeneficiarios 
                     activo={filtrarPorActivo}
