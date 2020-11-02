@@ -10,6 +10,10 @@ use App\Http\Controllers\OpcionEvaluacionController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\ConsultaMedicaController;
+use App\Http\Controllers\ExamenOrinaController;
+use App\Http\Controllers\DepuracionCreatininaController;
+use App\Http\Controllers\QuimicaSanguineaController;
+use App\Http\Controllers\MicroalbuminuriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +43,14 @@ Route::get('/tiponota', 'App\Http\Controllers\TipoNotaController@all');
 //todas las rutas de beneficiarios
 Route::resource('beneficiarios', BeneficiariosController::class);
 
-
+//todas las rutas del examen de orina
+Route::resource('examenOrina', ExamenOrinaController::class);
+//todas las rutas de la depuración de creatinina
+Route::resource('depuracionCreatinina', DepuracionCreatininaController::class);
+//todas las rutas de la química sanguínea
+Route::resource('quimicaSanguinea', QuimicaSanguineaController::class);
+//todas las rutas de la microalbuminuria
+Route::resource('microalbuminuria', MicroalbuminuriaController::class);
 
 Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
 
@@ -57,10 +68,9 @@ Route::get('detallesEvaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\Eva
 Route::resource('nota', NotaController::class);
 Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaController@searchByBenef');
 
-Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');
 
-Route::post("upload", [ArchivoController::Class, 'upload']);
-Route::get("download/{folder?}/{file?}", [ArchivoController::Class, 'download']);
+Route::post("upload", [ArchivoController::class, 'upload']);
+Route::get("download/{folder?}/{file?}", [ArchivoController::class, 'download']);
 
 
 Route::resource('consultaMedica', ConsultaMedicaController::class);

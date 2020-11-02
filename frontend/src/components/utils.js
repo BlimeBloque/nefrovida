@@ -431,3 +431,25 @@ export function getAge (dateString)
     }
     return age;
 }
+
+export function hasNumber(myString) {
+	return /\d/.test(myString);
+}
+export function isNullOrWhitespace( input ) {
+	return !input || !input.trim();
+}
+
+export function isDecimal(input)
+{
+    return /^\d{1,3}\.\d{1,2}$/.test(input);
+}
+
+export function isKiloCaloria(input)
+{
+    return /^\d{1,5}\.\d{1,2}$/.test(input);
+}
+
+function isPorcentaje(input)
+{
+    return /^\d{1,2}\.\d{1,2}$|^\d{3}\.[0]{1,2}$/.test(input);
+}

@@ -7,6 +7,8 @@ import SeccionNota from '../components/SeccionNota';
 import SeccionConsultaMedica from '../components/SeccionConsultaMedica';
 import Mensaje from '../components/Mensaje';
 import SeccionEvaluacion from "../components/SeccionEvaluacion";
+import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
+import SeccionAnalisisLab from "../components/SeccionAnalisisLab";
 
 
 const useStyle = makeStyles(theme => ({
@@ -65,6 +67,11 @@ const BeneficiarioDetalles = (props) => {
             <SeccionNota history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
           </Paper>
         </div>
+        <div id="analisisLab">
+          <Paper className={classes.consultaNutricion}>
+            <SeccionAnalisisLab history={props.history} idBeneficiario={props.match.params.idBeneficiario}/>
+          </Paper>
+        </div>
       </Container>
 
 
@@ -108,10 +115,38 @@ const BeneficiarioDetalles = (props) => {
         mensajeError={"Hubo un error al registrar la evaluación."}
       />
 
-<Mensaje 
+      <Mensaje 
         success={args.includes("agregarMedica") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró la consulta médica."}
         mensajeError={"Hubo un error al registrar la consulta médica"}
+      />
+
+      {/*AGREGAR EXAMEN ORINA RETRO*/}
+      <Mensaje 
+        success={args.includes("agregarExamenOrina") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró el examen de orina."}
+        mensajeError={"Hubo un error al registrar el examen de orina."}
+      />
+
+      {/*AGREGAR DEPURACION DE CREATININA RETRO*/}
+      <Mensaje 
+        success={args.includes("agregarDepuracionCreatinina") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró la depuración de creatinina."}
+        mensajeError={"Hubo un error al registrar la depuración de creatinina."}
+      />
+
+      {/*AGREGAR QUIMICA SANGUINEA RETRO*/}
+      <Mensaje 
+        success={args.includes("agregarQuimicaSanguinea") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró el análisis de química sanguínea."}
+        mensajeError={"Hubo un error el análisis de química sanguínea."}
+      />
+
+      {/*AGREGAR MICROALBUMINURIA RETRO*/}
+      <Mensaje 
+        success={args.includes("agregarMicroalbuminuria") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró el análisis de microalbuminuría."}
+        mensajeError={"Hubo un error el análisis de microalbuminuría."}
       />
       
     </div>

@@ -23,6 +23,12 @@ import AgregarConsultaMedica from './views/ConsultaMedica/AgregarConsultaMedica'
 import DetalleConsultaMedica from './views/ConsultaMedica/DetalleConsultaMedica';
 import EditarConsultaMedica from "./views/ConsultaMedica/EditarConsultaMedica";
 import DetalleEvaluacion from "./views/Evaluaciones/DetalleEvaluacion";
+import AgregarAnalisisLab from './views/AnalisisLab/AgregarAnalisisLab';
+import AgregarExamenOrina from "./views/AnalisisLab/ExamenOrina/AgregarExamenOrina";
+import AgregarDepuracionCreatinina from "./views/AnalisisLab/DepuracionCreatinina/AgregarDepuracionCreatinina";
+import AgregarQuimicaSanguinea from "./views/AnalisisLab/QuimicaSanguinea/AgregarQuimicaSanguinea";
+import AgregarMicroalbuminuria from "./views/AnalisisLab/Microalbuminuria/AgregarMicroalbuminuria";
+
 
 export default withRouter(
   class AppWithRouterAccess extends Component {
@@ -57,6 +63,12 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editar' exact={true} component={EditarBeneficiario}/>
             <SecureRoute path='/consultaNutricion/:idConsultaNutricion([0-9]*)' exact={true} component={DetalleConsultaNutricion}/>
             <SecureRoute path='/consultaNutricion/editar/:idConsultaNutricion([0-9]*)' exact={true} component={EditarConsultaNutricion}/>
+          
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarAnalisisLab' exact={true} component={AgregarAnalisisLab}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarExamenOrina' exact={true} component={AgregarExamenOrina}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarDepuracionCreatinina' exact={true} component={AgregarDepuracionCreatinina}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarQuimicaSanguinea' exact={true} component={AgregarQuimicaSanguinea}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarMicroalbuminuria' exact={true} component={AgregarMicroalbuminuria}/>
 
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarNota' exact={true} component={AgregarNota}/>
             <SecureRoute path='/nota/editar/:idNota([0-9]*)' exact={true} component={EditarNota}/>
