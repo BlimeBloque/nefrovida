@@ -126,6 +126,20 @@ const BeneficiarioDetalles = (props) => {
         mensajeExito={"Se registró la depuración de creatinina."}
         mensajeError={"Hubo un error al registrar la depuración de creatinina."}
       />
+
+      {/*AGREGAR QUIMICA SANGUINEA RETRO*/}
+      <Mensaje 
+        success={args.includes("agregarQuimicaSanguinea") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró el análisis de química sanguínea."}
+        mensajeError={"Hubo un error el análisis de química sanguínea."}
+      />
+
+      {/*AGREGAR MICROALBUMINURIA RETRO*/}
+      <Mensaje 
+        success={args.includes("agregarMicroalbuminuria") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registró el análisis de microalbuminuría."}
+        mensajeError={"Hubo un error el análisis de microalbuminuría."}
+      />
       
     </div>
   );
