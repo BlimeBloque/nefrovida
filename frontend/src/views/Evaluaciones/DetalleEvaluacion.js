@@ -1,6 +1,7 @@
 import React , {useState } from 'react'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import EditIcon from '@material-ui/icons/Edit';
 import { Container, Paper, makeStyles, IconButton } from '@material-ui/core';
 import Sidenav from '../../components/Nav/Sidenav';
 import { Link } from 'react-router-dom';
@@ -24,6 +25,7 @@ export default function DetalleEvaluacion(props) {
     const idBeneficiario = props.match.params.idBeneficiario
     const classes = useStyle();
     const [idEvaluacion] = useState(window.location.pathname.split("/").pop() === 'detalleEvaluacionesInicio' ? 1 : 2);
+    const inicio = idEvaluacion == 1 ? 'Inicio' : 'Fin'
 
     return (
         <div className={classes.container}>
@@ -35,6 +37,13 @@ export default function DetalleEvaluacion(props) {
                             <ArrowBackIcon/>
                         </IconButton>
                     </Link>
+
+                    <Link variant="body2" to={"/beneficiarios/"+idBeneficiario+'/editarEvaluacion'+inicio}>
+                        <IconButton color="primary" aria-label="edit">
+                            <EditIcon/>
+                        </IconButton>
+                    </Link>
+
                     <DetalleEvaluacionValores idBeneficiario={props.match.params.idBeneficiario}/>
                 </Paper>
             </Container>
