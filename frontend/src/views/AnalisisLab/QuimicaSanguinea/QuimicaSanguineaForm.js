@@ -492,7 +492,7 @@ export default function DepuracionCreatininaForm (props) {
 
     const handleSubmit = () => {
         let submit = true;
-        if(errores.glucosa, errores.valorGlucosaBajo || errores.valorGlucosaAlto || errores.urea || errores.valorUreaBajo || errores.valorUreaAlto 
+        if(errores.glucosa || errores.valorGlucosaBajo || errores.valorGlucosaAlto || errores.urea || errores.valorUreaBajo || errores.valorUreaAlto 
             || errores.bun || errores.valorBunBajo || errores.valorBunAlto || errores.creatinina || errores.creatininaMujerBajo || errores.creatininaMujerAlto 
             || errores.creatininaHombreBajo || errores.creatininaHombreAlto || errores.nota || errores.metodo)
             submit = false;
