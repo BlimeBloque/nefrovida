@@ -12,21 +12,32 @@ class TamizajeController extends Controller {
         return DB::table('tamizajes')->get();
     }
 
-    public function search($id) {
-        return DB::table('tamizajes')->where('idTamizaje', '=', $id)->get();
+    public function searchAll($id) {
+        return DB::table('tamizajes')->where('idBeneficiario', '=', $id)->select('idTamizaje', 'created_at')->get();
+    }
+
+    public function searchOne($idBeneficiario, $idTamizaje){
+        return DB::table('tamizajes')->where('idBeneficiario', '=', $idBeneficiario)->where('idTamizaje', '=', $idTamizaje)->get();
     }
 
     public function insert(Request $request) {
-        $request->validate([
+        $rules = [
             'idBeneficiario' => 'required',
             'presionArterial' => 'required',
-            'peso' => 'required',
-            'circunferenciaCintura' => 'required',
-            'circunferenciaCadera' => 'required',
-            'glucosaCapilar' => 'required',
-            'talla' => 'required',
+            'peso' => 'required|numeric',
+            'circunferenciaCintura' => 'required|numeric',
+            'circunferenciaCadera' => 'required|numeric',
+            'glucosaCapilar' => 'required|numeric',
+            'talla' => 'required|numeric',
             'comentario' => 'required',
-        ]);
+        ];
+        $customMessages = [
+            'required' => 'Este campo es requerido.',
+            'numeric' => 'Este campo debe contener solo números.',
+        ];
+
+
+        $this->validate($request, $rules, $customMessages);
 
         $tamizaje = Tamizaje::create($request->all());
 

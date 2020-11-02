@@ -1,8 +1,7 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import Sidenav from "../../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
-import TamizajeForm from "./AgregarTamizajeForm";
+import TamizajeForm from "./TamizajeAgregarForm";
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -15,7 +14,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const AgregarConsultaMedica = (props) => {
+const TamizajeAgregar = (props) => {
   const classes = useStyle();
   return (
     <div className={classes.container}>
@@ -32,4 +31,4 @@ const AgregarConsultaMedica = (props) => {
   );
 };
 
-export default AgregarConsultaMedica;
+export default TamizajeAgregar;

@@ -170,7 +170,7 @@ export default function JornadasAgregarForm() {
           error={errors.idEstado}
         />
         <Controls.Button
-          text="Submit"
+          text="Agregar Jornada"
           variant="contained"
           color="primary"
           size="large"

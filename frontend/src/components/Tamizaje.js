@@ -1,11 +1,16 @@
-import { Typography, makeStyles, Paper, Tooltip } from "@material-ui/core";
+import {
+  Typography,
+  makeStyles,
+  Paper,
+  Tooltip,
+  Fab,
+  Grid,
+  IconButton,
+} from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-import axios from "axios";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import RestaurantIcon from "@material-ui/icons/Restaurant";
+import IconTamizaje from "@material-ui/icons/Accessibility";
+import http from "../http-common";
 
 const useStyle = makeStyles((theme) => ({
   flex: {
@@ -25,22 +30,23 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const SeccionNota = (props) => {
+const Tamizaje = (props) => {
   const classes = useStyle();
-  const [notas, setNotas] = useState([]);
+  const [tamizajes, setTamizaje] = useState([]);
 
-  /* useEffect ( () => {
-        axios.get('http://localhost:8000/api/consultaNutricion/beneficiario/'+props.idBeneficiario)
-            .then(res => { setConsultas(res.data)
-                })
-                    .catch((e) => {
-                    console.log(e)
-                });
-    }, []);*/
+  useEffect(() => {
+    http
+      .get("/tamizaje/" + props.idBeneficiario)
+      .then((res) => {
+        setTamizaje(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   return (
     <div>
-      {console.log(notas)}
       <div className={classes.flex}>
         <Typography
           className={classes.flexContent}
@@ -55,7 +61,7 @@ const SeccionNota = (props) => {
             color="primary"
             onClick={() =>
               props.history.push(
-                "/beneficiarios/" + props.idBeneficiario + "/agregarTamizaje"
+                "/beneficiarios/" + props.idBeneficiario + "/tamizaje/agregar"
               )
             }
           >
@@ -65,27 +71,30 @@ const SeccionNota = (props) => {
       </div>
 
       <Grid container justify="center" spacing={4}>
-        {notas.length ? (
-          notas.map((consulta) => (
-            <Grid key={consulta.idConsultaNutricional} item>
+        {tamizajes.length ? (
+          tamizajes.map((tamizaje) => (
+            <Grid key={tamizaje.idTamizaje} item>
               <Paper className={classes.paper}>
                 <IconButton
                   aria-label="Consultar"
                   className={classes.margin}
                   onClick={() =>
                     props.history.push(
-                      "/consultaNutricion/" + consulta.idConsultaNutricional
+                      "/beneficiarios/" +
+                        props.idBeneficiario +
+                        "/tamizaje/" +
+                        tamizaje.idTamizaje
                     )
                   }
                 >
-                  <RestaurantIcon fontSize="large" />
+                  <IconTamizaje fontSize="large" />
                 </IconButton>
-                Nota hecha el:{" "}
-                {new Date(consulta.created_at).getDate() +
+                Tamizaje hecho el:{" "}
+                {new Date(tamizaje.created_at).getDate() +
                   "/" +
-                  (new Date(consulta.created_at).getMonth() + 1) +
+                  (new Date(tamizaje.created_at).getMonth() + 1) +
                   "/" +
-                  new Date(consulta.created_at).getFullYear()}
+                  new Date(tamizaje.created_at).getFullYear()}
               </Paper>
             </Grid>
           ))
@@ -99,4 +108,4 @@ const SeccionNota = (props) => {
   );
 };
 
-export default SeccionNota;
+export default Tamizaje;

@@ -20,7 +20,8 @@ import AgregarNota from './views/Notas/AgregarNota';
 import AgregarConsultaMedica from './views/ConsultaMedica/AgregarConsultaMedica';
 import DetalleConsultaMedica from './views/ConsultaMedica/DetalleConsultaMedica';
 import EditarConsultaMedica from "./views/ConsultaMedica/EditarConsultaMedica";
-import AgregarTamizaje from "./views/ConsultaMedica/AgregarTamizaje";
+import AgregarTamizaje from "./views/Tamizaje/TamizajeAgregar";
+import DetalleTamizaje from "./views/Tamizaje/TamizajeDetalle"
 
 export default withRouter(
   class AppWithRouterAccess extends Component {
@@ -49,8 +50,11 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaNutricion' exact={true} component={AgregarConsultaNutricion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionInicio' exact={true} component={AgregarEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionFin' exact={true} component={AgregarEvaluacion}/>
-            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarTamizaje' exact={true} component={AgregarTamizaje}/>
-            
+            {/* Tamizaje */}
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/agregar' exact={true} component={AgregarTamizaje}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/:idTamizaje([0-9]*)/editar' exact={true} component={AgregarTamizaje}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/:idTamizaje([0-9]*)' exact={true} component={DetalleTamizaje}/>
+
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editar' exact={true} component={EditarBeneficiario}/>
             <SecureRoute path='/consultaNutricion/:idConsultaNutricion([0-9]*)' exact={true} component={DetalleConsultaNutricion}/>
             <SecureRoute path='/consultaNutricion/editar/:idConsultaNutricion([0-9]*)' exact={true} component={EditarConsultaNutricion}/>
