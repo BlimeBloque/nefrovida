@@ -75,3 +75,8 @@ Route::get("download/{folder?}/{file?}", [ArchivoController::class, 'download'])
 
 Route::resource('consultaMedica', ConsultaMedicaController::class);
 Route::get('/consultaMedica/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaMedicaController@searchByBenef');
+
+Route::get('/tamizaje', 'App\Http\Controllers\TamizajeController@all');
+Route::get('/tamizaje/{idBeneficiario}', 'App\Http\Controllers\TamizajeController@searchAll');
+Route::get('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@searchOne');
+Route::post('/tamizaje', 'App\Http\Controllers\TamizajeController@insert');

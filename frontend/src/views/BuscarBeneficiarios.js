@@ -30,6 +30,7 @@ export default class BuscarBeneficiarios extends Component
         filtrarPorNombre:'',
         page: 0,
         history: props.history,
+        retrieve: -1,
         };
         
     }
@@ -47,12 +48,12 @@ export default class BuscarBeneficiarios extends Component
         BeneficiariosDataService.getAll()
             .then(beneficiarios => {
                 this.setState({beneficiarios: beneficiarios.data.data});
-                
+                this.setState({retrieve: 0});
             })
             .catch((e) => {
                 console.log(e);
             })
-    }
+        }
 
     setPage(newPage)
     {
@@ -201,6 +202,7 @@ export default class BuscarBeneficiarios extends Component
                     page={page}
                     url={history}
                     sinFiltro={this.sinFiltro}
+                    retrieve={this.state.retrieve}
                 />
             </div>
         );
