@@ -115,7 +115,7 @@ function EditarEvaluacionValores(props) {
         setDisabled(true);
         let valueRespuesta = {};
         let arrayForm = [];
-
+        let respuestaFinal = opciones.map((r) => (r.respuestasPosibles))
         let i = idEvaluacion == 1 ? 1 : 10 // Decidir en donde empieza el contador del ciclo for
         /* 
             Todos los operadores ternarios aquí los utilicé para no hacer dos ciclos for.
@@ -127,10 +127,11 @@ function EditarEvaluacionValores(props) {
                 idOpcionEvaluacion: i,
                 idBeneficiario: props.match.params.idBeneficiario,
                 otraRespuesta: null,
-                respuestasPosibles: (idEvaluacion == 1 ? valoresInicio[i] : valoresFin[i])
+                respuestasPosibles: (valoresInicio[i-1] != undefined ? valoresInicio[i-1] : respuestaFinal[i-1])
             }
-            if(idEvaluacion == 1) arrayForm[i] = valueRespuesta;
-            else arrayForm[i-9] = valueRespuesta;
+            console.log(valoresInicio[i-1])
+            if(idEvaluacion == 1) arrayForm[i-1] = valueRespuesta;
+            else arrayForm[i-10] = valueRespuesta;
         }
         console.log(arrayForm)
 
