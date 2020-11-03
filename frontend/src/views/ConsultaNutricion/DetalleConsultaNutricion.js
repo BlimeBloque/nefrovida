@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import http from '../../http-common';
 import Sidenav from "../../components/Nav/Sidenav";
 import ConsultaNutricion from './ConsultaNutricion';
 import { Paper, makeStyles, Container, Button } from "@material-ui/core";
@@ -29,7 +29,7 @@ const DetalleConsultaNutricion = (props) => {
     const args = props.location.search;
 
     useEffect ( () => {
-        axios.get('http://localhost:8000/api/consultaNutricion/'+idConsultaNutricion)
+        http.get('/consultaNutricion/'+idConsultaNutricion)
             .then(res => { setDetalle(res.data[0])
                 })
                     .catch((e) => {
