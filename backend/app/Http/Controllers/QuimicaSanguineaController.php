@@ -60,9 +60,18 @@ class QuimicaSanguineaController extends Controller
      * @param  \App\Models\QuimicaSanguinea  $quimicaSanguinea
      * @return \Illuminate\Http\Response
      */
-    public function show(QuimicaSanguinea $quimicaSanguinea)
+    public function show($idQuimicaSanguinea)
     {
-        //
+        return DB::table('quimica_sanguinea')->leftJoin('beneficiarios', 'quimica_sanguinea.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
+            -> where('idQuimicaSanguinea', '=', $idQuimicaSanguinea) 
+            -> select('quimica_sanguinea.*', 'beneficiarios.nombreBeneficiario') -> get();
+    }
+
+    public function searchByBenef($idBeneficiario)
+    {
+        return DB::table('quimica_sanguinea')->where('idBeneficiario', '=', $idBeneficiario)
+        ->select('idBeneficiario', 'idQuimicaSanguinea', 'created_at', DB::raw('"química sanguínea" as analisis'))
+        ->latest()->get();
     }
 
     /**

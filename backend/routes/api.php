@@ -45,12 +45,16 @@ Route::resource('beneficiarios', BeneficiariosController::class);
 
 //todas las rutas del examen de orina
 Route::resource('examenOrina', ExamenOrinaController::class);
+Route::get('/examenOrina/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ExamenOrinaController@searchByBenef');
 //todas las rutas de la depuración de creatinina
 Route::resource('depuracionCreatinina', DepuracionCreatininaController::class);
+Route::get('/depuracionCreatinina/beneficiario/{idBeneficiario}', 'App\Http\Controllers\DepuracionCreatininaController@searchByBenef');
 //todas las rutas de la química sanguínea
 Route::resource('quimicaSanguinea', QuimicaSanguineaController::class);
+Route::get('/quimicaSanguinea/beneficiario/{idBeneficiario}', 'App\Http\Controllers\QuimicaSanguineaController@searchByBenef');
 //todas las rutas de la microalbuminuria
 Route::resource('microalbuminuria', MicroalbuminuriaController::class);
+Route::get('/microalbuminuria/beneficiario/{idBeneficiario}', 'App\Http\Controllers\MicroalbuminuriaController@searchByBenef');
 
 Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
 

@@ -61,9 +61,18 @@ class DepuracionCreatininaController extends Controller
      * @param  \App\Models\DepuracionCreatinina  $depuracionCreatinina
      * @return \Illuminate\Http\Response
      */
-    public function show(DepuracionCreatinina $depuracionCreatinina)
+    public function show($idDepuracionCreatinina)
     {
-        //
+        return DB::table('depuracion_creatinina')->leftJoin('beneficiarios', 'depuracion_creatinina.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
+            -> where('idDepuracionCreatinina', '=', $idDepuracionCreatinina) 
+            -> select('depuracion_creatinina.*', 'beneficiarios.nombreBeneficiario') -> get();
+    }
+
+    public function searchByBenef($idBeneficiario)
+    {
+        return DB::table('depuracion_creatinina')->where('idBeneficiario', '=', $idBeneficiario)
+        ->select('idBeneficiario', 'idDepuracionCreatinina', 'created_at', DB::raw('"depuración de creatinina" as analisis'))
+        ->latest()->get();
     }
 
     /**

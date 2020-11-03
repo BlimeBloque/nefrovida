@@ -66,9 +66,17 @@ class ExamenOrinaController extends Controller
      * @param  \App\Models\ExamenOrina  $examenOrina
      * @return \Illuminate\Http\Response
      */
-    public function show(ExamenOrina $examenOrina)
+    public function show($idExamenOrina)
     {
-        //
+        return DB::table('examen_orina')->leftJoin('beneficiarios', 'examen_orina.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
+            -> where('idExamenOrina', '=', $idExamenOrina) 
+            -> select('examen_orina.*', 'beneficiarios.nombreBeneficiario') -> get();
+    } 
+
+    public function searchByBenef($idBeneficiario)
+    {
+        return DB::table('examen_orina')->where('idBeneficiario', '=', $idBeneficiario)
+        ->select('idBeneficiario', 'idExamenOrina', 'created_at', DB::raw('"examen de orina" as analisis'))->latest()->get();
     }
 
     /**

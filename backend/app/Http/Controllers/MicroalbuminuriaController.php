@@ -57,9 +57,18 @@ class MicroalbuminuriaController extends Controller
      * @param  \App\Models\Microalbuminuria  $microalbuminuria
      * @return \Illuminate\Http\Response
      */
-    public function show(Microalbuminuria $microalbuminuria)
+    public function show($idMicroalbuminuria)
     {
-        //
+        return DB::table('microalbuminuria')->leftJoin('beneficiarios', 'microalbuminuria.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
+            -> where('idMicroalbuminuria', '=', $idMicroalbuminuria) 
+            -> select('microalbuminuria.*', 'beneficiarios.nombreBeneficiario') -> get();
+    }
+
+    public function searchByBenef($idBeneficiario)
+    {
+        return DB::table('microalbuminuria')->where('idBeneficiario', '=', $idBeneficiario)
+        ->select('idBeneficiario', 'idMicroalbuminuria', 'created_at', DB::raw('"microalbuminuría" as analisis'))
+        ->latest()->get();
     }
 
     /**
