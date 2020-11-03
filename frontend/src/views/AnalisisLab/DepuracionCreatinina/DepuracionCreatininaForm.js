@@ -713,7 +713,7 @@ export default function DepuracionCreatininaForm (props) {
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
                                 </FormHelperText>
                             </FormControl>
-                            <Typography variant="body1" className={classes.textoCorto}>mg/dL MUJERES</Typography>
+                            <Typography variant="body1" className={classes.textoCorto}>ml/min MUJERES</Typography>
                         </div>
                         <div id="valores-hombre" className={classes.flexCenter}>
                             <FormControl error={errores.valorDepuracionBajoHombre} className={classes.xs}>
@@ -745,7 +745,7 @@ export default function DepuracionCreatininaForm (props) {
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
                                 </FormHelperText>
                             </FormControl>
-                            <Typography variant="body1" className={classes.textoCorto}>mg/dL HOMBRES</Typography>
+                            <Typography variant="body1" className={classes.textoCorto}>ml/min HOMBRES</Typography>
                         </div>
                     </div>
                 </div>

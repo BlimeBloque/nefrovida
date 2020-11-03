@@ -31,6 +31,7 @@ import AgregarMicroalbuminuria from "./views/AnalisisLab/Microalbuminuria/Agrega
 import AgregarTamizaje from "./views/Tamizaje/TamizajeAgregar";
 import DetalleTamizaje from "./views/Tamizaje/TamizajeDetalle"
 import DetalleExamenOrina from './views/AnalisisLab/ExamenOrina/DetalleExamenOrina';
+import DetalleDepuracionCreatinina from './views/AnalisisLab/DepuracionCreatinina/DetalleDepuracionCreatinina';
 
 
 export default withRouter(
@@ -73,9 +74,10 @@ export default withRouter(
             <SecureRoute path='/consultaNutricion/editar/:idConsultaNutricion([0-9]*)' exact={true} component={EditarConsultaNutricion}/>
           
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarAnalisisLab' exact={true} component={AgregarAnalisisLab}/>
-            <SecureRoute path='/examenOrina/:idExamenOrina([0-9]*)' exact={true} component={DetalleExamenOrina}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarExamenOrina' exact={true} component={AgregarExamenOrina}/>
+            <SecureRoute path='/examenOrina/:idExamenOrina([0-9]*)' exact={true} component={DetalleExamenOrina}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarDepuracionCreatinina' exact={true} component={AgregarDepuracionCreatinina}/>
+            <SecureRoute path='/depuracionCreatinina/:idExamenOrina([0-9]*)' exact={true} component={DetalleDepuracionCreatinina}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarQuimicaSanguinea' exact={true} component={AgregarQuimicaSanguinea}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarMicroalbuminuria' exact={true} component={AgregarMicroalbuminuria}/>
 

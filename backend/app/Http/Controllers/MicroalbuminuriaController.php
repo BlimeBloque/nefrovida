@@ -61,7 +61,7 @@ class MicroalbuminuriaController extends Controller
     {
         return DB::table('microalbuminuria')->leftJoin('beneficiarios', 'microalbuminuria.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
             -> where('idMicroalbuminuria', '=', $idMicroalbuminuria) 
-            -> select('microalbuminuria.*', 'beneficiarios.nombreBeneficiario') -> get();
+            -> select('microalbuminuria.*', 'beneficiarios.nombreBeneficiario', 'beneficiarios.sexo') -> get();
     }
 
     public function searchByBenef($idBeneficiario)

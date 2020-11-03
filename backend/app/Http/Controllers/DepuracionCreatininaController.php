@@ -65,7 +65,7 @@ class DepuracionCreatininaController extends Controller
     {
         return DB::table('depuracion_creatinina')->leftJoin('beneficiarios', 'depuracion_creatinina.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
             -> where('idDepuracionCreatinina', '=', $idDepuracionCreatinina) 
-            -> select('depuracion_creatinina.*', 'beneficiarios.nombreBeneficiario') -> get();
+            -> select('depuracion_creatinina.*', 'beneficiarios.nombreBeneficiario', 'beneficiarios.sexo') -> get();
     }
 
     public function searchByBenef($idBeneficiario)

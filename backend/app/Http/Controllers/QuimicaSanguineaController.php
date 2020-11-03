@@ -64,7 +64,7 @@ class QuimicaSanguineaController extends Controller
     {
         return DB::table('quimica_sanguinea')->leftJoin('beneficiarios', 'quimica_sanguinea.idBeneficiario', '=', 'beneficiarios.idBeneficiario') 
             -> where('idQuimicaSanguinea', '=', $idQuimicaSanguinea) 
-            -> select('quimica_sanguinea.*', 'beneficiarios.nombreBeneficiario') -> get();
+            -> select('quimica_sanguinea.*', 'beneficiarios.nombreBeneficiario', 'beneficiarios.sexo') -> get();
     }
 
     public function searchByBenef($idBeneficiario)
