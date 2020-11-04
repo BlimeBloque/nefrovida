@@ -83,14 +83,14 @@ const useStyle = makeStyles(theme => ({
     },
 }))
 
-const DetalleDepuracionCreatinina = (props) => {
+const DetalleQuimicaSanguinea = (props) => {
     const classes = useStyle();
     const [detalle, setDetalle] = useState([]);
-    const idDepuracionCreatinina = props.match.params.idDepuracionCreatinina;
+    const idQuimicaSanguinea = props.match.params.idQuimicaSanguinea;
     const args = props.location.search;
 
     useEffect ( () => {
-        http.get('/depuracionCreatinina/'+idDepuracionCreatinina)
+        http.get('/quimicaSanguinea/'+idQuimicaSanguinea)
             .then(res => { setDetalle(res.data[0])
                 })
                     .catch((e) => {
@@ -101,6 +101,29 @@ const DetalleDepuracionCreatinina = (props) => {
     //Dar formato a fecha
     const date = new Date(detalle.created_at);
     const fecha = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+
+    const obtenerClase = (valor, valorBajo, valorAlto) => {
+        console.log(valor);
+        if(valor)
+        {
+            if(Number(valor) < Number(valorBajo))
+            {
+                return classes.bajo
+            }
+            else if (Number(valor) > Number(valorAlto))
+            {
+                return classes.alto
+            }
+            else
+            {
+                return classes.normal
+            }
+        }
+        else
+        {
+            return classes.faltante;
+        }
+    }
 
     const obtenerClasePorSexo = (valor, valorBajoHombre, valorAltoHombre, valorBajoMujer, valorAltoMujer) => {
         console.log(valor);
@@ -145,7 +168,7 @@ const DetalleDepuracionCreatinina = (props) => {
 
     return(
         <div className={classes.container}>
-            <Sidenav titulo="Detalle de Depuración de Creatinina en Orina de 24 Hrs" />        
+            <Sidenav titulo="Detalle de Química Sanguínea" />        
             <Container>
             
             <Paper className={classes.pageContent}>
@@ -159,7 +182,7 @@ const DetalleDepuracionCreatinina = (props) => {
                     <Typography variant="h3">{detalle.nombreBeneficiario}</Typography>
                     <div id="botones">
                         <Tooltip title="Editar" arrow>
-                            <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/depuracionCreatinina/editar/"+detalle.idDepuracionCreatinina)}>
+                            <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/quimicaSanguinea/editar/"+detalle.idQuimicaSanguinea)}>
                                 <EditIcon fontSize="large" />
                             </IconButton>
                         </Tooltip>
@@ -170,91 +193,86 @@ const DetalleDepuracionCreatinina = (props) => {
                         </Tooltip>
                     </div>
                 </div>
-                <center>
-                    <Typography variant="body1" className={detalle.talla ? classes.normal : classes.faltante}>
-                        <strong className={classes.normal}>Talla: </strong>
-                        {detalle.talla ? detalle.talla : "No registrado"}
-                    </Typography>
-                    <Typography variant="body1" className={detalle.peso ? classes.normal : classes.faltante}>
-                        <strong className={classes.normal}>Peso: </strong>
-                        {detalle.peso ? detalle.peso : "No registrado"}
-                    </Typography>
-                    <Typography variant="body1" className={detalle.volumen ? classes.normal : classes.faltante}>
-                        <strong className={classes.normal}>Volumen: </strong>
-                        {detalle.volumen ? detalle.volumen : "No registrado"}
-                    </Typography>
-                    <Typography variant="body1" className={detalle.superficieCorporal ? classes.normal : classes.faltante}>
-                        <strong className={classes.normal}>Superficie Corporal: </strong>
-                        {detalle.superficieCorporal ? detalle.superficieCorporal : "No registrado"}
-                    </Typography>
-                </center>
                 <div className={classes.flex}>
                     <div className={classes.xs}></div>
                     <Typography variant="body1" className={classes.normal}><strong>Valores de Referencia</strong></Typography>
                 </div>
-                <div id="creatinina-suero" className={classes.flex}>
+                <div id="glucosa" className={classes.flex}>
+                    <Typography variant="body1" className={obtenerClase(detalle.glucosa, detalle.valorGlucosaBajo, detalle.valorGlucosaAlto)}>
+                        <strong className={classes.normal}>Glucosa: </strong>
+                        {detalle.glucosa ? detalle.glucosa : "No registrado"}
+                    </Typography>
+                    <div id="valores" className={classes.flexCenter}>
+                        <Typography variant="body1" className={detalle.valorGlucosaBajo ? classes.normal : classes.faltante}>
+                            {detalle.valorGlucosaBajo ? detalle.valorGlucosaBajo : "No registrado"}
+                        </Typography>
+                        <Typography variant="body1" className={classes.normal}>-</Typography>
+                        <Typography variant="body1" className={detalle.valorGlucosaAlto ? classes.normal : classes.faltante}>
+                            {detalle.valorGlucosaAlto ? detalle.valorGlucosaAlto : "No registrado"}
+                        </Typography>
+                        <Typography variant="body1" className={classes.normal}>mg/dL</Typography>
+                    </div>
+                </div>
+                <div id="urea" className={classes.flex}>
+                    <Typography variant="body1" className={obtenerClase(detalle.urea, detalle.valorUreaBajo, detalle.valorUreaAlto)}>
+                        <strong className={classes.normal}>Urea: </strong>
+                        {detalle.urea ? detalle.urea : "No registrado"}
+                    </Typography>
+                    <div id="valores" className={classes.flexCenter}>
+                        <Typography variant="body1" className={detalle.valorUreaBajo ? classes.normal : classes.faltante}>
+                            {detalle.valorUreaBajo ? detalle.valorUreaBajo : "No registrado"}
+                        </Typography>
+                        <Typography variant="body1" className={classes.normal}>-</Typography>
+                        <Typography variant="body1" className={detalle.valorUreaAlto ? classes.normal : classes.faltante}>
+                            {detalle.valorUreaAlto ? detalle.valorUreaAlto : "No registrado"}
+                        </Typography>
+                        <Typography variant="body1" className={classes.normal}>mg/dL</Typography>
+                    </div>
+                </div>
+                <div id="bun" className={classes.flex}>
+                    <Typography variant="body1" className={obtenerClase(detalle.bun, detalle.valorBunBajo, detalle.valorBunAlto)}>
+                        <strong className={classes.normal}>Bun: </strong>
+                        {detalle.bun ? detalle.bun : "No registrado"}
+                    </Typography>
+                    <div id="valores" className={classes.flexCenter}>
+                        <Typography variant="body1" className={detalle.valorBunBajo ? classes.normal : classes.faltante}>
+                            {detalle.valorBunBajo ? detalle.valorBunBajo : "No registrado"}
+                        </Typography>
+                        <Typography variant="body1" className={classes.normal}>-</Typography>
+                        <Typography variant="body1" className={detalle.valorBunAlto ? classes.normal : classes.faltante}>
+                            {detalle.valorBunAlto ? detalle.valorBunAlto : "No registrado"}
+                        </Typography>
+                        <Typography variant="body1" className={classes.normal}>mg/dL</Typography>
+                    </div>
+                </div>
+                <div id="creatinina" style={{marginLeft: "2.5%"}} className={classes.flex}>
                     <Typography variant="body1"
-                        className={obtenerClasePorSexo(detalle.creatininaEnSuero, detalle.valorCreatininaBajoHombre, detalle.valorCreatininaAltoHombre, 
-                                                detalle.valorCreatininaBajoMujer, detalle.valorCreatininaAltoMujer)}
+                        className={obtenerClasePorSexo(detalle.creatinina, detalle.creatininaHombreBajo, detalle.creatininaHombreAlto, 
+                                                detalle.creatininaMujerBajo, detalle.creatininaMujerAlto)}
                     >
-                        <strong className={classes.normal}>Creatinina en Suero: </strong>
-                        {detalle.creatininaEnSuero ? detalle.creatininaEnSuero : "No registrado"}
+                        <strong className={classes.normal}>Creatinina: </strong>
+                        {detalle.creatinina ? detalle.creatinina : "No registrado"}
                     </Typography>
                     <div>
                         <div id="valores-mujer" className={classes.flexCenter}>
-                            <Typography variant="body1" className={detalle.valorCreatininaBajoMujer ? classes.normal : classes.faltante}>
-                                {detalle.valorCreatininaBajoMujer ? detalle.valorCreatininaBajoMujer : "No registrado"}
+                            <Typography variant="body1" className={detalle.creatininaMujerBajo ? classes.normal : classes.faltante}>
+                                {detalle.creatininaMujerBajo ? detalle.creatininaMujerBajo : "No registrado"}
                             </Typography>
                             <Typography variant="body1" className={classes.normal}>-</Typography>
-                            <Typography variant="body1" className={detalle.valorCreatininaAltoMujer ? classes.normal : classes.faltante}>
-                                {detalle.valorCreatininaAltoMujer ? detalle.valorCreatininaAltoMujer : "No registrado"}
+                            <Typography variant="body1" className={detalle.creatininaMujerAlto ? classes.normal : classes.faltante}>
+                                {detalle.creatininaMujerAlto ? detalle.creatininaMujerAlto : "No registrado"}
                             </Typography>
                             <Typography variant="body1" className={classes.normal}>mg/dL MUJERES</Typography>
                         </div>
                         <div id="valores-hombre" className={classes.flexCenter}>
-                            <Typography variant="body1" className={detalle.valorCreatininaBajoHombre ? classes.normal : classes.faltante}>
-                                {detalle.valorCreatininaBajoHombre ? detalle.valorCreatininaBajoHombre : "No registrado"}
+                            <Typography variant="body1" className={detalle.creatininaHombreBajo ? classes.normal : classes.faltante}>
+                                {detalle.creatininaHombreBajo ? detalle.creatininaHombreBajo : "No registrado"}
                             </Typography>
                             <Typography variant="body1" className={classes.normal}>-</Typography>
-                            <Typography variant="body1" className={detalle.valorCreatininaAltoHombre ? classes.normal : classes.faltante}>
-                                {detalle.valorCreatininaAltoHombre ? detalle.valorCreatininaAltoHombre : "No registrado"}
+                            <Typography variant="body1" className={detalle.creatininaHombreAlto ? classes.normal : classes.faltante}>
+                                {detalle.creatininaHombreAlto ? detalle.creatininaHombreAlto : "No registrado"}
                             </Typography>
                             <Typography variant="body1" className={classes.normal}>mg/dL HOMBRES</Typography>
-                        </div>
-                    </div>
-                </div>
-                <div className={classes.flex}>
-                    <div className={classes.xs}></div>
-                    <Typography variant="body1" className={classes.normal}><strong>Valores de Referencia</strong></Typography>
-                </div>
-                <div id="depuracion-creatinina" className={classes.flex}>
-                    <Typography variant="body1" 
-                        className={obtenerClasePorSexo(detalle.depuracionCreatinina, detalle.valorDepuracionBajoHombre, detalle.valorDepuracionAltoHombre, 
-                                                detalle.valorDepuracionBajoMujer, detalle.valorDepuracionAltoMujer)}
-                    >
-                        <strong className={classes.normal}>Depuración de Creatinina: </strong>
-                        {detalle.depuracionCreatinina ? detalle.depuracionCreatinina : "No registrado"}
-                    </Typography>
-                    <div>
-                        <div id="valores-mujer" className={classes.flexCenter}>
-                            <Typography variant="body1" className={detalle.valorDepuracionBajoMujer ? classes.normal : classes.faltante}>
-                                {detalle.valorDepuracionBajoMujer ? detalle.valorDepuracionBajoMujer : "No registrado"}
-                            </Typography>
-                            <Typography variant="body1" className={classes.normal}>-</Typography>
-                            <Typography variant="body1" className={detalle.valorDepuracionAltoMujer ? classes.normal : classes.faltante}>
-                                {detalle.valorDepuracionAltoMujer ? detalle.valorDepuracionAltoMujer : "No registrado"}
-                            </Typography>
-                            <Typography variant="body1" className={classes.normal}>ml/min MUJERES</Typography>
-                        </div>
-                        <div id="valores-hombre" className={classes.flexCenter}>
-                            <Typography variant="body1" className={detalle.valorDepuracionBajoHombre ? classes.normal : classes.faltante}>
-                                {detalle.valorDepuracionBajoHombre ? detalle.valorDepuracionBajoHombre : "No registrado"}
-                            </Typography>
-                            <Typography variant="body1" className={classes.normal}>-</Typography>
-                            <Typography variant="body1" className={detalle.valorDepuracionAltoHombre ? classes.normal : classes.faltante}>
-                                {detalle.valorDepuracionAltoHombre ? detalle.valorDepuracionAltoHombre : "No registrado"}
-                            </Typography>
-                            <Typography variant="body1" className={classes.normal}>ml/min HOMBRES</Typography>
                         </div>
                     </div>
                 </div>
@@ -278,4 +296,4 @@ const DetalleDepuracionCreatinina = (props) => {
 
 }
 
-export default DetalleDepuracionCreatinina;
+export default DetalleQuimicaSanguinea;
