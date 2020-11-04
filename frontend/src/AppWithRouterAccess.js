@@ -33,7 +33,7 @@ import DetalleTamizaje from "./views/Tamizaje/TamizajeDetalle"
 import DetalleExamenOrina from './views/AnalisisLab/ExamenOrina/DetalleExamenOrina';
 import DetalleDepuracionCreatinina from './views/AnalisisLab/DepuracionCreatinina/DetalleDepuracionCreatinina';
 import DetalleQuimicaSanguinea from './views/AnalisisLab/QuimicaSanguinea/DetalleQuimicaSanguinea';
-
+import DetalleMicroalbuminuria from './views/AnalisisLab/Microalbuminuria/DetalleMicroalbuminuria';
 
 export default withRouter(
   class AppWithRouterAccess extends Component {
@@ -82,7 +82,7 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarQuimicaSanguinea' exact={true} component={AgregarQuimicaSanguinea}/>
             <SecureRoute path='/quimicaSanguinea/:idQuimicaSanguinea([0-9]*)' exact={true} component={DetalleQuimicaSanguinea}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarMicroalbuminuria' exact={true} component={AgregarMicroalbuminuria}/>
-
+            <SecureRoute path='/microalbuminuria/:idMicroalbuminuria([0-9]*)' exact={true} component={DetalleMicroalbuminuria}/>
 
 
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarNota' exact={true} component={AgregarNota}/>
