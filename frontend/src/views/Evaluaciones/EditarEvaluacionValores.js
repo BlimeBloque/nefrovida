@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react'
 import { CssBaseline, Typography, makeStyles, CircularProgress, Divider, FormControl, Radio, RadioGroup, FormControlLabel, Button } from '@material-ui/core'
-import axios from 'axios';
+import http from '../../http-common';
 import { withRouter } from 'react-router-dom';
 
 const useStyle = makeStyles(theme => ({
@@ -34,29 +34,6 @@ const useStyle = makeStyles(theme => ({
     },
 }))
 
-const respuestasInicio = {
-    1: '',
-    2: '',
-    3: '',
-    4: '',
-    5: '',
-    6: '',
-    7: '',
-    8: '',
-    9: ''
-}
-
-const respuestasFin = {
-    10: '',
-    11: '',
-    12: '',
-    13: '',
-    14: '',
-    15: '',
-    16: '',
-    17: '',
-    18: ''
-}
 
 function EditarEvaluacionValores(props) {
     const { history } = props;
@@ -68,7 +45,6 @@ function EditarEvaluacionValores(props) {
     const [disabled, setDisabled] = useState(false);
 
     const handleChange = (event) => {
-        console.log(valoresInicio)
         const idRespuesta = event.target.parentElement.parentElement.parentElement.parentElement.id; 
         console.log(idRespuesta)
         console.log(event.target.value)
@@ -84,12 +60,13 @@ function EditarEvaluacionValores(props) {
                 [idRespuesta]: event.target.value
             })
         }
+        console.log(valoresInicio)
         
     };
 
     useEffect (() => {
         if(idEvaluacion == 1) {
-            axios.get('http://localhost:8000/api/detallesEvaluacionesInicio/'+ props.idBeneficiario)
+            http.get('/detallesEvaluacionesInicio/'+ props.idBeneficiario)
             .then(res => { 
                 setOpciones(res.data)
                 console.log(res.data)
@@ -98,7 +75,7 @@ function EditarEvaluacionValores(props) {
                 console.log(e)
             })
         } else {
-            axios.get('http://localhost:8000/api/detallesEvaluacionesFin/'+ props.idBeneficiario)
+            http.get('/detallesEvaluacionesFin/'+ props.idBeneficiario)
             .then(res => { 
                 setOpciones(res.data)
                 console.log(res.data)
@@ -113,9 +90,16 @@ function EditarEvaluacionValores(props) {
 
     const handleSubmit = (event) => {
         setDisabled(true);
+        setValoresInicio({
+            ...valoresInicio
+        })
+        setValoresFin({
+            ...valoresFin
+        })
         let valueRespuesta = {};
         let arrayForm = [];
         let respuestaFinal = opciones.map((r) => (r.respuestasPosibles))
+        let idEvaluacionRespuesta = opciones.map((id) => (id.idEvaluacionRespuesta))
         let i = idEvaluacion == 1 ? 1 : 10 // Decidir en donde empieza el contador del ciclo for
         /* 
             Todos los operadores ternarios aquí los utilicé para no hacer dos ciclos for.
@@ -123,29 +107,30 @@ function EditarEvaluacionValores(props) {
             El que está en el valor de respuestasPosibles agrega el valor sacado del arreglo correspondiente (valueInicio/valueFin)
         */
         for (i; i < (idEvaluacion == 1 ? 10 : 19); i++) {
+            console.log(valoresInicio[i])
             valueRespuesta = {
                 idOpcionEvaluacion: i,
                 idBeneficiario: props.match.params.idBeneficiario,
                 otraRespuesta: null,
-                respuestasPosibles: (valoresInicio[i-1] != undefined ? valoresInicio[i-1] : respuestaFinal[i-1])
+                respuestasPosibles: (idEvaluacion == 1 ? (valoresInicio[i] != undefined ? valoresInicio[i] : respuestaFinal[i-1]) : (valoresFin[i] != undefined ? valoresFin[i] : respuestaFinal[i-10])),
+                idEvaluacionRespuesta: (idEvaluacion == 1 ? idEvaluacionRespuesta[i-1] : idEvaluacionRespuesta[i-10])
             }
-            console.log(valoresInicio[i-1])
-            if(idEvaluacion == 1) arrayForm[i-1] = valueRespuesta;
-            else arrayForm[i-10] = valueRespuesta;
+            if(idEvaluacion == 1) arrayForm[i] = valueRespuesta;
+            else arrayForm[i-9] = valueRespuesta;
         }
         console.log(arrayForm)
 
-        /* for (let i = 1; i < 10; i++) {
-            axios.post('http://localhost:8000/api/evaluacion', arrayForm[i], {headers: {"Accept": "application/json"}})
+         for (let i = 1; i < 10; i++) {
+            http.put('/evaluacion/'+props.idBeneficiario, arrayForm[i])
                 .then(res => {
-                    props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?agregarEvaluacion=1");
+                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarEvaluacion=1");
 
                 })
                 .catch(err => {
                     console.log(err)
-                    props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?agregarEvaluacion=0");
+                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarEvaluacion=0");
                 });
-        } */
+        } 
         
     }
 

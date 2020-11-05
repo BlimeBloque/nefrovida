@@ -19,6 +19,13 @@ const useStyle = makeStyles(theme => ({
     largeIcon: {
         fontSize: '3em'
       },
+      flexTitulo: {
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            marginBottom: theme.spacing(4),
+      }
 }))
 
 export default function DetalleEvaluacion(props) {
@@ -32,17 +39,27 @@ export default function DetalleEvaluacion(props) {
             <Sidenav titulo='Detalle de Evaluación'/>
             <Container>
                 <Paper className={classes.pageContent}>
-                    <Link variant="body2" to={"/beneficiarios/"+idBeneficiario}>
-                        <IconButton color="primary" aria-label="edit">
-                            <ArrowBackIcon/>
-                        </IconButton>
-                    </Link>
+                        
+                    <div className={classes.flexTitulo}>
+                            <Link variant="body2" to={"/beneficiarios/"+idBeneficiario}>
+                                <IconButton color="primary" aria-label="edit">
+                                    <ArrowBackIcon/>
+                                </IconButton>
+                            </Link>
+                            <div>
+                                <Link variant="body2" to={"/beneficiarios/"+idBeneficiario+'/editarEvaluacion'+inicio}>
+                                    <IconButton color="primary" aria-label="edit">
+                                        <EditIcon/>
+                                    </IconButton>
+                                </Link>
 
-                    <Link variant="body2" to={"/beneficiarios/"+idBeneficiario+'/editarEvaluacion'+inicio}>
-                        <IconButton color="primary" aria-label="edit">
-                            <EditIcon/>
-                        </IconButton>
-                    </Link>
+                                {/* <Link variant="body2" to={"/beneficiarios/"+idBeneficiario+'/editarEvaluacion'+inicio}>
+                                    <IconButton color="primary" aria-label="edit">
+                                        <EditIcon/>
+                                    </IconButton>
+                                </Link> */}
+                            </div>
+                    </div>
 
                     <DetalleEvaluacionValores idBeneficiario={props.match.params.idBeneficiario}/>
                 </Paper>
