@@ -34,6 +34,8 @@ import DetalleExamenOrina from './views/AnalisisLab/ExamenOrina/DetalleExamenOri
 import DetalleDepuracionCreatinina from './views/AnalisisLab/DepuracionCreatinina/DetalleDepuracionCreatinina';
 import DetalleQuimicaSanguinea from './views/AnalisisLab/QuimicaSanguinea/DetalleQuimicaSanguinea';
 import DetalleMicroalbuminuria from './views/AnalisisLab/Microalbuminuria/DetalleMicroalbuminuria';
+import EditarEvaluacion from "./views/Evaluaciones/EditarEvaluacion";
+
 
 export default withRouter(
   class AppWithRouterAccess extends Component {
@@ -64,6 +66,8 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionFin' exact={true} component={AgregarEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/detalleEvaluacionesInicio' exact={true} component={DetalleEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/detalleEvaluacionesFin' exact={true} component={DetalleEvaluacion}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarEvaluacionInicio' exact={true} component={EditarEvaluacion}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarEvaluacionFin' exact={true} component={EditarEvaluacion}/>
             
             {/* Tamizaje */}
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/agregar' exact={true} component={AgregarTamizaje}/>
