@@ -20,5 +20,6 @@ class Beneficiarios extends Model
         'activo',
         'fechaNacimiento',
         'seguimiento',
+        'idJornada',
     ];
 }

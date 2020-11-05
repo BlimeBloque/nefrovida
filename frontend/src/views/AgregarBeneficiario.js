@@ -18,12 +18,13 @@ const useStyle = makeStyles(theme => ({
 
 const AgregarBeneficiario = (props) => {
   const classes = useStyle();
+  console.log(props);
     return (
       <div className={classes.container}>
         <Sidenav titulo="Registrar Beneficiario" />        
         <Container>
           <Paper className={classes.pageContent}>
-            <AgregarBeneficiarioForm />
+            <AgregarBeneficiarioForm history = {props.history} idJornada = {props.match.params.idJornada}/>
           </Paper>
         </Container>
       </div>
