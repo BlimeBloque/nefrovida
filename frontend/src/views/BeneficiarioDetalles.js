@@ -3,11 +3,8 @@ import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import Detalles from "./Detalles";
 import SeccionConsultaNutricion from '../components/SeccionConsultaNutricion';
-import SeccionNota from '../components/SeccionNota';
 import SeccionConsultaMedica from '../components/SeccionConsultaMedica';
-import SeccionAntecedentes from '../components/SeccionAntecedentes';
 import Mensaje from '../components/Mensaje';
-import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 
 
 const useStyle = makeStyles(theme => ({
@@ -46,13 +43,8 @@ const BeneficiarioDetalles = (props) => {
       <Sidenav titulo="Detalle de Beneficiario" />        
       <Container>
         <Paper className={classes.pageContent}>
-          <Detalles history={props.history} idBenef={props.match.params.idBeneficiario} />
+          <Detalles idBenef={props.match.params.idBeneficiario} />
         </Paper>
-        <div id="antecedentes">
-        <Paper className={classes.antecedentes}>
-            <SeccionAntecedentes history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
-          </Paper>
-        </div>
         <div id="consultas">
           <Paper className={classes.consultaNutricion}>
             <SeccionConsultaNutricion history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
@@ -61,50 +53,15 @@ const BeneficiarioDetalles = (props) => {
             <SeccionConsultaMedica history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
           </Paper>
         </div>
-          <div id="evaluaciones">
-            <Paper className={classes.consultaNutricion}>
-              <TarjetaEvaluaciones idBeneficiario={props.match.params.idBeneficiario}/>
-            </Paper>
-          </div>
-        <div id="notas">
-          <Paper className={classes.consultaMedica}>
-            <SeccionNota history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
-          </Paper>
-        </div>
       </Container>
 
 
-      <Mensaje 
-        success={args.includes("editarBeneficiario") ? args.slice(-1) : -1} 
-        mensajeExito={"Se editó el beneficiario correctamente."}
-        mensajeError={"Hubo un error al editar al beneficiario"}
-      />
 
-    <Mensaje 
-        success={args.includes("agregarNota") ? args.slice(-1) : -1} 
-        mensajeExito={"Se registró la nota correctamente."}
-        mensajeError={"Hubo un error al registrar la nota"}
-      />
 
-      {/* AGREGAR CONSULTA NUTRICIÓN RETRO*/}
       <Mensaje 
         success={args.includes("agregarNutricion") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró la consulta de nutrición."}
-        mensajeError={"Hubo un error al registrar la consulta de nutrición."}
-      />
-
-      {/* ELIMINAR CONSULTA NUTRICIÓN RETRO*/}
-      <Mensaje 
-        success={args.includes("eliminarNutricion") ? args.slice(-1) : -1} 
-        mensajeExito={"Se eliminó la consulta de nutrición."}
-        mensajeError={"Hubo un error al eliminar la consulta de nutrición."}
-      />
-
-      {/* EVALUACIÓN RETRO*/}
-      <Mensaje 
-        success={args.includes("agregarEvaluacion") ? args.slice(-1) : -1} 
-        mensajeExito={"Se registró la evaluación."}
-        mensajeError={"Hubo un error al registrar la evaluación."}
+        mensajeError={"Hubo un error al registrar la consulta de nutrición"}
       />
 
 <Mensaje 
