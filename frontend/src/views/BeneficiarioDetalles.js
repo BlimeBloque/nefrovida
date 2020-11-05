@@ -107,10 +107,16 @@ const BeneficiarioDetalles = (props) => {
         mensajeError={"Hubo un error al registrar la evaluación."}
       />
 
-<Mensaje 
+      <Mensaje 
         success={args.includes("agregarMedica") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró la consulta médica."}
         mensajeError={"Hubo un error al registrar la consulta médica"}
+      />
+
+      <Mensaje 
+        success={args.includes("agregarAntecedentes") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registraron los antecedentes."}
+        mensajeError={"Hubo un error al registrar los antecedentes"}
       />
       
     </div>
