@@ -5,6 +5,7 @@ import Detalles from "./Detalles";
 import SeccionConsultaNutricion from '../components/SeccionConsultaNutricion';
 import SeccionNota from '../components/SeccionNota';
 import SeccionConsultaMedica from '../components/SeccionConsultaMedica';
+import SeccionAntecedentes from '../components/SeccionAntecedentes';
 import Mensaje from '../components/Mensaje';
 import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 
@@ -47,6 +48,11 @@ const BeneficiarioDetalles = (props) => {
         <Paper className={classes.pageContent}>
           <Detalles history={props.history} idBenef={props.match.params.idBeneficiario} />
         </Paper>
+        <div id="antecedentes">
+        <Paper className={classes.antecedentes}>
+            <SeccionAntecedentes history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
+          </Paper>
+        </div>
         <div id="consultas">
           <Paper className={classes.consultaNutricion}>
             <SeccionConsultaNutricion history={props.history} idBeneficiario={props.match.params.idBeneficiario} />

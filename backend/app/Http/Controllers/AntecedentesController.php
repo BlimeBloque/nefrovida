@@ -40,7 +40,7 @@ class AntecedentesController extends Controller
     {
         $request->validate([
             'idBeneficiario' => 'required|numeric',
-            'casa' => 'required',
+            'casa' => 'max:255|nullable',
             'serviciosBasicos' => 'max:255|nullable',
             'personalesPatologicos' => 'max:255|nullable',
             'personalesNoPatologicos' => 'max:255|nullable',
