@@ -22,6 +22,7 @@ import AgregarConsultaMedica from './views/ConsultaMedica/AgregarConsultaMedica'
 import DetalleConsultaMedica from './views/ConsultaMedica/DetalleConsultaMedica';
 import EditarConsultaMedica from "./views/ConsultaMedica/EditarConsultaMedica";
 import AgregarAntecedentes from './views/Antecedentes/AgregarAntecedentes';
+import DetalleAntecedentes from './views/Antecedentes/DetalleAntecedentes';
 
 export default withRouter(
   class AppWithRouterAccess extends Component {
@@ -61,6 +62,8 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaMedica' exact={true} component={AgregarConsultaMedica}/>
             <SecureRoute path='/consultaMedica/:idConsultaMedica([0-9]*)' exact={true} component={DetalleConsultaMedica}/>
             <SecureRoute path='/consultaMedica/editar/:idConsultaMedica([0-9]*)' exact={true} component={EditarConsultaMedica}/>
+
+            <SecureRoute path='/antecedentes/:idAntecedentes([0-9]*)' exact={true} component={DetalleAntecedentes}/>
 
             <Route path='/login' render={() => <Login baseUrl='https://dev-377919.okta.com' />} />
             <Route path='/implicit/callback' component={LoginCallback} />
