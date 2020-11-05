@@ -155,7 +155,7 @@ export default function AgregarBeneficiarioForm(props) {
                     }
                   );
             console.log(year + "-" + month + "-" + day)
-            //props.history.push("/beneficiarios/"+ props.idBenef +"?editarBeneficiario=1");
+            props.history.push("/beneficiarios/"+ props.idBenef +"?editarBeneficiario=1");
           
             } catch (e) {
                 console.log(e);
