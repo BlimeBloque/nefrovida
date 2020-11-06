@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movil/providers/OktaProvider.dart';
 
 class NefrovidaDrawer extends StatelessWidget {
   @override
@@ -58,8 +59,10 @@ class NefrovidaDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Cerrar Sesión'),
-              onTap: () {
-                Navigator.pop(context);
+              onTap: () async {
+                  await AuthProvider.of(context).authService.logout();
+                  Navigator.pop(context);
+                  Navigator.of(context).pushReplacementNamed('login');
               },
             ),
           ],

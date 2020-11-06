@@ -29,15 +29,15 @@ class MainScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              FutureBuilder(
-                future: getUserName(context),
-                builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                  if(!snapshot.hasData) return Text('Hola');
+              // FutureBuilder(
+              //   future: getUserName(context),
+              //   builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+              //     if(!snapshot.hasData) return Text('Hola');
 
-                  final String userName = snapshot.data;
-                  return Text('Hola ${userName}');
-                },
-              ),
+              //     final String userName = snapshot.data;
+              //     return Text('Hola ${userName}');
+              //   },
+              // ),
               Text(
                 'Bienvenido a Nefrosoftware.'
               ),
