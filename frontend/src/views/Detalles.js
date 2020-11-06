@@ -95,7 +95,7 @@ class DetallesTabla extends Component {
 
   handleDialogDischarge = (e) => {
 
-    console.log(this.state.detalles[0].nombreBeneficiario);
+    console.log(this.state.detalles[0]);
 
     this.state.detalles.map((detalle) => (
       this.state.idBeneficiario = detalle.idBeneficiario,
@@ -105,8 +105,11 @@ class DetallesTabla extends Component {
       this.state.direccion = detalle.direccion,
       this.state.fecha = detalle.fechaNacimiento,
       this.state.seguimiento = detalle.seguimiento,
-      this.state.telefono = detalle.telefono
+      this.state.telefono = detalle.telefono,
+      this.state.idJornada = detalle.idJornada
     ))
+
+    console.log(this.state.detalles);
 
     e.preventDefault();
     try {
@@ -131,6 +134,7 @@ class DetallesTabla extends Component {
             seguimiento:  this.state.seguimiento,
             activo: 0,
             fechaNacimiento:  this.state.fecha,
+            idJornada: this.state.idJornada,
           }),
         }
       );
