@@ -14,5 +14,6 @@ class Nota extends Model
         'idTipoNota',
         'comentario',
         'url_archivo',
+        'tituloNota'
     ];
 }
