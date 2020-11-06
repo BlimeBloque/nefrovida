@@ -55,7 +55,7 @@ class ConsultaMedicaController extends Controller
             'neurologicoEstadoMental' => 'max:255|nullable',
             'otros' => 'max:255|nullable',
             'diagnosticos' => 'max:255|nullable',
-            'plan de tratamiento' => 'max:255|nullable',
+            'planDeTratamiento' => 'max:255|nullable',
         ]);
 
         $consultaMedica = ConsultaMedica::create($request->all());
@@ -121,7 +121,7 @@ class ConsultaMedicaController extends Controller
             'neurologicoEstadoMental' => 'max:255|nullable',
             'otros' => 'max:255|nullable',
             'diagnosticos' => 'max:255|nullable',
-            'plan de tratamiento' => 'max:255|nullable',
+            'planDeTratamiento' => 'max:255|nullable',
         ]);
 
         $consultaMedica = ConsultaMedica::find($idConsultaMedica);
@@ -142,7 +142,7 @@ class ConsultaMedicaController extends Controller
         $consultaMedica->neurologicoEstadoMental = $request->input('neurologicoEstadoMental');
         $consultaMedica->otros = $request->input('otros');
         $consultaMedica->diagnosticos = $request->input('diagnosticos');
-        $consultaMedica->{'plan de tratamiento'} = $request->input('plan de tratamiento');
+        $consultaMedica->planDeTratamiento = $request->input('planDeTratamiento');
 
         $consultaMedica->save();
     }
