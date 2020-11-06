@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movil/providers/OktaProvider.dart';
+import 'package:movil/screens/Beneficiaries/BuscarBeneficiariosScreen.dart';
+import 'package:movil/screens/Jornadas/BuscarJornadasScreen.dart';
 import 'package:movil/screens/LoginScreen.dart';
 import 'package:movil/screens/MainScreen.dart';
+import 'package:movil/screens/Reportes/ReportesMainScreen.dart';
 import 'package:movil/services/AuthService.dart';
 
 void main() => runApp((MyApp()));
@@ -17,8 +20,11 @@ class MyApp extends StatelessWidget {
         ),
         home: LoginScreen(),
         routes: {
-          MainScreen.routeName: (ctx) => MainScreen(),
-          LoginScreen.routeName: (ctx) => LoginScreen()
+          'main': (ctx) => MainScreen(),
+          'login': (ctx) => LoginScreen(),
+          'beneficiarios': (ctx) => BuscarBeneficiariosScreen(),
+          'jornadas': (ctx) => BuscarJornadasScreen(),
+          'reportes': (ctx) => ReportesMainScreen(),
         },
       ),
     );

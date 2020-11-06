@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
             textColor: Colors.black,
             onPressed: () async {
               await AuthProvider.of(context).authService.authorize();
-              Navigator.of(context).pushNamed(MainScreen.routeName);
+              Navigator.of(context).pushNamed('main');
             },
             child: Text('Authorize'),
           ),
