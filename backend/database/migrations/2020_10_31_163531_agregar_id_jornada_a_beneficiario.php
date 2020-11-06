@@ -14,8 +14,8 @@ class AgregarIdJornadaABeneficiario extends Migration
     public function up()
     {
         Schema::table('beneficiarios', function (Blueprint $table) {
-            $table->unsignedInteger('idJornada');
-            $table->foreign('idJornada')->references('idJornada')->on('jornadas')->onDelete('cascade')->nullable();
+            $table->unsignedInteger('idJornada')->nullable();
+            $table->foreign('idJornada')->references('idJornada')->on('jornadas')->onDelete('cascade');
         });
     }
 
