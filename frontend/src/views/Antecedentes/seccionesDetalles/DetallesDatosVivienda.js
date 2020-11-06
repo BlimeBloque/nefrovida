@@ -5,6 +5,7 @@ export default function DetallesDatosVivienda (props)
 {
     const classes = props.classes;
     const detalle = props.detalle;
+    console.log(detalle.serviciosBasicos);
 
     return (
         <div id="datosVivienda">
@@ -13,9 +14,9 @@ export default function DetallesDatosVivienda (props)
                 <strong className={classes.normal}>Casa: </strong>
                 {detalle.casa ? detalle.casa : "No registrado"}
             </Typography>
-            <Typography variant="body1" className={detalle.serviciosBasicos ? classes.normal : classes.faltante}>
+            <Typography variant="body1" className={detalle.serviciosBasicos != null ? classes.normal : classes.faltante}>
                 <strong className={classes.normal}>Servicios Básicos: </strong>
-                {detalle.serviciosBasicos ? (detalle.serviciosBasicos === 1 ? "Sí" : "No") : "No registrado"}
+                {detalle.serviciosBasicos !== null ? detalle.serviciosBasicos === 1 ? "Sí" : "No" : "No registrado"}
             </Typography>
         </div>
     );

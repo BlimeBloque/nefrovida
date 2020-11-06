@@ -111,9 +111,9 @@ const initialErrorValues = {
     personalesPatologicos: false,
     personalesNoPatologicos: false,
     padreVivo: false,
-    enfermedadPadre: false,
+    enfermedadesPadre: false,
     madreVivo: false,
-    enfermedadMadre: false,
+    enfermedadesMadre: false,
     numHermanos: false,
     numHermanosVivos: false,
     enfermedadesHermanos: false,
@@ -148,7 +148,33 @@ export default function AntecedentesForm(props) {
     }
     useEffect ( () => {
 
-        
+        if(props.editar){
+            setValues({
+                idBeneficiario: props.antecedentes.idBeneficiario,
+                casa: props.antecedentes.casa,
+                serviciosBasicos: props.antecedentes.serviciosBasicos,
+                personalesPatologicos: props.antecedentes.personalesPatologicos,
+                personalesNoPatologicos: props.antecedentes.personalesNoPatologicos,
+                padreVivo: props.antecedentes.padreVivo,
+                enfermedadesPadre: props.antecedentes.enfermedadesPadre,
+                madreVivo: props.antecedentes.madreVivo,
+                enfermedadesMadre: props.antecedentes.enfermedadMadre,
+                numHermanos: props.antecedentes.numHermanos,
+                numHermanosVivos: props.antecedentes.numHermanosVivos,
+                enfermedadesHermanos: props.antecedentes.enfermedadesHermanos,
+                otrosHermanos: props.antecedentes.otrosHermanos,
+                menarquia: props.antecedentes.menarquia,
+                ritmo: props.antecedentes.ritmo,
+                fum: props.antecedentes.fum,
+                gestaciones: props.antecedentes.gestaciones,
+                partos: props.antecedentes.partos,
+                abortos: props.antecedentes.abortos,
+                cesareas: props.antecedentes.cesareas,
+                ivsa: props.antecedentes.ivsa,
+                metodosAnticonceptivos: props.antecedentes.metodosAnticonceptivos,
+            });
+        }
+        else{
             setValues({
                 ...values,
                 'idBeneficiario': props.idBeneficiario
@@ -160,6 +186,7 @@ export default function AntecedentesForm(props) {
             .catch((e) => {
             console.log(e)
             })
+        }
     }, []);
 
     
@@ -177,8 +204,8 @@ export default function AntecedentesForm(props) {
                     next = false;
                 break;
             case 2:
-                if(errores.padreVivo || errores.enfermedadPadre
-                    || errores.madreVivo || errores.enfermedadMadre
+                if(errores.padreVivo || errores.enfermedadesPadre
+                    || errores.madreVivo || errores.enfermedadesMadre
                     || errores.numHermanos || errores.numHermanosVivos
                     || errores.enfermedadesHermanos || errores.otrosHermanos)
                     next = false;
@@ -195,12 +222,14 @@ export default function AntecedentesForm(props) {
     };
 
     const handleSubmit = () => {
-        if (values.fum != null){
-            let day = values.fum.getDate();
-            let month = values.fum.getUTCMonth() + 1;
-            let year = values.fum.getUTCFullYear();
-            console.log(year);
-            values.fum = year + "-" + month + "-" + day;
+        if(!props.editar){
+            if (values.fum != null){
+                let day = values.fum.getDate();
+                let month = values.fum.getUTCMonth() + 1;
+                let year = values.fum.getUTCFullYear();
+                console.log(year);
+                values.fum = year + "-" + month + "-" + day;
+            }
         }
         
         let submit = true;
@@ -210,6 +239,19 @@ export default function AntecedentesForm(props) {
             submit = false;
         if(submit)
         {  
+            if(props.editar)
+            {
+                http.put('/antecedentes/'+props.antecedentes.idAntecedentes, values)
+                    .then(res => {
+                        console.log(res)
+                        props.history.push("/antecedentes/"+props.antecedentes.idAntecedentes+"?editarAntecedentes=1");
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        props.history.push("/antecedentes/"+props.antecedentes.idAntecedentes+"?editarAntecedentes=0");
+                    });
+            }
+            else{
                 http.post('/antecedentes', values)
                     .then(res => {
                         console.log(res)
@@ -219,7 +261,7 @@ export default function AntecedentesForm(props) {
                         console.log(err)
                         props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarAntecedentes=0");
                     });
-            
+                }
         }
 
         
@@ -228,7 +270,7 @@ export default function AntecedentesForm(props) {
     return (
         <center className={classes.root}>
             {console.log(values)}
-            <Typography variant="h5">Antecedentes de {beneficiario.nombreBeneficiario} 
+            <Typography variant="h5">Antecedentes de {props.editar ?  props.antecedentes.nombreBeneficiario :  beneficiario.nombreBeneficiario} 
             </Typography>
 
             <Stepper activeStep={activeStep} alternativeLabel>
@@ -297,7 +339,7 @@ export default function AntecedentesForm(props) {
                         Regresar
                     </Button>
                     <Button variant="contained" color='primary' onClick={ activeStep === steps.length-1 ? handleSubmit : handleNext}>
-                        {activeStep === steps.length - 1 ? 'Registrar' : 'Siguiente'}
+                        {activeStep === steps.length - 1 ? props.editar ? 'Editar': 'Registrar' : 'Siguiente'}
                     </Button>
                 </div>
             </form>

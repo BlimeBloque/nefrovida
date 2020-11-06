@@ -9,17 +9,17 @@ export default function DetallesAntecedentesFamiliares (props)
     return (
         <div id="antecedentesFamiliares">
             <Typography variant="h5"  className={classes.subtitulo}>Antecedentes Familiares</Typography>
-            <Typography variant="body1" className={detalle.padreVivo ? classes.normal : classes.faltante}>
+            <Typography variant="body1" className={detalle.padreVivo != null ? classes.normal : classes.faltante}>
                 <strong className={classes.normal}>Padre Vivo: </strong>
-                {detalle.padreVivo ? (detalle.padreVivo === 1 ? "Sí" : "No") : "No registrado"}
+                {detalle.padreVivo != null ? (detalle.padreVivo === 1 ? "Sí" : "No") : "No registrado"}
             </Typography>
             <Typography variant="body1" className={detalle.enfermedadesPadre ? classes.normal : classes.faltante}>
                 <strong className={classes.normal}>Enfermedades del Padre: </strong>
                 {detalle.enfermedadesPadre ? detalle.enfermedadesPadre : "No registrado"}
             </Typography>
-            <Typography variant="body1" className={detalle.madreVivo ? classes.normal : classes.faltante}>
+            <Typography variant="body1" className={detalle.madreVivo != null ? classes.normal : classes.faltante}>
                 <strong className={classes.normal}>Madre Viva: </strong>
-                {detalle.madreVivo ? (detalle.madreVivo === 1 ? "Sí" : "No") : "No registrado"}
+                {detalle.madreVivo != null ? (detalle.madreVivo === 1 ? "Sí" : "No") : "No registrado"}
             </Typography>
             <Typography variant="body1" className={detalle.enfermedadesMadre ? classes.normal : classes.faltante}>
                 <strong className={classes.normal}>Enfermedades de la Madre: </strong>

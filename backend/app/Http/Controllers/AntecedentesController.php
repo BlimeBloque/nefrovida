@@ -60,7 +60,7 @@ class AntecedentesController extends Controller
             'abortos' => 'numeric|nullable',
             'cesareas' => 'numeric|nullable',
             'ivsa' => 'numeric|nullable',
-            'metodos anticonceptivos' => 'max:255|nullable',
+            'metodosAnticonceptivos' => 'max:255|nullable',
         ]);
 
         $antecedentes = Antecedentes::create($request->all());
@@ -107,9 +107,59 @@ class AntecedentesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $idAntecedentes)
     {
-        //
+        $request->validate([
+            'idBeneficiario' => 'required|numeric',
+            'casa' => 'max:255|nullable',
+            'serviciosBasicos' => 'max:255|nullable',
+            'personalesPatologicos' => 'max:255|nullable',
+            'personalesNoPatologicos' => 'max:255|nullable',
+            'padreVivo' => 'numeric|nullable',
+            'enfermedadesPadre' => 'max:255|nullable',
+            'madreVivo' => 'numeric|nullable',
+            'enfermedadesMadre' => 'max:255|nullable',
+            'numHermanos' => 'numeric|nullable',
+            'numHermanosVivos' => 'numeric|nullable',
+            'enfermedadesHermanos' => 'max:255|nullable',
+            'otrosHermanos' => 'max:255|nullable',
+            'menarquia' => 'numeric|nullable',
+            'ritmo' => 'numeric|nullable',
+            'fum' => 'date|nullable',
+            'gestaciones' => 'numeric|nullable',
+            'partos' => 'numeric|nullable',
+            'abortos' => 'numeric|nullable',
+            'cesareas' => 'numeric|nullable',
+            'ivsa' => 'numeric|nullable',
+            'metodosAnticonceptivos' => 'max:255|nullable',
+        ]);
+
+        $antecedentes = Antecedentes::find($idAntecedentes);
+
+        $antecedentes->idBeneficiario = $request->input('idBeneficiario');
+        $antecedentes->casa = $request->input('casa');
+        $antecedentes->serviciosBasicos = $request->input('serviciosBasicos');
+        $antecedentes->personalesPatologicos = $request->input('personalesPatologicos');
+        $antecedentes->personalesNoPatologicos = $request->input('personalesNoPatologicos');
+        $antecedentes->padreVivo = $request->input('padreVivo');
+        $antecedentes->enfermedadesPadre = $request->input('enfermedadesPadre');
+        $antecedentes->madreVivo = $request->input('madreVivo');
+        $antecedentes->enfermedadesMadre = $request->input('enfermedadesMadre');
+        $antecedentes->numHermanos = $request->input('numHermanos');
+        $antecedentes->numHermanosVivos = $request->input('numHermanosVivos');
+        $antecedentes->enfermedadesHermanos = $request->input('enfermedadesHermanos');
+        $antecedentes->otrosHermanos = $request->input('otrosHermanos');
+        $antecedentes->menarquia = $request->input('menarquia');
+        $antecedentes->ritmo = $request->input('ritmo');
+        $antecedentes->fum = $request->input('fum');
+        $antecedentes->gestaciones = $request->input('gestaciones');
+        $antecedentes->partos = $request->input('partos');
+        $antecedentes->abortos = $request->input('abortos');
+        $antecedentes->cesareas = $request->input('cesareas');
+        $antecedentes->ivsa = $request->input('ivsa');
+        $antecedentes->metodosAnticonceptivos = $request->input('metodosAnticonceptivos');
+
+        $antecedentes->save();
     }
 
     /**
