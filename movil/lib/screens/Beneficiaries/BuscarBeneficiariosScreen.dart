@@ -23,6 +23,11 @@ class TablaBeneficiarios extends StatelessWidget {
   TablaBeneficiarios({Key key}) : super(key: key);
   HttpHelper benefHelper = new HttpHelper();
 
+  calcularEdad(fechaNacimiento)
+  {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,13 +44,56 @@ class TablaBeneficiarios extends StatelessWidget {
             }
             else
             {
-              return ListView.builder(
-                itemCount: beneficiarios.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text(beneficiarios[index].nombreBeneficiario),
-                  );
-                },
+              return Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: DataTable(
+                    columns: [
+                      DataColumn(
+                        label: Text('Nombre'),
+                        tooltip: 'Nombre Completo',
+                        numeric: false,
+                      ),
+                      DataColumn(
+                        label: Text('Edad'),
+                        tooltip: 'Edad',
+                        numeric: true,
+                      ),
+                      DataColumn(
+                        label: Text('Sexo'),
+                        tooltip: 'Sexo',
+                        numeric: false,
+                      ),
+                    ],
+                    rows: beneficiarios.map(
+                      (beneficiario) => DataRow(
+                        cells: [
+                          DataCell(
+                            Text(
+                              beneficiario.nombreBeneficiario,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          DataCell(
+                            Text(
+                              beneficiario.edad.toString(),
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          DataCell(
+                            Text(
+                              beneficiario.sexo,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ).toList(),
+                  ),
+                ),
               );
             }
           }
