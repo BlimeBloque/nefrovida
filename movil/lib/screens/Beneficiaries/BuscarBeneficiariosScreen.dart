@@ -11,6 +11,15 @@ class BuscarBeneficiariosScreen extends StatelessWidget {
         title: Text("Beneficiarios"),
         centerTitle: true,
       ),
+      body: Center(
+        child: OutlineButton(
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, 'beneficiariosDetalle');
+          },
+          child: Text('Ir a detalle'),
+        ),
+      ),
       drawer: new NefrovidaDrawer(),
     );
   }
