@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
 import 'package:movil/classes/Beneficiario.dart';
+import 'package:movil/screens/Beneficiaries/Secciones/SeccionConsultas.dart';
 
 class BeneficiarioTabs extends StatefulWidget {
   final Beneficiario beneficiario;
@@ -43,7 +44,7 @@ class _BeneficiarioTabsState extends State<BeneficiarioTabs> {
             Center( child: Text("Antecedentes")),
             Center( child: Text("Tamizajes")),
             Center( child: Text("Evaluaciones")),
-            Center( child: Text("Consultas")),
+            SeccionConsultas(),
             Center( child: Text("Análisis")),
             Center( child: Text("Notas")),
             Center( child: Text("Evidencias")),
