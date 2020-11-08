@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
           'main': (ctx) => MainScreen(),
           'login': (ctx) => LoginScreen(),
           'beneficiarios': (ctx) => BuscarBeneficiariosScreen(),
-          'beneficiariosDetalle': (ctx) => DetalleBeneficiarioScreen(),
           'jornadas': (ctx) => BuscarJornadasScreen(),
           'reportes': (ctx) => ReportesMainScreen(),
         },

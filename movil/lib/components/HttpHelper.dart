@@ -33,22 +33,4 @@ class HttpHelper
       return null;
     }
   }
-
-  Future<List<Beneficiario>> getSingleBeneficiario () async
-  {
-    String path = "/beneficiarios/31";
-    String uri = ip + baseUrl + path;
-    http.Response resp = await http.get(uri);
-    if(resp.statusCode == 200)
-    {
-      final decodedJsonMap = json.decode(resp.body);
-      //List<Movie> movies2 = decodedJsonMap['results'].map( (e) =>Movie.fromJsonMap(e));
-      Beneficiarios listaBeneficiarios = new Beneficiarios.fromJsonList(decodedJsonMap['data']);
-      return listaBeneficiarios.beneficiarios;
-    }
-    else
-    {
-      return null;
-    }
-  }
 }

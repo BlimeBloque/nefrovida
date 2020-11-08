@@ -5,6 +5,12 @@ import 'package:movil/components/HttpHelper.dart';
 
 class DetalleBeneficiarioScreen extends StatelessWidget {
 
+  static const String route = '/beneficiariosDetalle';
+
+  final Beneficiario beneficiario;
+
+  DetalleBeneficiarioScreen({Key key, @required this.beneficiario}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +18,7 @@ class DetalleBeneficiarioScreen extends StatelessWidget {
         title: Text("Detalle Beneficiario"),
         centerTitle: true,
       ),
-      body: CardBeneficiario(),
+      body: CardBeneficiario(beneficiario: beneficiario),
       drawer: new NefrovidaDrawer(),
     );
   }
@@ -20,32 +26,16 @@ class DetalleBeneficiarioScreen extends StatelessWidget {
 
 class CardBeneficiario extends StatelessWidget {
 
-  CardBeneficiario({Key key}) : super(key: key);
-  HttpHelper benefHelper = new HttpHelper();
-
+  final Beneficiario beneficiario;
+  CardBeneficiario({Key key,@required this.beneficiario}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+
     return Padding(
       padding: EdgeInsets.all(8.0),
-      child: FutureBuilder(
-        //Recive como parametro el id del beneficiario a buscar
-        future: benefHelper.getSingleBeneficiario(),
-        builder: (BuildContext context, AsyncSnapshot snapshot){
-          if(snapshot.hasData != null){
-            List<Beneficiario> beneficiarios = snapshot.data;
-            if(beneficiarios == null){
-              return Center(child: CircularProgressIndicator());
-            } else {
-              return Center(
-
-              );
-            }
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        }
-      ),
+      child: Text(beneficiario.nombreBeneficiario),
     );
   }
 }

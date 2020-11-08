@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movil/providers/OktaProvider.dart';
-import 'package:movil/screens/MainScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
