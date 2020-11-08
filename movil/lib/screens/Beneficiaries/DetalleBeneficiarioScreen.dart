@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movil/components/NefrovidaDrawer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:movil/classes/Beneficiario.dart';
-import 'package:movil/components/HttpHelper.dart';
+import 'package:movil/components/BeneficiarioTabs.dart';
 
 class DetalleBeneficiarioScreen extends StatelessWidget {
 
@@ -13,16 +13,11 @@ class DetalleBeneficiarioScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Detalle Beneficiario"),
-        centerTitle: true,
-      ),
-      body: CardBeneficiario(beneficiario: beneficiario),
-      drawer: new NefrovidaDrawer(),
-    );
+    return BeneficiarioTabs(beneficiario: this.beneficiario);
   }
 }
+
+
 
 class CardBeneficiario extends StatelessWidget {
 
@@ -39,78 +34,3 @@ class CardBeneficiario extends StatelessWidget {
     );
   }
 }
-
-/*
-                child: Card(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ListTile(
-                        leading: Icon(Icons.account_circle_outlined),
-                        title: Text(
-                          'Nombre Del Beneifciario',
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ),
-                      Text(
-                        'Nacimiento:',
-                        style: const TextStyle(
-                            fontSize: 16
-                        ),
-                      ),
-                      Text(
-                        'Sexo: ',
-                        style: const TextStyle(
-                            fontSize: 16
-                        ),
-                      ),
-                      Text(
-                        'Escolaridad: ',
-                        style: const TextStyle(
-                            fontSize: 16
-                        ),
-                      ),
-                      Text(
-                        'Telefono: ',
-                        style: const TextStyle(
-                            fontSize: 16
-                        ),
-                      ),
-                      Text(
-                        'Direccion:',
-                        style: const TextStyle(
-                            fontSize: 16
-                        ),
-                      ),
-                      Text(
-                        'De Seguimiento: ',
-                        style: const TextStyle(
-                            fontSize: 16
-                        ),
-                      ),
-                      Text(''
-                          'Activo: ',
-                        style: const TextStyle(
-                            fontSize: 16
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(Icons.edit),
-                            tooltip: 'Editar Beneficiario',
-                            onPressed: () {
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-*/
-
