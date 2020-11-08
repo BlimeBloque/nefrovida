@@ -35,6 +35,13 @@ class ConsultaNutricion
                     this.recordatorioCena, this.tipoDieta, this.diagnostico, this.peso, this.altura, this.kilocaloriasTotales, 
                     this.porcentajeHidratosCarbono, this.kilocaloriasHidratosCarbono, this.porcentajeProteinas, this.porcentajeGrasas);
   
+  formatoFecha(fecha)
+  {
+    DateTime fechaFormateada = DateTime.parse(fecha);
+    return "${fechaFormateada.day.toString().padLeft(2, '0')}/${fechaFormateada.month.toString().padLeft(2, '0')}/${fechaFormateada.year.toString()}";
+  }
+
+
   ConsultaNutricion.fromJsonMap(Map<String, dynamic> json)
   {
     this.idConsultaNutricion = json['idConsultaNutricion'];
@@ -79,6 +86,6 @@ class ConsultaNutricion
     this.porcentajeProteinas = json['porcentajeProteinas'];
     this.porcentajeGrasas = json['porcentajeGrasas'];
     this.diagnostico = json['diagnostico'];
-    this.fecha = json['created_at'];
+    this.fecha = formatoFecha(json['created_at']);
   }
 }

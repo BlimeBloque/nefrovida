@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:movil/classes/Beneficiario.dart';
+import 'package:movil/classes/ConsultaNutricion.dart';
 import 'package:movil/components/HttpHelper.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,6 +28,26 @@ class HttpHelper
       //List<Movie> movies2 = decodedJsonMap['results'].map( (e) =>Movie.fromJsonMap(e));
       Beneficiarios listaBeneficiarios = new Beneficiarios.fromJsonList(decodedJsonMap['data']);
       return listaBeneficiarios.beneficiarios;
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  Future<List<ConsultaNutricion>> getConsultas(idBeneficiario) async
+  {
+    String path = "/consultaNutricion/beneficiario/"+idBeneficiario.toString();
+    String uri = ip + baseUrl + path;
+    print(uri);
+    http.Response resp = await http.get(uri);
+    if(resp.statusCode == 200)
+    {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      //List<Movie> movies2 = decodedJsonMap['results'].map( (e) =>Movie.fromJsonMap(e));
+      ConsultasNutricion listaConsultas = new ConsultasNutricion.fromJsonList(decodedJsonMap);
+      return listaConsultas.consultasNutricion;
     }
     else
     {

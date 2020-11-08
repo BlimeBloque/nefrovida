@@ -44,7 +44,7 @@ class _BeneficiarioTabsState extends State<BeneficiarioTabs> {
             Center( child: Text("Antecedentes")),
             Center( child: Text("Tamizajes")),
             Center( child: Text("Evaluaciones")),
-            SeccionConsultas(),
+            SeccionConsultas(beneficiario: this.beneficiario),
             Center( child: Text("Análisis")),
             Center( child: Text("Notas")),
             Center( child: Text("Evidencias")),

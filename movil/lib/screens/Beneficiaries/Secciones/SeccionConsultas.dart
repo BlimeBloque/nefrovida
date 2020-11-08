@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movil/classes/Beneficiario.dart';
+import 'package:movil/screens/Beneficiaries/ConsultaNutricion/ListaConsultasNutricion.dart';
 
 class SeccionConsultas extends StatelessWidget {
+  final Beneficiario beneficiario;
+
+  SeccionConsultas({Key key, @required this.beneficiario}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -8,7 +14,7 @@ class SeccionConsultas extends StatelessWidget {
         padding: EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            ConsultasNutricionalesCard(),
+            ConsultasNutricionalesCard(beneficiario: this.beneficiario),
           ]
         ),
       ),
@@ -18,6 +24,10 @@ class SeccionConsultas extends StatelessWidget {
 
 
 class ConsultasNutricionalesCard extends StatelessWidget {
+  final Beneficiario beneficiario;
+
+  ConsultasNutricionalesCard({Key key, @required this.beneficiario}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -32,6 +42,7 @@ class ConsultasNutricionalesCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            ListaConsultasNutricion(beneficiario: this.beneficiario),
           ],
         ),
       ),
