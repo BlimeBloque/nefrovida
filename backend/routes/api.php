@@ -84,3 +84,5 @@ Route::get('/tamizaje', 'App\Http\Controllers\TamizajeController@all');
 Route::get('/tamizaje/{idBeneficiario}', 'App\Http\Controllers\TamizajeController@searchAll');
 Route::get('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@searchOne');
 Route::post('/tamizaje', 'App\Http\Controllers\TamizajeController@insert');
+Route::post('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@edit');
+Route::delete('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@delete');

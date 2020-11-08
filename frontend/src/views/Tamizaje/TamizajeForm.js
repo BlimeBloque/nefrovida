@@ -38,7 +38,7 @@ const initialValues = {
   comentario: "",
 };
 
-export default function ConsultaMedicaForm(props) {
+export default function TamizajeAgregarForm(props) {
   const classes = useStyles();
   const [beneficiario, setBeneficiario] = useState([]);
   const [values, setValues] = useState(initialValues);
@@ -56,16 +56,7 @@ export default function ConsultaMedicaForm(props) {
 
   useEffect(() => {
     if (props.editar) {
-      setValues({
-        idBeneficiario: props.consulta.idBeneficiario,
-        presionArterial: props.consulta.presionArterial,
-        peso: props.consulta.peso,
-        circunferenciaCintura: props.consulta.circunferenciaCintura,
-        circunferenciaCadera: props.consulta.circunferenciaCadera,
-        glucosaCapilar: props.consulta.glucosaCapilar,
-        talla: props.consulta.talla,
-        comentario: props.consulta.comentario,
-      });
+      setValues(props.tamizaje);
     } else {
       setValues({
         ...values,
@@ -113,16 +104,35 @@ export default function ConsultaMedicaForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateFront) {
-      http
-        .post("/tamizaje", values)
-        .then((res) => {
-          props.history.push(
-            "/beneficiarios/" + values.idBeneficiario + "?agregarTamizaje=1"
-          );
-        })
-        .catch((err) => {
-          validateBack(err.response.data.errors);
-        });
+      if (props.editar) {
+        http
+          .post(
+            "/tamizaje/" +
+              props.idBeneficiario +
+              "/" +
+              props.tamizaje.idTamizaje,
+            values
+          )
+          .then((res) => {
+            props.history.push(
+              "/beneficiarios/" + values.idBeneficiario + "?agregarTamizaje=1"
+            );
+          })
+          .catch((err) => {
+            validateBack(err.response.data.errors);
+          });
+      } else {
+        http
+          .post("/tamizaje", values)
+          .then((res) => {
+            props.history.push(
+              "/beneficiarios/" + values.idBeneficiario + "?agregarTamizaje=1"
+            );
+          })
+          .catch((err) => {
+            validateBack(err.response.data.errors);
+          });
+      }
     }
   };
 
@@ -131,7 +141,7 @@ export default function ConsultaMedicaForm(props) {
       <Typography variant="h5">
         Tamizaje de{" "}
         {props.editar
-          ? props.consulta.nombreBeneficiario
+          ? props.tamizaje.nombreBeneficiario
           : beneficiario.nombreBeneficiario}{" "}
       </Typography>
 
@@ -211,7 +221,7 @@ export default function ConsultaMedicaForm(props) {
           type="submit"
           onClick={handleSubmit}
         >
-          Registrar Tamizaje
+          {props.editar ? "Editar" : "Registrar"} Tamizaje
         </Button>
       </form>
     </center>
