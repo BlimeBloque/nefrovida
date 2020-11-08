@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:movil/classes/Beneficiario.dart';
+import 'package:movil/classes/TipoNota.dart';
 import 'package:movil/components/HttpHelper.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,6 +28,24 @@ class HttpHelper
       //List<Movie> movies2 = decodedJsonMap['results'].map( (e) =>Movie.fromJsonMap(e));
       Beneficiarios listaBeneficiarios = new Beneficiarios.fromJsonList(decodedJsonMap['data']);
       return listaBeneficiarios.beneficiarios;
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+   Future<List<TipoNota>> getAllTiposNotas() async
+  {
+    String path = "/tiponota";
+    String uri = ip + baseUrl + path;
+    http.Response resp = await http.get(uri);
+    if(resp.statusCode == 200)
+    {
+      final decodedJsonMap = json.decode(resp.body);
+      //List<Movie> movies2 = decodedJsonMap['results'].map( (e) =>Movie.fromJsonMap(e));
+      TiposNotas listaTipos = new TiposNotas.fromJsonList(decodedJsonMap['data']);
+      return listaTipos.tipos;
     }
     else
     {

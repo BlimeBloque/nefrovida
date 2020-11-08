@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
 import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/components/HttpHelper.dart';
+import 'package:movil/screens/Beneficiaries/AgregarNotaScreen.dart';
 
 class DetalleBeneficiarioScreen extends StatelessWidget {
 
@@ -170,6 +171,7 @@ class CardBeneficiario extends StatelessWidget {
                   icon: Icon(Icons.edit),
                   tooltip: 'Editar Beneficiario',
                   onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AgregarNotaScreen(id: beneficiario.idBeneficiario)));
                   },
                 ),
               ],
