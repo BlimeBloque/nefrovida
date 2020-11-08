@@ -13,17 +13,8 @@ class BuscarBeneficiariosScreen extends StatelessWidget {
         title: Text("Beneficiarios"),
         centerTitle: true,
       ),
-      body: Center(
-        child: OutlineButton(
-          onPressed: () {
-            Navigator.pop(context);
-            Navigator.pushNamed(context, 'beneficiariosDetalle');
-          },
-          child: Text('Ir a detalle'),
-        ),
-      ),
       drawer: new NefrovidaDrawer(),
-      body: TablaBeneficiarios(),
+     body: TablaBeneficiarios(),
     );
   }
 }
@@ -82,7 +73,13 @@ class TablaBeneficiarios extends StatelessWidget {
                               beneficiario.nombreBeneficiario,
                               softWrap: true,
                               overflow: TextOverflow.ellipsis,
+
                             ),
+                            onTap: () {
+                              Navigator.pop(context);
+                              print(beneficiario);
+                              Navigator.pushNamed(context, 'beneficiariosDetalle');
+                            }
                           ),
                           DataCell(
                             Text(
