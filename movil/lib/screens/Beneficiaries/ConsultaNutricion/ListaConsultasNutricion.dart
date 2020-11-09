@@ -28,6 +28,10 @@ class ListaConsultasNutricion extends StatelessWidget {
             }
             else
             {
+              if(_consultas.length <= 0)
+              {
+                return Center(child: Text("No hay consultas nutricionales registradas para este beneficiario.", textAlign: TextAlign.center));
+              }
               return ListView.builder(
                 shrinkWrap: true,
                 itemCount: _consultas.length,

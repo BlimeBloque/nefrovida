@@ -3,6 +3,13 @@ import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/classes/ConsultaNutricion.dart';
 import 'package:movil/components/HttpHelper.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
+import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleDatosAntropometricos.dart';
+import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleDatosClinicos.dart';
+import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleDatosDieteticos.dart';
+import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleDatosNutrimentales.dart';
+import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleEstiloDeVida.dart';
+import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleNecesidades.dart';
+import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleRecordatorios.dart';
 
 class DetalleConsultaNutricionScreen extends StatelessWidget {
   static const String route = '/consultaNutricionDetalle';
@@ -63,32 +70,23 @@ class DetalleConsultaNutricionScreen extends StatelessWidget {
                           Center(
                             child: Column(
                               children: <Widget>[
-                                Text(
-                                  "Datos Nutrimentales",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    decoration: TextDecoration.underline,
+                                DetalleDatosNutrimentales(consulta: consulta),
+                                DetalleDatosClinicos(consulta: consulta),
+                                DetalleEstiloDeVida(consulta: consulta),
+                                DetalleDatosDieteticos(consulta: consulta),
+                                DetalleRecordatorios(consulta: consulta),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 5.0),
+                                  child: Text(
+                                    "Evaluación Nutricia",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      decoration: TextDecoration.underline,
+                                    ),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      "Ocupación: ",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      consulta.ocupacion != null ? consulta.ocupacion: 'No registrado',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontStyle: consulta.ocupacion != null ? FontStyle.normal : FontStyle.italic,
-                                      ),
-                                      ),
-                                  ],
-                                ),
+                                DetalleDatosAntropometricos(consulta: consulta),
+                                DetalleNecesidades(consulta: consulta),
                               ],
                             ),
                           ),
