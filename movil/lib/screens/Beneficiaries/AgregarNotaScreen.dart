@@ -47,6 +47,7 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
    void initState()
   {
     super.initState();
+    _url_archivo =  ' ';
   }
 
   List<DropdownMenuItem<TipoNota>> buildDropDownMenuItems(List tipos){
@@ -168,12 +169,8 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
                           return;
                         }
                         _formKey.currentState.save();
-                        print(_contenido);
-                        print(_selectedTipo.idTipoNombre);
                         _idBeneficiario = widget.id;
-                        print(_idBeneficiario);
-                       print(_tituloNota);
-                     //  print(_url_archivo);
+                        tipoHelper.subirNotra(_tituloNota, _contenido, _idBeneficiario, _selectedTipo.idTipoNombre, _url_archivo);
                       },
                     )
                   ],

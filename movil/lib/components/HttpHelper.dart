@@ -52,4 +52,27 @@ class HttpHelper
       return null;
     }
   }
+
+  Future<http.Response> subirNotra(String titulo, String contenido, int idBeneficiario, int idTipoNota, String url_archivo) async {
+
+    String path = "/nota";
+    String uri = ip + baseUrl + path;
+
+  Map data = {
+    'idBeneficiario': idBeneficiario,
+    'idTipoNota': idTipoNota,
+    'comentario': contenido,
+    'url_archivo': ''
+  };
+  //encode Map to JSON
+  var body = json.encode(data);
+
+  var response = await http.post(uri,
+      headers: {"Content-Type": "application/json"},
+      body: body
+  );
+  print("${response.statusCode}");
+  print("${response.body}");
+  return response;
+  }
 }
