@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/classes/ConsultaNutricion.dart';
 import 'package:movil/components/HttpHelper.dart';
+import 'package:movil/screens/Beneficiaries/ConsultaNutricion/DetalleConsultaNutricionScreen.dart';
 
 class ListaConsultasNutricion extends StatelessWidget {
   HttpHelper consultaHelper = HttpHelper();
   final Beneficiario beneficiario;
 
-  List<ConsultaNutricion> _consultas;
+  List<ConsultaNutricionGeneral> _consultas;
   
   ListaConsultasNutricion({Key key, @required this.beneficiario}) : super(key: key);
 
@@ -16,7 +17,7 @@ class ListaConsultasNutricion extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: FutureBuilder(
-        future: consultaHelper.getConsultas(beneficiario.idBeneficiario),
+        future: consultaHelper.getConsultasNutricion(beneficiario.idBeneficiario),
         builder: (BuildContext context, AsyncSnapshot snapshot){
           if(snapshot.hasData != null)
           {
@@ -34,7 +35,10 @@ class ListaConsultasNutricion extends StatelessWidget {
                   return ListTile(
                     leading: Icon(Icons.food_bank_outlined),
                     title: Center(child:Text("Consulta del: "+_consultas[index].fecha)),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) 
+                      => DetalleConsultaNutricionScreen(consultaGeneral: _consultas[index], beneficiario: beneficiario)));
+                    },
                     trailing: Icon(Icons.navigate_next_rounded),
                   );
                 },

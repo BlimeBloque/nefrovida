@@ -1,6 +1,6 @@
 class ConsultasNutricion
 {
-  List<ConsultaNutricion> consultasNutricion = new List();
+  List<ConsultaNutricionGeneral> consultasNutricion = new List();
 
   ConsultasNutricion.fromJsonList(List<dynamic> json)
   {
@@ -8,13 +8,34 @@ class ConsultasNutricion
 
     for(var item in json)
     {
-      ConsultaNutricion benef = new ConsultaNutricion.fromJsonMap(item);
-      consultasNutricion.add(benef);
-      print(benef);
+      ConsultaNutricionGeneral consulta = new ConsultaNutricionGeneral.fromJsonMap(item);
+      consultasNutricion.add(consulta);
+      print(consulta);
     }
   }
 }
 
+
+class ConsultaNutricionGeneral
+{
+  int idConsultaNutricion, idBeneficiario;
+  String fecha;
+
+  ConsultaNutricionGeneral(this.idConsultaNutricion, this.idBeneficiario, this.fecha);
+
+  formatoFecha(fecha)
+  {
+    DateTime fechaFormateada = DateTime.parse(fecha);
+    return "${fechaFormateada.day.toString().padLeft(2, '0')}/${fechaFormateada.month.toString().padLeft(2, '0')}/${fechaFormateada.year.toString()}";
+  }
+
+  ConsultaNutricionGeneral.fromJsonMap(Map<String, dynamic> json)
+  {
+    this.idConsultaNutricion = json['idConsultaNutricional'];
+    this.idBeneficiario = json['idBeneficiario'];
+    this.fecha = formatoFecha(json['created_at']);
+  }
+}
 
 
 class ConsultaNutricion 
@@ -24,7 +45,7 @@ class ConsultaNutricion
   edema, mareo, zumbido, cefaleas, disnea, poliuria, actividadFisica, horasSueno, comidasAlDia, lugarComida, preparaComida,
   comeEntreComidas, alimentosPreferidos, alimentosOdiados, suplementos, medicamentosActuales, consumoAguaNatural, fecha,
   recordatorioDesayuno, recordatorioColacionManana, recordatorioComida, recordatorioColacionTarde, recordatorioCena, tipoDieta, diagnostico;
-  double peso, altura, kilocaloriasTotales, porcentajeHidratosCarbono, kilocaloriasHidratosCarbono, porcentajeProteinas, porcentajeGrasas;
+  String peso, altura, kilocaloriasTotales, porcentajeHidratosCarbono, kilocaloriasHidratosCarbono, porcentajeProteinas, porcentajeGrasas;
 
   ConsultaNutricion(this.idConsultaNutricion, this.idBeneficiario, this.ocupacion, this.horariosComida, this.cantidadDestinadaAlimentos, 
                     this.apetito, this.distension, this.estrenimiento, this.flatulencias, this.vomitos, this.caries, this.edema,
@@ -41,10 +62,16 @@ class ConsultaNutricion
     return "${fechaFormateada.day.toString().padLeft(2, '0')}/${fechaFormateada.month.toString().padLeft(2, '0')}/${fechaFormateada.year.toString()}";
   }
 
+  getValue(valor)
+  {
+    print(double.parse(valor));
+    return double.parse(valor);
+  }
+
 
   ConsultaNutricion.fromJsonMap(Map<String, dynamic> json)
   {
-    this.idConsultaNutricion = json['idConsultaNutricion'];
+    this.idConsultaNutricion = json['idConsultaNutricional'];
     this.idBeneficiario = json['idBeneficiario'];
     this.ocupacion = json['ocupacion'];
     this.horariosComida = json['horariosComida'];

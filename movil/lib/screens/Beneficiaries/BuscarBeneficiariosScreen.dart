@@ -55,7 +55,6 @@ class _TablaBeneficiariosState extends State<TablaBeneficiarios> {
     setState((){
       _nombre = value;
     });
-    print(_beneficiariosPorMostrar);
   }
 
   @override
