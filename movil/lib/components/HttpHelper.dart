@@ -62,7 +62,7 @@ class HttpHelper
     'idBeneficiario': idBeneficiario,
     'idTipoNota': idTipoNota,
     'comentario': contenido,
-    'url_archivo': ''
+    'url_archivo': url_archivo
   };
   //encode Map to JSON
   var body = json.encode(data);
@@ -75,4 +75,5 @@ class HttpHelper
   print("${response.body}");
   return response;
   }
+
 }

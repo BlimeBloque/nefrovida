@@ -1,7 +1,12 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
 import 'package:movil/components/HttpHelper.dart';
 import 'package:movil/classes/TipoNota.dart';
+import 'package:dio/dio.dart';
+import 'package:path/path.dart';
+import 'package:file_picker/file_picker.dart';
+
 
 class AgregarNotaScreen extends StatelessWidget {
 
@@ -40,14 +45,43 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
   int _idTipoNota;
   int _idBeneficiario;
   String _url_archivo;
+  File _file;
   String _tituloNota;
   List<TipoNota> _tiposNotas;
   TipoNota _selectedTipo;
+
 
    void initState()
   {
     super.initState();
     _url_archivo =  ' ';
+  }
+
+  Future getFile() async {
+    File file = await FilePicker.getFile();
+
+    setState(() {
+      _file = file;
+    });
+  }
+
+  void _uploadFile(filePath) async{
+    String fileName = basename(filePath.path);
+    print("File Name: $fileName");
+
+    try {
+      FormData formData = new FormData.fromMap({
+        "file": await MultipartFile.fromFile(filePath.path, filename: fileName),
+      });
+      Response response = await Dio().post('http://192.168.42.50:8000/api/upload', data: formData);
+      print('File upload response: $response');
+      setState(() {
+        _url_archivo  = response.data.result;
+      });
+    } catch (e) {
+      print('exeption caugit: $e');
+    }
+
   }
 
   List<DropdownMenuItem<TipoNota>> buildDropDownMenuItems(List tipos){
@@ -70,6 +104,7 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();  
+  
 
   Widget _buildContenido(){
     return TextFormField(
@@ -141,7 +176,23 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
   }
 
   Widget _buildURLArchivo(){
-    return null;
+    return Padding(
+      padding: EdgeInsets.all(24.0),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.attach_file), 
+              tooltip: 'Adjuntar archivo',
+              onPressed: () {
+                      getFile();
+              }
+              ),
+          ],
+        ),
+      )
+    );
   }
 
 
@@ -160,7 +211,7 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
                     _buildTituloNota(),
                      _buildidTipoNota(),
                     _buildContenido(),
-                 //   _buildURLArchivo(),
+                    _buildURLArchivo(),
                     SizedBox(height: 100),
                     RaisedButton(
                       child: Text('Guardar', style: TextStyle(color: Colors.blue, fontSize: 16),),
@@ -170,7 +221,9 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
                         }
                         _formKey.currentState.save();
                         _idBeneficiario = widget.id;
+                        print("URL ARCHIVO = "+_url_archivo);
                         tipoHelper.subirNotra(_tituloNota, _contenido, _idBeneficiario, _selectedTipo.idTipoNombre, _url_archivo);
+                        _uploadFile(_file);
                       },
                     )
                   ],
