@@ -11,6 +11,10 @@ use App\Http\Controllers\NotaController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\ConsultaMedicaController;
 use App\Http\Controllers\AntecedentesController;
+use App\Http\Controllers\ExamenOrinaController;
+use App\Http\Controllers\DepuracionCreatininaController;
+use App\Http\Controllers\QuimicaSanguineaController;
+use App\Http\Controllers\MicroalbuminuriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +44,18 @@ Route::get('/tiponota', 'App\Http\Controllers\TipoNotaController@all');
 //todas las rutas de beneficiarios
 Route::resource('beneficiarios', BeneficiariosController::class);
 
-
+//todas las rutas del examen de orina
+Route::resource('examenOrina', ExamenOrinaController::class);
+Route::get('/examenOrina/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ExamenOrinaController@searchByBenef');
+//todas las rutas de la depuración de creatinina
+Route::resource('depuracionCreatinina', DepuracionCreatininaController::class);
+Route::get('/depuracionCreatinina/beneficiario/{idBeneficiario}', 'App\Http\Controllers\DepuracionCreatininaController@searchByBenef');
+//todas las rutas de la química sanguínea
+Route::resource('quimicaSanguinea', QuimicaSanguineaController::class);
+Route::get('/quimicaSanguinea/beneficiario/{idBeneficiario}', 'App\Http\Controllers\QuimicaSanguineaController@searchByBenef');
+//todas las rutas de la microalbuminuria
+Route::resource('microalbuminuria', MicroalbuminuriaController::class);
+Route::get('/microalbuminuria/beneficiario/{idBeneficiario}', 'App\Http\Controllers\MicroalbuminuriaController@searchByBenef');
 
 Route::get('/estados', 'App\Http\Controllers\EstadoController@all');
 
@@ -50,14 +65,26 @@ Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Control
 Route::resource('evaluacion', EvaluacionesRespuestasController::class);
 Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasController@all');
 Route::get('/opcionEvaluacion/evaluaciones/{idEvaluacion}', 'App\Http\Controllers\OpcionEvaluacionController@searchByTipoJornada');
+Route::get('evaluacionesInicio/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@searchByBenefStart');
+Route::get('evaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@searchByBenefEnd');
+Route::get('detallesEvaluacionesInicio/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@detalleInicio');
+Route::get('detallesEvaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@detalleFin');
 
 Route::resource('nota', NotaController::class);
 Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaController@searchByBenef');
 
-Route::post("upload", [ArchivoController::Class, 'upload']);
+
+Route::post("upload", [ArchivoController::class, 'upload']);
+Route::get("download/{folder?}/{file?}", [ArchivoController::class, 'download']);
+
 
 Route::resource('consultaMedica', ConsultaMedicaController::class);
 Route::get('/consultaMedica/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaMedicaController@searchByBenef');
 
 Route::resource('antecedentes', AntecedentesController::class);
 Route::get('/antecedentes/beneficiario/{idBeneficiario}', 'App\Http\Controllers\AntecedentesController@searchByBenef');
+
+Route::get('/tamizaje', 'App\Http\Controllers\TamizajeController@all');
+Route::get('/tamizaje/{idBeneficiario}', 'App\Http\Controllers\TamizajeController@searchAll');
+Route::get('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@searchOne');
+Route::post('/tamizaje', 'App\Http\Controllers\TamizajeController@insert');

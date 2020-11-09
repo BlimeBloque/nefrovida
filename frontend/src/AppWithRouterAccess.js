@@ -18,12 +18,27 @@ import DetalleConsultaNutricion from "./views/ConsultaNutricion/DetalleConsultaN
 import EditarConsultaNutricion from "./views/ConsultaNutricion/EditarConsultaNutricion";
 import AgregarNota from './views/Notas/AgregarNota';
 import DetalleNota from './views/Notas/DetalleNota';
+import EditarNota from './views/Notas/EditarNota';
 import AgregarConsultaMedica from './views/ConsultaMedica/AgregarConsultaMedica';
 import DetalleConsultaMedica from './views/ConsultaMedica/DetalleConsultaMedica';
 import EditarConsultaMedica from "./views/ConsultaMedica/EditarConsultaMedica";
 import AgregarAntecedentes from './views/Antecedentes/AgregarAntecedentes';
 import DetalleAntecedentes from './views/Antecedentes/DetalleAntecedentes';
 import EditarAntecedentes from './views/Antecedentes/EditarAntecedentes';
+import DetalleEvaluacion from "./views/Evaluaciones/DetalleEvaluacion";
+import AgregarAnalisisLab from './views/AnalisisLab/AgregarAnalisisLab';
+import AgregarExamenOrina from "./views/AnalisisLab/ExamenOrina/AgregarExamenOrina";
+import AgregarDepuracionCreatinina from "./views/AnalisisLab/DepuracionCreatinina/AgregarDepuracionCreatinina";
+import AgregarQuimicaSanguinea from "./views/AnalisisLab/QuimicaSanguinea/AgregarQuimicaSanguinea";
+import AgregarMicroalbuminuria from "./views/AnalisisLab/Microalbuminuria/AgregarMicroalbuminuria";
+import AgregarTamizaje from "./views/Tamizaje/TamizajeAgregar";
+import DetalleTamizaje from "./views/Tamizaje/TamizajeDetalle"
+import DetalleExamenOrina from './views/AnalisisLab/ExamenOrina/DetalleExamenOrina';
+import DetalleDepuracionCreatinina from './views/AnalisisLab/DepuracionCreatinina/DetalleDepuracionCreatinina';
+import DetalleQuimicaSanguinea from './views/AnalisisLab/QuimicaSanguinea/DetalleQuimicaSanguinea';
+import DetalleMicroalbuminuria from './views/AnalisisLab/Microalbuminuria/DetalleMicroalbuminuria';
+import EditarEvaluacion from "./views/Evaluaciones/EditarEvaluacion";
+
 
 export default withRouter(
   class AppWithRouterAccess extends Component {
@@ -48,17 +63,41 @@ export default withRouter(
             <SecureRoute path='/jornadas' exact={true} component={Jornadas} />
             <SecureRoute path='/jornadas/:idJornada([0-9]*)' exact={true} component={JornadaDetalles} />
             <SecureRoute path='/reportes' exact={true} component={Reportes} />
-            <SecureRoute path='/beneficiarios/agregar' exact={true} component={AgregarBeneficiario}/>
+
+            <SecureRoute path='/jornadas/:idJornada([0-9]*)/agregarBeneficiario' exact={true} component={AgregarBeneficiario}/>
+
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaNutricion' exact={true} component={AgregarConsultaNutricion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionInicio' exact={true} component={AgregarEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionFin' exact={true} component={AgregarEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarAntecedentes' exact={true} component={AgregarAntecedentes}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/detalleEvaluacionesInicio' exact={true} component={DetalleEvaluacion}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/detalleEvaluacionesFin' exact={true} component={DetalleEvaluacion}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarEvaluacionInicio' exact={true} component={EditarEvaluacion}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarEvaluacionFin' exact={true} component={EditarEvaluacion}/>
             
+            {/* Tamizaje */}
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/agregar' exact={true} component={AgregarTamizaje}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/:idTamizaje([0-9]*)/editar' exact={true} component={AgregarTamizaje}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/:idTamizaje([0-9]*)' exact={true} component={DetalleTamizaje}/>
+
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editar' exact={true} component={EditarBeneficiario}/>
             <SecureRoute path='/consultaNutricion/:idConsultaNutricion([0-9]*)' exact={true} component={DetalleConsultaNutricion}/>
             <SecureRoute path='/consultaNutricion/editar/:idConsultaNutricion([0-9]*)' exact={true} component={EditarConsultaNutricion}/>
+          
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarAnalisisLab' exact={true} component={AgregarAnalisisLab}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarExamenOrina' exact={true} component={AgregarExamenOrina}/>
+            <SecureRoute path='/examenOrina/:idExamenOrina([0-9]*)' exact={true} component={DetalleExamenOrina}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarDepuracionCreatinina' exact={true} component={AgregarDepuracionCreatinina}/>
+            <SecureRoute path='/depuracionCreatinina/:idDepuracionCreatinina([0-9]*)' exact={true} component={DetalleDepuracionCreatinina}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarQuimicaSanguinea' exact={true} component={AgregarQuimicaSanguinea}/>
+            <SecureRoute path='/quimicaSanguinea/:idQuimicaSanguinea([0-9]*)' exact={true} component={DetalleQuimicaSanguinea}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarMicroalbuminuria' exact={true} component={AgregarMicroalbuminuria}/>
+            <SecureRoute path='/microalbuminuria/:idMicroalbuminuria([0-9]*)' exact={true} component={DetalleMicroalbuminuria}/>
+
 
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarNota' exact={true} component={AgregarNota}/>
+            <SecureRoute path='/nota/editar/:idNota([0-9]*)' exact={true} component={EditarNota}/>
+
             <SecureRoute path='/nota/:idConsultaMedica([0-9]*)' exact={true} component={DetalleNota}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaMedica' exact={true} component={AgregarConsultaMedica}/>
             <SecureRoute path='/consultaMedica/:idConsultaMedica([0-9]*)' exact={true} component={DetalleConsultaMedica}/>

@@ -15,7 +15,7 @@ const genderItems = [
 const useStyle = makeStyles(theme => ({
     root:{
        '& .MuiFormControl-root' :{
-           width: '47%',
+           width: '90%',
            margin: theme.spacing(1),
        } 
     }, 
@@ -35,6 +35,7 @@ const initialFValues = {
     seguimiento: false,
     activo: true,
     fechaNacimiento: new Date(),
+    idJornada: '',
 }
 
 
@@ -44,6 +45,7 @@ export default function AgregarBeneficiarioForm(props) {
     const[errors, setErrors] = useState({});
     const classes = useStyle();
     const [escolaridadesCollection, setEscolaridades]  = useState([]);
+    const [jornadasCollection, setJornadas]  = useState([]);
     
 
 
@@ -52,7 +54,7 @@ export default function AgregarBeneficiarioForm(props) {
         axios.get('http://127.0.0.1:8000/api/beneficiarios/' + props.idBenef)
         .then((res) => {
             let temp = res.data[0].fechaNacimiento.split("-");
-            res.data[0].fechaNacimiento = new Date(temp[0], temp[1], temp[2]);
+            res.data[0].fechaNacimiento = new Date(temp[0], temp[1]-1, temp[2]);
             console.log(res.data[0]);
             setValues(res.data[0]);
           })
@@ -80,9 +82,19 @@ export default function AgregarBeneficiarioForm(props) {
             console.log(e)
         })
    }, []);
+
+   useEffect ( () => {
+
+    axios.get('http://127.0.0.1:8000/api/jornadas')
+    .then(res => { setJornadas (res.data)
+})
+    .catch((e) => {
+        console.log(e)
+    })
+}, []);
     
     
-  console.log(escolaridadesCollection)
+  console.log(jornadasCollection)
 
 
   const validate = () => {
@@ -138,6 +150,7 @@ export default function AgregarBeneficiarioForm(props) {
                         seguimiento:  values.seguimiento,
                         activo: values.activo,
                         fechaNacimiento: year + "-" + month + "-" + day,
+                        idJornada: values.idJornada,
                       }),
                     }
                   );
@@ -168,6 +181,14 @@ export default function AgregarBeneficiarioForm(props) {
                         value={values.nombreBeneficiario}
                         onChange = {handleInputChange}
                         error={errors.nombre}
+                    />
+                    <Controls.SelectJornadas
+                        name="idJornada"
+                        label="Jornada *"
+                        value={values.idJornada}
+                        onChange={handleInputChange}
+                        options={jornadasCollection}
+                        error={errors.idEscolaridad}
                     />
                         
                         <Controls.Input 

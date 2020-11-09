@@ -29,7 +29,8 @@ const useStyle = makeStyles(theme => ({
     },
     flexContent:{
         marginBottom: theme.spacing(3),
-    },paper: {
+    },
+    paper: {
         height: 140,
         width: 100,
         textAlign: "center",

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Jornada;
 use App\Http\Resources\Jornada as JornadaResource;
-use App\Http\Resources\JornadaCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

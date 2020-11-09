@@ -49,6 +49,7 @@ class BeneficiariosController extends Controller
             'fechaNacimiento' => 'required',
             'seguimiento' => 'required',
             'activo' => 'required',
+            'idJornada' => 'required',
         ]);
 
         $beneficiario = Beneficiarios::create($request->all());
@@ -100,9 +101,10 @@ class BeneficiariosController extends Controller
             'telefono' => 'required',
             'seguimiento' => 'required',
             'activo' => 'required',
+            'idJornada' => 'required',
         ]);
 
-        $query = DB::table('beneficiarios')->where('idBeneficiario', $idBeneficiario)->update(['nombreBeneficiario'=> $request->get('nombreBeneficiario') , 'idEscolaridad' => $request->get('idEscolaridad') , 'telefono' => $request->get('telefono') , 'sexo' => $request->get('sexo') , 'direccion' => $request->get('direccion') , 'fechaNacimiento' => $request->get('fechaNacimiento') , 'seguimiento' => $request->get('seguimiento') ,  'activo' => $request->get('activo')]);
+        $query = DB::table('beneficiarios')->where('idBeneficiario', $idBeneficiario)->update(['nombreBeneficiario'=> $request->get('nombreBeneficiario') , 'idEscolaridad' => $request->get('idEscolaridad') , 'telefono' => $request->get('telefono') , 'sexo' => $request->get('sexo') , 'direccion' => $request->get('direccion') , 'fechaNacimiento' => $request->get('fechaNacimiento') , 'seguimiento' => $request->get('seguimiento') ,  'activo' => $request->get('activo'), 'idJornada' => $request->get('idJornada') ]);
         return $query;
     }
 
