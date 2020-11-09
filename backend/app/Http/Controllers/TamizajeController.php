@@ -16,8 +16,8 @@ class TamizajeController extends Controller {
         return DB::table('tamizajes')->where('idBeneficiario', '=', $id)->select('idTamizaje', 'created_at')->get();
     }
 
-    public function searchOne($idBeneficiario, $idTamizaje){
-        return DB::table('tamizajes')->where('idBeneficiario', '=', $idBeneficiario)->where('idTamizaje', '=', $idTamizaje)->get();
+    public function searchOne($idBeneficiario, $idTamizaje) {
+        return DB::table('tamizajes')->leftJoin('beneficiarios', 'tamizajes.idBeneficiario', '=', 'beneficiarios.idBeneficiario')->where('tamizajes.idBeneficiario', '=', $idBeneficiario)->where('tamizajes.idTamizaje', '=', $idTamizaje)->select('tamizajes.*', 'beneficiarios.nombreBeneficiario')->get();
     }
 
     public function insert(Request $request) {
@@ -46,27 +46,47 @@ class TamizajeController extends Controller {
             ->setStatusCode(201);
     }
 
-    public function edit($id, Request $request) {
-        /*
-        //$request->merge(['correct' => (bool) json_decode($request->get('correct'))]);
-        $request->validate([
-            'nombre' => 'required',
-            'fecha' => 'required',
-            'localidad' => 'required',
-            'municipio' => 'required',
-            'idEstado' => 'required',
-        ]);
+    public function edit($idBeneficiario, $idTamizaje, Request $request) {
+        $rules = [
+            'idBeneficiario' => 'required',
+            'idTamizaje' => 'required',
+            'presionArterial' => 'required',
+            'peso' => 'required|numeric',
+            'circunferenciaCintura' => 'required|numeric',
+            'circunferenciaCadera' => 'required|numeric',
+            'glucosaCapilar' => 'required|numeric',
+            'talla' => 'required|numeric',
+            'comentario' => 'required',
+        ];
+        $customMessages = [
+            'required' => 'Este campo es requerido.',
+            'numeric' => 'Este campo debe contener solo números.',
+        ];
 
-        $query = DB::table('jornadas')->where('idJornada', $id)->update(['nombre' => $request->get('nombre'), 'fecha' => $request->get('fecha'), 'localidad' => $request->get('localidad'), 'municipio' => $request->get('municipio'), 'idEstado' => $request->get('idEstado')]);
+        $this->validate($request, $rules, $customMessages);
+
+        $query = DB::table('tamizajes')->where(
+            ['idBeneficiario' => $idBeneficiario, 'idTamizaje' => $idTamizaje]
+        )->update(
+            [
+                'presionArterial' => $request->get('presionArterial'),
+                'peso' => $request->get('peso'),
+                'circunferenciaCintura' => $request->get('circunferenciaCintura'),
+                'circunferenciaCadera' => $request->get('circunferenciaCadera'),
+                'glucosaCapilar' => $request->get('glucosaCapilar'),
+                'talla' => $request->get('talla'),
+                'indiceCinturaCadera' => $request->get('indiceCinturaCadera'),
+                'comentario' => $request->get('comentario'),
+                'updated_at' => DB::raw('NOW()'),
+            ]
+        );
         return $query;
-        */
     }
 
-    public function delete($id) {
-        /*
-        $query = DB::table('jornadas')->where('idJornada', $id)->delete();
+    public function delete($idBeneficiario, $idTamizaje) {
+
+        $query = DB::table('tamizajes')->where(['idBeneficiario' => $idBeneficiario, 'idTamizaje' => $idTamizaje])->delete();
 
         return response()->json(null, 204);
-        */
     }
 }

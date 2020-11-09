@@ -32,7 +32,8 @@ import AgregarDepuracionCreatinina from "./views/AnalisisLab/DepuracionCreatinin
 import AgregarQuimicaSanguinea from "./views/AnalisisLab/QuimicaSanguinea/AgregarQuimicaSanguinea";
 import AgregarMicroalbuminuria from "./views/AnalisisLab/Microalbuminuria/AgregarMicroalbuminuria";
 import AgregarTamizaje from "./views/Tamizaje/TamizajeAgregar";
-import DetalleTamizaje from "./views/Tamizaje/TamizajeDetalle"
+import EditarTamizaje from "./views/Tamizaje/TamizajeEditar"
+import DetalleTamizaje from "./views/Tamizaje/TamizajeDetalle";
 import DetalleExamenOrina from './views/AnalisisLab/ExamenOrina/DetalleExamenOrina';
 import DetalleDepuracionCreatinina from './views/AnalisisLab/DepuracionCreatinina/DetalleDepuracionCreatinina';
 import DetalleQuimicaSanguinea from './views/AnalisisLab/QuimicaSanguinea/DetalleQuimicaSanguinea';
@@ -77,7 +78,7 @@ export default withRouter(
             
             {/* Tamizaje */}
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/agregar' exact={true} component={AgregarTamizaje}/>
-            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/:idTamizaje([0-9]*)/editar' exact={true} component={AgregarTamizaje}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/:idTamizaje([0-9]*)/editar' exact={true} component={EditarTamizaje}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/:idTamizaje([0-9]*)' exact={true} component={DetalleTamizaje}/>
 
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editar' exact={true} component={EditarBeneficiario}/>
