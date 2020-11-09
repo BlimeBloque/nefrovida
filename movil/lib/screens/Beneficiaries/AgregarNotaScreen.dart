@@ -50,11 +50,12 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
   List<TipoNota> _tiposNotas;
   TipoNota _selectedTipo;
 
-
    void initState()
   {
     super.initState();
     _url_archivo =  ' ';
+    _selectedTipo = new TipoNota(999,'Tipo de Nota');
+    print(_selectedTipo);
   }
 
   Future getFile() async {
@@ -149,13 +150,12 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
       builder: (BuildContext context, AsyncSnapshot snapshot){
         if(snapshot.hasData != null){
           _tiposNotas = snapshot.data.toList();
-           
+          _selectedTipo = _tiposNotas[_selectedTipo.idTipoNombre - 4];
           print(_tiposNotas);
           if (_tiposNotas == null){
             return Center(child: CircularProgressIndicator());
           } else {
             List<DropdownMenuItem<TipoNota>>_items = buildDropDownMenuItems(_tiposNotas);
-            _selectedTipo = _tiposNotas[3];
             return Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
