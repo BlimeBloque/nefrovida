@@ -27,6 +27,6 @@ class ConsultaMedica extends Model
         'neurologicoEstadoMental',
         'otros',
         'diagnosticos',
-        'plan de tratamiento'
+        'planDeTratamiento'
     ];
 }

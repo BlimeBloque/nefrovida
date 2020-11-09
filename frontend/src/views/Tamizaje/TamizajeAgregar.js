@@ -1,7 +1,7 @@
 import React from "react";
 import Sidenav from "../../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
-import TamizajeForm from "./TamizajeAgregarForm";
+import TamizajeForm from "./TamizajeForm";
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -24,6 +24,7 @@ const TamizajeAgregar = (props) => {
           <TamizajeForm
             history={props.history}
             idBeneficiario={props.match.params.idBeneficiario}
+            editar={false}
           />
         </Paper>
       </Container>

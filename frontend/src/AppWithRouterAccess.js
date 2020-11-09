@@ -22,6 +22,9 @@ import EditarNota from './views/Notas/EditarNota';
 import AgregarConsultaMedica from './views/ConsultaMedica/AgregarConsultaMedica';
 import DetalleConsultaMedica from './views/ConsultaMedica/DetalleConsultaMedica';
 import EditarConsultaMedica from "./views/ConsultaMedica/EditarConsultaMedica";
+import AgregarAntecedentes from './views/Antecedentes/AgregarAntecedentes';
+import DetalleAntecedentes from './views/Antecedentes/DetalleAntecedentes';
+import EditarAntecedentes from './views/Antecedentes/EditarAntecedentes';
 import DetalleEvaluacion from "./views/Evaluaciones/DetalleEvaluacion";
 import AgregarAnalisisLab from './views/AnalisisLab/AgregarAnalisisLab';
 import AgregarExamenOrina from "./views/AnalisisLab/ExamenOrina/AgregarExamenOrina";
@@ -29,7 +32,8 @@ import AgregarDepuracionCreatinina from "./views/AnalisisLab/DepuracionCreatinin
 import AgregarQuimicaSanguinea from "./views/AnalisisLab/QuimicaSanguinea/AgregarQuimicaSanguinea";
 import AgregarMicroalbuminuria from "./views/AnalisisLab/Microalbuminuria/AgregarMicroalbuminuria";
 import AgregarTamizaje from "./views/Tamizaje/TamizajeAgregar";
-import DetalleTamizaje from "./views/Tamizaje/TamizajeDetalle"
+import EditarTamizaje from "./views/Tamizaje/TamizajeEditar"
+import DetalleTamizaje from "./views/Tamizaje/TamizajeDetalle";
 import DetalleExamenOrina from './views/AnalisisLab/ExamenOrina/DetalleExamenOrina';
 import DetalleDepuracionCreatinina from './views/AnalisisLab/DepuracionCreatinina/DetalleDepuracionCreatinina';
 import DetalleQuimicaSanguinea from './views/AnalisisLab/QuimicaSanguinea/DetalleQuimicaSanguinea';
@@ -66,6 +70,7 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaNutricion' exact={true} component={AgregarConsultaNutricion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionInicio' exact={true} component={AgregarEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarEvaluacionFin' exact={true} component={AgregarEvaluacion}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarAntecedentes' exact={true} component={AgregarAntecedentes}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/detalleEvaluacionesInicio' exact={true} component={DetalleEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/detalleEvaluacionesFin' exact={true} component={DetalleEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarEvaluacionInicio' exact={true} component={EditarEvaluacion}/>
@@ -73,7 +78,7 @@ export default withRouter(
             
             {/* Tamizaje */}
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/agregar' exact={true} component={AgregarTamizaje}/>
-            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/:idTamizaje([0-9]*)/editar' exact={true} component={AgregarTamizaje}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/:idTamizaje([0-9]*)/editar' exact={true} component={EditarTamizaje}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/:idTamizaje([0-9]*)' exact={true} component={DetalleTamizaje}/>
 
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editar' exact={true} component={EditarBeneficiario}/>
@@ -98,6 +103,9 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarConsultaMedica' exact={true} component={AgregarConsultaMedica}/>
             <SecureRoute path='/consultaMedica/:idConsultaMedica([0-9]*)' exact={true} component={DetalleConsultaMedica}/>
             <SecureRoute path='/consultaMedica/editar/:idConsultaMedica([0-9]*)' exact={true} component={EditarConsultaMedica}/>
+
+            <SecureRoute path='/antecedentes/:idAntecedentes([0-9]*)' exact={true} component={DetalleAntecedentes}/>
+            <SecureRoute path='/antecedentes/editar/:idAntecedentes([0-9]*)' exact={true} component={EditarAntecedentes}/>
 
             <Route path='/login' render={() => <Login baseUrl='https://dev-377919.okta.com' />} />
             <Route path='/implicit/callback' component={LoginCallback} />

@@ -5,6 +5,7 @@ import Detalles from "./Detalles";
 import SeccionConsultaNutricion from '../components/SeccionConsultaNutricion';
 import SeccionNota from '../components/SeccionNota';
 import SeccionConsultaMedica from '../components/SeccionConsultaMedica';
+import SeccionAntecedentes from '../components/SeccionAntecedentes';
 import Mensaje from '../components/Mensaje';
 import SeccionEvaluacion from "../components/SeccionEvaluacion";
 import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
@@ -51,6 +52,11 @@ const BeneficiarioDetalles = (props) => {
             idBenef={props.match.params.idBeneficiario}
           />
         </Paper>
+        <div id="antecedentes">
+        <Paper className={classes.antecedentes}>
+            <SeccionAntecedentes history={props.history} idBeneficiario={props.match.params.idBeneficiario} />
+          </Paper>
+        </div>
         <div id="consultas">
           <Paper className={classes.consultaNutricion}>
             <SeccionConsultaNutricion
@@ -140,6 +146,12 @@ const BeneficiarioDetalles = (props) => {
         mensajeError={"Hubo un error al registrar la consulta médica"}
       />
 
+      <Mensaje 
+        success={args.includes("agregarAntecedentes") ? args.slice(-1) : -1} 
+        mensajeExito={"Se registraron los antecedentes."}
+        mensajeError={"Hubo un error al registrar los antecedentes"}
+      />
+      
       {/*AGREGAR EXAMEN ORINA RETRO*/}
       <Mensaje 
         success={args.includes("agregarExamenOrina") ? args.slice(-1) : -1} 
