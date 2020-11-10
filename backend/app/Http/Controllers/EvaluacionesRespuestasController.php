@@ -119,9 +119,28 @@ class EvaluacionesRespuestasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyInicio($idBeneficiario)
     {
-        //
+        // /evaluaciones/{id}
+        return DB::table('evaluaciones_respuestas')
+            ->where('idBeneficiario','=',$idBeneficiario)
+            ->where('grupo','=','1')
+            ->delete();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyFin($idBeneficiario)
+    {
+        // /evaluaciones/{id}
+        return DB::table('evaluaciones_respuestas')
+            ->where('idBeneficiario','=',$idBeneficiario)
+            ->where('grupo','=','2')
+            ->delete();
     }
 
     public function searchByBenefStart($idBeneficiario) {
