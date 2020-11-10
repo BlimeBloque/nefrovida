@@ -44,7 +44,7 @@ export default function EliminarNota(props)
                 <center>
                     <DialogContent>
                         <DialogContentText style={{color: "red"}}>
-                            ¿Estás seguro/a de querer eliminar la  nota {props.fecha} de {props.nombre}?
+                            ¿Estás seguro/a de querer eliminar la  nota {props.fecha} de {props.nombre} (se eliminará tambien su archivo adjunto)?
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
