@@ -13,7 +13,6 @@ class MainScreen extends StatelessWidget {
   getUserName (BuildContext context) async {
     var userJson = await AuthProvider.of(context).authService.getUser();
     Map<String, dynamic> user = jsonDecode(userJson);
-    print(user['name']);
     return parseUser(user);
   }
 
@@ -55,7 +54,6 @@ class MainScreen extends StatelessWidget {
                 onPressed: () async {
                   var userJson =
                       await AuthProvider.of(context).authService.getUser();
-                  print(userJson);
                   Map<String, dynamic> user = jsonDecode(userJson);
 
                   Fluttertoast.showToast(msg: "Usuario: ${user['name']}");

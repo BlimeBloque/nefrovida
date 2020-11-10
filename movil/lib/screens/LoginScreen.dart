@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movil/providers/OktaProvider.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const routeName = '/login';
+  static const routeName = 'login';
 
   Widget build(BuildContext context) {
     return Scaffold(

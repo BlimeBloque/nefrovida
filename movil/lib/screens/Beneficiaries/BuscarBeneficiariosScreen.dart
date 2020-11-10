@@ -15,7 +15,7 @@ class BuscarBeneficiariosScreen extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: new NefrovidaDrawer(),
-     body: TablaBeneficiarios(),
+      body: TablaBeneficiarios(),
     );
   }
 }
@@ -55,7 +55,6 @@ class _TablaBeneficiariosState extends State<TablaBeneficiarios> {
     setState((){
       _nombre = value;
     });
-    print(_beneficiariosPorMostrar);
   }
 
   @override
@@ -86,7 +85,7 @@ class _TablaBeneficiariosState extends State<TablaBeneficiarios> {
                 if(snapshot.hasData != null)
                 {
                   //solo mostrar beneficiarios activos
-                  _beneficiarios = snapshot.data.where((beneficiario) => beneficiario.activo == 1).toList();
+                  _beneficiarios = snapshot.data;
                   _beneficiariosPorMostrar = _nombre == null ? _beneficiarios : _beneficiariosPorMostrar;
                   if(_beneficiarios == null)
                   {
@@ -94,6 +93,8 @@ class _TablaBeneficiariosState extends State<TablaBeneficiarios> {
                   }
                   else
                   {
+                    _beneficiariosPorMostrar = _beneficiariosPorMostrar.where((beneficiario) => beneficiario.activo == 1).toList();
+
                     return Center(
                       child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,

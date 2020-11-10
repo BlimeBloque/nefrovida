@@ -10,7 +10,6 @@ class Beneficiarios
     {
       Beneficiario benef = new Beneficiario.fromJsonMap(item);
       beneficiarios.add(benef);
-      print(benef);
     }
   }
 }
