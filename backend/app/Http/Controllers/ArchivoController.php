@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class ArchivoController extends Controller
@@ -16,5 +16,10 @@ class ArchivoController extends Controller
 
         $path = storage_path('app\\' . $folder . '\\' . $file);
         return response()->download($path);
+    }
+
+    function deleteFile(String $folder, String $file){
+        $path = storage_path('app\\' . $folder . '\\' . $file);
+        File::delete($path);
     }
 }

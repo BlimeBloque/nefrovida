@@ -99,7 +99,12 @@ const BeneficiarioDetalles = (props) => {
         </div>
       </Container>
 
-
+      {/* ELIMINAR NOTA RETRO*/}
+      <Mensaje 
+        success={args.includes("eliminarNota") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminó la nota correctamente."}
+        mensajeError={"Hubo un error al eliminar la nota de beneficiario."}
+      />
 
       <Mensaje 
         success={args.includes("editarNota") ? args.slice(-1) : -1} 

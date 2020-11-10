@@ -76,6 +76,7 @@ Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaCon
 
 Route::post("upload", [ArchivoController::class, 'upload']);
 Route::get("download/{folder?}/{file?}", [ArchivoController::class, 'download']);
+Route::get("deleteFile/{folder?}/{file?}", [ArchivoController::class, 'deleteFile']);
 
 
 Route::resource('consultaMedica', ConsultaMedicaController::class);
