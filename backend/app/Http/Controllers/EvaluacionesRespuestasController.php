@@ -121,7 +121,6 @@ class EvaluacionesRespuestasController extends Controller
      */
     public function destroyInicio($idBeneficiario)
     {
-        // /evaluaciones/{id}
         return DB::table('evaluaciones_respuestas')
             ->where('idBeneficiario','=',$idBeneficiario)
             ->where('grupo','=','1')
@@ -136,7 +135,6 @@ class EvaluacionesRespuestasController extends Controller
      */
     public function destroyFin($idBeneficiario)
     {
-        // /evaluaciones/{id}
         return DB::table('evaluaciones_respuestas')
             ->where('idBeneficiario','=',$idBeneficiario)
             ->where('grupo','=','2')

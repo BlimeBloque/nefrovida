@@ -2,10 +2,12 @@ import React , {useState } from 'react'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import EditIcon from '@material-ui/icons/Edit';
-import { Container, Paper, makeStyles, IconButton } from '@material-ui/core';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
+import { Container, Paper, makeStyles, IconButton, Tooltip } from '@material-ui/core';
 import Sidenav from '../../components/Nav/Sidenav';
 import { Link } from 'react-router-dom';
 import DetalleEvaluacionValores from './DetalleEvaluacionValores';
+import EliminarEvaluacion from './EliminarEvaluacion'
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -33,6 +35,16 @@ export default function DetalleEvaluacion(props) {
     const classes = useStyle();
     const [idEvaluacion] = useState(window.location.pathname.split("/").pop() === 'detalleEvaluacionesInicio' ? 1 : 2);
     const inicio = idEvaluacion == 1 ? 'Inicio' : 'Fin'
+    const [eliminarOpen, setEliminarOpen] = useState(false);
+
+    const handleEliminarOpen = () => {
+        setEliminarOpen(true);
+    }
+
+    const handleEliminarClose = () => {
+        setEliminarOpen(false);
+    }
+
 
     return (
         <div className={classes.container}>
@@ -47,21 +59,32 @@ export default function DetalleEvaluacion(props) {
                                 </IconButton>
                             </Link>
                             <div>
-                                <Link variant="body2" to={"/beneficiarios/"+idBeneficiario+'/editarEvaluacion'+inicio}>
-                                    <IconButton color="primary" aria-label="edit">
-                                        <EditIcon/>
-                                    </IconButton>
-                                </Link>
+                                <Tooltip title='Editar' arrow>
+                                    <Link variant="body2" to={"/beneficiarios/"+idBeneficiario+'/editarEvaluacion'+inicio}>
+                                        <IconButton color="primary" aria-label="edit">
+                                            <EditIcon/>
+                                        </IconButton>
+                                    </Link>
+                                </Tooltip>
 
-                                {/* <Link variant="body2" to={"/beneficiarios/"+idBeneficiario+'/editarEvaluacion'+inicio}>
-                                    <IconButton color="primary" aria-label="edit">
-                                        <EditIcon/>
+                                <Tooltip title='Eliminar' arrow>
+                                    <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
+                                        <RemoveCircleIcon fontSize="large" />
                                     </IconButton>
-                                </Link> */}
+                                </Tooltip>
                             </div>
                     </div>
 
                     <DetalleEvaluacionValores idBeneficiario={props.match.params.idBeneficiario}/>
+
+                    <EliminarEvaluacion
+                        open={eliminarOpen}
+                        handleOpen={handleEliminarOpen}
+                        handleClose={handleEliminarClose}
+                        history={props.history}
+                        idBeneficiario={idBeneficiario}
+                        tipo={inicio}
+                    />
                 </Paper>
             </Container>
         </div>
