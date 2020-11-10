@@ -60,11 +60,11 @@ export default function DetalleEvaluacionValores(props) {
                 // Definir Título de formulario
                 idEvaluacion == 1 ? 
                 <div className={classes.centerItem}>
-                    <Typography variant="overline" >Inicio de Jornada</Typography><br />
+                    <Typography variant="overline" >Inicial</Typography><br />
                 </div> :  
 
                 <div className={classes.centerItem}>
-                    <Typography variant="overline">Fin de Jornada</Typography><br />
+                    <Typography variant="overline">Final</Typography><br />
                 </div>
             }
             <Divider className={classes.divider}/>
