@@ -21,12 +21,12 @@ class BeneficiariosSeeder extends Seeder
                 'nombreBeneficiario' => $faker->name,
                 'idEscolaridad' => $faker->numberBetween($min = 1, $max = 6),
                 'sexo' => $faker->randomElement($array = array('H', 'M')),
-                'enfermedad' => $faker->word,
                 'telefono' => $faker->tollFreePhoneNumber,
                 'direccion' => $faker->address,
                 'activo' => $faker->numberBetween($min = 0, $max = 1),
                 'fechaNacimiento' => $faker->date($format = 'Y-m-d', $max = '2012-10-01'),
-                'seguimiento' => $faker->numberBetween($min = 0, $max = 1)
+                'seguimiento' => $faker->numberBetween($min = 0, $max = 1),
+                'idJornada' => $faker->numberBetween($min = 1, $max = 50),
             ]);
         }
     }

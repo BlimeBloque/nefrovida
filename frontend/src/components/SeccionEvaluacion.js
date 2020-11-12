@@ -74,12 +74,12 @@ const SeccionEvaluacion = (props) => {
                                     <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push(props.idBeneficiario + '/detalleEvaluacionesInicio')}>
                                         <AssessmentIcon fontSize="large" />
                                     </IconButton>
-                                    Evaluacion de <strong>{evaluacionInicio.nombreEvaluacion}</strong>
+                                    Evaluacion <strong>Inicial</strong>
                                 </Paper>
                             </Grid>
                         ))
                         :
-                        <Typography variant="caption">No hay evaluaciones de inicio de jornada.</Typography>   
+                        <Typography variant="caption">No hay evaluaciones de inicio.</Typography>   
                 }
                 {
                     evaluacionesFin ?
@@ -89,12 +89,12 @@ const SeccionEvaluacion = (props) => {
                                     <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push(props.idBeneficiario + '/detalleEvaluacionesFin')}>
                                         <AssessmentIcon fontSize="large" />
                                     </IconButton>
-                                Evaluacion de <strong>{evaluacionFin.nombreEvaluacion}</strong>
+                                Evaluacion <strong>Final</strong>
                                 </Paper>
                             </Grid>
                         ))
                         :
-                        <Typography variant="body">No hay evaluaciones registradas para este beneficiario</Typography>
+                        <Typography variant="body">No hay evaluaciones registradas para este beneficiario.</Typography>
 
                 }
             </Grid> 

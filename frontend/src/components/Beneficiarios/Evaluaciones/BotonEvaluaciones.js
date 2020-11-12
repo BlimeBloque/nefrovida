@@ -12,7 +12,7 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
-const options = ['Agregar inicio de jornada', 'Agregar fin de jornada'];
+const options = ['Agregar evaluación inicial', 'Agregar evaluación final'];
 
 function BotonEvaluaciones(props) {
   const history = props.history;

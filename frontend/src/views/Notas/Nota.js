@@ -1,10 +1,11 @@
 import { makeStyles, Typography, IconButton, Tooltip, Card, CardContent, Paper, Table, TableBody, TableCell, 
     TableContainer, TableHead, TableRow} from '@material-ui/core';
-import React from 'react'
+import React , { useState, useEffect }from 'react'
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import axios from 'axios'
+import EliminarNota from './EliminarNota'
 
 const useStyle = makeStyles(theme => ({
     flexTitulo:{
@@ -113,6 +114,15 @@ export default function Nota(props) {
     const detalle = props.detalle;
     const classes = useStyle();
     console.log(detalle);
+    const [eliminarOpen, setEliminarOpen] = useState(false);
+
+    const handleEliminarOpen = () => {
+        setEliminarOpen(true);
+    }
+
+    const handleEliminarClose = () => {
+        setEliminarOpen(false);
+    }
 
     const date = new Date(detalle.created_at);
     const fecha = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
@@ -128,7 +138,7 @@ export default function Nota(props) {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Eliminar" arrow>
-                            <IconButton aria-label="Eliminar" color="secondary"  onClick={() => props.history.push("/nota/eliminar/"+detalle.idNota)}>
+                            <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
                                 <RemoveCircleIcon fontSize="large" />
                             </IconButton>
                         </Tooltip>
@@ -142,6 +152,18 @@ export default function Nota(props) {
                 <br></br><br></br>
                 <ArchivoAdjunto url ={detalle.url_archivo}/>
             </div>
+
+            <EliminarNota
+                open={eliminarOpen}
+                handleOpen={handleEliminarOpen}
+                handleClose={handleEliminarClose}
+                history={props.history}
+                idBeneficiario={detalle.idBeneficiario}
+                idNota={detalle.idNota}
+                nombre={detalle.nombreBeneficiario}
+                archivo={detalle.url_archivo}
+                fecha={fecha}
+            />
         </div>
        
     )

@@ -69,6 +69,8 @@ Route::get('evaluacionesInicio/{idBeneficiario}', 'App\Http\Controllers\Evaluaci
 Route::get('evaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@searchByBenefEnd');
 Route::get('detallesEvaluacionesInicio/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@detalleInicio');
 Route::get('detallesEvaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@detalleFin');
+Route::delete('eliminarEvaluacionesInicio/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@destroyInicio');
+Route::delete('eliminarEvaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@destroyFin');
 
 Route::resource('nota', NotaController::class);
 Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaController@searchByBenef');
@@ -76,6 +78,7 @@ Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaCon
 
 Route::post("upload", [ArchivoController::class, 'upload']);
 Route::get("download/{folder?}/{file?}", [ArchivoController::class, 'download']);
+Route::get("deleteFile/{folder?}/{file?}", [ArchivoController::class, 'deleteFile']);
 
 
 Route::resource('consultaMedica', ConsultaMedicaController::class);

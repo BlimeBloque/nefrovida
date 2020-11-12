@@ -10,7 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AddIcon from '@material-ui/icons/Add'; 
 import Fab from '@material-ui/core/Fab';
-
+import Cookies from 'js-cookie'
  
 export default class BuscarBeneficiarios extends Component
 {
@@ -40,6 +40,10 @@ export default class BuscarBeneficiarios extends Component
     componentDidMount()
     {
         this.retrieveBeneficiarios();
+        console.log(Cookies.get("roles"))
+        if(Cookies.get("roles").includes("Administrador")) {
+            console.log("Soy admin >:)")
+        }
     }
 
 
@@ -114,20 +118,22 @@ export default class BuscarBeneficiarios extends Component
                     justifyContent:"space-between",
                     margin: " 0px 40px 0px 40px"
                 }}>
-                    <FormControl style={{minWidth: "20%"}}>
-                        <InputLabel id="busca-por-activo-label">Buscar activos/inactivos</InputLabel>
-                        <Select
-                            labelId="busca-por-activo-label"
-                            id="busca-por-activo"
-                            value={this.state.filtrarPorActivo}
-                            onChange={this.handleActivoChange}
-                        >
-                            <MenuItem value={1}>Activos</MenuItem>
-                            <MenuItem value={0}>Inactivos</MenuItem>
-                            <MenuItem value={null}>Todos</MenuItem>
-                        </Select>
-                    </FormControl>
-
+                    {Cookies.get("roles").includes("Administrador") ? 
+                        <FormControl style={{minWidth: "20%"}}>
+                            <InputLabel id="busca-por-activo-label">Buscar activos/inactivos</InputLabel>
+                            <Select
+                                labelId="busca-por-activo-label"
+                                id="busca-por-activo"
+                                value={this.state.filtrarPorActivo}
+                                onChange={this.handleActivoChange}
+                            >
+                                <MenuItem value={1}>Activos</MenuItem>
+                                <MenuItem value={0}>Inactivos</MenuItem>
+                                <MenuItem value={null}>Todos</MenuItem>
+                            </Select>
+                        </FormControl> :
+                        <></>
+                    }
                     <FormControl style={{minWidth: "15%"}}>
                         <InputLabel id="busca-por-sexo-label">Buscar por sexo</InputLabel>
                         <Select
@@ -188,18 +194,18 @@ export default class BuscarBeneficiarios extends Component
                     </FormControl>
                 </div>
                 <TablaBeneficiarios 
-                    activo={filtrarPorActivo}
-                    sexo={filtrarPorSexo} 
-                    seguimiento={filtrarPorSeguimiento} 
-                    edad={filtrarPorEdad} 
-                    nombre={filtrarPorNombre}
-                    data={beneficiarios}
-                    setPage={this.setPage}
-                    page={page}
-                    url={history}
-                    sinFiltro={this.sinFiltro}
-                    retrieve={this.state.retrieve}
-                />
+                        activo={filtrarPorActivo}
+                        sexo={filtrarPorSexo} 
+                        seguimiento={filtrarPorSeguimiento} 
+                        edad={filtrarPorEdad} 
+                        nombre={filtrarPorNombre}
+                        data={beneficiarios}
+                        setPage={this.setPage}
+                        page={page}
+                        url={history}
+                        sinFiltro={this.sinFiltro}
+                        retrieve={this.state.retrieve}
+                    /> 
             </div>
         );
 

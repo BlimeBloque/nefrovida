@@ -150,11 +150,11 @@ function AgregarEvaluacionForm(props) {
                 // Definir Título de formulario
                 idEvaluacion == 1 ? 
                 <div>
-                    <Typography variant="overline">Inicio de Jornada</Typography><br />
+                    <Typography variant="overline">Inicial</Typography><br />
                 </div> :  
 
                 <div>
-                    <Typography variant="overline">Fin de Jornada</Typography><br />
+                    <Typography variant="overline">Final</Typography><br />
                 </div>
             }
             <Divider style={{marginBottom: '20px', marginTop: '2px'}}/>
