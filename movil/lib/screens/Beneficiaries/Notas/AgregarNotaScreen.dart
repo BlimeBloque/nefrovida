@@ -7,9 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:path/path.dart';
 import 'package:file_picker/file_picker.dart';
 
-
 class AgregarNotaScreen extends StatelessWidget {
-
   static const String route = '/beneficiariosDetalle';
 
   final int id;
@@ -29,17 +27,14 @@ class AgregarNotaScreen extends StatelessWidget {
   }
 }
 
-
 class AgregarNotaForm extends StatefulWidget {
-
   final int id;
-  AgregarNotaForm({Key key,@required this.id}) : super(key: key);
+  AgregarNotaForm({Key key, @required this.id}) : super(key: key);
   @override
   _AgregarNotaFormState createState() => _AgregarNotaFormState();
 }
 
 class _AgregarNotaFormState extends State<AgregarNotaForm> {
-
   HttpHelper tipoHelper = new HttpHelper();
   String _contenido;
   int _idTipoNota;
@@ -50,10 +45,9 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
   List<TipoNota> _tiposNotas;
   TipoNota _selectedTipo;
 
-   void initState()
-  {
+  void initState() {
     super.initState();
-    _url_archivo =  ' ';
+    _url_archivo = ' ';
   }
 
   Future getFile() async {
@@ -64,7 +58,7 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
     });
   }
 
-  void _uploadFile(filePath) async{
+  void _uploadFile(filePath) async {
     String fileName = basename(filePath.path);
     print("File Name: $fileName");
 
@@ -72,131 +66,121 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
       FormData formData = new FormData.fromMap({
         "file": await MultipartFile.fromFile(filePath.path, filename: fileName),
       });
-      Response response = await Dio().post('http://192.168.42.50:8000/api/upload', data: formData);
+      Response response = await Dio()
+          .post('http://192.168.42.138:8000/api/upload', data: formData);
       print('File upload response: $response');
       setState(() {
-        _url_archivo  = response.data.result;
+        _url_archivo = response.data.result;
       });
     } catch (e) {
       print('exeption caugit: $e');
     }
-
   }
 
-  List<DropdownMenuItem<TipoNota>> buildDropDownMenuItems(List tipos){
+  List<DropdownMenuItem<TipoNota>> buildDropDownMenuItems(List tipos) {
     List<DropdownMenuItem<TipoNota>> items = List();
-    for(TipoNota tipo in tipos){
-      items.add(
-        DropdownMenuItem(
-          value: tipo,
-          child: new Text(tipo.nombre),
-        )
-      );
+    for (TipoNota tipo in tipos) {
+      items.add(DropdownMenuItem(
+        value: tipo,
+        child: new Text(tipo.nombre),
+      ));
     }
     return items;
   }
 
-  onChangeDropdownItem(TipoNota selected){
+  onChangeDropdownItem(TipoNota selected) {
     setState(() {
-      _selectedTipo = selected;  
+      _selectedTipo = selected;
     });
   }
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();  
-  
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Widget _buildContenido(){
+  Widget _buildContenido() {
     return TextFormField(
       maxLines: 8,
       maxLength: 1024,
       decoration: InputDecoration(
-          labelText: 'Comentario',
-          border: const OutlineInputBorder()
-        ),
+          labelText: 'Comentario', border: const OutlineInputBorder()),
       validator: (String value) {
-        if(value.isEmpty){
+        if (value.isEmpty) {
           return 'El comentario es requerido';
         }
       },
-      onSaved: (String value){
+      onSaved: (String value) {
         _contenido = value;
       },
     );
   }
 
-    Widget _buildTituloNota(){
+  Widget _buildTituloNota() {
     return TextFormField(
       maxLength: 255,
       decoration: InputDecoration(
-          labelText: 'Titulo de la nota',
-          border: const OutlineInputBorder()
-        ),
+          labelText: 'Titulo de la nota', border: const OutlineInputBorder()),
       validator: (String value) {
-        if(value.isEmpty){
+        if (value.isEmpty) {
           return 'El titulo es requerido';
         }
       },
-      onSaved: (String value){
+      onSaved: (String value) {
         _tituloNota = value;
       },
     );
   }
 
-  Widget _buildidTipoNota(){
+  Widget _buildidTipoNota() {
     return FutureBuilder(
       future: tipoHelper.getAllTiposNotas(),
-      builder: (BuildContext context, AsyncSnapshot snapshot){
-        if(snapshot.hasData != null){
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData != null) {
           _tiposNotas = snapshot.data.toList();
-          if(_selectedTipo != null){
-          _selectedTipo = _tiposNotas[_selectedTipo.idTipoNombre - 4];
+          if (_selectedTipo != null) {
+            _selectedTipo = _tiposNotas[_selectedTipo.idTipoNombre - 1];
           } else {
             _selectedTipo = _tiposNotas[0];
           }
           print(_tiposNotas);
-          if (_tiposNotas == null){
+          if (_tiposNotas == null) {
             return Center(child: CircularProgressIndicator());
           } else {
-            List<DropdownMenuItem<TipoNota>>_items = buildDropDownMenuItems(_tiposNotas);
+            List<DropdownMenuItem<TipoNota>> _items =
+                buildDropDownMenuItems(_tiposNotas);
             return Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    DropdownButton(
-                      value: _selectedTipo,
-                      items: _items,
-                      onChanged: onChangeDropdownItem,
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                DropdownButton(
+                  value: _selectedTipo,
+                  items: _items,
+                  onChanged: onChangeDropdownItem,
                 )
-                ], 
-              )
-            );
+              ],
+            ));
           }
         }
       },
     );
   }
 
-  Widget _buildURLArchivo(){
+  Widget _buildURLArchivo() {
     return Padding(
-      padding: EdgeInsets.all(24.0),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.attach_file), 
-              tooltip: 'Adjuntar archivo',
-              onPressed: () {
-                      getFile();
-              }
-              ),
-          ],
-        ),
-      )
-    );
+        padding: EdgeInsets.all(24.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              IconButton(
+                  icon: Icon(Icons.attach_file),
+                  tooltip: 'Adjuntar archivo',
+                  onPressed: () {
+                    getFile();
+                  }),
+            ],
+          ),
+        ));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -205,32 +189,40 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-              Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    _buildTituloNota(),
-                     _buildidTipoNota(),
-                    _buildContenido(),
-                    _buildURLArchivo(),
-                    SizedBox(height: 100),
-                    RaisedButton(
-                      child: Text('Guardar', style: TextStyle(color: Colors.blue, fontSize: 16),),
-                      onPressed: () {
-                        if(!_formKey.currentState.validate()){
-                          return;
-                        }
-                        _formKey.currentState.save();
-                        _idBeneficiario = widget.id;
-                        print("URL ARCHIVO = "+_url_archivo);
-                        tipoHelper.subirNotra(_tituloNota, _contenido, _idBeneficiario, _selectedTipo.idTipoNombre, _url_archivo);
-                        _uploadFile(_file);
-                      },
-                    )
-                  ],
-                ),
+            Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _buildTituloNota(),
+                  _buildidTipoNota(),
+                  _buildContenido(),
+                  _buildURLArchivo(),
+                  SizedBox(height: 100),
+                  RaisedButton(
+                    child: Text(
+                      'Guardar',
+                      style: TextStyle(color: Colors.blue, fontSize: 16),
+                    ),
+                    onPressed: () {
+                      if (!_formKey.currentState.validate()) {
+                        return;
+                      }
+                      _formKey.currentState.save();
+                      _idBeneficiario = widget.id;
+                      print("URL ARCHIVO = " + _url_archivo);
+                      tipoHelper.subirNotra(
+                          _tituloNota,
+                          _contenido,
+                          _idBeneficiario,
+                          _selectedTipo.idTipoNombre,
+                          _url_archivo);
+                      _uploadFile(_file);
+                    },
+                  )
+                ],
               ),
+            ),
           ],
         ),
       ),
