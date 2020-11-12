@@ -38,6 +38,7 @@ const SeccionNota = (props) => {
                 });
     }, []);
 
+    console.log(notas);
     return(
         <div>
         {console.log(notas)}
@@ -61,8 +62,7 @@ const SeccionNota = (props) => {
                                 <IconButton aria-label="Consultar" className={classes.margin} onClick={() => props.history.push("/nota/"+nota.idNota)}>
                                     <AssignmentIcon fontSize="large" />
                                 </IconButton>
-                                Nota hecha el: {(new Date(nota.created_at)).getDate()+"/"+((new Date(nota.created_at)).getMonth()+1)
-                                                +"/"+(new Date(nota.created_at)).getFullYear()}
+                                {nota.tituloNota}
                             </Paper>
                         </Grid>
                         

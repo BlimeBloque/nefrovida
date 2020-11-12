@@ -43,6 +43,7 @@ const initialFValues = {
     idBeneficiario: '',
     idTipoNota: '',
     comentario: '',
+    tituloNota: '',
     url_archivo: '',
     nombreArchivo: ''
 }
@@ -98,6 +99,7 @@ export default function EditarNotaForm(props) {
 const validate = () => {
     let temp = {}
     temp.tipoNota = values.idTipoNota?"":"Este campo es requerido"
+    temp.tituloNota = values.tituloNota? "": "Este campo es requerido"
     temp.comentaio = values.comentario?"":"Este campo es requerido"
     setErrors({
         ...temp
@@ -133,7 +135,7 @@ const onSubmit = e => {
     editedValues.idTipoNota =  values.idTipoNota
     editedValues.comentario =  values.comentario
     editedValues.url_archivo =  values.url_archivo
-
+    editedValues.tituloNota =  values.tituloNota
  
     console.log("submit")
 
@@ -204,6 +206,18 @@ const onSubmit = e => {
             <CssBaseline/>
             <form>
                 <div className={classes.root}>
+                <Grid container justify="space-between" spacing="3">
+                    <Grid item xs = {12}>
+                        <Controls.Input
+                            name="tituloNota"
+                            label="Titulo de nota *"
+                            value={values.tituloNota}
+                            onChange={handleInputChange}
+                            options={tiposNotas}
+                            error={errors.tituloNota}
+                            />
+                    </Grid>
+                </Grid>
                 <Grid container justify="space-between" spacing="3">
                     <Grid item xs={8}>
                         <Controls.Select

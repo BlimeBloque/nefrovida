@@ -47,6 +47,7 @@ const initialFValues = {
     idBeneficiario: '',
     idTipoNota: '',
     comentario: '',
+    tituloNota: '',
     url_archivo: '',
 }
 
@@ -111,6 +112,7 @@ export default function AgregarNotaForm(props) {
    const validate = () => {
     let temp = {}
     temp.tipoNota = values.idTipoNota?"":"Este campo es requerido"
+    temp.tituloNota = values.tituloNota? "": "Este campo es requerido"
     temp.comentaio = values.comentario?"":"Este campo es requerido"
     setErrors({
         ...temp
@@ -188,17 +190,22 @@ const onSubmit = e => {
             <div className={classes.form}>
             <Typography variant="h5" gutterBottom>Nota para {beneficiario.nombreBeneficiario}</Typography>
             </div>
-            <div className={classes.botones}>
-            <Tooltip title ="Eliminar archivo adjunto">
-                <IconButton color="secondary" component="span" onClick={removeFile}>
-                    <RemoveCircleOutlineIcon fontSize="small"/>
-                </IconButton>
-             </Tooltip>
-            </div>
             <br></br><br></br>
             <CssBaseline/>
             <form>
                 <div className={classes.root}>
+                <Grid container justify="space-between" spacing="3">
+                    <Grid item xs = {12}>
+                        <Controls.Input
+                            name="tituloNota"
+                            label="Titulo de nota *"
+                            value={values.tituloNota}
+                            onChange={handleInputChange}
+                            options={tiposNotas}
+                            error={errors.tituloNota}
+                            />
+                    </Grid>
+                </Grid>
                 <Grid container justify="space-between" spacing="3">
                     <Grid item xs={8}>
                         <Controls.Select
@@ -225,6 +232,13 @@ const onSubmit = e => {
                             </Tooltip>
                         </label>
                         
+                    </Grid>
+                    <Grid item xs={1}>
+                    <Tooltip title ="Eliminar archivo adjunto">
+                        <IconButton color="secondary" component="span" onClick={removeFile}>
+                            <RemoveCircleOutlineIcon fontSize="small"/>
+                        </IconButton>
+                    </Tooltip>
                     </Grid>
                 </Grid>
                 <Grid container justify="flex-end" direction="row">

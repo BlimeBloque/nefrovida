@@ -13,6 +13,7 @@ class Nota extends Model
     protected $fillable = [
         'idBeneficiario',
         'idTipoNota',
+        'tituloNota',
         'comentario',
         'url_archivo',
     ];

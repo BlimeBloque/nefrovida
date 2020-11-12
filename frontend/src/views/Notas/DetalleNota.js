@@ -43,7 +43,7 @@ const DetalleNota = (props) => {
 
     return(
         <div className={classes.container}>
-            <Sidenav titulo="Detalle de Consulta de Nutrición" />        
+            <Sidenav titulo="Detalle de Nota" />        
             <Container>
             
             <Paper className={classes.pageContent}>

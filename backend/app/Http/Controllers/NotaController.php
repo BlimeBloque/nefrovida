@@ -41,6 +41,7 @@ class NotaController extends Controller
         $request->validate([
             'idBeneficiario' => 'required|numeric',
             'idTipoNota' => 'required|numeric',
+            'tituloNota' => 'required',
             'comentario' => 'required',
             'url_archivo' => 'nullable',
         ]);
@@ -54,7 +55,7 @@ class NotaController extends Controller
 
     public function searchByBenef($idBeneficiario)
     {
-        return DB::table('notas')->where('idBeneficiario', '=', $idBeneficiario)->select('idBeneficiario', 'idNota', 'created_at')
+        return DB::table('notas')->where('idBeneficiario', '=', $idBeneficiario)->select('idBeneficiario', 'idNota', 'tituloNota')
             -> latest()->get();
     }
 
@@ -94,10 +95,11 @@ class NotaController extends Controller
             'idBeneficiario' => 'required|numeric',
             'idTipoNota' => 'required|numeric',
             'comentario' => 'required',
+            'tituloNota' => 'required',
             'url_archivo' => 'nullable',
         ]);
 
-        $query = DB::table('notas')->where('idNota', $idNota)->update(['idBeneficiario'=> $request->get('idBeneficiario') , 'idTipoNota' => $request->get('idTipoNota') , 'comentario' => $request->get('comentario') , 'url_archivo' => $request->get('url_archivo')]);
+        $query = DB::table('notas')->where('idNota', $idNota)->update(['idBeneficiario'=> $request->get('idBeneficiario') , 'idTipoNota' => $request->get('idTipoNota') , 'comentario' => $request->get('comentario') , 'tituloNota' => $request->get('tituloNota'), 'url_archivo' => $request->get('url_archivo')]);
         return $query;
     }
 

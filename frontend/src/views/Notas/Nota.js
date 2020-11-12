@@ -144,7 +144,9 @@ export default function Nota(props) {
                         </Tooltip>
                     </div>
             </div>
-            <Typography align="center" variant="h4">{detalle.nombre} para {detalle.nombreBeneficiario}</Typography>
+            <Typography align="center" variant="h4">{detalle.tituloNota}</Typography>
+            <Typography  variant="h6">{detalle.nombre}</Typography>
+
             <div id="contenido">
                 <br></br><br></br>
                 <Typography variant="h6" className={classes.subtitulo}>Comentario: </Typography>
