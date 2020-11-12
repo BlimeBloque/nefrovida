@@ -64,7 +64,7 @@ class MainScreen extends StatelessWidget {
               RaisedButton(
                 onPressed: () async {
                   await AuthProvider.of(context).authService.logout();
-                  Navigator.of(context).pushReplacementNamed('/login');
+                  Navigator.of(context).pushReplacementNamed('login');
                 },
                 child: const Text('Logout', style: TextStyle(fontSize: 20)),
               ),
