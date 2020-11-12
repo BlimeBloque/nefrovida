@@ -29,9 +29,6 @@ class EliminarIdRespuestaOfrecidaOpcionEvaluacion extends Migration
      */
     public function down()
     {
-        Schema::table('opcion_evaluacion', function (Blueprint $table) {
-            $table->unsignedInteger('idRespuestaOfrecida');
-            $table->foreign('idRespuestaOfrecida')->references('idRespuestaOfrecida')->on('evaluaciones_respuestas_ofrecidas')->onDelete('cascade');
-        });
+        
     }
 }

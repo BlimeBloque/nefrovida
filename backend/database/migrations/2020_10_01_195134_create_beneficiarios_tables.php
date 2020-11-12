@@ -83,6 +83,7 @@ class CreateBeneficiariosTables extends Migration
     public function down()
     {
         Schema::dropIfExists('archivos');
+        Schema::dropIfExists('tamizajes');
         Schema::dropIfExists('notas');
         Schema::dropIfExists('tipo_nota');
         Schema::dropIfExists('beneficiarios');
