@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 import Sidenav from '../components/Nav/Sidenav';
 import { Container, Paper } from '@material-ui/core';
+import Reporte from './Reportes/Reportes'
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -21,7 +22,7 @@ const Reportes = () => {
             <Sidenav />
             <Container>
                 <Paper className={classes.pageContent}>
-                    <h1>Reportes</h1>
+                    <Reporte/>
                 </Paper>
             </Container>
         </div>
