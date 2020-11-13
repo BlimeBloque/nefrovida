@@ -51,6 +51,11 @@ const useStyle = makeStyles(theme => ({
         backgroundColor: "red",
         color: "white",
     },
+    anormal: {
+        fontStyle: "normal",
+        margin: theme.spacing(1),
+        backgroundColor: "yellow",
+    },
     faltante: {
         fontStyle: "italic",
         margin: theme.spacing(1),
@@ -102,8 +107,7 @@ const DetalleMicroalbuminuria = (props) => {
     const date = new Date(detalle.created_at);
     const fecha = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
 
-    //Obtener la relacion
-    const relacion = (Number(detalle.microAlbumina) / Number(detalle.creatinina)).toFixed(2);
+
     
 
     const obtenerClase = (valor, valorBajo, valorAlto) => {
@@ -112,6 +116,29 @@ const DetalleMicroalbuminuria = (props) => {
             if(Number(valor) < Number(valorBajo))
             {
                 return classes.bajo
+            }
+            else if (Number(valor) > Number(valorAlto))
+            {
+                return classes.alto
+            }
+            else
+            {
+                return classes.normal
+            }
+        }
+        else
+        {
+            return classes.faltante;
+        }
+    }
+
+    const obtenerClaseRelacion = (valor, valorAnormal, valorAlto) => {
+        console.log(valorAnormal+","+valor+","+valorAlto)
+        if(valor)
+        {
+            if(Number(valorAnormal) < Number(valor) & Number(valor) < Number(valorAlto))
+            {
+                return classes.anormal
             }
             else if (Number(valor) > Number(valorAlto))
             {
@@ -193,9 +220,9 @@ const DetalleMicroalbuminuria = (props) => {
                 </div>
                 <div id="relacion" style={{marginLeft: "2.5%"}} className={classes.flex}>
                     <Typography variant="body1"
-                        className={obtenerClase(relacion, detalle.valorRelacionNormalBajo, detalle.valorRelacionAnormalBajo)}>
+                        className={obtenerClaseRelacion(detalle.relacion, detalle.valorRelacionAnormalBajo, detalle.valorRelacionAnormalAlto)}>
                         <strong className={classes.normal}>Relación Micro Albumina / Creatinina: </strong>
-                        {!isNaN(relacion) ? relacion : "Faltan datos por registrar"}
+                        {detalle.relacion ? detalle.relacion : "Faltan datos por registrar"}
                     </Typography>
                     <div>
                         <div id="valores-normal" className={classes.flexCenter}>
@@ -217,6 +244,17 @@ const DetalleMicroalbuminuria = (props) => {
                             <Typography variant="body1" className={classes.normal}>-</Typography>
                             <Typography variant="body1" className={detalle.valorRelacionAnormalAlto ? classes.normal : classes.faltante}>
                                 {detalle.valorRelacionAnormalAlto ? detalle.valorRelacionAnormalAlto : "No registrado"}
+                            </Typography>
+                            <Typography variant="body1" className={classes.normal}>mg/g</Typography>
+                        </div>
+                        <div id="valores-anormal-alto" className={classes.flexCenter}>
+                            <Typography variant="body1" className={classes.normal}>ANORMAL ALTO = </Typography>
+                            <Typography variant="body1" className={detalle.valorRelacionAnormalAltoBajo ? classes.normal : classes.faltante}>
+                                {detalle.valorRelacionAnormalAltoBajo ? detalle.valorRelacionAnormalAltoBajo : "No registrado"}
+                            </Typography>
+                            <Typography variant="body1" className={classes.normal}>-</Typography>
+                            <Typography variant="body1" className={detalle.valorRelacionAnormalAltoAlto ? classes.normal : classes.faltante}>
+                                {detalle.valorRelacionAnormalAltoAlto ? detalle.valorRelacionAnormalAltoAlto : "No registrado"}
                             </Typography>
                             <Typography variant="body1" className={classes.normal}>mg/g</Typography>
                         </div>

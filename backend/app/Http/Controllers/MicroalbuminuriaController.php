@@ -36,10 +36,13 @@ class MicroalbuminuriaController extends Controller
             'creatinina' => 'numeric|nullable',
             'valorCreatininaBajo' => 'numeric|nullable',
             'valorCreatininaAlto' => 'numeric|nullable',
+            'relacion' => 'numeric|nullable',
             'valorRelacionNormalBajo' => 'numeric|nullable',
             'valorRelacionNormalAlto' => 'numeric|nullable',
             'valorRelacionAnormalBajo' => 'numeric|nullable',
             'valorRelacionAnormalAlto' => 'numeric|nullable',
+            'valorRelacionAnormalAltoBajo' => 'numeric|nullable',
+            'valorRelacionAnormalAltoAlto' => 'numeric|nullable',
             'nota' => 'nullable',
             'metodo' => 'max:255|nullable',
         ]);

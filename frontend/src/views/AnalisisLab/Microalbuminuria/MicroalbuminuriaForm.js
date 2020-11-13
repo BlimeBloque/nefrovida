@@ -62,10 +62,13 @@ const initialValues = {
     creatinina: '',
     valorCreatininaBajo: 10.0,
     valorCreatininaAlto: 300.0,
+    relacion: '',
     valorRelacionNormalBajo: 0.0,
     valorRelacionNormalAlto: 30.0,
     valorRelacionAnormalBajo: 30.0,
     valorRelacionAnormalAlto: 50.0,
+    valorRelacionAnormalAltoBajo: 50.0,
+    valorRelacionAnormalAltoAlto: 300.0,
     nota: '',
     metodo: 'Colorimétrico',
 }
@@ -77,10 +80,13 @@ const initialErrorValues = {
     creatinina: false,
     valorCreatininaBajo: false,
     valorCreatininaAlto: false,
+    relacion: false,
     valorRelacionNormalBajo: false,
     valorRelacionNormalAlto: false,
     valorRelacionAnormalBajo: false,
     valorRelacionAnormalAlto: false,
+    valorRelacionAnormalAltoBajo: false,
+    valorRelacionAnormalAltoAlto: false,
     nota: false,
     metodo: false,
 }   
@@ -253,6 +259,29 @@ export default function DepuracionCreatininaForm (props) {
         }
     }
 
+    const handleRelacionChange = (event) => {
+        handleInputChange(event);
+        validateRelacion(event.target.value);
+    }
+
+    const validateRelacion = (relacion) =>
+    {
+        if(relacion.length > 0 & (!isDecimal(relacion) | isNullOrWhitespace(relacion)))
+        {
+            setErrores({
+                ...errores,
+                'relacion': true
+            });
+        }
+        else
+        {
+            setErrores({
+                ...errores,
+                'relacion': false
+            });
+        }
+    }
+
     const handleValorRelacionNormalBajoChange = (event) => {
         handleInputChange(event);
         validateValorRelacionNormalBajo(event.target.value);
@@ -345,6 +374,52 @@ export default function DepuracionCreatininaForm (props) {
         }
     }
 
+    const handleValorRelacionAnormalAltoBajoChange = (event) => {
+        handleInputChange(event);
+        validateValorRelacionAnormalAltoBajo(event.target.value);
+    }
+
+    const validateValorRelacionAnormalAltoBajo = (valorRelacionAnormalAltoBajo) =>
+    {
+        if(valorRelacionAnormalAltoBajo.length > 0 & (!isDecimal(valorRelacionAnormalAltoBajo) | isNullOrWhitespace(valorRelacionAnormalAltoBajo)))
+        {
+            setErrores({
+                ...errores,
+                'valorRelacionAnormalAltoBajo': true
+            });
+        }
+        else
+        {
+            setErrores({
+                ...errores,
+                'valorRelacionAnormalAltoBajo': false
+            });
+        }
+    }
+
+    const handleValorRelacionAnormalAltoAltoChange = (event) => {
+        handleInputChange(event);
+        validateValorRelacionAnormalAltoAltoChange(event.target.value);
+    }
+
+    const validateValorRelacionAnormalAltoAltoChange = (valorRelacionAnormalAltoAlto) =>
+    {
+        if(valorRelacionAnormalAltoAlto.length > 0 & (!isDecimal(valorRelacionAnormalAltoAlto) | isNullOrWhitespace(valorRelacionAnormalAltoAlto)))
+        {
+            setErrores({
+                ...errores,
+                'valorRelacionAnormalAltoAlto': true
+            });
+        }
+        else
+        {
+            setErrores({
+                ...errores,
+                'valorRelacionAnormalAltoAlto': false
+            });
+        }
+    }
+
     const handleMetodoChange = (event) => {
         handleInputChange(event);
         validateMetodo(event.target.value);
@@ -394,8 +469,9 @@ export default function DepuracionCreatininaForm (props) {
     const handleSubmit = () => {
         let submit = true;
         if(errores.microAlbumina || errores.valorMicroAlbuminaBajo || errores.valorMicroAlbuminaAlto || errores. creatinina 
-            || errores.valorCreatininaBajo || errores.valorCreatininaAlto || errores.valorRelacionNormalBajo || errores.valorRelacionNormalAlto 
-            || errores.valorRelacionAnormalBajo || errores.valorRelacionAnormalAlto || errores.nota || errores.metodo)
+            || errores.valorCreatininaBajo || errores.valorCreatininaAlto || errores.relacion || errores.valorRelacionNormalBajo 
+            || errores.valorRelacionNormalAlto || errores.valorRelacionAnormalBajo || errores.valorRelacionAnormalAlto 
+            || errores.valorRelacionAnormalAltoBajo || errores.valorRelacionAnormalAltoAlto || errores.nota || errores.metodo)
             submit = false;
         
             if(submit)
@@ -520,77 +596,122 @@ export default function DepuracionCreatininaForm (props) {
                         </div>
                     </div>
                 </div>
-                <div className={classes.flex}>
-                    <Typography variant="body1" className={classes.m}>
-                        Nota: La relación Micro Albumina/Creatinina se calcula automáticamente y podrá verse en el detalle de este análisis. 
-                        Los valores de referencia que se utilizarán son:
-                    </Typography>
-                </div>
-                <div id="valores-normal" className={classes.flexCenter}>
-                    <Typography variant="body1" className={classes.xs}>NORMAL = </Typography>
-                    <FormControl error={errores.valorRelacionNormalBajo} className={classes.xs}>
+                <div id="relacion" className={classes.flex}>
+                    <FormControl error={errores.relacion} className={classes.textoCorto}>
+                        <InputLabel htmlFor="component-error">Relación Microalbumina/Creatinina</InputLabel>
                         <Input
                         id="component-error"
-                        value={values.valorRelacionNormalBajo}
-                        name="valorRelacionNormalBajo"
-                        onChange={handleValorRelacionNormalBajoChange}
+                        value={values.relacion}
+                        name="relacion"
+                        onChange={handleRelacionChange}
                         aria-describedby="component-error-text"
                         type="number"
-                        disabled
                         />
-                        <FormHelperText style={{display: errores.valorRelacionNormalBajo ? "block" : "none"}} id="component-error-text">
+                        <FormHelperText style={{display: errores.relacion ? "block" : "none"}} id="component-error-text">
                             Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
                         </FormHelperText>
                     </FormControl>
-                    <Typography variant="body1" className={classes.xs}>-</Typography>
-                    <FormControl error={errores.valorRelacionNormalAlto} className={classes.xs}>
-                        <Input
-                        id="component-error"
-                        value={values.valorRelacionNormalAlto}
-                        name="valorRelacionNormalAlto"
-                        onChange={handleValorRelacionNormalAltoChange}
-                        aria-describedby="component-error-text"
-                        type="number"
-                        disabled
-                        />
-                        <FormHelperText style={{display: errores.valorRelacionNormalAlto ? "block" : "none"}} id="component-error-text">
-                            Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
-                        </FormHelperText>
-                    </FormControl>
-                    <Typography variant="body1" className={classes.xs}>mg/g</Typography>
-                </div>
-                <div id="valores-anormal" className={classes.flexCenter}>
-                    <Typography variant="body1" className={classes.xs}>ANORMAL = </Typography>
-                    <FormControl error={errores.valorRelacionAnormalBajo} className={classes.xs}>
-                        <Input
-                        id="component-error"
-                        value={values.valorRelacionAnormalBajo}
-                        name="valorRelacionAnormalBajo"
-                        onChange={handleValorRelacionAnormalBajoChange}
-                        aria-describedby="component-error-text"
-                        type="number"
-                        disabled
-                        />
-                        <FormHelperText style={{display: errores.valorRelacionAnormalBajo ? "block" : "none"}} id="component-error-text">
-                            Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
-                        </FormHelperText>
-                    </FormControl>
-                    <Typography variant="body1" className={classes.xs}>-</Typography>
-                    <FormControl error={errores.valorRelacionAnormalAlto} className={classes.xs}>
-                        <Input
-                        id="component-error"
-                        value={values.valorRelacionAnormalAlto}
-                        name="valorRelacionAnormalAlto"
-                        onChange={handleValorRelacionAnormalAltoChange}
-                        aria-describedby="component-error-text"
-                        type="number"
-                        disabled
-                        />
-                        <FormHelperText style={{display: errores.valorRelacionAnormalAlto ? "block" : "none"}} id="component-error-text">
-                            Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
-                        </FormHelperText>
-                    </FormControl>
-                    <Typography variant="body1" className={classes.xs}>mg/g</Typography>
+                    <div>
+                        <div id="valores-normal" className={classes.flexCenter}>
+                            <Typography variant="body1" className={classes.s}>NORMAL = </Typography>
+                            <FormControl error={errores.valorRelacionNormalBajo} className={classes.xs}>
+                                <Input
+                                id="component-error"
+                                value={values.valorRelacionNormalBajo}
+                                name="valorRelacionNormalBajo"
+                                onChange={handleValorRelacionNormalBajoChange}
+                                aria-describedby="component-error-text"
+                                type="number"
+                                disabled
+                                />
+                                <FormHelperText style={{display: errores.valorRelacionNormalBajo ? "block" : "none"}} id="component-error-text">
+                                    Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
+                                </FormHelperText>
+                            </FormControl>
+                            <Typography variant="body1" className={classes.xs}>-</Typography>
+                            <FormControl error={errores.valorRelacionNormalAlto} className={classes.xs}>
+                                <Input
+                                id="component-error"
+                                value={values.valorRelacionNormalAlto}
+                                name="valorRelacionNormalAlto"
+                                onChange={handleValorRelacionNormalAltoChange}
+                                aria-describedby="component-error-text"
+                                type="number"
+                                disabled
+                                />
+                                <FormHelperText style={{display: errores.valorRelacionNormalAlto ? "block" : "none"}} id="component-error-text">
+                                    Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
+                                </FormHelperText>
+                            </FormControl>
+                            <Typography variant="body1" className={classes.xs}>mg/g</Typography>
+                        </div>
+                        <div id="valores-anormal" className={classes.flexCenter}>
+                            <Typography variant="body1" className={classes.s}>ANORMAL = </Typography>
+                            <FormControl error={errores.valorRelacionAnormalBajo} className={classes.xs}>
+                                <Input
+                                id="component-error"
+                                value={values.valorRelacionAnormalBajo}
+                                name="valorRelacionAnormalBajo"
+                                onChange={handleValorRelacionAnormalBajoChange}
+                                aria-describedby="component-error-text"
+                                type="number"
+                                disabled
+                                />
+                                <FormHelperText style={{display: errores.valorRelacionAnormalBajo ? "block" : "none"}} id="component-error-text">
+                                    Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
+                                </FormHelperText>
+                            </FormControl>
+                            <Typography variant="body1" className={classes.xs}>-</Typography>
+                            <FormControl error={errores.valorRelacionAnormalAlto} className={classes.xs}>
+                                <Input
+                                id="component-error"
+                                value={values.valorRelacionAnormalAlto}
+                                name="valorRelacionAnormalAlto"
+                                onChange={handleValorRelacionAnormalAltoChange}
+                                aria-describedby="component-error-text"
+                                type="number"
+                                disabled
+                                />
+                                <FormHelperText style={{display: errores.valorRelacionAnormalAlto ? "block" : "none"}} id="component-error-text">
+                                    Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
+                                </FormHelperText>
+                            </FormControl>
+                            <Typography variant="body1" className={classes.xs}>mg/g</Typography>
+                        </div>
+                        <div id="valores-anormal-alto" className={classes.flexCenter}>
+                            <Typography variant="body1" className={classes.textoCorto}>ANORMAL ALTO = </Typography>
+                            <FormControl error={errores.valorRelacionAnormalAltoBajo} className={classes.xs}>
+                                <Input
+                                id="component-error"
+                                value={values.valorRelacionAnormalAltoBajo}
+                                name="valorRelacionAnormalAltoBajo"
+                                onChange={handleValorRelacionAnormalAltoBajoChange}
+                                aria-describedby="component-error-text"
+                                type="number"
+                                disabled
+                                />
+                                <FormHelperText style={{display: errores.valorRelacionAnormalAltoBajo ? "block" : "none"}} id="component-error-text">
+                                    Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
+                                </FormHelperText>
+                            </FormControl>
+                            <Typography variant="body1" className={classes.xs}>-</Typography>
+                            <FormControl error={errores.valorRelacionAnormalAltoAlto} className={classes.xs}>
+                                <Input
+                                id="component-error"
+                                value={values.valorRelacionAnormalAltoAlto}
+                                name="valorRelacionAnormalAltoAlto"
+                                onChange={handleValorRelacionAnormalAltoAltoChange}
+                                aria-describedby="component-error-text"
+                                type="number"
+                                disabled
+                                />
+                                <FormHelperText style={{display: errores.valorRelacionAnormalAltoAlto ? "block" : "none"}} id="component-error-text">
+                                    Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
+                                </FormHelperText>
+                            </FormControl>
+                            <Typography variant="body1" className={classes.xs}>mg/g</Typography>
+                        </div>
+                    </div>
                 </div>
                 <div className={classes.flex}>
                     <FormControl error={errores.metodo} className={classes.textoCorto}>

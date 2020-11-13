@@ -18,10 +18,13 @@ class Microalbuminuria extends Model
         'creatinina',
         'valorCreatininaBajo',
         'valorCreatininaAlto',
+        'relacion',
         'valorRelacionNormalBajo',
         'valorRelacionNormalAlto',
         'valorRelacionAnormalBajo',
         'valorRelacionAnormalAlto',
+        'valorRelacionAnormalAltoBajo',
+        'valorRelacionAnormalAltoAlto',
         'nota',
         'metodo',
     ];
