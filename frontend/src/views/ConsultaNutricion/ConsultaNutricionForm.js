@@ -78,6 +78,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
     },
+    input: {
+        display: "none",
+    }
 }));
 
 
@@ -90,6 +93,7 @@ function getSteps() {
         'Recordatorio de 24 Horas', 
         'Datos Antropométricos',
         'Necesidades Energéticas y Nutrimentales',
+        'Plan de Alimentación'
     ];
 }
 
@@ -135,6 +139,14 @@ const initialValues = {
     porcentajeProteinas: '',
     porcentajeGrasas: '',
     diagnostico: '',
+    nota: '',
+    url_archivo: '',
+}
+
+const initialFileValues = {
+    archivo: null,
+    archivoNombre: '',
+    archivoURL: '',
 }
 
 const initialErrorValues = {
@@ -178,6 +190,8 @@ const initialErrorValues = {
     porcentajeProteinas: false,
     porcentajeGrasas: false,
     diagnostico: false,
+    nota: false,
+    url_archivo: false,
 }
 
 export default function ConsultaNutricionForm(props) {
@@ -187,8 +201,7 @@ export default function ConsultaNutricionForm(props) {
     const [beneficiario, setBeneficiario] = useState([]);
     const [values, setValues] = useState(initialValues);
     const [errores, setErrores] = useState(initialErrorValues);
-
-
+    const [archivo, setArchivo] = useState(initialFileValues);
 
     const handleInputChange= e => {
         const {name , value} = e.target
@@ -197,6 +210,33 @@ export default function ConsultaNutricionForm(props) {
             [name]:value 
         })
     }
+
+    const removeFile = () => {
+        setArchivo({
+            archivo: null,
+            archivoNombre: null,
+            archivoURL: null,
+        })
+        setValues({
+            ...values,
+            url_archivo: null,
+        })
+        console.log(archivo);
+    }
+
+    const fileSelectedHandler = (e) => {
+        console.log(e.target.files)
+        setArchivo({
+            archivo: e.target.files[0] ? e.target.files[0] : null,
+            archivoNombre: e.target.files[0] ? e.target.files[0].name : null,
+        })
+        console.log(archivo);
+    }
+
+    const getFileName = () => {
+        archivo.archivoNombre = props.consulta.url_archivo ? 'archivo' : null;
+    }
+
     useEffect ( () => {
 
         
@@ -245,7 +285,10 @@ export default function ConsultaNutricionForm(props) {
                 porcentajeProteinas: props.consulta.porcentajeProteinas,
                 porcentajeGrasas: props.consulta.porcentajeGrasas,
                 diagnostico: props.consulta.diagnostico,
+                nota: props.consulta.nota,
+                url_archivo: props.consulta.url_archivo,
             });
+            getFileName();
         }
         else
         {
@@ -253,6 +296,7 @@ export default function ConsultaNutricionForm(props) {
                 ...values,
                 'idBeneficiario': props.idBeneficiario
             });
+            archivo.archivoNombre = '';
 
             http.get('/beneficiarios/'+props.idBeneficiario)
             .then(res => { setBeneficiario(res.data[0])
@@ -298,6 +342,11 @@ export default function ConsultaNutricionForm(props) {
                 if(errores.peso || errores.altura || errores.diagnostico)
                     next = false;
                 break;
+            case 6:
+                if(errores.tipoDieta || errores.kilocaloriasTotales || errores.porcentajeHidratosCarbono 
+                    || errores.kilocaloriasHidratosCarbono || errores.porcentajeGrasas || errores.porcentajeProteinas)
+                    next = false;
+                break;
         }
         if(next)
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -311,8 +360,7 @@ export default function ConsultaNutricionForm(props) {
 
     const handleSubmit = () => {
         let submit = true;
-        if(errores.tipoDieta || errores.kilocaloriasTotales || errores.porcentajeHidratosCarbono 
-            || errores.kilocaloriasHidratosCarbono || errores.porcentajeGrasas || errores.porcentajeProteinas)
+        if(errores.nota || errores.url_archivo)
             submit = false;
         if(submit)
         {
@@ -320,37 +368,95 @@ export default function ConsultaNutricionForm(props) {
 
             if(props.editar)
             {
-                http.put('/consultaNutricion/'+props.consulta.idConsultaNutricional, values)
+                if(archivo.archivo === null)
+                {
+                    http.put('/consultaNutricion/'+props.consulta.idConsultaNutricional, values)
+                        .then(res => {
+                            console.log(res)
+                            props.history.push("/consultaNutricion/"+props.consulta.idConsultaNutricional+"?editarNutricion=1");
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            props.history.push("/consultaNutricion/"+props.consulta.idConsultaNutricional+"?editarNutricion=0");
+                        });
+                }
+                else
+                {
+                    const fd = new FormData();
+                    fd.append('file', archivo.archivo, archivo.archivoNombre);
+                    http.post('/upload', fd, {
+                        onUploadProgress: progressEvent => {
+                            console.log('Upload progress: ' + Math.round(progressEvent.loaded / progressEvent.total *100) + "%");
+                        }
+                    })
                     .then(res => {
-                        console.log(res)
-                        props.history.push("/consultaNutricion/"+props.consulta.idConsultaNutricional+"?editarNutricion=1");
+                        console.log(res.data.result);
+                        values.url_archivo = res.data.result;
+                        console.log(values);
+                        http.put('/consultaNutricion/'+props.consulta.idConsultaNutricional, values)
+                        .then(res => {
+                            console.log(res)
+                            props.history.push("/consultaNutricion/"+props.consulta.idConsultaNutricional+"?editarNutricion=1");
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            props.history.push("/consultaNutricion/"+props.consulta.idConsultaNutricional+"?editarNutricion=0");
+                        });
                     })
                     .catch(err => {
                         console.log(err)
-                        props.history.push("/consultaNutricion/"+props.consulta.idConsultaNutricional+"?editarNutricion=0");
+                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?editarNutricion=0");
                     });
+                }
             }
             else
             {
-                http.post('/consultaNutricion', values)
-                    .then(res => {
-                        console.log(res)
-                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=1");
+                if(archivo.archivo === null)
+                {
+                    http.post('/consultaNutricion', values)
+                        .then(res => {
+                            console.log(res)
+                            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=1");
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=0");
+                        });
+                }
+                else
+                {
+                    const fd = new FormData();
+                    fd.append('file', archivo.archivo, archivo.archivoNombre);
+                    http.post('/upload', fd, {
+                        onUploadProgress: progressEvent => {
+                            console.log('Upload progress: ' + Math.round(progressEvent.loaded / progressEvent.total *100) + "%");
+                        }
                     })
-                    .catch(err => {
-                        console.log(err)
-                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=0");
-                    });
+                        .then(res => {
+                            console.log(res.data.result);
+                            values.url_archivo = res.data.result;
+                            console.log(values);
+                            http.post('/consultaNutricion', values)
+                            .then(res => {
+                                console.log(res)
+                                props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=1");
+                            })
+                            .catch(err => {
+                                console.log(err)
+                                props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=0");
+                            });
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=0");
+                        });
+                }
             }
-            
         }
-
-        
     };
 
     return (
         <center className={classes.root}>
-            {console.log(values)}
             <Typography variant="h5">Consulta Nutricional de {props.editar ?  props.consulta.nombreBeneficiario :  beneficiario.nombreBeneficiario} 
             </Typography>
 
@@ -448,11 +554,28 @@ export default function ConsultaNutricionForm(props) {
                     consulta={props.consulta}
                 />
 
+                <Secciones.PlanAlimentacion
+                    className={activeStep === 7 ? classes.show : classes.hide}
+                    classes={classes}
+                    isNullOrWhitespace={isNullOrWhitespace}
+                    values={values}
+                    archivo={archivo}
+                    removeFile={removeFile}
+                    fileSelectedHandler={fileSelectedHandler}
+                    handleInputChange={handleInputChange}
+                    errores={errores}
+                    setErrores={setErrores}
+                    consulta={props.consulta}
+                    editar={props.editar}
+                />
+
                 <div className={classes.botones}>
                     <Button
                         disabled={activeStep === 0}
                         onClick={handleBack}
                         className={classes.backButton}
+                        color="primary"
+                        variant="contained"
                     >
                         Regresar
                     </Button>
