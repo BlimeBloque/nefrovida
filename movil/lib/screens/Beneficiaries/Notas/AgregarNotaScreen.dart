@@ -70,7 +70,10 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
           .post('http://192.168.42.138:8000/api/upload', data: formData);
       print('File upload response: $response');
       setState(() {
-        _url_archivo = response.data.result;
+        var tempArchivo = response.toString();
+        var splitted = tempArchivo.split("\"");
+        _url_archivo = splitted.elementAt(3).toString();
+        print("Nombre archivo bd: " + _url_archivo);
       });
     } catch (e) {
       print('exeption caugit: $e');
@@ -210,14 +213,15 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
                       }
                       _formKey.currentState.save();
                       _idBeneficiario = widget.id;
+                      _uploadFile(_file);
                       print("URL ARCHIVO = " + _url_archivo);
+
                       tipoHelper.subirNotra(
                           _tituloNota,
                           _contenido,
                           _idBeneficiario,
                           _selectedTipo.idTipoNombre,
                           _url_archivo);
-                      _uploadFile(_file);
                     },
                   )
                 ],
