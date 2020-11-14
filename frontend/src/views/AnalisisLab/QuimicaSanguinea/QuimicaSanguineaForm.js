@@ -101,18 +101,43 @@ export default function DepuracionCreatininaForm (props) {
 
     useEffect(() => {
 
-        setValues({
-            ...values,
-            'idBeneficiario': props.idBeneficiario
-        });
-        
-        http.get('/beneficiarios/'+props.idBeneficiario)
-            .then(res => { setBeneficiario(res.data[0])
+        if(props.editar)
+        {
+            setValues({
+                idBeneficiario: props.analisis.idBeneficiario,
+                glucosa: props.analisis.glucosa,
+                valorGlucosaBajo: props.analisis.valorGlucosaBajo,
+                valorGlucosaAlto: props.analisis.valorGlucosaAlto,
+                urea: props.analisis.urea,
+                valorUreaBajo: props.analisis.valorUreaBajo,
+                valorUreaAlto: props.analisis.valorUreaAlto,
+                bun: props.analisis.bun,
+                valorBunBajo: props.analisis.valorBunBajo,
+                valorBunAlto: props.analisis.valorBunAlto,
+                creatinina: props.analisis.creatinina,
+                creatininaMujerBajo: props.analisis.creatininaMujerBajo,
+                creatininaMujerAlto: props.analisis.creatininaMujerAlto,
+                creatininaHombreBajo: props.analisis.creatininaHombreBajo,
+                creatininaHombreAlto: props.analisis.creatininaHombreAlto,
+                nota: props.analisis.nota,
+                metodo: props.analisis.metodo,
             })
-            .catch((e) => {
-            console.log(e)
-            })
-    }, [])
+        }
+        else
+        {
+            setValues({
+                ...values,
+                'idBeneficiario': props.idBeneficiario
+            });
+            
+            http.get('/beneficiarios/'+props.idBeneficiario)
+                .then(res => { setBeneficiario(res.data[0])
+                })
+                .catch((e) => {
+                console.log(e)
+                });
+        }
+    }, []);
 
     const handleInputChange= e => {
         const {name , value} = e.target
@@ -499,21 +524,36 @@ export default function DepuracionCreatininaForm (props) {
 
         if(submit)
         {
-            http.post('/quimicaSanguinea', values)
-                .then(res => {
-                    console.log(res)
-                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarQuimicaSanguinea=1");
-                })
-                .catch(err => {
-                    console.log(err)
-                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarQuimicaSanguinea=0");
-                });
+            if(props.editar)
+            {
+                http.put('/quimicaSanguinea/'+props.analisis.idQuimicaSanguinea, values)
+                    .then(res => {
+                        console.log(res)
+                        props.history.push("/quimicaSanguinea/"+props.analisis.idQuimicaSanguinea+"?editarQuimicaSanguinea=1");
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        props.history.push("/quimicaSanguinea/"+props.analisis.idQuimicaSanguinea+"?editarQuimicaSanguinea=0");
+                    });
+            }
+            else
+            {
+                http.post('/quimicaSanguinea', values)
+                    .then(res => {
+                        console.log(res)
+                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarQuimicaSanguinea=1");
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarQuimicaSanguinea=0");
+                    });
+            }
         }
     }
 
     return (
         <center className={classes.root}>
-            <Typography variant="h5">Química Sanguínea de {beneficiario.nombreBeneficiario} </Typography>
+            <Typography variant="h5">Química Sanguínea de {props.editar ? props.analisis.nombreBeneficiario : beneficiario.nombreBeneficiario}</Typography>
             <form>
                 <div className={classes.flex}>
                     <div className={classes.xs}></div>
@@ -782,7 +822,7 @@ export default function DepuracionCreatininaForm (props) {
                         </FormHelperText>
                     </FormControl>
                 <div className={classes.botones}>
-                    <Button variant="contained" color='primary' onClick={handleSubmit}>Registrar</Button>
+                    <Button variant="contained" color='primary' onClick={handleSubmit}>{props.editar ? 'Editar' : 'Registrar'}</Button>
                 </div>
             </form>
         </center>

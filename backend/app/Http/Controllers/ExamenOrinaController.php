@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ExamenOrina;
 use Illuminate\Http\Request;
-use App\Http\Resources\ExamenOrinaCollection;
+use App\Models\ExamenOrina;
+use App\Http\Resources\ExamenOrinaCollection; 
 use App\Http\Resources\ExamenOrina as ExamenOrinaResource;
 use Illuminate\Support\Facades\DB;
 
@@ -85,7 +85,7 @@ class ExamenOrinaController extends Controller
      * @param  \App\Models\ExamenOrina  $examenOrina
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ExamenOrina $idExamenOrina)
+    public function update(Request $request, $idExamenOrina)
     {
         $request->validate([
             'idBeneficiario' => 'required|numeric',

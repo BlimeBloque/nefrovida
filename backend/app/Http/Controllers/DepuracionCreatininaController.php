@@ -82,7 +82,7 @@ class DepuracionCreatininaController extends Controller
      * @param  \App\Models\DepuracionCreatinina  $depuracionCreatinina
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DepuracionCreatinina $idDepuracionCreatinina)
+    public function update(Request $request, $idDepuracionCreatinina)
     {
         $request->validate([
             'idBeneficiario' => 'required|numeric',

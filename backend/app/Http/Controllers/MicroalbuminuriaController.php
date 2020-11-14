@@ -81,7 +81,7 @@ class MicroalbuminuriaController extends Controller
      * @param  \App\Models\Microalbuminuria  $microalbuminuria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Microalbuminuria $idMicroalbuminuria)
+    public function update(Request $request, $idMicroalbuminuria)
     {
         $request->validate([
             'idBeneficiario' => 'required|numeric',

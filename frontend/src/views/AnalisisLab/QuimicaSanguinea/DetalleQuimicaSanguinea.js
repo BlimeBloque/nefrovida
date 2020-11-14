@@ -291,6 +291,12 @@ const DetalleQuimicaSanguinea = (props) => {
             </Paper>
             </Container>
 
+            {/* EDITAR QUIMICA SANGUINEA RETRO*/}
+            <Mensaje
+                success={args.includes("editarQuimicaSanguinea") ? args.slice(-1) : -1} 
+                mensajeExito={"Se actualizó la química sanguínea."}
+                mensajeError={"Hubo un error al editar la química sanguínea."}
+            />
         </div>
     );
 

@@ -100,18 +100,42 @@ export default function DepuracionCreatininaForm (props) {
 
     useEffect(() => {
 
-        setValues({
-            ...values,
-            'idBeneficiario': props.idBeneficiario
-        });
-        
-        http.get('/beneficiarios/'+props.idBeneficiario)
-            .then(res => { setBeneficiario(res.data[0])
+        if(props.editar)
+        {
+            setValues({
+                idBeneficiario: props.analisis.idBeneficiario,
+                microAlbumina: props.analisis.microAlbumina,
+                valorMicroAlbuminaBajo: props.analisis.valorMicroAlbuminaBajo,
+                valorMicroAlbuminaAlto: props.analisis.valorMicroAlbuminaAlto,
+                creatinina: props.analisis.creatinina,
+                valorCreatininaBajo: props.analisis.valorCreatininaBajo,
+                valorCreatininaAlto: props.analisis.valorCreatininaAlto,
+                relacion: props.analisis.relacion,
+                valorRelacionNormalBajo: props.analisis.valorRelacionNormalBajo,
+                valorRelacionNormalAlto: props.analisis.valorRelacionNormalAlto,
+                valorRelacionAnormalBajo: props.analisis.valorRelacionAnormalBajo,
+                valorRelacionAnormalAlto: props.analisis.valorRelacionAnormalAlto,
+                valorRelacionAnormalAltoBajo: props.analisis.valorRelacionAnormalAltoBajo,
+                valorRelacionAnormalAltoAlto: props.analisis.valorRelacionAnormalAltoAlto,
+                nota: props.analisis.nota,
+                metodo: props.analisis.metodo,
             })
-            .catch((e) => {
-            console.log(e)
-            })
-    }, [])
+        }
+        else
+        {
+            setValues({
+                ...values,
+                'idBeneficiario': props.idBeneficiario
+            });
+            
+            http.get('/beneficiarios/'+props.idBeneficiario)
+                .then(res => { setBeneficiario(res.data[0])
+                })
+                .catch((e) => {
+                console.log(e)
+                });
+        }
+    }, []);
 
     const handleInputChange= e => {
         const {name , value} = e.target
@@ -476,21 +500,36 @@ export default function DepuracionCreatininaForm (props) {
         
             if(submit)
             {
-                http.post('/microalbuminuria', values)
-                .then(res => {
-                    console.log(res)
-                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarMicroalbuminuria=1");
-                })
-                .catch(err => {
-                    console.log(err)
-                    props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarMicroalbuminuria=0");
-                });
+                if(props.editar)
+                {
+                    http.put('/microalbuminuria/'+props.analisis.idMicroalbuminuria, values)
+                    .then(res => {
+                        console.log(res)
+                        props.history.push("/microalbuminuria/"+props.analisis.idMicroalbuminuria+"?editarMicroalbuminuria=1");
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        props.history.push("/microalbuminuria/"+props.analisis.idMicroalbuminuria+"?editarMicroalbuminuria=0");
+                    });
+                }
+                else
+                {
+                    http.post('/microalbuminuria', values)
+                    .then(res => {
+                        console.log(res)
+                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarMicroalbuminuria=1");
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarMicroalbuminuria=0");
+                    });
+                }
             }
     }
 
     return (
         <center className={classes.root}>
-            <Typography variant="h5">Química Sanguínea de {beneficiario.nombreBeneficiario} </Typography>
+            <Typography variant="h5">Microalbuminuría de {props.editar ? props.analisis.nombreBeneficiario : beneficiario.nombreBeneficiario} </Typography>
             <form>
                 <div className={classes.flex}>
                     <div className={classes.xs}></div>
@@ -513,7 +552,7 @@ export default function DepuracionCreatininaForm (props) {
                     </FormControl>
                     <div>
                         <div id="valores" className={classes.flexCenter}>
-                            <FormControl error={errores.valorMicroAlbuminaBajo} className={classes.xs}>
+                            <FormControl error={errores.valorMicroAlbuminaBajo} className={classes.s}>
                                 <Input
                                 id="component-error"
                                 value={values.valorMicroAlbuminaBajo}
@@ -528,7 +567,7 @@ export default function DepuracionCreatininaForm (props) {
                                 </FormHelperText>
                             </FormControl>
                             <Typography variant="body1" className={classes.xs}>-</Typography>
-                            <FormControl error={errores.valorMicroAlbuminaAlto} className={classes.xs}>
+                            <FormControl error={errores.valorMicroAlbuminaAlto} className={classes.s}>
                                 <Input
                                 id="component-error"
                                 value={values.valorMicroAlbuminaAlto}
@@ -563,7 +602,7 @@ export default function DepuracionCreatininaForm (props) {
                     </FormControl>
                     <div>
                         <div id="valores" className={classes.flexCenter}>
-                            <FormControl error={errores.valorCreatininaBajo} className={classes.xs}>
+                            <FormControl error={errores.valorCreatininaBajo} className={classes.s}>
                                 <Input
                                 id="component-error"
                                 value={values.valorCreatininaBajo}
@@ -578,7 +617,7 @@ export default function DepuracionCreatininaForm (props) {
                                 </FormHelperText>
                             </FormControl>
                             <Typography variant="body1" className={classes.xs}>-</Typography>
-                            <FormControl error={errores.valorCreatininaAlto} className={classes.xs}>
+                            <FormControl error={errores.valorCreatininaAlto} className={classes.s}>
                                 <Input
                                 id="component-error"
                                 value={values.valorCreatininaAlto}
@@ -744,7 +783,7 @@ export default function DepuracionCreatininaForm (props) {
                         </FormHelperText>
                     </FormControl>
                 <div className={classes.botones}>
-                    <Button variant="contained" color='primary' onClick={handleSubmit}>Registrar</Button>
+                    <Button variant="contained" color='primary' onClick={handleSubmit}>{props.editar ? 'Editar' : 'Registrar'}</Button>
                 </div>
             </form>
         </center>

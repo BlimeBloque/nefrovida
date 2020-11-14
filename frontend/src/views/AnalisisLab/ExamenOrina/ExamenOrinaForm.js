@@ -102,18 +102,47 @@ export default function ExamenOrinaForm (props)
 
     useEffect(() => {
 
-        setValues({
-            ...values,
-            'idBeneficiario': props.idBeneficiario
-        });
-        
-        http.get('/beneficiarios/'+props.idBeneficiario)
-            .then(res => { setBeneficiario(res.data[0])
+        if(props.editar)
+        {
+            setValues({
+                idBeneficiario: props.analisis.idBeneficiario,
+                color: props.analisis.color,
+                aspecto: props.analisis.aspecto,
+                ph: props.analisis.ph,
+                densidad: props.analisis.densidad,
+                nitritos: props.analisis.nitritos,
+                glucosa: props.analisis.glucosa,
+                proteinas: props.analisis.proteinas,
+                hemoglobina: props.analisis.hemoglobina,
+                cuerposCetonicos: props.analisis.cuerposCetonicos,
+                bilirribuna: props.analisis.bilirribuna,
+                urobilinogeno: props.analisis.urobilinogeno,
+                leucocitos: props.analisis.leucocitos,
+                eritrocitosIntactos: props.analisis.eritrocitosIntactos,
+                eritrocitosCrenados: props.analisis.eritrocitosCrenados,
+                observacionLeucocitos: props.analisis.observacionLeucocitos,
+                cristales: props.analisis.cristales,
+                cilindros: props.analisis.cilindros,
+                celulasEpiteliales: props.analisis.celulasEpiteliales,
+                bacterias: props.analisis.bacterias,
+                nota: props.analisis.nota,
             })
-            .catch((e) => {
-            console.log(e)
-            })
-    }, [])
+        }
+        else
+        {
+            setValues({
+                ...values,
+                'idBeneficiario': props.idBeneficiario
+            });
+            
+            http.get('/beneficiarios/'+props.idBeneficiario)
+                .then(res => { setBeneficiario(res.data[0])
+                })
+                .catch((e) => {
+                console.log(e)
+                })
+        }
+    }, []);
 
     const handleInputChange= e => {
         const {name , value} = e.target
@@ -592,21 +621,36 @@ export default function ExamenOrinaForm (props)
         
         if(submit)
         {
-            http.post('/examenOrina', values)
-                    .then(res => {
-                        console.log(res)
-                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarExamenOrina=1");
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarExamenOrina=0");
-                    });
+            if(props.editar)
+            {
+                http.put('/examenOrina/'+props.analisis.idExamenOrina, values)
+                        .then(res => {
+                            console.log(res)
+                            props.history.push("/examenOrina/"+props.analisis.idExamenOrina+"?editarExamenOrina=1");
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            props.history.push("/examenOrina/"+props.analisis.idExamenOrina+"?editarExamenOrina=0");
+                        });
+            }
+            else
+            {
+                http.post('/examenOrina', values)
+                        .then(res => {
+                            console.log(res)
+                            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarExamenOrina=1");
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarExamenOrina=0");
+                        });
+            }
         }
     }
 
     return(
         <center className={classes.root}>
-            <Typography variant="h5">Examen de Orina de {beneficiario.nombreBeneficiario} </Typography>
+            <Typography variant="h5">Examen de Orina de {props.editar ? props.analisis.nombreBeneficiario : beneficiario.nombreBeneficiario} </Typography>
             <form>
                 <Typography variant="h6">Examen Macroscópico</Typography>
                 <FormControl error={errores.color} className={classes.textoLargo}>
@@ -899,7 +943,7 @@ export default function ExamenOrinaForm (props)
                     </FormControl>
                 </div>
                 <div className={classes.botones}>
-                    <Button variant="contained" color='primary' onClick={handleSubmit}>Registrar</Button>
+                    <Button variant="contained" color='primary' onClick={handleSubmit}>{props.editar ? 'Editar' : 'Registrar'}</Button>
                 </div>
             </form>
         </center>

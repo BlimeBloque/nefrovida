@@ -272,6 +272,13 @@ const DetalleDepuracionCreatinina = (props) => {
                 </div>
             </Paper>
             </Container>
+            
+            {/* EDITAR DEPURACION DE CREATININA RETRO*/}
+            <Mensaje
+                success={args.includes("editarDepuracionCreatinina") ? args.slice(-1) : -1} 
+                mensajeExito={"Se actualizó la depuración de creatinina."}
+                mensajeError={"Hubo un error al editar la depuración de creatinina."}
+            />
 
         </div>
     );

@@ -81,7 +81,7 @@ class QuimicaSanguineaController extends Controller
      * @param  \App\Models\QuimicaSanguinea  $quimicaSanguinea
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, QuimicaSanguinea $idQuimicaSanguinea)
+    public function update(Request $request, $idQuimicaSanguinea)
     {
         $request->validate([
             'idBeneficiario' => 'required|numeric',

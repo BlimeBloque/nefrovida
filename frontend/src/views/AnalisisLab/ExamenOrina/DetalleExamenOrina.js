@@ -197,6 +197,13 @@ const DetalleExamenOrina = (props) => {
             </Paper>
             </Container>
 
+            {/* EDITAR EXAMEN ORINA RETRO*/}
+            <Mensaje
+                success={args.includes("editarExamenOrina") ? args.slice(-1) : -1} 
+                mensajeExito={"Se actualizó el examen de orina."}
+                mensajeError={"Hubo un error al editar el examen de orina."}
+            />
+
         </div>
     );
 

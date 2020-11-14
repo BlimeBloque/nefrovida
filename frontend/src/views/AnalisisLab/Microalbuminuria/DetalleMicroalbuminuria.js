@@ -274,7 +274,12 @@ const DetalleMicroalbuminuria = (props) => {
                 </div>
             </Paper>
             </Container>
-
+            {/* EDITAR MICROALBUMINURIA RETRO*/}
+            <Mensaje
+                success={args.includes("editarMicroalbuminuria") ? args.slice(-1) : -1} 
+                mensajeExito={"Se actualizó la micralbuminuría."}
+                mensajeError={"Hubo un error al editar la micralbuminuría."}
+            />
         </div>
     );
 
