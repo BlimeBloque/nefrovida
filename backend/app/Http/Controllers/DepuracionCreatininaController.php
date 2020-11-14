@@ -82,9 +82,49 @@ class DepuracionCreatininaController extends Controller
      * @param  \App\Models\DepuracionCreatinina  $depuracionCreatinina
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DepuracionCreatinina $depuracionCreatinina)
+    public function update(Request $request, DepuracionCreatinina $idDepuracionCreatinina)
     {
-        //
+        $request->validate([
+            'idBeneficiario' => 'required|numeric',
+            'talla' => 'numeric|nullable',
+            'peso' => 'numeric|nullable',
+            'volumen' => 'numeric|nullable',
+            'superficieCorporal' => 'numeric|nullable',
+            'creatininaEnSuero' => 'numeric|nullable',
+            'valorCreatininaBajoMujer' => 'numeric|nullable',
+            'valorCreatininaAltoMujer' => 'numeric|nullable',
+            'valorCreatininaBajoHombre' => 'numeric|nullable',
+            'valorCreatininaAltoHombre' => 'numeric|nullable',
+            'depuracionCreatinina' => 'numeric|nullable',
+            'valorDepuracionBajoMujer' => 'numeric|nullable',
+            'valorDepuracionAltoMujer' => 'numeric|nullable',
+            'valorDepuracionBajoHombre' => 'numeric|nullable',
+            'valorDepuracionAltoHombre' => 'numeric|nullable',
+            'nota' => 'nullable',
+            'metodo' => 'max:255|nullable',
+        ]);
+
+        $depuracionCreatinina = DepuracionCreatinina::find($idDepuracionCreatinina);
+
+        $depuracionCreatinina->idBeneficiario = $request->input("idBeneficiario");
+        $depuracionCreatinina->talla = $request->input("talla");
+        $depuracionCreatinina->peso = $request->input("peso");
+        $depuracionCreatinina->volumen = $request->input("volumen");
+        $depuracionCreatinina->superficieCorporal = $request->input("superficieCorporal");
+        $depuracionCreatinina->creatininaEnSuero = $request->input("creatininaEnSuero");
+        $depuracionCreatinina->valorCreatininaBajoMujer = $request->input("valorCreatininaBajoMujer");
+        $depuracionCreatinina->valorCreatininaAltoMujer = $request->input("valorCreatininaAltoMujer");
+        $depuracionCreatinina->valorCreatininaBajoHombre = $request->input("valorCreatininaBajoHombre");
+        $depuracionCreatinina->valorCreatininaAltoHombre = $request->input("valorCreatininaAltoHombre");
+        $depuracionCreatinina->depuracionCreatinina = $request->input("depuracionCreatinina");
+        $depuracionCreatinina->valorDepuracionBajoMujer = $request->input("valorDepuracionBajoMujer");
+        $depuracionCreatinina->valorDepuracionAltoMujer = $request->input("valorDepuracionAltoMujer");
+        $depuracionCreatinina->valorDepuracionBajoHombre = $request->input("valorDepuracionBajoHombre");
+        $depuracionCreatinina->valorDepuracionAltoHombre = $request->input("valorDepuracionAltoHombre");
+        $depuracionCreatinina->nota = $request->input("nota");
+        $depuracionCreatinina->metodo = $request->input("metodo");
+
+        $depuracionCreatinina->save();
     }
 
     /**

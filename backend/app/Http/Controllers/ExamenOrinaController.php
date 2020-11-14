@@ -50,7 +50,6 @@ class ExamenOrinaController extends Controller
             'celulasEpiteliales' => 'max:255|nullable',
             'bacterias' => 'max:255|nullable',
             'nota' => 'nullable',
-            'metodo' => 'max:255|nullable',
         ]);
 
         $examenOrina = ExamenOrina::create($request->all());
@@ -86,9 +85,57 @@ class ExamenOrinaController extends Controller
      * @param  \App\Models\ExamenOrina  $examenOrina
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ExamenOrina $examenOrina)
+    public function update(Request $request, ExamenOrina $idExamenOrina)
     {
-        //
+        $request->validate([
+            'idBeneficiario' => 'required|numeric',
+            'color' => 'max:255|nullable',
+            'aspecto' => 'max:255|nullable',
+            'ph' => 'numeric|nullable',
+            'densidad' => 'numeric|nullable',
+            'nitritos' => 'max:255|nullable',
+            'glucosa' => 'max:255|nullable',
+            'proteinas' => 'max:255|nullable',
+            'hemoglobina' => 'max:255|nullable',
+            'cuerposCetonicos' => 'max:255|nullable',
+            'bilirribuna' => 'max:255|nullable',
+            'urobilinogeno' => 'max:255|nullable',
+            'leucocitos' => 'max:255|nullable',
+            'eritrocitosIntactos' => 'max:255|nullable',
+            'eritrocitosCrenados' => 'max:255|nullable',
+            'observacionLeucocitos' => 'max:255|nullable',
+            'cristales' => 'max:255|nullable',
+            'cilindros' => 'max:255|nullable',
+            'celulasEpiteliales' => 'max:255|nullable',
+            'bacterias' => 'max:255|nullable',
+            'nota' => 'nullable',
+        ]);
+
+        $examenOrina = ExamenOrina::find($idExamenOrina);
+
+        $examenOrina->idBeneficiario = $request->input("idBeneficiario");
+        $examenOrina->color = $request->input("color");
+        $examenOrina->aspecto = $request->input("aspecto");
+        $examenOrina->ph = $request->input("ph");
+        $examenOrina->densidad = $request->input("densidad");
+        $examenOrina->nitritos = $request->input("nitritos");
+        $examenOrina->glucosa = $request->input("glucosa");
+        $examenOrina->proteinas = $request->input("proteinas");
+        $examenOrina->hemoglobina = $request->input("hemoglobina");
+        $examenOrina->cuerposCetonicos = $request->input("cuerposCetonicos");
+        $examenOrina->bilirribuna = $request->input("bilirribuna");
+        $examenOrina->urobilinogeno = $request->input("urobilinogeno");
+        $examenOrina->leucocitos = $request->input("leucocitos");
+        $examenOrina->eritrocitosIntactos = $request->input("eritrocitosIntactos");
+        $examenOrina->eritrocitosCrenados = $request->input("eritrocitosCrenados");
+        $examenOrina->observacionLeucocitos = $request->input("observacionLeucocitos");
+        $examenOrina->cristales = $request->input("cristales");
+        $examenOrina->cilindros = $request->input("cilindros");
+        $examenOrina->celulasEpiteliales = $request->input("celulasEpiteliales");
+        $examenOrina->bacterias = $request->input("bacterias");
+        $examenOrina->nota = $request->input("nota");
+
+        $examenOrina->save();
     }
 
     /**
