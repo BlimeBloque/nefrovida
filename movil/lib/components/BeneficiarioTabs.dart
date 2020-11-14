@@ -4,12 +4,14 @@ import 'package:movil/components/NefrovidaDrawer.dart';
 import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/CardBeneficiario.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionConsultas.dart';
+import 'package:movil/screens/Beneficiaries/Secciones/SeccionNotas.dart';
 
 class BeneficiarioTabs extends StatefulWidget {
   final Beneficiario beneficiario;
-  BeneficiarioTabs({Key key,@required this.beneficiario}) : super(key: key);
+  BeneficiarioTabs({Key key, @required this.beneficiario}) : super(key: key);
   @override
-  _BeneficiarioTabsState createState() => _BeneficiarioTabsState(this.beneficiario);
+  _BeneficiarioTabsState createState() =>
+      _BeneficiarioTabsState(this.beneficiario);
 }
 
 class _BeneficiarioTabsState extends State<BeneficiarioTabs> {
@@ -42,13 +44,13 @@ class _BeneficiarioTabsState extends State<BeneficiarioTabs> {
         body: TabBarView(
           children: [
             CardBeneficiario(beneficiario: this.beneficiario),
-            Center( child: Text("Antecedentes")),
-            Center( child: Text("Tamizajes")),
-            Center( child: Text("Evaluaciones")),
+            Center(child: Text("Antecedentes")),
+            Center(child: Text("Tamizajes")),
+            Center(child: Text("Evaluaciones")),
             SeccionConsultas(beneficiario: this.beneficiario),
-            Center( child: Text("Análisis")),
-            Center( child: Text("Notas")),
-            Center( child: Text("Evidencias")),
+            Center(child: Text("Análisis")),
+            SeccionNotas(beneficiario: this.beneficiario),
+            Center(child: Text("Evidencias")),
           ],
         ),
         drawer: new NefrovidaDrawer(),

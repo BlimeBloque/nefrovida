@@ -1,15 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/screens/Beneficiaries/Notas/AgregarNotaScreen.dart';
 
 class CardBeneficiario extends StatelessWidget {
-
   final Beneficiario beneficiario;
-  CardBeneficiario({Key key,@required this.beneficiario}) : super(key: key);
+  CardBeneficiario({Key key, @required this.beneficiario}) : super(key: key);
 
-  boolToString(int b){
-    if(b == 1){
+  boolToString(int b) {
+    if (b == 1) {
       return 'Si';
     } else {
       return 'No';
@@ -25,23 +23,23 @@ class CardBeneficiario extends StatelessWidget {
   }
 
   getEscolaridad(int e) {
-    if(e == 1){
+    if (e == 1) {
       return 'Primaria';
     } else if (e == 2) {
       return 'Secundaria';
-    } else if (e == 3){
+    } else if (e == 3) {
       return 'Preparatoria';
-    } else if (e == 4){
+    } else if (e == 4) {
       return 'Universidad';
     } else {
       return 'Analfabeta';
     }
   }
 
-  getNacimiento(String n){
+  getNacimiento(String n) {
     var arr = [];
     arr = n.split("-");
-    if(arr[1] == '01'){
+    if (arr[1] == '01') {
       arr[1] = 'Ene';
     } else if (arr[1] == '02') {
       arr[1] = 'Feb';
@@ -73,8 +71,6 @@ class CardBeneficiario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Card(
@@ -86,59 +82,55 @@ class CardBeneficiario extends StatelessWidget {
               leading: Icon(Icons.account_circle_outlined),
               title: Text(
                 beneficiario.nombreBeneficiario,
-                style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold
-                ),
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
             Text(
-              '         Nacimiento: ${getNacimiento(beneficiario.fechaNacimiento) }',
+              '         Nacimiento: ${getNacimiento(beneficiario.fechaNacimiento)}',
               style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
               ),
             ),
             Text(
               '         Sexo: ${getSexo(beneficiario.sexo.toString())}',
               style: const TextStyle(
-                  fontSize: 18,
+                fontSize: 18,
                 fontWeight: FontWeight.w300,
               ),
             ),
             Text(
               '         Escolaridad: ${getEscolaridad(beneficiario.idEscolaridad)}',
               style: const TextStyle(
-                  fontSize: 18,
+                fontSize: 18,
                 fontWeight: FontWeight.w300,
               ),
             ),
             Text(
               '         Telefono: ${beneficiario.telefono}',
               style: const TextStyle(
-                  fontSize: 18,
+                fontSize: 18,
                 fontWeight: FontWeight.w300,
               ),
             ),
-            Text(
-              '         Direccion: ${beneficiario.direccion}',
-              style: const TextStyle(
+            Text('         Direccion: ${beneficiario.direccion}',
+                style: const TextStyle(
                   fontSize: 18,
-                fontWeight: FontWeight.w300,
-              ),
-              softWrap: true
-            ),
+                  fontWeight: FontWeight.w300,
+                ),
+                softWrap: true),
             Text(
               '         De Seguimiento: ${boolToString(beneficiario.seguimiento)}',
               style: const TextStyle(
-                  fontSize: 18,
+                fontSize: 18,
                 fontWeight: FontWeight.w300,
               ),
             ),
             Text(
-                '         Activo: ${boolToString(beneficiario.activo)}',
+              '         Activo: ${boolToString(beneficiario.activo)}',
               style: const TextStyle(
-                  fontSize: 18,
+                fontSize: 18,
                 fontWeight: FontWeight.w300,
               ),
             ),
@@ -148,9 +140,7 @@ class CardBeneficiario extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.edit),
                   tooltip: 'Editar Beneficiario',
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => AgregarNotaScreen(id: beneficiario.idBeneficiario)));
-                  },
+                  onPressed: () {},
                 ),
               ],
             ),
