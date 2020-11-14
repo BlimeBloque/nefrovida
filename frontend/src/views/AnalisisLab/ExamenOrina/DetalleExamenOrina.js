@@ -187,10 +187,6 @@ const DetalleExamenOrina = (props) => {
                     </Typography>
                 </center>
                 <div>
-                    <Typography variant="body1" className={detalle.metodo ? classes.normal : classes.faltante}>
-                        <strong className={classes.normal}>Método: </strong>
-                        {detalle.metodo ? detalle.metodo : "No registrado"}
-                    </Typography>
                     <Typography variant="body1" className={detalle.nota ? classes.normal : classes.faltante}>
                         <strong className={classes.normal}>Nota: </strong>
                         <Paper className={classes.nota}>

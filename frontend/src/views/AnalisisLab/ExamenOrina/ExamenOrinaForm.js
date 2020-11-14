@@ -67,7 +67,6 @@ const initialValues = {
     celulasEpiteliales: '',
     bacterias: '',
     nota: '',
-    metodo: 'Colorimétrico',
 }
 
 const initialErrorValues = {
@@ -92,7 +91,6 @@ const initialErrorValues = {
     celulasEpiteliales: false,
     bacterias: false,
     nota: false,
-    metodo: false,
 }
 
 export default function ExamenOrinaForm (props)
@@ -559,28 +557,6 @@ export default function ExamenOrinaForm (props)
         }
     }
 
-    const handleMetodoChange = (event) => {
-        handleInputChange(event);
-        validateMetodo(event.target.value);
-    }
-
-    const validateMetodo = (metodo) =>
-    {
-        if(metodo.length > 0 & isNullOrWhitespace(metodo))
-        {
-            setErrores({
-                ...errores,
-                'metodo': true
-            });
-        }
-        else
-        {
-            setErrores({
-                ...errores,
-                'metodo': false
-            });
-        }
-    }
 
     const handleNotaChange = (event) => {
         handleInputChange(event);
@@ -611,7 +587,7 @@ export default function ExamenOrinaForm (props)
             || errores. proteinas || errores.hemoglobina || errores.cuerposCetonicos || errores.bilirribuna
             || errores.urobilinogeno || errores.leucocitos || errores.eritrocitosIntactos || errores.eritrocitosCrenados
             || errores.observacionLeucocitos || errores.cristales || errores.cilindros || errores.celulasEpiteliales
-            || errores.bacterias || errores.nota || errores.metodo)
+            || errores.bacterias || errores.nota)
             submit = false;
         
         if(submit)
@@ -902,19 +878,6 @@ export default function ExamenOrinaForm (props)
                             aria-describedby="component-error-text"
                             />
                             <FormHelperText style={{display: errores.bacterias ? "block" : "none"}} id="component-error-text">
-                                Escribe una respuesta válida.
-                            </FormHelperText>
-                        </FormControl>
-                        <FormControl error={errores.metodo} className={classes.textoCorto}>
-                            <InputLabel htmlFor="component-error">Método</InputLabel>
-                            <Input
-                            id="component-error"
-                            value={values.metodo}
-                            name="metodo"
-                            onChange={handleMetodoChange}
-                            aria-describedby="component-error-text"
-                            />
-                            <FormHelperText style={{display: errores.metodo ? "block" : "none"}} id="component-error-text">
                                 Escribe una respuesta válida.
                             </FormHelperText>
                         </FormControl>
