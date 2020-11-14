@@ -133,8 +133,8 @@ class DepuracionCreatininaController extends Controller
      * @param  \App\Models\DepuracionCreatinina  $depuracionCreatinina
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DepuracionCreatinina $depuracionCreatinina)
+    public function destroy($idDepuracionCreatinina)
     {
-        //
+        DepuracionCreatinina::destroy($idDepuracionCreatinina);
     }
 }

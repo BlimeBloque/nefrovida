@@ -130,8 +130,8 @@ class MicroalbuminuriaController extends Controller
      * @param  \App\Models\Microalbuminuria  $microalbuminuria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Microalbuminuria $microalbuminuria)
+    public function destroy($idMicroalbuminuria)
     {
-        //
+        Microalbuminuria::destroy($idMicroalbuminuria);
     }
 }

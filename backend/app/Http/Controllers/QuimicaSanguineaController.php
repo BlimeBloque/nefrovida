@@ -132,8 +132,8 @@ class QuimicaSanguineaController extends Controller
      * @param  \App\Models\QuimicaSanguinea  $quimicaSanguinea
      * @return \Illuminate\Http\Response
      */
-    public function destroy(QuimicaSanguinea $quimicaSanguinea)
+    public function destroy($idQuimicaSanguinea)
     {
-        //
+        QuimicaSanguinea::destroy($idQuimicaSanguinea);
     }
 }

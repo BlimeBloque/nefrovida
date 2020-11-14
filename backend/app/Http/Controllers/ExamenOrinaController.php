@@ -144,8 +144,8 @@ class ExamenOrinaController extends Controller
      * @param  \App\Models\ExamenOrina  $examenOrina
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ExamenOrina $examenOrina)
+    public function destroy($idExamenOrina)
     {
-        //
+        ExamenOrina::destroy($idExamenOrina);
     }
 }
