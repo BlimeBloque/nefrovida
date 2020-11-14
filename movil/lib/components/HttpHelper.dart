@@ -15,7 +15,7 @@ class HttpHelper {
     Saul:
     Randy:
   */
-  String ip = "http://192.168.42.123";
+  String ip = "http://192.168.42.138";
   String baseUrl = ":8000/api";
 
   Future<List<Beneficiario>> getAllBeneficiarios() async {
@@ -24,7 +24,8 @@ class HttpHelper {
     http.Response resp = await http.get(uri);
     if (resp.statusCode == 200) {
       final decodedJsonMap = json.decode(resp.body);
-      Beneficiarios listaBeneficiarios = new Beneficiarios.fromJsonList(decodedJsonMap['data']);
+      Beneficiarios listaBeneficiarios =
+          new Beneficiarios.fromJsonList(decodedJsonMap['data']);
       return listaBeneficiarios.beneficiarios;
     } else {
       return null;
@@ -41,7 +42,8 @@ class HttpHelper {
     if (resp.statusCode == 200) {
       final decodedJsonMap = json.decode(resp.body);
       print(decodedJsonMap);
-      ConsultasNutricion listaConsultas = new ConsultasNutricion.fromJsonList(decodedJsonMap);
+      ConsultasNutricion listaConsultas =
+          new ConsultasNutricion.fromJsonList(decodedJsonMap);
       return listaConsultas.consultasNutricion;
     } else {
       return null;
@@ -106,7 +108,8 @@ class HttpHelper {
     http.Response resp = await http.get(uri);
     if (resp.statusCode == 200) {
       final decodedJsonMap = json.decode(resp.body);
-      TiposNotas listaTipos = new TiposNotas.fromJsonList(decodedJsonMap['data']);
+      TiposNotas listaTipos =
+          new TiposNotas.fromJsonList(decodedJsonMap['data']);
       return listaTipos.tipos;
     } else {
       return null;
@@ -147,6 +150,4 @@ class HttpHelper {
       return null;
     }
   }
-
-
 }
