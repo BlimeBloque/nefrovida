@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import Mensaje from '../../../components/Mensaje';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import EliminarMicroalbuminuria from './EliminarMicroalbuminuria';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -91,8 +92,17 @@ const useStyle = makeStyles(theme => ({
 const DetalleMicroalbuminuria = (props) => {
     const classes = useStyle();
     const [detalle, setDetalle] = useState([]);
+    const [eliminarOpen, setEliminarOpen] = useState(false);
     const idMicroalbuminuria = props.match.params.idMicroalbuminuria;
     const args = props.location.search;
+
+    const handleEliminarOpen = () => {
+        setEliminarOpen(true);
+    }
+
+    const handleEliminarClose = () => {
+        setEliminarOpen(false);
+    }
 
     useEffect ( () => {
         http.get('/microalbuminuria/'+idMicroalbuminuria)
@@ -176,7 +186,7 @@ const DetalleMicroalbuminuria = (props) => {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Eliminar" arrow>
-                            <IconButton aria-label="Eliminar" color="secondary">
+                            <IconButton aria-label="Eliminar" color="secondary" onClick={handleEliminarOpen}>
                                 <RemoveCircleIcon fontSize="large" />
                             </IconButton>
                         </Tooltip>
@@ -274,6 +284,18 @@ const DetalleMicroalbuminuria = (props) => {
                 </div>
             </Paper>
             </Container>
+
+            <EliminarMicroalbuminuria
+                open={eliminarOpen}
+                handleOpen={handleEliminarOpen}
+                handleClose={handleEliminarClose}
+                history={props.history}
+                idBeneficiario={detalle.idBeneficiario}
+                idMicroalbuminuria={detalle.idMicroalbuminuria}
+                nombre={detalle.nombreBeneficiario}
+                fecha={fecha}
+            />
+
             {/* EDITAR MICROALBUMINURIA RETRO*/}
             <Mensaje
                 success={args.includes("editarMicroalbuminuria") ? args.slice(-1) : -1} 

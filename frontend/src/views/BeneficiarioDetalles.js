@@ -171,6 +171,13 @@ const BeneficiarioDetalles = (props) => {
         mensajeError={"Hubo un error al registrar el examen de orina."}
       />
 
+      {/*ELIMINAR EXAMEN ORINA RETRO*/}
+      <Mensaje 
+        success={args.includes("eliminarExamenOrina") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminó el examen de orina."}
+        mensajeError={"Hubo un error al eliminar el examen de orina."}
+      />
+
       {/*AGREGAR DEPURACION DE CREATININA RETRO*/}
       <Mensaje 
         success={args.includes("agregarDepuracionCreatinina") ? args.slice(-1) : -1} 
@@ -178,18 +185,39 @@ const BeneficiarioDetalles = (props) => {
         mensajeError={"Hubo un error al registrar la depuración de creatinina."}
       />
 
+      {/*ELIMINAR DEPURACION DE CREATININA RETRO*/}
+      <Mensaje 
+        success={args.includes("eliminarDepuracionCreatinina") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminó la depuración de creatinina."}
+        mensajeError={"Hubo un error al eliminar la depuración de creatinina."}
+      />
+
       {/*AGREGAR QUIMICA SANGUINEA RETRO*/}
       <Mensaje 
         success={args.includes("agregarQuimicaSanguinea") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró el análisis de química sanguínea."}
-        mensajeError={"Hubo un error el análisis de química sanguínea."}
+        mensajeError={"Hubo un error al registrar el análisis de química sanguínea."}
+      />
+
+      {/*ELIMINAR QUIMICA SANGUINEA RETRO*/}
+      <Mensaje 
+        success={args.includes("eliminarQuimicaSanguinea") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminó el análisis de química sanguínea."}
+        mensajeError={"Hubo un error al eliminar el análisis de química sanguínea."}
       />
 
       {/*AGREGAR MICROALBUMINURIA RETRO*/}
       <Mensaje 
         success={args.includes("agregarMicroalbuminuria") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró el análisis de microalbuminuría."}
-        mensajeError={"Hubo un error el análisis de microalbuminuría."}
+        mensajeError={"Hubo un error al registrar el análisis de microalbuminuría."}
+      />
+
+      {/*ELIMINAR MICROALBUMINURIA RETRO*/}
+      <Mensaje 
+        success={args.includes("eliminarMicroalbuminuria") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminó el análisis de microalbuminuría."}
+        mensajeError={"Hubo un error al eliminar análisis de microalbuminuría."}
       />
       
 

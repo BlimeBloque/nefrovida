@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import Mensaje from '../../../components/Mensaje';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import EliminarDepuracionCreatinina from './EliminarDepuracionCreatinina';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -86,8 +87,17 @@ const useStyle = makeStyles(theme => ({
 const DetalleDepuracionCreatinina = (props) => {
     const classes = useStyle();
     const [detalle, setDetalle] = useState([]);
+    const [eliminarOpen, setEliminarOpen] = useState(false);
     const idDepuracionCreatinina = props.match.params.idDepuracionCreatinina;
     const args = props.location.search;
+
+    const handleEliminarOpen = () => {
+        setEliminarOpen(true);
+    }
+
+    const handleEliminarClose = () => {
+        setEliminarOpen(false);
+    }
 
     useEffect ( () => {
         http.get('/depuracionCreatinina/'+idDepuracionCreatinina)
@@ -164,7 +174,7 @@ const DetalleDepuracionCreatinina = (props) => {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Eliminar" arrow>
-                            <IconButton aria-label="Eliminar" color="secondary">
+                            <IconButton aria-label="Eliminar" color="secondary" onClick={handleEliminarOpen}>
                                 <RemoveCircleIcon fontSize="large" />
                             </IconButton>
                         </Tooltip>
@@ -272,6 +282,17 @@ const DetalleDepuracionCreatinina = (props) => {
                 </div>
             </Paper>
             </Container>
+
+            <EliminarDepuracionCreatinina
+                open={eliminarOpen}
+                handleOpen={handleEliminarOpen}
+                handleClose={handleEliminarClose}
+                history={props.history}
+                idBeneficiario={detalle.idBeneficiario}
+                idDepuracionCreatinina={detalle.idDepuracionCreatinina}
+                nombre={detalle.nombreBeneficiario}
+                fecha={fecha}
+            />
             
             {/* EDITAR DEPURACION DE CREATININA RETRO*/}
             <Mensaje

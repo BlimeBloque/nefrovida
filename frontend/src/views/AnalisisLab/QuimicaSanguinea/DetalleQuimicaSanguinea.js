@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import Mensaje from '../../../components/Mensaje';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import EliminarQuimicaSanguinea from './EliminarQuimicaSanguinea';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -86,8 +87,17 @@ const useStyle = makeStyles(theme => ({
 const DetalleQuimicaSanguinea = (props) => {
     const classes = useStyle();
     const [detalle, setDetalle] = useState([]);
+    const [eliminarOpen, setEliminarOpen] = useState(false);
     const idQuimicaSanguinea = props.match.params.idQuimicaSanguinea;
     const args = props.location.search;
+
+    const handleEliminarOpen = () => {
+        setEliminarOpen(true);
+    }
+
+    const handleEliminarClose = () => {
+        setEliminarOpen(false);
+    }
 
     useEffect ( () => {
         http.get('/quimicaSanguinea/'+idQuimicaSanguinea)
@@ -187,7 +197,7 @@ const DetalleQuimicaSanguinea = (props) => {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Eliminar" arrow>
-                            <IconButton aria-label="Eliminar" color="secondary">
+                            <IconButton aria-label="Eliminar" color="secondary" onClick={handleEliminarOpen}>
                                 <RemoveCircleIcon fontSize="large" />
                             </IconButton>
                         </Tooltip>
@@ -290,6 +300,17 @@ const DetalleQuimicaSanguinea = (props) => {
                 </div>
             </Paper>
             </Container>
+
+            <EliminarQuimicaSanguinea
+                open={eliminarOpen}
+                handleOpen={handleEliminarOpen}
+                handleClose={handleEliminarClose}
+                history={props.history}
+                idBeneficiario={detalle.idBeneficiario}
+                idQuimicaSanguinea={detalle.idQuimicaSanguinea}
+                nombre={detalle.nombreBeneficiario}
+                fecha={fecha}
+            />
 
             {/* EDITAR QUIMICA SANGUINEA RETRO*/}
             <Mensaje

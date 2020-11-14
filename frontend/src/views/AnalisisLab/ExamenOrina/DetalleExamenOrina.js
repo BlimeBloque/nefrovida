@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import Mensaje from '../../../components/Mensaje';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import EliminarExamenOrina from './EliminarExamenOrina';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -57,8 +58,17 @@ const useStyle = makeStyles(theme => ({
 const DetalleExamenOrina = (props) => {
     const classes = useStyle();
     const [detalle, setDetalle] = useState([]);
+    const [eliminarOpen, setEliminarOpen] = useState(false);
     const idExamenOrina = props.match.params.idExamenOrina;
     const args = props.location.search;
+
+    const handleEliminarOpen = () => {
+        setEliminarOpen(true);
+    }
+
+    const handleEliminarClose = () => {
+        setEliminarOpen(false);
+    }
 
     useEffect ( () => {
         http.get('/examenOrina/'+idExamenOrina)
@@ -95,7 +105,7 @@ const DetalleExamenOrina = (props) => {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Eliminar" arrow>
-                            <IconButton aria-label="Eliminar" color="secondary">
+                            <IconButton aria-label="Eliminar" color="secondary" onClick={handleEliminarOpen}>
                                 <RemoveCircleIcon fontSize="large" />
                             </IconButton>
                         </Tooltip>
@@ -196,6 +206,17 @@ const DetalleExamenOrina = (props) => {
                 </div>
             </Paper>
             </Container>
+
+            <EliminarExamenOrina
+                open={eliminarOpen}
+                handleOpen={handleEliminarOpen}
+                handleClose={handleEliminarClose}
+                history={props.history}
+                idBeneficiario={detalle.idBeneficiario}
+                idExamenOrina={detalle.idExamenOrina}
+                nombre={detalle.nombreBeneficiario}
+                fecha={fecha}
+            />
 
             {/* EDITAR EXAMEN ORINA RETRO*/}
             <Mensaje
