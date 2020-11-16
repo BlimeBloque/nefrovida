@@ -155,10 +155,29 @@ function EditarEvaluacionValores(props) {
                 {
                         opciones.map((valor) => (
                                 <FormControl component="fieldset" style={{display: 'block'}}>
+                                    {   
+                                        // Numerar preguntas
+                                        valor.idOpcionEvaluacion == 1 || valor.idOpcionEvaluacion == 10 ?
+                                            <Typography variant="h5">Área médica</Typography>:
+                                            <></>
+                                    }
+                                    {   
+                                        // Numerar preguntas
+                                        valor.idOpcionEvaluacion == 4  || valor.idOpcionEvaluacion == 13 ?
+                                            <Typography variant="h5">Área de nutriología</Typography>:
+                                            <></>
+                                    }
+                                    {   
+                                        // Numerar preguntas
+                                        valor.idOpcionEvaluacion == 7 || valor.idOpcionEvaluacion == 16 ?
+                                            <Typography variant="h5">Área de psicología</Typography>:
+                                            <></>
+                                    }
                                     {
-                                        idEvaluacion == 1 ?
-                                        <Typography variant="h6">{valor.idOpcionEvaluacion}.- {valor.evaluacionPregunta}</Typography> :
-                                        <Typography variant="h6">{valor.idOpcionEvaluacion-9}.- {valor.evaluacionPregunta}</Typography>
+                                        idEvaluacion == 1 ? 
+                                        <Typography>{valor.idOpcionEvaluacion}.- {valor.evaluacionPregunta}</Typography>:
+                                        <Typography>{valor.idOpcionEvaluacion-9}.- {valor.evaluacionPregunta}</Typography>
+
                                     }
 
                                     <RadioGroup 
