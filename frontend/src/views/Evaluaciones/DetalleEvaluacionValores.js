@@ -72,6 +72,24 @@ export default function DetalleEvaluacionValores(props) {
                 valoresInicio ? // Cuando regrese el json, mapearlo
                     valoresInicio.map((valor) => (
                         <>
+                            {
+                                // Numerar preguntas
+                                valor.idOpcionEvaluacion == 1 ?
+                                    <Typography variant="h5">Área médica</Typography>:
+                                    <></>
+                            }
+                            {  
+                                // Numerar preguntas
+                                valor.idOpcionEvaluacion == 4  ?
+                                    <Typography variant="h5">Área de nutriología</Typography>:
+                                    <></>
+                            }
+                            {  
+                                // Numerar preguntas
+                                valor.idOpcionEvaluacion == 7  ?
+                                    <Typography variant="h5">Área de psicología</Typography>:
+                                    <></>
+                            }
                             <Typography variant="h6">{valor.idOpcionEvaluacion}.- {valor.evaluacionPregunta}</Typography>
                             <Typography variant="body1">Respuesta: <em><strong>{valor.respuestasPosibles}</strong></em></Typography> <br/>
                         </>
@@ -82,9 +100,27 @@ export default function DetalleEvaluacionValores(props) {
                  valoresFin ?
                  valoresFin.map((valor) => (
                     <>
-                        <Typography variant="h6">{valor.idOpcionEvaluacion-9}.- {valor.evaluacionPregunta}</Typography>
-                        <Typography variant="subtitle1">Respuesta: <em><strong>{valor.respuestasPosibles}</strong></em></Typography> <br/>
-                    </>
+                            {
+                                // Numerar preguntas
+                                 valor.idOpcionEvaluacion == 10 ?
+                                    <Typography variant="h5">Área médica</Typography>:
+                                    <></>
+                            }
+                            {  
+                                // Numerar preguntas
+                                valor.idOpcionEvaluacion == 13 ?
+                                    <Typography variant="h5">Área de nutriología</Typography>:
+                                    <></>
+                            }
+                            {  
+                                // Numerar preguntas
+                                valor.idOpcionEvaluacion == 16 ?
+                                    <Typography variant="h5">Área de psicología</Typography>:
+                                    <></>
+                            }
+                            <Typography variant="h6">{valor.idOpcionEvaluacion-9}.- {valor.evaluacionPregunta}</Typography>
+                            <Typography variant="body1">Respuesta: <em><strong>{valor.respuestasPosibles}</strong></em></Typography> <br/>
+                        </>
                  )) :                  
                 <div/>
             }
