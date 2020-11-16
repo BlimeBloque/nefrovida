@@ -64,6 +64,7 @@ Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Control
 
 Route::resource('evaluacion', EvaluacionesRespuestasController::class);
 Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasController@all');
+Route::put('/editarPreguntasEvaluacion', 'App\Http\Controllers\EvaluacionPreguntasController@editarPreguntas');
 Route::get('/opcionEvaluacion/evaluaciones/{idEvaluacion}', 'App\Http\Controllers\OpcionEvaluacionController@searchByTipoJornada');
 Route::get('evaluacionesInicio/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@searchByBenefStart');
 Route::get('evaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@searchByBenefEnd');

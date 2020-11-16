@@ -13,4 +13,14 @@ class EvaluacionPreguntasController extends Controller
 
         return new EvaluacionesPreguntasCollection(EvaluacionesPreguntas::all());
     }
+
+    public function editarPreguntas(Request $request) {
+        $request->validate([
+            "evaluacionPregunta" => "required"
+        ]);
+        $pregunta = EvaluacionesPreguntas::find($request->input('idEvaluacionPregunta'));
+        $pregunta->evaluacionPregunta = $request->input('evaluacionPregunta');
+        $pregunta->save();
+
+    }
 }
