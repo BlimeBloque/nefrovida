@@ -35,6 +35,11 @@ const useStyle = makeStyles(theme => ({
     },
 }))
 
+const initialFValues = {
+    id: '1',
+    pregunta: 'a',
+}
+
 function EditarPreguntasEvaluacionForm(props) {
     const {history} = props;
     const classes = useStyle();
@@ -46,18 +51,46 @@ function EditarPreguntasEvaluacionForm(props) {
         http.get('/evaluacionesPreguntas/')
             .then(res => { 
                 setValoresPreguntas(res.data.data)
-                console.log(res.data.data)
+                console.log(res.data)
             })
             .catch((e) => {
                 console.log(e)
             })
     }, []);
 
+    const handleChange = (e) => {
+        const {name , value} = e.target
+        setValoresPreguntas({
+            ...valoresPreguntas,
+            [name]:value 
+        })
+        
+    }
+
     const handleSubmit = (event) => {
         setDisabled(true);
+        let arrayPreguntas = []
+        let valuePregunta = {}
 
-        /* Hacer PUT */
-    
+        valoresPreguntas.forEach(e => {
+            valuePregunta = {
+                idEvaluacionPregunta: e.id,
+                evaluacionPregunta: e.pregunta
+            }
+            arrayPreguntas.push(valuePregunta)
+        });
+        arrayPreguntas.forEach(element => {
+                http.put('/evaluacionesPreguntas/'+props.match.params.idBeneficiario, element)
+                    .then(res => {
+                        props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?agregarEvaluacion=1");
+
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?agregarEvaluacion=0");
+                    });
+        });
+        
     }
 
     return (
@@ -67,7 +100,8 @@ function EditarPreguntasEvaluacionForm(props) {
                 <Typography variant="overline">Evaluación</Typography>
             </div>
             <Divider className={classes.divider}/>
-            {valoresPreguntas.map((e) => (
+            {
+            valoresPreguntas.map((e) => (
             <form>
                 {e.id == 1 ?
                     <>
@@ -87,7 +121,14 @@ function EditarPreguntasEvaluacionForm(props) {
                         <br />
                     </>:<></>
                 }
-                <TextField id={e.id} label={"Pregunta no. "+e.id} defaultValue={e.pregunta} fullWidth variant="outlined"/><br /><br />
+                <TextField 
+                    id={e.id} 
+                    label={"Pregunta no. "+e.id} 
+                    defaultValue={e.pregunta} 
+                    fullWidth variant="outlined"
+                    onChange={handleChange}
+                />
+                    <br /><br />
 
             </form>
             ))}

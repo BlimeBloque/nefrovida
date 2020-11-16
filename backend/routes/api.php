@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeneficiariosController;
 use App\Http\Controllers\ConsultaNutricionController;
 use App\Http\Controllers\EvaluacionesRespuestasController;
-use App\Http\Controllers\EvaluacionesPreguntasController;
+use App\Http\Controllers\EvaluacionPreguntasController;
 use App\Http\Controllers\OpcionEvaluacionController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\ArchivoController;
@@ -63,8 +63,7 @@ Route::resource('consultaNutricion', ConsultaNutricionController::class);
 Route::get('/consultaNutricion/beneficiario/{idBeneficiario}', 'App\Http\Controllers\ConsultaNutricionController@searchByBenef');
 
 Route::resource('evaluacion', EvaluacionesRespuestasController::class);
-Route::get('/evaluacionesPreguntas', 'App\Http\Controllers\EvaluacionPreguntasController@all');
-Route::put('/editarPreguntasEvaluacion', 'App\Http\Controllers\EvaluacionPreguntasController@editarPreguntas');
+Route::resource('evaluacionesPreguntas', EvaluacionPreguntasController::class);
 Route::get('/opcionEvaluacion/evaluaciones/{idEvaluacion}', 'App\Http\Controllers\OpcionEvaluacionController@searchByTipoJornada');
 Route::get('evaluacionesInicio/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@searchByBenefStart');
 Route::get('evaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@searchByBenefEnd');
