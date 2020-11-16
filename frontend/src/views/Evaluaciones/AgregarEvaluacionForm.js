@@ -162,10 +162,29 @@ function AgregarEvaluacionForm(props) {
                 {
                     opciones.map((opcion) => (
                         <FormControl component="fieldset" style={{display: 'block'}}>
-                        {   // Numerar preguntas
+                        {   
+                            // Numerar preguntas
+                            opcion.idOpcionEvaluacion == 1 || opcion.idOpcionEvaluacion == 10 ?
+                                <Typography variant="h5">Área médica</Typography>:
+                                <></>
+                        }
+                        {   
+                            // Numerar preguntas
+                            opcion.idOpcionEvaluacion == 4  || opcion.idOpcionEvaluacion == 13 ?
+                                <Typography variant="h5">Área de nutriología</Typography>:
+                                <></>
+                        }
+                        {   
+                            // Numerar preguntas
+                            opcion.idOpcionEvaluacion == 7 || opcion.idOpcionEvaluacion == 16 ?
+                                <Typography variant="h5">Área de psicología</Typography>:
+                                <></>
+                        }
+                        {
                             idEvaluacion == 1 ? 
-                            <FormLabel>{opcion.idOpcionEvaluacion}.- {opcion.evaluacionPregunta}</FormLabel> :
+                            <FormLabel>{opcion.idOpcionEvaluacion}.- {opcion.evaluacionPregunta}</FormLabel>:
                             <FormLabel>{opcion.idOpcionEvaluacion-9}.- {opcion.evaluacionPregunta}</FormLabel>
+
                         }
                         <RadioGroup 
                             row 
