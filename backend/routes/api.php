@@ -15,6 +15,7 @@ use App\Http\Controllers\ExamenOrinaController;
 use App\Http\Controllers\DepuracionCreatininaController;
 use App\Http\Controllers\QuimicaSanguineaController;
 use App\Http\Controllers\MicroalbuminuriaController;
+use App\Http\Controllers\ReportesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,3 +94,20 @@ Route::get('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\Tami
 Route::post('/tamizaje', 'App\Http\Controllers\TamizajeController@insert');
 Route::post('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@edit');
 Route::delete('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@delete');
+
+//todas las notas de reportes
+
+Route::get('reportes/getSexoTotal', 'App\Http\Controllers\ReportesController@countBySex');
+Route::get('reportes/getSexoJornada/{idJornada}', 'App\Http\Controllers\ReportesController@countBySexAndJourney');
+Route::get('reportes/getEdadesTotal', 'App\Http\Controllers\ReportesController@getEdadesTotales');
+Route::get('reportes/getEdadesJornada/{idJornada}', 'App\Http\Controllers\ReportesController@getEdadesJornada');
+Route::get('reportes/getPruebas', 'App\Http\Controllers\ReportesController@countPruebas');
+Route::get('reportes/getPruebas/{idJornada}', 'App\Http\Controllers\ReportesController@countExamenOrinaJornada');
+Route::get('reportes/getTamizajes', 'App\Http\Controllers\ReportesController@countTamizajes');
+Route::get('reportes/getTamizajes/{idJornada}', 'App\Http\Controllers\ReportesController@ccountTamizajesJornada');
+Route::get('reportes/getCountBeneficiariosConPruebas', 'App\Http\Controllers\ReportesController@conutBenefSinAnalisis');
+Route::get('reportes/getCountBeneficiariosConPruebas/{idJornada}', 'App\Http\Controllers\ReportesController@conutBenefSinAnalisis');
+
+
+
+

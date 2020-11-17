@@ -7,6 +7,7 @@ use App\Http\Resources\Beneficiario as BeneficiarioResource;
 use App\Models\Beneficiarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class BeneficiariosController extends Controller
 {
@@ -69,6 +70,12 @@ class BeneficiariosController extends Controller
     public function show($idBeneficiario)
     {
         return DB::table('beneficiarios') -> where('idBeneficiario', '=', $idBeneficiario) -> get();
+    }
+
+    //Buscar beneficiario por jornada
+    public function searchByJourney($idBeneficiario)
+    {
+       
     }
 
     /**

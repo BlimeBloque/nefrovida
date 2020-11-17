@@ -19,7 +19,7 @@ const Reportes = () => {
     const classes = useStyle()
     return (
         <div className={classes.container}>
-            <Sidenav />
+            <Sidenav titulo="Reportes" />
             <Container>
                 <Paper className={classes.pageContent}>
                     <Reporte/>
