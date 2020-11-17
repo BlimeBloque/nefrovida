@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:movil/classes/Beneficiario.dart';
+import 'package:movil/classes/Jornada.dart';
 import 'package:movil/classes/TipoNota.dart';
+import 'package:movil/classes/Nota.dart';
 import 'package:movil/classes/ConsultaNutricion.dart';
 import 'package:http/http.dart' as http;
 
@@ -66,6 +68,39 @@ class HttpHelper {
     }
   }
 
+  Future<List<NotaGeneral>> getNotas(idBeneficiario) async {
+    String path = "/notas/beneficiario/" + idBeneficiario.toString();
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      Notas listaNotas = new Notas.fromJsonList(decodedJsonMap);
+      return listaNotas.notasGenerales;
+    } else {
+      return null;
+    }
+  }
+
+  Future<Nota> getDetalleNota(idNota) async {
+    String path = "/nota/" + idNota.toString();
+    String uri = ip + baseUrl + path;
+    print(uri);
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      Nota nota;
+      for (var item in decodedJsonMap) {
+        nota = new Nota.fromJsonMap(item);
+      }
+      return nota;
+    } else {
+      return null;
+    }
+  }
+
   Future<List<TipoNota>> getAllTiposNotas() async {
     String path = "/tiponota";
     String uri = ip + baseUrl + path;
@@ -73,7 +108,6 @@ class HttpHelper {
     http.Response resp = await http.get(uri);
     if (resp.statusCode == 200) {
       final decodedJsonMap = json.decode(resp.body);
-      //List<Movie> movies2 = decodedJsonMap['results'].map( (e) =>Movie.fromJsonMap(e));
       TiposNotas listaTipos =
           new TiposNotas.fromJsonList(decodedJsonMap['data']);
       return listaTipos.tipos;
@@ -101,5 +135,19 @@ class HttpHelper {
     print("${response.statusCode}");
     print("${response.body}");
     return response;
+  }
+
+  //----JORNADAS-----
+  Future<List<Jornada>> getAllJornadas() async {
+    String path = "/jornadas";
+    String uri = ip + baseUrl + path;
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      Jornadas listaJornadas = new Jornadas.fromJsonList(decodedJsonMap);
+      return listaJornadas.jornadas;
+    } else {
+      return null;
+    }
   }
 }

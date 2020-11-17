@@ -81,9 +81,49 @@ class QuimicaSanguineaController extends Controller
      * @param  \App\Models\QuimicaSanguinea  $quimicaSanguinea
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, QuimicaSanguinea $quimicaSanguinea)
+    public function update(Request $request, $idQuimicaSanguinea)
     {
-        //
+        $request->validate([
+            'idBeneficiario' => 'required|numeric',
+            'glucosa' => 'nullable|numeric',
+            'valorGlucosaBajo' => 'nullable|numeric',
+            'valorGlucosaAlto' => 'nullable|numeric',
+            'urea' => 'nullable|numeric',
+            'valorUreaBajo' => 'nullable|numeric',
+            'valorUreaAlto' => 'nullable|numeric',
+            'bun' => 'nullable|numeric',
+            'valorBunBajo' => 'nullable|numeric',
+            'valorBunAlto' => 'nullable|numeric',
+            'creatinina' => 'nullable|numeric',
+            'creatininaMujerBajo' => 'nullable|numeric',
+            'creatininaMujerAlto' => 'nullable|numeric',
+            'creatininaHombreBajo' => 'nullable|numeric',
+            'creatininaHombreAlto' => 'nullable|numeric',
+            'nota' => 'max:400|nullable',
+            'metodo' => 'max:255|nullable',
+        ]);
+
+        $quimicaSanguinea = QuimicaSanguinea::find($idQuimicaSanguinea);
+
+        $quimicaSanguinea->idBeneficiario = $request->input("idBeneficiario");
+        $quimicaSanguinea->glucosa = $request->input("glucosa");
+        $quimicaSanguinea->valorGlucosaBajo = $request->input("valorGlucosaBajo");
+        $quimicaSanguinea->valorGlucosaAlto = $request->input("valorGlucosaAlto");
+        $quimicaSanguinea->urea = $request->input("urea");
+        $quimicaSanguinea->valorUreaBajo = $request->input("valorUreaBajo");
+        $quimicaSanguinea->valorUreaAlto = $request->input("valorUreaAlto");
+        $quimicaSanguinea->bun = $request->input("bun");
+        $quimicaSanguinea->valorBunBajo = $request->input("valorBunBajo");
+        $quimicaSanguinea->valorBunAlto = $request->input("valorBunAlto");
+        $quimicaSanguinea->creatinina = $request->input("creatinina");
+        $quimicaSanguinea->creatininaMujerBajo = $request->input("creatininaMujerBajo");
+        $quimicaSanguinea->creatininaMujerAlto = $request->input("creatininaMujerAlto");
+        $quimicaSanguinea->creatininaHombreBajo = $request->input("creatininaHombreBajo");
+        $quimicaSanguinea->creatininaHombreAlto = $request->input("creatininaHombreAlto");
+        $quimicaSanguinea->nota = $request->input("nota");
+        $quimicaSanguinea->metodo = $request->input("metodo");
+
+        $quimicaSanguinea->save();
     }
 
     /**
@@ -92,8 +132,8 @@ class QuimicaSanguineaController extends Controller
      * @param  \App\Models\QuimicaSanguinea  $quimicaSanguinea
      * @return \Illuminate\Http\Response
      */
-    public function destroy(QuimicaSanguinea $quimicaSanguinea)
+    public function destroy($idQuimicaSanguinea)
     {
-        //
+        QuimicaSanguinea::destroy($idQuimicaSanguinea);
     }
 }

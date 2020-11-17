@@ -36,10 +36,13 @@ class MicroalbuminuriaController extends Controller
             'creatinina' => 'numeric|nullable',
             'valorCreatininaBajo' => 'numeric|nullable',
             'valorCreatininaAlto' => 'numeric|nullable',
+            'relacion' => 'numeric|nullable',
             'valorRelacionNormalBajo' => 'numeric|nullable',
             'valorRelacionNormalAlto' => 'numeric|nullable',
             'valorRelacionAnormalBajo' => 'numeric|nullable',
             'valorRelacionAnormalAlto' => 'numeric|nullable',
+            'valorRelacionAnormalAltoBajo' => 'numeric|nullable',
+            'valorRelacionAnormalAltoAlto' => 'numeric|nullable',
             'nota' => 'nullable',
             'metodo' => 'max:255|nullable',
         ]);
@@ -78,9 +81,47 @@ class MicroalbuminuriaController extends Controller
      * @param  \App\Models\Microalbuminuria  $microalbuminuria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Microalbuminuria $microalbuminuria)
+    public function update(Request $request, $idMicroalbuminuria)
     {
-        //
+        $request->validate([
+            'idBeneficiario' => 'required|numeric',
+            'microAlbumina' => 'numeric|nullable',
+            'valorMicroAlbuminaBajo' => 'numeric|nullable',
+            'valorMicroAlbuminaAlto' => 'numeric|nullable',
+            'creatinina' => 'numeric|nullable',
+            'valorCreatininaBajo' => 'numeric|nullable',
+            'valorCreatininaAlto' => 'numeric|nullable',
+            'relacion' => 'numeric|nullable',
+            'valorRelacionNormalBajo' => 'numeric|nullable',
+            'valorRelacionNormalAlto' => 'numeric|nullable',
+            'valorRelacionAnormalBajo' => 'numeric|nullable',
+            'valorRelacionAnormalAlto' => 'numeric|nullable',
+            'valorRelacionAnormalAltoBajo' => 'numeric|nullable',
+            'valorRelacionAnormalAltoAlto' => 'numeric|nullable',
+            'nota' => 'nullable',
+            'metodo' => 'max:255|nullable',
+        ]);
+
+        $microalbuminuria = Microalbuminuria::find($idMicroalbuminuria);
+
+        $microalbuminuria->idBeneficiario = $request->input("idBeneficiario");
+        $microalbuminuria->microAlbumina = $request->input("microAlbumina");
+        $microalbuminuria->valorMicroAlbuminaBajo = $request->input("valorMicroAlbuminaBajo");
+        $microalbuminuria->valorMicroAlbuminaAlto = $request->input("valorMicroAlbuminaAlto");
+        $microalbuminuria->creatinina = $request->input("creatinina");
+        $microalbuminuria->valorCreatininaBajo = $request->input("valorCreatininaBajo");
+        $microalbuminuria->valorCreatininaAlto = $request->input("valorCreatininaAlto");
+        $microalbuminuria->relacion = $request->input("relacion");
+        $microalbuminuria->valorRelacionNormalBajo = $request->input("valorRelacionNormalBajo");
+        $microalbuminuria->valorRelacionNormalAlto = $request->input("valorRelacionNormalAlto");
+        $microalbuminuria->valorRelacionAnormalBajo = $request->input("valorRelacionAnormalBajo");
+        $microalbuminuria->valorRelacionAnormalAlto = $request->input("valorRelacionAnormalAlto");
+        $microalbuminuria->valorRelacionAnormalAltoBajo = $request->input("valorRelacionAnormalAltoBajo");
+        $microalbuminuria->valorRelacionAnormalAltoAlto = $request->input("valorRelacionAnormalAltoAlto");
+        $microalbuminuria->nota = $request->input("nota");
+        $microalbuminuria->metodo = $request->input("metodo");
+        
+        $microalbuminuria->save();
     }
 
     /**
@@ -89,8 +130,8 @@ class MicroalbuminuriaController extends Controller
      * @param  \App\Models\Microalbuminuria  $microalbuminuria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Microalbuminuria $microalbuminuria)
+    public function destroy($idMicroalbuminuria)
     {
-        //
+        Microalbuminuria::destroy($idMicroalbuminuria);
     }
 }

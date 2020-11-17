@@ -80,6 +80,8 @@ class ConsultaNutricionController extends Controller
             'porcentajeProteinas' => 'numeric|nullable',
             'porcentajeGrasas' => 'numeric|nullable',
             'diagnostico' => 'max:255|nullable',
+            'nota' => 'nullable',
+            'url_archivo' => 'max:255|nullable',
         ]);
 
         $consultaNutricional = ConsultaNutricional::create($request->all());
@@ -170,6 +172,8 @@ class ConsultaNutricionController extends Controller
             'porcentajeProteinas' => 'numeric|nullable',
             'porcentajeGrasas' => 'numeric|nullable',
             'diagnostico' => 'max:255|nullable',
+            'nota' => 'nullable',
+            'url_archivo' => 'max:255|nullable',
         ]);
 
         $consultaNutricional = ConsultaNutricional::find($idConsultaNutricional);
@@ -215,6 +219,8 @@ class ConsultaNutricionController extends Controller
         $consultaNutricional->porcentajeProteinas = $request->input('porcentajeProteinas');
         $consultaNutricional->porcentajeGrasas = $request->input('porcentajeGrasas');
         $consultaNutricional->diagnostico = $request->input('diagnostico');
+        $consultaNutricional->nota = $request->input('nota');
+        $consultaNutricional->url_archivo = $request->input('url_archivo');
 
         $consultaNutricional->save();
     }

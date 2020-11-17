@@ -101,18 +101,43 @@ export default function DepuracionCreatininaForm (props) {
 
     useEffect(() => {
 
-        setValues({
-            ...values,
-            'idBeneficiario': props.idBeneficiario
-        });
-        
-        http.get('/beneficiarios/'+props.idBeneficiario)
-            .then(res => { setBeneficiario(res.data[0])
+        if(props.editar)
+        {
+            setValues({
+                idBeneficiario: props.analisis.idBeneficiario,
+                talla: props.analisis.talla,
+                peso: props.analisis.peso,
+                volumen: props.analisis.volumen,
+                superficieCorporal: props.analisis.superficieCorporal,
+                creatininaEnSuero: props.analisis.creatininaEnSuero,
+                valorCreatininaBajoMujer: props.analisis.valorCreatininaBajoMujer,
+                valorCreatininaAltoMujer: props.analisis.valorCreatininaAltoMujer,
+                valorCreatininaBajoHombre: props.analisis.valorCreatininaBajoHombre,
+                valorCreatininaAltoHombre: props.analisis.valorCreatininaAltoHombre,
+                depuracionCreatinina: props.analisis.depuracionCreatinina,
+                valorDepuracionBajoMujer: props.analisis.valorDepuracionBajoMujer,
+                valorDepuracionAltoMujer: props.analisis.valorDepuracionAltoMujer,
+                valorDepuracionBajoHombre: props.analisis.valorDepuracionBajoHombre,
+                valorDepuracionAltoHombre: props.analisis.valorDepuracionAltoHombre,
+                nota: props.analisis.nota,
+                metodo: props.analisis.metodo,
             })
-            .catch((e) => {
-            console.log(e)
-            })
-    }, [])
+        }
+        else
+        {
+            setValues({
+                ...values,
+                'idBeneficiario': props.idBeneficiario
+            });
+            
+            http.get('/beneficiarios/'+props.idBeneficiario)
+                .then(res => { setBeneficiario(res.data[0])
+                })
+                .catch((e) => {
+                console.log(e)
+                })
+        }
+    }, []);
 
     const handleInputChange= e => {
         const {name , value} = e.target
@@ -501,21 +526,36 @@ export default function DepuracionCreatininaForm (props) {
         
         if(submit)
         {
-            http.post('/depuracionCreatinina', values)
-                    .then(res => {
-                        console.log(res)
-                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarDepuracionCreatinina=1");
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarDepuracionCreatinina=0");
-                    });
+            if(props.editar)
+            {
+                http.put('/depuracionCreatinina/'+props.analisis.idDepuracionCreatinina, values)
+                        .then(res => {
+                            console.log(res)
+                            props.history.push("/depuracionCreatinina/"+props.analisis.idDepuracionCreatinina+"?editarDepuracionCreatinina=1");
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            props.history.push("/depuracionCreatinina/"+props.analisis.idDepuracionCreatinina+"?editarDepuracionCreatinina=0");
+                        });
+            }
+            else
+            {
+                http.post('/depuracionCreatinina', values)
+                        .then(res => {
+                            console.log(res)
+                            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarDepuracionCreatinina=1");
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarDepuracionCreatinina=0");
+                        });
+            }
         }
     }
 
     return (
         <center className={classes.root}>
-            <Typography variant="h5">Examen de Orina de {beneficiario.nombreBeneficiario} </Typography>
+            <Typography variant="h5">Examen de Orina de {props.editar ? props.analisis.nombreBeneficiario : beneficiario.nombreBeneficiario} </Typography>
             <form>
                 <div className={classes.flex}>
                     <FormControl error={errores.talla} className={classes.xs}>
@@ -780,7 +820,7 @@ export default function DepuracionCreatininaForm (props) {
                         </FormHelperText>
                     </FormControl>
                 <div className={classes.botones}>
-                    <Button variant="contained" color='primary' onClick={handleSubmit}>Registrar</Button>
+                    <Button variant="contained" color='primary' onClick={handleSubmit}>{props.editar ? 'Editar' : 'Registrar'}</Button>
                 </div>
             </form>
         </center>

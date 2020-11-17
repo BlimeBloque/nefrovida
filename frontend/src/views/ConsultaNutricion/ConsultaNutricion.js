@@ -12,6 +12,7 @@ import DetallesRecordatorios from './seccionesDetalles/DetallesRecordatorios';
 import DetallesDatosAntropometricos from './seccionesDetalles/DetallesDatosAntropometricos';
 import DetallesNecesidades from './seccionesDetalles/DetallesNecesidades';
 import {obtenerDiagnosticoIMC, obtenerIMC, getAge} from '../../components/utils';
+import DetallesPlanAlimentacion from './seccionesDetalles/DetallesPlanAlimentacion';
 
 const useStyle = makeStyles(theme => ({
     flexTitulo:{
@@ -69,6 +70,9 @@ const useStyle = makeStyles(theme => ({
     },
     table: {
         width: "50%",
+    },
+    nota: {
+        minHeight: 100,
     }
 
 }));
@@ -137,7 +141,7 @@ const ConsultaNutricion = (props) => {
             <Typography variant="h5"  className={classes.subtitulo}>Evaluación Nutricia</Typography>
             <DetallesDatosAntropometricos classes={classes} detalle={detalle} edad={edad} pesoIdeal={pesoIdeal} imc={imc} diagnosticoIMC={diagnosticoIMC}/>
             <DetallesNecesidades classes={classes} detalle={detalle} />
-            
+            <DetallesPlanAlimentacion classes={classes} detalle={detalle} />
 
             <EliminarConsultaNutricion
                 open={eliminarOpen}

@@ -55,7 +55,7 @@ class NotaController extends Controller
 
     public function searchByBenef($idBeneficiario)
     {
-        return DB::table('notas')->where('idBeneficiario', '=', $idBeneficiario)->select('idBeneficiario', 'idNota', 'tituloNota')
+        return DB::table('notas')->where('idBeneficiario', '=', $idBeneficiario)->select('idBeneficiario', 'idNota', 'tituloNota', 'created_at', 'idTipoNota', 'comentario', 'url_archivo')
             -> latest()->get();
     }
 

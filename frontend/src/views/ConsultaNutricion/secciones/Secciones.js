@@ -5,6 +5,7 @@ import DatosDieteticos from './DatosDieteticos';
 import Recordatorios from './Recordatorios';
 import DatosAntropometricos from './DatosAntropometricos';
 import Necesidades from './Necesidades';
+import PlanAlimentacion from './PlanAlimentacion';
 
 const Secciones = {
     DatosNutrimentales,
@@ -14,6 +15,7 @@ const Secciones = {
     Recordatorios,
     DatosAntropometricos,
     Necesidades,
+    PlanAlimentacion
 };
 
 export default Secciones;

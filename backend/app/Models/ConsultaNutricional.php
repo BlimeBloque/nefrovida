@@ -52,6 +52,8 @@ class ConsultaNutricional extends Model
         'porcentajeProteinas',
         'porcentajeGrasas',
         'diagnostico',
+        'nota',
+        'url_archivo',
     ];
 }
 

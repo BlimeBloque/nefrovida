@@ -67,7 +67,6 @@ const initialValues = {
     celulasEpiteliales: '',
     bacterias: '',
     nota: '',
-    metodo: 'Colorimétrico',
 }
 
 const initialErrorValues = {
@@ -92,7 +91,6 @@ const initialErrorValues = {
     celulasEpiteliales: false,
     bacterias: false,
     nota: false,
-    metodo: false,
 }
 
 export default function ExamenOrinaForm (props)
@@ -104,18 +102,47 @@ export default function ExamenOrinaForm (props)
 
     useEffect(() => {
 
-        setValues({
-            ...values,
-            'idBeneficiario': props.idBeneficiario
-        });
-        
-        http.get('/beneficiarios/'+props.idBeneficiario)
-            .then(res => { setBeneficiario(res.data[0])
+        if(props.editar)
+        {
+            setValues({
+                idBeneficiario: props.analisis.idBeneficiario,
+                color: props.analisis.color,
+                aspecto: props.analisis.aspecto,
+                ph: props.analisis.ph,
+                densidad: props.analisis.densidad,
+                nitritos: props.analisis.nitritos,
+                glucosa: props.analisis.glucosa,
+                proteinas: props.analisis.proteinas,
+                hemoglobina: props.analisis.hemoglobina,
+                cuerposCetonicos: props.analisis.cuerposCetonicos,
+                bilirribuna: props.analisis.bilirribuna,
+                urobilinogeno: props.analisis.urobilinogeno,
+                leucocitos: props.analisis.leucocitos,
+                eritrocitosIntactos: props.analisis.eritrocitosIntactos,
+                eritrocitosCrenados: props.analisis.eritrocitosCrenados,
+                observacionLeucocitos: props.analisis.observacionLeucocitos,
+                cristales: props.analisis.cristales,
+                cilindros: props.analisis.cilindros,
+                celulasEpiteliales: props.analisis.celulasEpiteliales,
+                bacterias: props.analisis.bacterias,
+                nota: props.analisis.nota,
             })
-            .catch((e) => {
-            console.log(e)
-            })
-    }, [])
+        }
+        else
+        {
+            setValues({
+                ...values,
+                'idBeneficiario': props.idBeneficiario
+            });
+            
+            http.get('/beneficiarios/'+props.idBeneficiario)
+                .then(res => { setBeneficiario(res.data[0])
+                })
+                .catch((e) => {
+                console.log(e)
+                })
+        }
+    }, []);
 
     const handleInputChange= e => {
         const {name , value} = e.target
@@ -559,28 +586,6 @@ export default function ExamenOrinaForm (props)
         }
     }
 
-    const handleMetodoChange = (event) => {
-        handleInputChange(event);
-        validateMetodo(event.target.value);
-    }
-
-    const validateMetodo = (metodo) =>
-    {
-        if(metodo.length > 0 & isNullOrWhitespace(metodo))
-        {
-            setErrores({
-                ...errores,
-                'metodo': true
-            });
-        }
-        else
-        {
-            setErrores({
-                ...errores,
-                'metodo': false
-            });
-        }
-    }
 
     const handleNotaChange = (event) => {
         handleInputChange(event);
@@ -611,26 +616,41 @@ export default function ExamenOrinaForm (props)
             || errores. proteinas || errores.hemoglobina || errores.cuerposCetonicos || errores.bilirribuna
             || errores.urobilinogeno || errores.leucocitos || errores.eritrocitosIntactos || errores.eritrocitosCrenados
             || errores.observacionLeucocitos || errores.cristales || errores.cilindros || errores.celulasEpiteliales
-            || errores.bacterias || errores.nota || errores.metodo)
+            || errores.bacterias || errores.nota)
             submit = false;
         
         if(submit)
         {
-            http.post('/examenOrina', values)
-                    .then(res => {
-                        console.log(res)
-                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarExamenOrina=1");
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarExamenOrina=0");
-                    });
+            if(props.editar)
+            {
+                http.put('/examenOrina/'+props.analisis.idExamenOrina, values)
+                        .then(res => {
+                            console.log(res)
+                            props.history.push("/examenOrina/"+props.analisis.idExamenOrina+"?editarExamenOrina=1");
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            props.history.push("/examenOrina/"+props.analisis.idExamenOrina+"?editarExamenOrina=0");
+                        });
+            }
+            else
+            {
+                http.post('/examenOrina', values)
+                        .then(res => {
+                            console.log(res)
+                            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarExamenOrina=1");
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarExamenOrina=0");
+                        });
+            }
         }
     }
 
     return(
         <center className={classes.root}>
-            <Typography variant="h5">Examen de Orina de {beneficiario.nombreBeneficiario} </Typography>
+            <Typography variant="h5">Examen de Orina de {props.editar ? props.analisis.nombreBeneficiario : beneficiario.nombreBeneficiario} </Typography>
             <form>
                 <Typography variant="h6">Examen Macroscópico</Typography>
                 <FormControl error={errores.color} className={classes.textoLargo}>
@@ -905,19 +925,6 @@ export default function ExamenOrinaForm (props)
                                 Escribe una respuesta válida.
                             </FormHelperText>
                         </FormControl>
-                        <FormControl error={errores.metodo} className={classes.textoCorto}>
-                            <InputLabel htmlFor="component-error">Método</InputLabel>
-                            <Input
-                            id="component-error"
-                            value={values.metodo}
-                            name="metodo"
-                            onChange={handleMetodoChange}
-                            aria-describedby="component-error-text"
-                            />
-                            <FormHelperText style={{display: errores.metodo ? "block" : "none"}} id="component-error-text">
-                                Escribe una respuesta válida.
-                            </FormHelperText>
-                        </FormControl>
                     </div>
                     <FormControl style={{textAlign: "left"}} error={errores.nota} className={classes.textoLargo}>
                         <TextField
@@ -936,7 +943,7 @@ export default function ExamenOrinaForm (props)
                     </FormControl>
                 </div>
                 <div className={classes.botones}>
-                    <Button variant="contained" color='primary' onClick={handleSubmit}>Registrar</Button>
+                    <Button variant="contained" color='primary' onClick={handleSubmit}>{props.editar ? 'Editar' : 'Registrar'}</Button>
                 </div>
             </form>
         </center>

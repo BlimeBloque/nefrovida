@@ -28,6 +28,7 @@ import EditarAntecedentes from './views/Antecedentes/EditarAntecedentes';
 import DetalleEvaluacion from "./views/Evaluaciones/DetalleEvaluacion";
 import AgregarAnalisisLab from './views/AnalisisLab/AgregarAnalisisLab';
 import AgregarExamenOrina from "./views/AnalisisLab/ExamenOrina/AgregarExamenOrina";
+import EditarExamenOrina from "./views/AnalisisLab/ExamenOrina/EditarExamenOrina";
 import AgregarDepuracionCreatinina from "./views/AnalisisLab/DepuracionCreatinina/AgregarDepuracionCreatinina";
 import AgregarQuimicaSanguinea from "./views/AnalisisLab/QuimicaSanguinea/AgregarQuimicaSanguinea";
 import AgregarMicroalbuminuria from "./views/AnalisisLab/Microalbuminuria/AgregarMicroalbuminuria";
@@ -36,9 +37,12 @@ import EditarTamizaje from "./views/Tamizaje/TamizajeEditar"
 import DetalleTamizaje from "./views/Tamizaje/TamizajeDetalle";
 import DetalleExamenOrina from './views/AnalisisLab/ExamenOrina/DetalleExamenOrina';
 import DetalleDepuracionCreatinina from './views/AnalisisLab/DepuracionCreatinina/DetalleDepuracionCreatinina';
+import EditarDepuracionCreatinina from './views/AnalisisLab/DepuracionCreatinina/EditarDepuracionCreatinina';
 import DetalleQuimicaSanguinea from './views/AnalisisLab/QuimicaSanguinea/DetalleQuimicaSanguinea';
 import DetalleMicroalbuminuria from './views/AnalisisLab/Microalbuminuria/DetalleMicroalbuminuria';
+import EditarMicroalbuminuria from './views/AnalisisLab/Microalbuminuria/EditarMicroalbuminuria';
 import EditarEvaluacion from "./views/Evaluaciones/EditarEvaluacion";
+import EditarQuimicaSanguinea from "./views/AnalisisLab/QuimicaSanguinea/EditarQuimicaSanguinea";
 
 
 export default withRouter(
@@ -88,12 +92,16 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarAnalisisLab' exact={true} component={AgregarAnalisisLab}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarExamenOrina' exact={true} component={AgregarExamenOrina}/>
             <SecureRoute path='/examenOrina/:idExamenOrina([0-9]*)' exact={true} component={DetalleExamenOrina}/>
+            <SecureRoute path='/examenOrina/editar/:idExamenOrina([0-9]*)' exact={true} component={EditarExamenOrina}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarDepuracionCreatinina' exact={true} component={AgregarDepuracionCreatinina}/>
             <SecureRoute path='/depuracionCreatinina/:idDepuracionCreatinina([0-9]*)' exact={true} component={DetalleDepuracionCreatinina}/>
+            <SecureRoute path='/depuracionCreatinina/editar/:idDepuracionCreatinina([0-9]*)' exact={true} component={EditarDepuracionCreatinina}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarQuimicaSanguinea' exact={true} component={AgregarQuimicaSanguinea}/>
             <SecureRoute path='/quimicaSanguinea/:idQuimicaSanguinea([0-9]*)' exact={true} component={DetalleQuimicaSanguinea}/>
+            <SecureRoute path='/quimicaSanguinea/editar/:idQuimicaSanguinea([0-9]*)' exact={true} component={EditarQuimicaSanguinea}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarMicroalbuminuria' exact={true} component={AgregarMicroalbuminuria}/>
             <SecureRoute path='/microalbuminuria/:idMicroalbuminuria([0-9]*)' exact={true} component={DetalleMicroalbuminuria}/>
+            <SecureRoute path='/microalbuminuria/editar/:idMicroalbuminuria([0-9]*)' exact={true} component={EditarMicroalbuminuria}/>
 
 
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarNota' exact={true} component={AgregarNota}/>
