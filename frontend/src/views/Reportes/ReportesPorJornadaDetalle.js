@@ -4,34 +4,31 @@ import React , { useState, useEffect, setState }from 'react'
 import {Pie, Bar} from 'react-chartjs-2';
 import http from "../../http-common"
 
-
-export default function Reportes() {
+export default function ReportesPorJornadaDetalle(props) {
 
 const [contSexo, setContSexo] = useState([]);
 const [edades, setEdades] = useState([]);
 const[pruebas, setPruebas] = useState([]);
 const[tamizajes, setTamizajes] = useState([]);
 
-var llenado = false;
-
 
 useEffect ( () => {
 
-    http.get('reportes/getSexoTotal')
+    http.get('reportes/getSexoJornada/'+props.idJornada)
     .then(res => { setContSexo (res.data)
 })
     .catch((e) => {
         console.log(e)
     })
     
-    http.get('reportes/getEdadesTotal')
+    http.get('reportes/getEdadesJornada/'+props.idJornada)
     .then(res => { setEdades (res.data);
 })
     .catch((e) => {
         console.log(e)
     })
 
-    http.get('reportes/getPruebas')
+    http.get('reportes/getPruebas/'+props.idJornada)
     .then(res => { setPruebas (res.data) 
 })
     .catch((e) => {
@@ -82,12 +79,10 @@ useEffect ( () => {
             ]
         }]
     }
-    
+ 
     console.log(edades);   
-
     const counts = [];
     edades.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
-    console.log(counts[10]);  
    
 
     const dataEdedes = {
@@ -100,7 +95,7 @@ useEffect ( () => {
             borderWidth: 1,
             hoverBackgroundColor: '#63707A',
             hoverBorderColor: '#7DCFDF',
-            data: [counts[4],counts[5],counts[6],counts[7],counts[8],counts[9],counts[10],counts[11],counts[12],counts[13],counts[14],counts[15],counts[16],counts[17],counts[18]],
+            data: [counts[4],counts[5],counts[6],counts[7],counts[8],counts[9],counts[10],counts[11],counts[12],counts[13],counts[14],counts[15],counts[16],counts[17],counts[18]]
           }
         ]
       }
@@ -120,21 +115,9 @@ useEffect ( () => {
         ]
       }
 
-      const options = {
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-              min: 0
-            }    
-          }]
-        }
-      };
-
     return (
       <div>
-          <Typography  variant="h2"> Reporte General</Typography>
+          <Typography  variant="h2"> Reporte de Jornada {props.idJornada}</Typography>
           <br/><br/><br/>
           <Paper>
           <h2>Reporte Sociodemográfico</h2>
@@ -155,7 +138,7 @@ useEffect ( () => {
                         data={dataEdedes} 
                         width={800}
                         height={100}
-                        options={options}/>
+                        options={{ maintainAspectRatio: false}}/>
                 </Grid>
             </Grid>
           </Paper>
@@ -168,7 +151,7 @@ useEffect ( () => {
                         data={dataPruebas} 
                         width={500}
                         height={200}
-                        options={options}/>
+                        options={{ maintainAspectRatio: false}}/>
                 </Grid>
             </Grid>
           </Paper>

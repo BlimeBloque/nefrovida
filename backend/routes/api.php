@@ -102,7 +102,7 @@ Route::get('reportes/getSexoJornada/{idJornada}', 'App\Http\Controllers\Reportes
 Route::get('reportes/getEdadesTotal', 'App\Http\Controllers\ReportesController@getEdadesTotales');
 Route::get('reportes/getEdadesJornada/{idJornada}', 'App\Http\Controllers\ReportesController@getEdadesJornada');
 Route::get('reportes/getPruebas', 'App\Http\Controllers\ReportesController@countPruebas');
-Route::get('reportes/getPruebas/{idJornada}', 'App\Http\Controllers\ReportesController@countExamenOrinaJornada');
+Route::get('reportes/getPruebas/{idJornada}', 'App\Http\Controllers\ReportesController@countPruebasJornada');
 Route::get('reportes/getTamizajes', 'App\Http\Controllers\ReportesController@countTamizajes');
 Route::get('reportes/getTamizajes/{idJornada}', 'App\Http\Controllers\ReportesController@ccountTamizajesJornada');
 Route::get('reportes/getCountBeneficiariosConPruebas', 'App\Http\Controllers\ReportesController@conutBenefSinAnalisis');
