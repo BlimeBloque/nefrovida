@@ -106,6 +106,15 @@ const BeneficiarioDetalles = (props) => {
         mensajeError={"Hubo un error al eliminar la nota de beneficiario."}
       />
 
+
+       {/* EDITAR PREGUNTAS EVALUACIÓN*/}
+       <Mensaje 
+        success={args.includes("editarPreguntas") ? args.slice(-1) : -1} 
+        mensajeExito={"Se editaron las preguntas de la evaluación correctamente."}
+        mensajeError={"Hubo un error al editar las preguntas de la evaluación."}
+      />
+
+
       {/* ELIMINAR EVALUACIÓN*/}
       <Mensaje 
         success={args.includes("eliminarEvaluacion") ? args.slice(-1) : -1} 
