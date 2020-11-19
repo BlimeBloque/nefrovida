@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:movil/classes/Jornada.dart';
 import 'package:movil/components/HttpHelper.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
+import 'package:movil/screens/Jornadas/DetalleJornadaScreen.dart';
+import 'package:movil/screens/Jornadas/AgregarJornadaScreen.dart';
 
 class BuscarJornadasScreen extends StatelessWidget {
-  
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,6 @@ class BuscarJornadasScreen extends StatelessWidget {
     );
   }
 }
-
 
 class TablaJornadas extends StatefulWidget {
   TablaJornadas({Key key}) : super(key: key);
@@ -33,15 +32,13 @@ class _TablaJornadasState extends State<TablaJornadas> {
   List<Jornada> _jornadas;
   List<Jornada> _jornadasPorMostrar;
 
-  void initState()
-  {
+  void initState() {
     super.initState();
     _textController = new TextEditingController();
     _jornadasPorMostrar = _jornadas;
   }
 
-  void dispose()
-  {
+  void dispose() {
     _textController.dispose();
     super.dispose();
   }
@@ -49,10 +46,11 @@ class _TablaJornadasState extends State<TablaJornadas> {
   _onChanged(String value) {
     setState(() {
       _jornadasPorMostrar = _jornadas
-          .where((jornada) => jornada.nombre.toLowerCase().contains(value.toLowerCase()))
+          .where((jornada) =>
+              jornada.nombre.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });
-    setState((){
+    setState(() {
       _nombre = value;
     });
   }
@@ -75,85 +73,97 @@ class _TablaJornadasState extends State<TablaJornadas> {
                 onChanged: _onChanged,
               ),
             ),
+            FloatingActionButton(
+              tooltip: 'Agregar Nota',
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AgregarJornadaScreen()));
+              },
+              child: Icon(Icons.add),
+              backgroundColor: Colors.green,
+            ),
             FutureBuilder(
               future: jornadaHelper.getAllJornadas(),
-              builder: (BuildContext context, AsyncSnapshot snapshot){
-                if(snapshot.hasData != null)
-                {
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData != null) {
                   _jornadas = snapshot.data;
-                  _jornadasPorMostrar = _nombre == null ? _jornadas : _jornadasPorMostrar;
-                  if(_jornadas == null)
-                  {
+                  _jornadasPorMostrar =
+                      _nombre == null ? _jornadas : _jornadasPorMostrar;
+                  if (_jornadas == null) {
                     return Center(child: CircularProgressIndicator());
-                  }
-                  else
-                  {
+                  } else {
                     return Center(
                       child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: _jornadasPorMostrar != null && _jornadasPorMostrar.length != 0 ?
-                        DataTable(
-                          columns: [
-                            DataColumn(
-                              label: Text('Nombre'),
-                              tooltip: 'Nombre de la Jornada',
-                            ),
-                            DataColumn(
-                              label: Text('Fecha'),
-                              tooltip: 'Fecha de la Jornada',
-                            ),
-                            DataColumn(
-                              label: Text('Localidad'),
-                              tooltip: 'Localidad de la Jornada',
-                            ),
-                          ],
-                          rows: _jornadasPorMostrar.map((jornada) => DataRow(
-                              cells: [
-                                DataCell(
-                                  Center( 
-                                    child: Text(
-                                      jornada.nombre,
-                                      softWrap: true,
-                                      overflow: TextOverflow.clip,
-                                      textAlign: TextAlign.center,
+                          scrollDirection: Axis.vertical,
+                          child: _jornadasPorMostrar != null &&
+                                  _jornadasPorMostrar.length != 0
+                              ? DataTable(
+                                  columns: [
+                                    DataColumn(
+                                      label: Text('Nombre'),
+                                      tooltip: 'Nombre de la Jornada',
                                     ),
-                                  ),
-                                  onTap: () { //dejar comentado hasta tener interfaz de detalle de jornada
-                                    //Navigator.push(context, MaterialPageRoute(builder: (context) => DetalleJornadaScreen(jornada: jornada)));
-                                  }
-                                ),
-                                DataCell(
-                                  Center( 
-                                    child: Text(
-                                      jornada.fecha,
-                                      softWrap: true,
-                                      overflow: TextOverflow.clip,
-                                      textAlign: TextAlign.center,
+                                    DataColumn(
+                                      label: Text('Fecha'),
+                                      tooltip: 'Fecha de la Jornada',
                                     ),
-                                  ),
-                                ),
-                                DataCell(
-                                  Center( 
-                                    child: Text(
-                                      jornada.localidad,
-                                      softWrap: true,
-                                      overflow: TextOverflow.clip,
-                                      textAlign: TextAlign.center,
+                                    DataColumn(
+                                      label: Text('Localidad'),
+                                      tooltip: 'Localidad de la Jornada',
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ).toList(),
-                        )
-                        :
-                        Text('No se encontró ninguna jornada.')
-                      ),
+                                  ],
+                                  rows: _jornadasPorMostrar
+                                      .map(
+                                        (jornada) => DataRow(
+                                          cells: [
+                                            DataCell(
+                                                Center(
+                                                  child: Text(
+                                                    jornada.nombre,
+                                                    softWrap: true,
+                                                    overflow: TextOverflow.clip,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ), onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DetalleJornadaScreen(
+                                                              jornada:
+                                                                  jornada)));
+                                            }),
+                                            DataCell(
+                                              Center(
+                                                child: Text(
+                                                  jornada.fecha,
+                                                  softWrap: true,
+                                                  overflow: TextOverflow.clip,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Center(
+                                                child: Text(
+                                                  jornada.localidad,
+                                                  softWrap: true,
+                                                  overflow: TextOverflow.clip,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                      .toList(),
+                                )
+                              : Text('No se encontró ninguna jornada.')),
                     );
                   }
-                }
-                else
-                {
+                } else {
                   return Center(child: CircularProgressIndicator());
                 }
               },
