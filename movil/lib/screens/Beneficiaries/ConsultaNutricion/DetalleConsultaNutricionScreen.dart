@@ -9,6 +9,7 @@ import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleD
 import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleDatosNutrimentales.dart';
 import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleEstiloDeVida.dart';
 import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleNecesidades.dart';
+import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetallePlanAlimentacion.dart';
 import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleRecordatorios.dart';
 
 class DetalleConsultaNutricionScreen extends StatelessWidget {
@@ -87,6 +88,7 @@ class DetalleConsultaNutricionScreen extends StatelessWidget {
                                 ),
                                 DetalleDatosAntropometricos(consulta: consulta),
                                 DetalleNecesidades(consulta: consulta),
+                                DetallePlanAlimentacion(consulta: consulta),
                               ],
                             ),
                           ),

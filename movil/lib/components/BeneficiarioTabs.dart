@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
 import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/CardBeneficiario.dart';
+import 'package:movil/screens/Beneficiaries/Secciones/SeccionAnalisisLab.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionConsultas.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionNotas.dart';
 
@@ -48,7 +49,7 @@ class _BeneficiarioTabsState extends State<BeneficiarioTabs> {
             Center(child: Text("Tamizajes")),
             Center(child: Text("Evaluaciones")),
             SeccionConsultas(beneficiario: this.beneficiario),
-            Center(child: Text("Análisis")),
+            SeccionAnalisisLab(beneficiario: this.beneficiario),
             SeccionNotas(beneficiario: this.beneficiario),
             Center(child: Text("Evidencias")),
           ],
