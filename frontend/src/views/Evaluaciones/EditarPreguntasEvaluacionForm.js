@@ -35,15 +35,11 @@ const useStyle = makeStyles(theme => ({
     },
 }))
 
-const initialFValues = {
-    id: '1',
-    pregunta: 'a',
-}
-
 function EditarPreguntasEvaluacionForm(props) {
     const {history} = props;
     const classes = useStyle();
     const [valoresPreguntas, setValoresPreguntas] = useState([]);
+    const [nuevasPreguntas, setNuevasPreguntas] = useState([]);
     const [disabled, setDisabled] = useState(false);
 
 
@@ -51,7 +47,6 @@ function EditarPreguntasEvaluacionForm(props) {
         http.get('/evaluacionesPreguntas/')
             .then(res => { 
                 setValoresPreguntas(res.data.data)
-                console.log(res.data)
             })
             .catch((e) => {
                 console.log(e)
@@ -59,36 +54,39 @@ function EditarPreguntasEvaluacionForm(props) {
     }, []);
 
     const handleChange = (e) => {
-        const {name , value} = e.target
-        setValoresPreguntas({
-            ...valoresPreguntas,
-            [name]:value 
+        const item = e.target
+        setNuevasPreguntas({
+            ...nuevasPreguntas,
+            [item.id-1]: item.value
+             
         })
-        
     }
 
     const handleSubmit = (event) => {
         setDisabled(true);
         let arrayPreguntas = []
         let valuePregunta = {}
+        let preguntaFinal = valoresPreguntas.map((e) => (e.pregunta))
 
-        valoresPreguntas.forEach(e => {
+        for (let i = 0; i < 9; i++) {
+            console.log(nuevasPreguntas[i])
             valuePregunta = {
-                idEvaluacionPregunta: e.id,
-                evaluacionPregunta: e.pregunta
+                idEvaluacionPregunta: i+1,
+                evaluacionPregunta: nuevasPreguntas[i] != undefined ? nuevasPreguntas[i] : preguntaFinal[i]
             }
-            arrayPreguntas.push(valuePregunta)
-        });
+            arrayPreguntas[i] = valuePregunta;
+        }
+        
         arrayPreguntas.forEach(element => {
-                http.put('/evaluacionesPreguntas/'+props.match.params.idBeneficiario, element)
-                    .then(res => {
-                        props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?agregarEvaluacion=1");
+            http.put('/evaluacionesPreguntas/'+props.match.params.idBeneficiario, element)
+                .then(res => {
+                    props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?editarPreguntas=1");
 
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?agregarEvaluacion=0");
-                    });
+                })
+                .catch(err => {
+                    console.log(err)
+                    props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?editarPreguntas=0");
+                });
         });
         
     }
@@ -101,7 +99,8 @@ function EditarPreguntasEvaluacionForm(props) {
             </div>
             <Divider className={classes.divider}/>
             {
-            valoresPreguntas.map((e) => (
+                valoresPreguntas && valoresPreguntas.map((e) => (
+                    
             <form>
                 {e.id == 1 ?
                     <>
@@ -122,16 +121,17 @@ function EditarPreguntasEvaluacionForm(props) {
                     </>:<></>
                 }
                 <TextField 
-                    id={e.id} 
-                    label={"Pregunta no. "+e.id} 
-                    defaultValue={e.pregunta} 
                     fullWidth variant="outlined"
+                    id={e.id}
+                    label={"Pregunta no. "+e.id}
+                    defaultValue={e.pregunta}
                     onChange={handleChange}
                 />
                     <br /><br />
 
             </form>
-            ))}
+            ))
+            }
             <div className={classes.formItems}>
                     <Button color="default" className={classes.back} onClick={() => history.push('/beneficiarios/'+props.match.params.idBeneficiario)}>Cancelar</Button>
                     <Button 
