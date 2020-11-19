@@ -10,6 +10,39 @@ class DetalleTamizaje extends StatelessWidget {
   final TamizajeInfo tamizaje;
   final Beneficiario beneficiario;
 
+  setfecha(String n) {
+    var arr = [];
+    arr = n.split("-");
+    if (arr[1] == '01') {
+      arr[1] = 'Ene';
+    } else if (arr[1] == '02') {
+      arr[1] = 'Feb';
+    } else if (arr[1] == '03') {
+      arr[1] = 'Mar';
+    } else if (arr[1] == '04') {
+      arr[1] = 'Abr';
+    } else if (arr[1] == '05') {
+      arr[1] = 'May';
+    } else if (arr[1] == '06') {
+      arr[1] = 'Jun';
+    } else if (arr[1] == '07') {
+      arr[1] = 'Jul';
+    } else if (arr[1] == '08') {
+      arr[1] = 'Ago';
+    } else if (arr[1] == '09') {
+      arr[1] = 'Sep';
+    } else if (arr[1] == '10') {
+      arr[1] = 'Oct';
+    } else if (arr[1] == '11') {
+      arr[1] = 'Nov';
+    } else if (arr[1] == '12') {
+      arr[1] = 'Dic';
+    }
+
+    var fecha = arr[2] + '/' + arr[1] + '/' + arr[0];
+    return fecha;
+  }
+
   DetalleTamizaje(
       {Key key, @required this.tamizaje, @required this.beneficiario})
       : super(key: key);
@@ -29,9 +62,6 @@ class DetalleTamizaje extends StatelessWidget {
               future: consultaHelper.getATamizaje(
                   beneficiario.idBeneficiario, tamizaje.idTamizaje),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                print('has data');
-                print(snapshot.hasData);
-                print(snapshot.data);
                 if (snapshot.hasData != null) {
                   Tamizaje consulta = snapshot.data;
                   if (consulta == null) {
@@ -59,12 +89,68 @@ class DetalleTamizaje extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              trailing: Text(consulta.fecha.split(' ')[0]),
+                              trailing:
+                                  Text(setfecha(consulta.fecha.split(' ')[0])),
                             ),
                             Center(
                               child: Column(
                                 children: <Widget>[
-                                  Text(consulta.comentario),
+                                  Text(
+                                    'Presión Arterial:   ${consulta.presionArterial}',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Peso:   ${consulta.peso}',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Circunferencia en Cintura:   ${consulta.circunferenciaCintura}',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Circunferencia en Cadera:   ${consulta.circunferenciaCadera}',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Glucosa Capilar:   ${consulta.glucosaCapilar}',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Talla:   ${consulta.talla}',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Indice Cintura Cadera:   ${consulta.indiceCinturaCadera}',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Comentario:   ${consulta.comentario}',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
