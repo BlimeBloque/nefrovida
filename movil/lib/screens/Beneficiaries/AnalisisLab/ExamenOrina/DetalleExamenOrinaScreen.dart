@@ -1,16 +1,8 @@
  import 'package:flutter/material.dart';
 import 'package:movil/classes/Beneficiario.dart';
-import 'package:movil/classes/ConsultaNutricion.dart';
 import 'package:movil/classes/ExamenOrina.dart';
 import 'package:movil/components/HttpHelper.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
-import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleDatosAntropometricos.dart';
-import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleDatosClinicos.dart';
-import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleDatosDieteticos.dart';
-import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleDatosNutrimentales.dart';
-import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleEstiloDeVida.dart';
-import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleNecesidades.dart';
-import 'package:movil/screens/Beneficiaries/ConsultaNutricion/Secciones/DetalleRecordatorios.dart';
 
 class DetalleExamenOrinaScreen extends StatelessWidget {
   static const String route = '/examenOrinaDetalle';

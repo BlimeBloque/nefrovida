@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Microalbuminurias
 {
   List<MicroalbuminuriaGeneral> microalbuminurias = new List();
@@ -60,6 +62,38 @@ class Microalbuminuria
   {
     print(double.parse(valor));
     return double.parse(valor);
+  }
+
+  getColorFondo(valor, minimo, maximo)
+  {
+    if(getValue(valor) < getValue(minimo))
+    {
+      return Colors.cyan[100];
+    }
+    else if(getValue(valor) > getValue(maximo))
+    {
+      return Colors.red[200];
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  getColorRelacion(valor, anormal, anormalAlto)
+  {
+    if(getValue(anormal) < getValue(valor) && getValue(valor) < getValue(anormalAlto))
+    {
+      return Colors.yellow[300];
+    }
+    else if(getValue(valor) > getValue(anormalAlto))
+    {
+      return Colors.red[200];
+    }
+    else
+    {
+      return null;
+    }
   }
 
   Microalbuminuria.fromJsonMap(Map<String, dynamic> json)

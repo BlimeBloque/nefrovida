@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/classes/DepuracionCreatinina.dart';
-import 'package:movil/classes/ExamenOrina.dart';
 import 'package:movil/components/HttpHelper.dart';
-import 'package:movil/screens/Beneficiaries/AnalisisLab/ExamenOrina/DetalleExamenOrinaScreen.dart';
+import 'package:movil/screens/Beneficiaries/AnalisisLab/DepuracionCreatinina/DetalleDepuracionCreatininaScreen.dart';
 
 class ListaDepuracionCreatinina extends StatelessWidget {
   HttpHelper analisisHelper = HttpHelper();
@@ -41,8 +40,8 @@ class ListaDepuracionCreatinina extends StatelessWidget {
                     leading: Icon(Icons.bubble_chart),
                     title: Center(child:Text("Depuración de creatinina del: "+_analisis[index].fecha)),
                     onTap: () {
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) 
-                      //=> DetalleDepuracionCreatininaScreen(depuracionCreatininaGeneral: _analisis[index], beneficiario: beneficiario)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) 
+                      => DetalleDepuracionCreatininaScreen(depuracionCreatininaGeneral: _analisis[index], beneficiario: beneficiario)));
                     },
                     trailing: Icon(Icons.navigate_next_rounded),
                   );

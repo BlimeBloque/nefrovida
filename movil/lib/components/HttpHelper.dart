@@ -195,6 +195,24 @@ class HttpHelper {
     }
   }
 
+  Future<DepuracionCreatinina> getDepuracionCreatinina(idDepuracionCreatinina) async {
+    String path = "/depuracionCreatinina/" + idDepuracionCreatinina.toString();
+    String uri = ip + baseUrl + path;
+    print(uri);
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      DepuracionCreatinina analisis;
+      for (var item in decodedJsonMap) {
+        analisis = new DepuracionCreatinina.fromJsonMap(item);
+      }
+      return analisis;
+    } else {
+      return null;
+    }
+  }
+
   //----QUIMICA SANGUINEA----
   Future<List<QuimicaSanguineaGeneral>> getQuimicasSanguineas(idBeneficiario) async {
     String path =
@@ -213,6 +231,24 @@ class HttpHelper {
     }
   }
 
+  Future<QuimicaSanguinea> getQuimicaSanguinea(idQuimicaSanguinea) async {
+    String path = "/quimicaSanguinea/" + idQuimicaSanguinea.toString();
+    String uri = ip + baseUrl + path;
+    print(uri);
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      QuimicaSanguinea analisis;
+      for (var item in decodedJsonMap) {
+        analisis = new QuimicaSanguinea.fromJsonMap(item);
+      }
+      return analisis;
+    } else {
+      return null;
+    }
+  }
+
   //----MICROALBUMINURIA----
   Future<List<MicroalbuminuriaGeneral>> getMicroalbuminurias(idBeneficiario) async {
     String path =
@@ -226,6 +262,24 @@ class HttpHelper {
       Microalbuminurias listaAnalisis =
           new Microalbuminurias.fromJsonList(decodedJsonMap);
       return listaAnalisis.microalbuminurias;
+    } else {
+      return null;
+    }
+  }
+
+  Future<Microalbuminuria> getMicroalbuminuria(idMicroalbuminuria) async {
+    String path = "/microalbuminuria/" + idMicroalbuminuria.toString();
+    String uri = ip + baseUrl + path;
+    print(uri);
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      Microalbuminuria analisis;
+      for (var item in decodedJsonMap) {
+        analisis = new Microalbuminuria.fromJsonMap(item);
+      }
+      return analisis;
     } else {
       return null;
     }

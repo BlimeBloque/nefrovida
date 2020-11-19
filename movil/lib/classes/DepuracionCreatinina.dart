@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class DepuracionesCreatinina
 {
   List<DepuracionCreatininaGeneral> depuracionesCreatinina = new List();
@@ -60,6 +62,22 @@ class DepuracionCreatinina
   {
     print(double.parse(valor));
     return double.parse(valor);
+  }
+
+  getColorFondo(valor, minimo, maximo)
+  {
+    if(getValue(valor) < getValue(minimo))
+    {
+      return Colors.cyan[100];
+    }
+    else if(getValue(valor) > getValue(maximo))
+    {
+      return Colors.red[200];
+    }
+    else
+    {
+      return null;
+    }
   }
 
   DepuracionCreatinina.fromJsonMap(Map<String, dynamic> json)

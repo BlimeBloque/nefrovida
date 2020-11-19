@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/classes/QuimicaSanguinea.dart';
 import 'package:movil/components/HttpHelper.dart';
+import 'package:movil/screens/Beneficiaries/AnalisisLab/QuimicaSanguinea/DetalleQuimicaSanguineaScreen.dart';
 
 class ListaQuimicaSanguinea extends StatelessWidget {
   HttpHelper analisisHelper = HttpHelper();
@@ -39,8 +40,8 @@ class ListaQuimicaSanguinea extends StatelessWidget {
                     leading: Icon(Icons.bubble_chart),
                     title: Center(child:Text("Química sanguínea del: "+_analisis[index].fecha)),
                     onTap: () {
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) 
-                      //=> DetalleQuimicaSanguineaScreen(quimicaSanguineaGeneral: _analisis[index], beneficiario: beneficiario)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) 
+                      => DetalleQuimicaSanguineaScreen(quimicaSanguineaGeneral: _analisis[index], beneficiario: beneficiario)));
                     },
                     trailing: Icon(Icons.navigate_next_rounded),
                   );
