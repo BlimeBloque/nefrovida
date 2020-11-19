@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder {
             EvaluacionTableSeeder::class,
             EvaluacionesPreguntasTableSeeder::class,
             OpcionEvaluacionTableSeeder::class,
-            TipoNotaSeeder::class
+            TipoNotaSeeder::class,
+            FormularioTableSeeder::class,
+            PreguntasTableSeeder::class,
+            OpcionFormularioTableSeeder::class
         ]);
     }
 }
