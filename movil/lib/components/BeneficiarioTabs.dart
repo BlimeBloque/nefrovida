@@ -5,6 +5,7 @@ import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/CardBeneficiario.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionConsultas.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionNotas.dart';
+import 'package:movil/screens/Beneficiaries/Secciones/SeccionTamizaje.dart';
 
 class BeneficiarioTabs extends StatefulWidget {
   final Beneficiario beneficiario;
@@ -45,7 +46,7 @@ class _BeneficiarioTabsState extends State<BeneficiarioTabs> {
           children: [
             CardBeneficiario(beneficiario: this.beneficiario),
             Center(child: Text("Antecedentes")),
-            Center(child: Text("Tamizajes")),
+            SeccionTamizaje(beneficiario: this.beneficiario),
             Center(child: Text("Evaluaciones")),
             SeccionConsultas(beneficiario: this.beneficiario),
             Center(child: Text("Análisis")),
