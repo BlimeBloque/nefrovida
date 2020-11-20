@@ -5,6 +5,8 @@ import QuimicaSanguineaForm from './QuimicaSanguineaForm';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
+import { useEffect } from "react";
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -20,6 +22,14 @@ const useStyle = makeStyles(theme => ({
 
 const AgregarQuimicaSanguinea = (props) => {
     const classes = useStyle();
+
+    useEffect( () => {
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Laboratorio"))
+        {
+            props.history.goBack();
+        }
+    }, []);
+
     return (
         <div className={classes.container}>
             <Sidenav titulo="Registrar Química Sanguínea" />        
