@@ -1,4 +1,4 @@
-export const API = "http://localhost:8000/api";
+export const API = "http://api.snefrovidaac.com/api";
 
 /* 
     En caso de que la API Key de Okta haya expirado, es necesario generar una nueva desde https://dev-377919-admin.okta.com/admin/access/api/tokens.

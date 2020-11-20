@@ -25,7 +25,7 @@ export default class OktaSignInWidget extends Component {
       authParams: {
         clientId: '0oa61ly4IzGGhU29v5d5',
         issuer: 'https://dev-377919.okta.com/oauth2/default',
-        redirectUri: 'http://localhost:3000/login/callback',
+        redirectUri: 'http://snefrovidaac.com/login/callback',
         scopes: ['openid', 'profile', 'email'],
         // If your app is configured to use the Implicit Flow 
         // instead of the Authorization Code with Proof of Code Key Exchange (PKCE)
