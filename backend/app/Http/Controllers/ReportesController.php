@@ -75,11 +75,16 @@ class ReportesController extends Controller
 
     public function conutBenefSinAnalisis()
     {
-        $total = DB::table('beneficiarios')->select('idBeneficiario');
-        $orina =  DB::table('examen_orina')->select('idBeneficiario');
-        $quimica =  DB::table('quimica_sanguinea')->select('idBeneficiario');
-        $micro =  DB::table('microalbuminuria')->select('idBeneficiario');
-        $depuracion =  DB::table('depuracion_creatinina')->select('idBeneficiario');
+        $total = DB::table('beneficiarios')->pluck('idBeneficiario')->toArray();
+        $orina =  DB::table('examen_orina')->groupBy('idBeneficiario')->pluck('idBeneficiario')->toArray();
+        $quimica =  DB::table('quimica_sanguinea')->groupBy('idBeneficiario')->pluck('idBeneficiario')->toArray();
+        $micro =  DB::table('microalbuminuria')->groupBy('idBeneficiario')->pluck('idBeneficiario')->toArray();
+        $depuracion =  DB::table('depuracion_creatinina')->groupBy('idBeneficiario')->pluck('idBeneficiario')->toArray();
+
+       $examenes = array_merge($orina, $quimica, $micro, $depuracion);
+
+        $res = array_diff($total, $examenes);
+        return [count($total),count($res)];
     }
   
 }

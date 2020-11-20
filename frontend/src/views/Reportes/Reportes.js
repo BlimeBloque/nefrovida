@@ -12,8 +12,6 @@ const [edades, setEdades] = useState([]);
 const[pruebas, setPruebas] = useState([]);
 const[tamizajes, setTamizajes] = useState([]);
 
-var llenado = false;
-
 
 useEffect ( () => {
 
@@ -38,7 +36,7 @@ useEffect ( () => {
         console.log(e)
     })
 
-    http.get('reportes/getTamizajes')
+    http.get('reportes/getCountBeneficiariosConPruebas')
     .then(res => { setTamizajes (res.data) 
 })
     .catch((e) => {
@@ -71,19 +69,19 @@ useEffect ( () => {
             'Personas sin toma muestra',
         ],
         datasets: [{
-            data: [contSexo[0], contSexo[1]],
+            data: [tamizajes[0] - tamizajes[1], tamizajes[1]],
             backgroundColor: [
-            '#63707A',
             '#7DCFDF',
+            '#63707A',
             ],
             hoverBackgroundColor: [
-            '#63707A',
             '#7DCFDF',
+            '#63707A',
             ]
         }]
     }
     
-    console.log(edades);   
+    console.log(tamizajes);   
 
     const counts = [];
     edades.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
@@ -120,13 +118,46 @@ useEffect ( () => {
         ]
       }
 
+      const dataIMC = {
+        labels: ['Bajo Peso', 'Normal', 'Sobrepeso', 'Obesidad'],
+        datasets: [
+          {
+            label: 'Porcentaje',
+            backgroundColor: '#7DCFDF',
+            borderColor: '#63707A',
+            borderWidth: 1,
+            hoverBackgroundColor: '#63707A',
+            hoverBorderColor: '#7DCFDF',
+            data: [pruebas[0], pruebas[2], pruebas[1], pruebas[3]]
+          }
+        ]
+      }
+
+      const dataIMCSexo = {
+        labels: ['Bajo Peso', 'Normal', 'Sobrepeso', 'Obesidad'],
+        datasets: [
+          {
+            label: '% Hombres',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: '#7DCFDF',
+            hoverBackgroundColor: '#63707A',
+          },
+          {
+            label: '% Mujeres',
+            data: [2, 3, 20, 5, 1, 4],
+            backgroundColor: '#63707A',
+            hoverBackgroundColor: '#7DCFDF',
+          },
+        ],
+      }
+
       const options = {
         maintainAspectRatio: false,
         scales: {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              min: 0
+              min: 0,
             }    
           }]
         }
@@ -159,6 +190,7 @@ useEffect ( () => {
                 </Grid>
             </Grid>
           </Paper>
+          <br/>
           <Paper>
           <h2>Pruebas Realizadas</h2>
             <Grid container spacing={3} justify='space-between'>
@@ -172,6 +204,7 @@ useEffect ( () => {
                 </Grid>
             </Grid>
           </Paper>
+          <br/>
           <Paper>
           <h2>Personas Tamizadas</h2>
             <Grid container spacing={3} justify='space-between'>
@@ -182,6 +215,82 @@ useEffect ( () => {
                         width={500}
                         height={200}
                         options={{ maintainAspectRatio: false}}/>
+                </Grid>
+            </Grid>
+          </Paper>
+          <br/>
+          <Paper>
+          <h2>Incide de masa corporal / IMC por sexo</h2>
+            <Grid container spacing={1} justify='space-evenly'>
+                <Grid item xs={5}>
+                    <br/>
+                    <Bar 
+                        data={dataIMC} 
+                        width={500}
+                        height={200}
+                        options={options}/>
+                </Grid>
+
+                <Grid item xs={5}>
+                    <br/>
+                    <Bar 
+                        data={dataIMCSexo} 
+                        width={500}
+                        height={200}
+                        options={options}/>
+                </Grid>
+            </Grid>
+          </Paper>
+          <br/>
+          <Paper>
+          <h2>Consultas nutricias de alto riesgo</h2>
+            <Grid container spacing={3} justify='space-between'>
+                <Grid item xs={12}>
+                    <br/>
+                    <Pie 
+                        data={dataSexo} 
+                        width={500}
+                        height={200}
+                        options={{ maintainAspectRatio: false}}/>
+                </Grid>
+            </Grid>
+          </Paper>
+          <br/>
+          <Paper>
+          <h2>Reporte de pláticas nutricias</h2>
+            <Grid container spacing={1} justify='space-evenly'>
+                <Grid item xs={5}>
+                    <br/>
+                    Promedio en encuesta nutrimentaria
+                    <br/>
+                    <Bar 
+                        data={dataIMCSexo} 
+                        width={500}
+                        height={200}
+                        options={options}/>
+                </Grid>
+
+                <Grid item xs={5}>
+                    <br/>
+                    Respuestas cuestionario inicial
+                    <br/>
+                    <Bar 
+                        data={dataIMCSexo} 
+                        width={500}
+                        height={200}
+                        options={options}/>
+                </Grid>
+            </Grid>
+            <Grid container spacing={1} justify='space-evenly'>
+                <Grid item xs={5}>
+                    <br/>
+                    Respuestas cuestionario final
+                    <br/>
+                    <Bar 
+                        data={dataIMCSexo} 
+                        width={500}
+                        height={200}
+                        options={options}/>
                 </Grid>
             </Grid>
           </Paper>

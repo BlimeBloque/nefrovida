@@ -15,7 +15,7 @@ class HttpHelper {
     Saul:
     Randy:
   */
-  String ip = "http://192.168.42.138";
+  String ip = "http://192.168.42.50";
   String baseUrl = ":8000/api";
 
   Future<List<Beneficiario>> getAllBeneficiarios() async {

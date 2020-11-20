@@ -83,6 +83,18 @@ useEffect ( () => {
     console.log(edades);   
     const counts = [];
     edades.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+
+    const options = {
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              min: 0,
+            }    
+          }]
+        }
+      };
    
 
     const dataEdedes = {
@@ -138,7 +150,7 @@ useEffect ( () => {
                         data={dataEdedes} 
                         width={800}
                         height={100}
-                        options={{ maintainAspectRatio: false}}/>
+                        options={options}/>
                 </Grid>
             </Grid>
           </Paper>
