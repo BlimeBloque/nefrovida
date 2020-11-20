@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidenav from "../../../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from '@material-ui/core';
 import ExamenOrinaForm from './ExamenOrinaForm';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -20,6 +21,14 @@ const useStyle = makeStyles(theme => ({
 
 const AgregarExamenOrina = (props) => {
     const classes = useStyle();
+
+    useEffect( () => {
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Laboratorio"))
+        {
+            props.history.goBack();
+        }
+    }, []);
+
     return (
         <div className={classes.container}>
             <Sidenav titulo="Registrar Examen de Orina" />        

@@ -6,7 +6,7 @@ import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import BubbleChartIcon from '@material-ui/icons/BubbleChart';
-
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
     flex:{
@@ -70,11 +70,15 @@ const SeccionAnalisisLab = (props) => {
                 <Typography className={classes.flexContent} style={{margin: "10px 0px 0px 0px"}} variant="h6">
                 <strong>Análisis de Laboratorio</strong>
                 </Typography>
-                <Tooltip title="Agregar Análisis de Laboratorio" arrow>
-                <Fab className={classes.flexContent} color="primary" onClick={() => props.history.push("/beneficiarios/"+props.idBeneficiario+"/agregarAnalisisLab")}>
-                    <AddIcon/>
-                </Fab>
-                </Tooltip>
+                {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Laboratorio") ? 
+                    <Tooltip title="Agregar Análisis de Laboratorio" arrow>
+                    <Fab className={classes.flexContent} color="primary" onClick={() => props.history.push("/beneficiarios/"+props.idBeneficiario+"/agregarAnalisisLab")}>
+                        <AddIcon/>
+                    </Fab>
+                    </Tooltip>
+                :
+                        <></>
+                }
             </div>
 
                 <Grid container justify="center" spacing={4}>
