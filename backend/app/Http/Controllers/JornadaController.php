@@ -68,4 +68,16 @@ class JornadaController extends Controller {
 
         return response()->json(null, 204);
     }
+
+    public function compararAll() {
+        return DB::table('jornadas')->select('idJornada as value', 'nombre as label')->get();
+    }
+
+    public function compare($id0, $id1, $id2, $id3, $id4) {
+        $arrFecha = ["Fecha" => DB::table('jornadas')->select('fecha')->where('idJornada', "=", $id0)->orWhere('idJornada', "=", $id1)->orWhere('idJornada', "=", $id2)->orWhere('idJornada', "=", $id3)->orWhere('idJornada', "=", $id4)->get()];
+
+        $arrLocalidad = ['Localidad' => DB::table('jornadas')->select('localidad')->where('idJornada', "=", $id0)->orWhere('idJornada', "=", $id1)->orWhere('idJornada', "=", $id2)->orWhere('idJornada', "=", $id3)->orWhere('idJornada', "=", $id4)->get()];
+
+        return $arrFecha + $arrLocalidad;
+    }
 }
