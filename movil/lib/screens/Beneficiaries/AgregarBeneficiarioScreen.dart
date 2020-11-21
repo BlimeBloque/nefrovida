@@ -4,6 +4,7 @@ import 'package:movil/classes/Escolaridad.dart';
 import 'package:movil/classes/Jornada.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
 import 'package:movil/components/HttpHelper.dart';
+import 'package:movil/screens/Jornadas/DetalleJornadaScreen.dart';
 
 class AgregarBeneficiarioScreen extends StatelessWidget {
   static const String route = '/beneficiariosDetalle';
@@ -47,6 +48,8 @@ class _AgregarBeneficiarioFormState extends State<AgregarBeneficiarioForm> {
   bool _seguimiento = false;
   int _idJornada;
   int _radioValue = 0;
+  DateTime selectedDate = DateTime.now();
+
 
 
   void initState() {
@@ -128,25 +131,9 @@ Widget _buildNombreBenef() {
     ); 
   }
 
- Future<void> _selectDate(BuildContext context) async {
-    final DateTime d = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2100),
-        helpText: "Seleccione la fecha de nacimiento.",
-        confirmText: "Confirmar",
-        cancelText: "Cancelar",
-        fieldLabelText: "Introduce la fecha manualmente.",
-        fieldHintText: "Mes/Día/Año");
-    if (d != null)
-      setState(() {
-        _fechaNacimiento = _fechaNacimiento = d.toString().split(' ')[0];
-      });
-  }
 
-  Widget _buildJFecha(BuildContext context) {
-    return Container(
+Widget _buildFecha(){
+  return Container(
       decoration: const BoxDecoration(
           border: Border(
             top: BorderSide(width: 1.0),
@@ -160,24 +147,37 @@ Widget _buildNombreBenef() {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            InkWell(
-              child: Text(
-                "Fecha:  " + _fechaNacimiento,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Color(0xFF000000)),
+             Text('Fecha de nacimiento'),
+              Text(
+                "${selectedDate.toLocal()}".split(' ')[0],
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-            ),
-            IconButton(
-                icon: Icon(Icons.calendar_today),
-                tooltip: "Presiona para seleccionar la fecha.",
-                onPressed: () {
-                  _selectDate(context);
-                }),
-          ],
-        ),
-      ),
+              SizedBox(
+                height: 20.0,
+              ),
+              IconButton(
+                onPressed: () => _selectDate(context), // Refer step 3
+                icon: Icon(Icons.date_range)
+              ),
+            ],
+          )
+        )    
     );
-  }
+}
+
+
+_selectDate(BuildContext context) async {
+  final DateTime picked = await showDatePicker(
+    context: context,
+    initialDate: selectedDate, // Refer step 1
+    firstDate: DateTime(2000),
+    lastDate: DateTime(2025),
+  );
+  if (picked != null && picked != selectedDate)
+    setState(() {
+      selectedDate = picked;
+    });
+}
 
   void _handleRadioValueChange(int value) {
     setState(() {
@@ -278,6 +278,7 @@ Widget _buildNombreBenef() {
                   _buildSexo(),
                   _buildidEscolaridad(),
                   _buildSeguimiento(),
+                  _buildFecha(),
                   SizedBox(height: 100),
                   RaisedButton(
                     child: Text(
@@ -297,7 +298,14 @@ Widget _buildNombreBenef() {
                       _formKey.currentState.save();
                       _idJornada = widget.jornada.idJornada;
 
-                      benefHelper.agregarBeneficiario(_nombreBeneficiario, _telefono, _direccion, _sexo, _selectedEscolaridad, _seguimiento, _idJornada);
+                      benefHelper.agregarBeneficiario(_nombreBeneficiario, _telefono, _direccion, _sexo, _selectedEscolaridad, _seguimiento, _idJornada, selectedDate.toLocal());
+                      Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DetalleJornadaScreen(
+                                                              jornada:
+                                                                  widget.jornada)));
                     },
                   )
                 ],

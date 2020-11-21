@@ -388,7 +388,7 @@ class HttpHelper {
     }
   }
 
-   Future<http.Response> agregarBeneficiario(String _nombre, String _telefono, String _direccion, String _sexo, Escolaridad _esco, bool _seg, int _idJornada) async {
+   Future<http.Response> agregarBeneficiario(String _nombre, String _telefono, String _direccion, String _sexo, Escolaridad _esco, bool _seg, int _idJornada, DateTime _fecha) async {
     String path = "/beneficiarios";
     String uri = ip + baseUrl + path;
     Map data = {
@@ -397,7 +397,7 @@ class HttpHelper {
      "direccion" : _direccion,
      "sexo": _sexo,
      "idEscolaridad": _esco.idEscolaridad,
-     "fechaNacimiento": "2010-10-10",
+     "fechaNacimiento": _fecha.toString(),
      "seguimiento" : _seg,
      "idJornada" : _idJornada,
      "activo" : 1,
