@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:movil/classes/Jornada.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
+import 'package:movil/screens/Beneficiaries/AgregarBeneficiarioScreen.dart';
 
 class DetalleJornadaScreen extends StatelessWidget {
   static const String route = '/jornadaDetalle';
@@ -93,6 +94,18 @@ class DetalleJornadaScreen extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                   ),
                 ),
+                IconButton(
+                  icon: Icon(Icons.add), 
+                  onPressed: () {
+                    Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AgregarBeneficiarioScreen(
+                                  jornada: jornada)
+                                  )
+                                  );
+                  }
+                  ),
               ]),
         ),
       ),

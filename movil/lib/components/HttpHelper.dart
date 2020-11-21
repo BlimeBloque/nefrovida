@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/classes/DepuracionCreatinina.dart';
+import 'package:movil/classes/Escolaridad.dart';
 import 'package:movil/classes/ExamenOrina.dart';
 import 'package:movil/classes/Estado.dart';
 import 'package:movil/classes/Jornada.dart';
@@ -21,7 +22,7 @@ class HttpHelper {
     Saul: 192.168.100.7
     Randy:
   */
-  String ip = "http://192.168.42.123";
+  String ip = "http://192.168.42.50";
   String baseUrl = ":8000/api";
 
   Future<List<Beneficiario>> getAllBeneficiarios() async {
@@ -370,5 +371,46 @@ class HttpHelper {
     } else {
       return null;
     }
+  }
+
+  Future<List<Escolaridad>> getAllEscolaridades() async {
+    String path = "/escolaridades";
+    String uri = ip + baseUrl + path;
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      Escolaridades listaEscolaridades =
+          new Escolaridades.fromJsonList(decodedJsonMap['data']);
+         
+      return listaEscolaridades.escolaridades;
+    } else {
+      return null;
+    }
+  }
+
+   Future<http.Response> agregarBeneficiario(String _nombre, String _telefono, String _direccion, String _sexo, Escolaridad _esco, bool _seg, int _idJornada) async {
+    String path = "/beneficiarios";
+    String uri = ip + baseUrl + path;
+    Map data = {
+     "nombreBeneficiario" : _nombre,
+     "telefono" : _telefono,
+     "direccion" : _direccion,
+     "sexo": _sexo,
+     "idEscolaridad": _esco.idEscolaridad,
+     "fechaNacimiento": "2010-10-10",
+     "seguimiento" : _seg,
+     "idJornada" : _idJornada,
+     "activo" : 1,
+
+
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var response = await http.post(uri,
+        headers: {"Content-Type": "application/json"}, body: body);
+    print("${response.statusCode}");
+    print("${response.body}");
+    return response;
   }
 }
