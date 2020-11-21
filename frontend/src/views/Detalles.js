@@ -17,7 +17,7 @@ import { Grid, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {getAge} from '../components/utils';
-
+import http from '../http-common'
 
 import { API } from "../config";
 import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
@@ -112,37 +112,27 @@ class DetallesTabla extends Component {
     console.log(this.state.detalles);
 
     e.preventDefault();
-    try {
 
       let activoVal = 0;
-      let result = fetch(
-        "http://localhost:8000/api/beneficiarios/" + this.state.idBeneficiario ,
-        {
-          method: "PUT",
-          headers: {
-            "Access-Control-Allow-Origin": "http://localhost:3000/",
-            "Access-Control-Allow-Credentials": "true",
-            'Accept': "application/json",
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            nombreBeneficiario: this.state.nombre,
-            idEscolaridad: this.state.idEscolaridad,
-            sexo: this.state.sexo, 
-            telefono: this.state.telefono,
-            direccion: this.state.direccion,
-            seguimiento:  this.state.seguimiento,
-            activo: 0,
-            fechaNacimiento:  this.state.fecha,
-            idJornada: this.state.idJornada,
-          }),
-        }
-      );
-      this.setState({open: false});
-      window.alert("Se dio de baja correctamente al beneficiario");
-    } catch (e) {
-      console.log(e);
-    }
+      let valores = JSON.stringify({
+        nombreBeneficiario: this.state.nombre,
+        idEscolaridad: this.state.idEscolaridad,
+        sexo: this.state.sexo, 
+        telefono: this.state.telefono,
+        direccion: this.state.direccion,
+        seguimiento:  this.state.seguimiento,
+        activo: 0,
+        fechaNacimiento:  this.state.fecha,
+        idJornada: this.state.idJornada,
+      });
+      http.put('/beneficiarios/'+this.state.idBeneficiario, valores)
+      .then(res => {
+        this.setState({open: false});
+        window.alert("Se dio de baja correctamente al beneficiario");
+      })
+      .catch(err => {
+          console.log(err)
+      });
   }
    
   componentDidMount() {

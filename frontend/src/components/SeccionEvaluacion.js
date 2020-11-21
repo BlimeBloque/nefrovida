@@ -9,6 +9,7 @@ import TarjetaEvaluaciones from './Beneficiarios/Evaluaciones/TarjetaEvaluacione
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withRouter } from 'react-router-dom';
+import http from '../http-common'
 
 
 
@@ -53,7 +54,7 @@ const SeccionEvaluacion = (props) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/evaluacionesInicio/' + props.idBeneficiario)
+        http.get('/evaluacionesInicio/' + props.idBeneficiario)
             .then(res => {
                 setEvaluacionesIncio(res.data)
             })
@@ -61,7 +62,7 @@ const SeccionEvaluacion = (props) => {
                 console.log(e)
             });
 
-            axios.get('http://localhost:8000/api/evaluacionesFin/' + props.idBeneficiario)
+            http.get('/evaluacionesFin/' + props.idBeneficiario)
             .then(res => {
                 setEvaluacionesFin(res.data)
             })

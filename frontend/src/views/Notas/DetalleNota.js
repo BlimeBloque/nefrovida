@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
 import Mensaje from '../../components/Mensaje'
 import Nota from './Nota'
+import http from '../../http-common'
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -31,7 +32,7 @@ const DetalleNota = (props) => {
     console.log(props)
 
     useEffect ( () => {
-        axios.get('http://localhost:8000/api/nota/'+ idNota)
+        http.get('/nota/'+ idNota)
             .then(res => { setDetalle(res.data[0]); console.log(res)
                 })
                     .catch((e) => {

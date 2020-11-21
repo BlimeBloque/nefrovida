@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react'
 
-import axios from 'axios'
+import http from '../../http-common'
 
 import {CssBaseline, FormLabel, makeStyles, Typography, Button, RadioGroup, FormControlLabel, Radio, Divider, FormControl, CircularProgress} from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
@@ -87,7 +87,7 @@ function AgregarEvaluacionForm(props) {
     };
     
     useEffect (() => {
-        axios.get('http://localhost:8000/api/opcionEvaluacion/evaluaciones/'+idEvaluacion)
+        http.get('/opcionEvaluacion/evaluaciones/'+idEvaluacion)
         .then(res => { setOpciones (res.data)
         })
         .catch((e) => {
@@ -120,7 +120,7 @@ function AgregarEvaluacionForm(props) {
         if(arrayForm.every((value) => value.respuestasPosibles != "")) { // Valida que haya contestado todas las respuestas
             for (let i = 1; i < 10; i++) {
                 
-                axios.post('http://localhost:8000/api/evaluacion', arrayForm[i], {headers: {"Accept": "application/json"}})
+                http.post('/evaluacion', arrayForm[i])
                     .then(res => {
                         props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?agregarEvaluacion=1");
     

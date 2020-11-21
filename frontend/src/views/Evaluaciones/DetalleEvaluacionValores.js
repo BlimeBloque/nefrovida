@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react'
 import { CssBaseline, Typography, makeStyles, CircularProgress, Divider } from '@material-ui/core'
-import axios from 'axios';
+import http from '../../http-common'
 
 const useStyle = makeStyles(theme => ({
     root:{
@@ -32,7 +32,7 @@ export default function DetalleEvaluacionValores(props) {
 
     useEffect (() => {
         if(idEvaluacion == 1) {
-            axios.get('http://localhost:8000/api/detallesEvaluacionesInicio/'+ props.idBeneficiario)
+            http.get('/detallesEvaluacionesInicio/'+ props.idBeneficiario)
             .then(res => { 
                 setValoresInicio(res.data)
             })
@@ -40,7 +40,7 @@ export default function DetalleEvaluacionValores(props) {
                 console.log(e)
             })
         } else {
-            axios.get('http://localhost:8000/api/detallesEvaluacionesFin/'+ props.idBeneficiario)
+            http.get('/detallesEvaluacionesFin/'+ props.idBeneficiario)
             .then(res => { 
                 setValoresFin(res.data)
             })

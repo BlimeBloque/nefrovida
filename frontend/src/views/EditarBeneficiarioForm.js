@@ -1,7 +1,7 @@
 import {CssBaseline, InputAdornment, makeStyles} from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
 import { Grid } from 'semantic-ui-react';
-import axios from 'axios'
+import http from '../http-common'
 
 import Controls from "../components/FormComponents/Controls";
 
@@ -51,7 +51,7 @@ export default function AgregarBeneficiarioForm(props) {
 
     useEffect ( () => {
 
-        axios.get('http://127.0.0.1:8000/api/beneficiarios/' + props.idBenef)
+        http.get('/beneficiarios/' + props.idBenef)
         .then((res) => {
             let temp = res.data[0].fechaNacimiento.split("-");
             res.data[0].fechaNacimiento = new Date(temp[0], temp[1]-1, temp[2]);
@@ -75,7 +75,7 @@ export default function AgregarBeneficiarioForm(props) {
 
     useEffect ( () => {
 
-        axios.get('http://127.0.0.1:8000/api/escolaridades')
+        http.get('/escolaridades')
         .then(res => { setEscolaridades (res.data.data)
     })
         .catch((e) => {
@@ -85,7 +85,7 @@ export default function AgregarBeneficiarioForm(props) {
 
    useEffect ( () => {
 
-    axios.get('http://127.0.0.1:8000/api/jornadas')
+    http.get('/jornadas')
     .then(res => { setJornadas (res.data)
 })
     .catch((e) => {
@@ -129,39 +129,27 @@ export default function AgregarBeneficiarioForm(props) {
             } else {
                 values.seguimiento = 0
             }
-            try{
+            let valores = JSON.stringify({
+                nombreBeneficiario: values.nombreBeneficiario,
+                idEscolaridad: values.idEscolaridad,
+                sexo: values.sexo, 
+                telefono: values.telefono,
+                direccion: values.direccion,
+                seguimiento:  values.seguimiento,
+                activo: values.activo,
+                fechaNacimiento: year + "-" + month + "-" + day,
+                idJornada: values.idJornada,
+              });
+            http.put('/beneficiarios/'+values.idBeneficiario, valores)
+            .then(res => {
+                props.history.push("/beneficiarios/"+ props.idBenef +"?editarBeneficiario=1");
 
-                let result = fetch(
-                    "http://localhost:8000/api/beneficiarios/" + values.idBeneficiario ,
-                    {
-                      method: "PUT",
-                      headers: {
-                        "Access-Control-Allow-Origin": "http://localhost:3000/",
-                        "Access-Control-Allow-Credentials": "true",
-                        'Accept': "application/json",
-                        "Content-type": "application/json",
-                      },
-                      body: JSON.stringify({
-                        nombreBeneficiario: values.nombreBeneficiario,
-                        idEscolaridad: values.idEscolaridad,
-                        sexo: values.sexo, 
-                        telefono: values.telefono,
-                        direccion: values.direccion,
-                        seguimiento:  values.seguimiento,
-                        activo: values.activo,
-                        fechaNacimiento: year + "-" + month + "-" + day,
-                        idJornada: values.idJornada,
-                      }),
-                    }
-                  );
-            console.log(year + "-" + month + "-" + day)
-            props.history.push("/beneficiarios/"+ props.idBenef +"?editarBeneficiario=1");
-          
-            } catch (e) {
-                console.log(e);
+            })
+            .catch(err => {
+                console.log(err)
                 props.history.push("/beneficiarios/" + props.idBenef + "?editarBeneficiario=0");
-               
-            }
+
+            });
         } else {
         }
 

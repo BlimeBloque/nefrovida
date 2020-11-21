@@ -6,6 +6,7 @@ import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import http from '../http-common'
 
 
 const useStyle = makeStyles(theme => ({
@@ -30,7 +31,7 @@ const SeccionNota = (props) => {
     const [notas, setNotas] = useState([]);
 
     useEffect ( () => {
-        axios.get('http://localhost:8000/api/notas/beneficiario/'+props.idBeneficiario)
+        http.get('/notas/beneficiario/'+props.idBeneficiario)
             .then(res => { setNotas(res.data)
                 })
                     .catch((e) => {

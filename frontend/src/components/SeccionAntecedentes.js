@@ -6,7 +6,7 @@ import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import HistoryIcon from '@material-ui/icons/History';
-
+import http from '../http-common'
 
 const useStyle = makeStyles(theme => ({
     flex: {
@@ -30,7 +30,7 @@ const SeccionAntecedentes = (props) => {
     const [antecedentes, setAntecedentes] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/antecedentes/beneficiario/' + props.idBeneficiario)
+        http.get('/antecedentes/beneficiario/' + props.idBeneficiario)
             .then(res => {
                 setAntecedentes(res.data)
             })

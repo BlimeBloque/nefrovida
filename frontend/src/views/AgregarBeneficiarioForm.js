@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {CssBaseline, makeStyles} from '@material-ui/core';
 import { Grid } from 'semantic-ui-react';
-import axios from 'axios'
+import http from '../http-common'
 
 import Controls from "../components/FormComponents/Controls";
 
@@ -53,7 +53,7 @@ export default function AgregarBeneficiarioForm(props) {
 
     useEffect ( () => {
 
-        axios.get('http://127.0.0.1:8000/api/escolaridades')
+        http.get('/escolaridades')
         .then(res => { setEscolaridades (res.data.data)
     })
         .catch((e) => {
@@ -99,36 +99,29 @@ export default function AgregarBeneficiarioForm(props) {
             } else {
                 values.seguimiento = 0
             }
-           
-            try{
-    
-                let result =  fetch('http://localhost:8000/api/beneficiarios', {
-                        method: 'POST',
-                        headers: {
-                            "Access-Control-Allow-Origin": "http://localhost:3000/",
-                            "Access-Control-Allow-Credentials": "true",
-                            'Accept': 'application/json',
-                            'Content-type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            nombreBeneficiario: values.nombre,
-                            idEscolaridad: values.idEscolaridad,
-                            sexo: values.sexo, 
-                            telefono: values.telefono,
-                            direccion: values.direccion,
-                            seguimiento: values.seguimiento,
-                            activo: values.activo,
-                            fechaNacimiento: year + "-" + month + "-" + day,
-                            idJornada: values.idJornada,
-                        })
+            let valores = JSON.stringify({
+                nombreBeneficiario: values.nombre,
+                idEscolaridad: values.idEscolaridad,
+                sexo: values.sexo, 
+                telefono: values.telefono,
+                direccion: values.direccion,
+                seguimiento: values.seguimiento,
+                activo: values.activo,
+                fechaNacimiento: year + "-" + month + "-" + day,
+                idJornada: values.idJornada,
             });
-            console.log(values)
-            props.history.push("/jornadas/"+ props.idJornada +"?agregarBeneficiario=1");
-    
-            } catch (e) {
-                console.log(e);
+            
+            http.post('/beneficiarios', valores)
+            .then(res => {
+                props.history.push("/jornadas/"+ props.idJornada +"?agregarBeneficiario=1");
+
+            })
+            .catch(err => {
+                console.log(err)
                 props.history.push("/jornadas/"+ props.idJornada +"?agregarBeneficiario=0");
-            }
+
+            });
+
         } else {
            window.alert("Todos los campos obligatorios deben ser llenados")
         }
