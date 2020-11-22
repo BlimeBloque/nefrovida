@@ -107,6 +107,9 @@ Route::get('reportes/getTamizajes', 'App\Http\Controllers\ReportesController@cou
 Route::get('reportes/getTamizajes/{idJornada}', 'App\Http\Controllers\ReportesController@ccountTamizajesJornada');
 Route::get('reportes/getCountBeneficiariosConPruebas', 'App\Http\Controllers\ReportesController@conutBenefSinAnalisis');
 Route::get('reportes/getCountBeneficiariosConPruebas/{idJornada}', 'App\Http\Controllers\ReportesController@conutBenefSinAnalisis');
+Route::get('reportes/getCountIMC', 'App\Http\Controllers\ReportesController@countIMCGeneral');
+Route::get('reportes/getCountIMCPorSexo', 'App\Http\Controllers\ReportesController@countIMCPorSexo');
+
 
 
 

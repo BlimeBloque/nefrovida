@@ -11,6 +11,9 @@ const [contSexo, setContSexo] = useState([]);
 const [edades, setEdades] = useState([]);
 const[pruebas, setPruebas] = useState([]);
 const[tamizajes, setTamizajes] = useState([]);
+const[IMC, setIMC] = useState([]);
+const[IMCSexo, setIMCSexo] = useState([]);
+
 
 
 useEffect ( () => {
@@ -38,6 +41,20 @@ useEffect ( () => {
 
     http.get('reportes/getCountBeneficiariosConPruebas')
     .then(res => { setTamizajes (res.data) 
+})
+    .catch((e) => {
+        console.log(e)
+    })
+
+    http.get('reportes/getCountIMC')
+    .then(res => { setIMC (res.data) 
+})
+    .catch((e) => {
+        console.log(e)
+    })
+
+    http.get('reportes/getCountIMCPorSexo')
+    .then(res => { setIMCSexo (res.data) 
 })
     .catch((e) => {
         console.log(e)
@@ -128,7 +145,7 @@ useEffect ( () => {
             borderWidth: 1,
             hoverBackgroundColor: '#63707A',
             hoverBorderColor: '#7DCFDF',
-            data: [pruebas[0], pruebas[2], pruebas[1], pruebas[3]]
+            data: [IMC[0], IMC[1], IMC[2], IMC[3]]
           }
         ]
       }
@@ -138,13 +155,13 @@ useEffect ( () => {
         datasets: [
           {
             label: '% Hombres',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [IMCSexo[0], IMCSexo[1], IMCSexo[2], IMCSexo[3]],
             backgroundColor: '#7DCFDF',
             hoverBackgroundColor: '#63707A',
           },
           {
             label: '% Mujeres',
-            data: [2, 3, 20, 5, 1, 4],
+            data: [IMCSexo[4], IMCSexo[5], IMCSexo[6], IMCSexo[7]],
             backgroundColor: '#63707A',
             hoverBackgroundColor: '#7DCFDF',
           },
