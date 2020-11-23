@@ -17,6 +17,14 @@ class JornadaController extends Controller {
         return DB::table('jornadas')->leftJoin('estados_mexico', 'jornadas.idEstado', '=', 'estados_mexico.idEstado')->where('idJornada', '=', $idJornada)->select('jornadas.*', 'estados_mexico.nombreEstado', 'estados_mexico.siglas')->get();
     }
 
+    public function searchBenefs($idJornada) {
+        return DB::table('beneficiarios AS b')
+            ->join('jornadas AS j', 'b.idJornada','=','j.idJornada')
+            ->where('b.idJornada','=',$idJornada)
+            //->select('b.idBeneficiario','b.nombreBeneficiario', 'b.idJornada', 'j.nombre', 'j.localidad', 'j.municipio')
+            ->get();
+    }
+
     public function insert(Request $request) {
         $rules = [
             'nombre' => 'required|string',
