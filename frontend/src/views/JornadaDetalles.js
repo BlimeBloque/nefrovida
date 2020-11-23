@@ -28,7 +28,7 @@ const JornadaDetalles = (props) => {
         <Paper className={classes.pageContent}>
           <JornadaDetalleEspecifico history={props.history} idJornada={props.match.params.idJornada} />
         </Paper>
-          <JornadaBeneficiarios idJornada={props.match.params.idJornada}/>
+          <JornadaBeneficiarios idJornada={props.match.params.idJornada} history={props.history}/>
       </Container>
 
       <Mensaje 

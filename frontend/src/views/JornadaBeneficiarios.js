@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom';
-import { Divider, makeStyles, Paper, Typography } from '@material-ui/core'
+import { Divider, makeStyles, Paper, Typography, ListItemText, ListItem, List } from '@material-ui/core'
 import http from "../http-common"
 
 const useStyle = makeStyles((theme) => ({
@@ -38,11 +38,15 @@ function JornadaBeneficiarios(props) {
             <Divider className={classes.divider} />
             {valores.map((e) => (
                 <div>
-                    <Typography variant="h6">{e.nombreBeneficiario}</Typography><br />
+                    <List component="nav" aria-label="secondary mailbox folders">
+                        <ListItem button onClick={() => props.history.push('/beneficiarios/'+e.idBeneficiario)}>
+                            <ListItemText primary={e.nombreBeneficiario} />
+                        </ListItem>
+                    </List>
                 </div>
             ))}
         </Paper>
     )
 }
 
-export default withRouter(JornadaBeneficiarios)
+export default JornadaBeneficiarios
