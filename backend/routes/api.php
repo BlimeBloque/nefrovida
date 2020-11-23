@@ -15,6 +15,9 @@ use App\Http\Controllers\ExamenOrinaController;
 use App\Http\Controllers\DepuracionCreatininaController;
 use App\Http\Controllers\QuimicaSanguineaController;
 use App\Http\Controllers\MicroalbuminuriaController;
+use App\Http\Controllers\RespuestasController;
+use App\Http\Controllers\PreguntasController;
+use App\Http\Controllers\OpcionFormularioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +74,13 @@ Route::get('detallesEvaluacionesInicio/{idBeneficiario}', 'App\Http\Controllers\
 Route::get('detallesEvaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@detalleFin');
 Route::delete('eliminarEvaluacionesInicio/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@destroyInicio');
 Route::delete('eliminarEvaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\EvaluacionesRespuestasController@destroyFin');
+
+Route::resource('formulario', RespuestasController::class);
+Route::resource('preguntas', PreguntasController::class);
+Route::get('/opcionFormulario/formularios/{idFormulario}', 'App\Http\Controllers\OpcionFormularioController@searchByForm');
+Route::get('formulario/{idBeneficiario}', 'App\Http\Controllers\RespuestasController@searchByBenef');
+Route::get('detalles/{idBeneficiario}', 'App\Http\Controllers\RespuestasController@detalle');
+Route::delete('eliminar/{idBeneficiario}', 'App\Http\Controllers\RespuestasController@destroy');
 
 Route::resource('nota', NotaController::class);
 Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaController@searchByBenef');

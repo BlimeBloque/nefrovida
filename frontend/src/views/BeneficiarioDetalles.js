@@ -11,6 +11,7 @@ import SeccionEvaluacion from "../components/SeccionEvaluacion";
 import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 import SeccionAnalisisLab from "../components/SeccionAnalisisLab";
 import Tamizaje from "../components/Tamizaje";
+import SeccionFactor from "../components/SeccionFactor";
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -74,6 +75,11 @@ const BeneficiarioDetalles = (props) => {
           <div id="evaluaciones">
             <Paper className={classes.consultaNutricion}>
               <SeccionEvaluacion idBeneficiario={props.match.params.idBeneficiario} history={props.history}/>
+            </Paper>
+          </div>
+          <div id="factores">
+            <Paper className={classes.consultaNutricion}>
+              <SeccionFactor idBeneficiario={props.match.params.idBeneficiario} history={props.history}/>
             </Paper>
           </div>
         <div id="notas">
@@ -159,6 +165,12 @@ const BeneficiarioDetalles = (props) => {
         success={args.includes("agregarEvaluacion") ? args.slice(-1) : -1}
         mensajeExito={"Se registró la evaluación."}
         mensajeError={"Hubo un error al registrar la evaluación."}
+      />
+
+      <Mensaje
+        success={args.includes("agregarFactor") ? args.slice(-1) : -1}
+        mensajeExito={"Se registró el factor de riesgo."}
+        mensajeError={"Hubo un error al registrar el factor de riesgo."}
       />
 
       <Mensaje 

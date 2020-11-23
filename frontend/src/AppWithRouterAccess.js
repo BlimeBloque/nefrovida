@@ -44,6 +44,7 @@ import EditarMicroalbuminuria from './views/AnalisisLab/Microalbuminuria/EditarM
 import EditarEvaluacion from "./views/Evaluaciones/EditarEvaluacion";
 import EditarQuimicaSanguinea from "./views/AnalisisLab/QuimicaSanguinea/EditarQuimicaSanguinea";
 import EditarPreguntasEvaluacion from "./views/Evaluaciones/EditarPreguntasEvaluacion";
+import AgregarFactor from './views/FactorRiesgo/AgregarFactor';
 
 
 export default withRouter(
@@ -81,6 +82,8 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarEvaluacionInicio' exact={true} component={EditarEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarEvaluacionFin' exact={true} component={EditarEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarPreguntasEvaluacion' exact={true} component={EditarPreguntasEvaluacion}/>
+
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarFactor' exact={true} component={AgregarFactor}/>
             
             {/* Tamizaje */}
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/agregar' exact={true} component={AgregarTamizaje}/>
