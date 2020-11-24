@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import EliminarConsultaMedica from './EliminarConsultaMedica';
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
 flexTitulo:{
@@ -75,16 +76,24 @@ return(
             <Typography variant="h5">{fecha}</Typography>
             <Typography variant="h3">{detalle.nombreBeneficiario}</Typography>
             <div id="botones">
-                <Tooltip title="Editar" arrow>
-                    <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/consultaMedica/editar/"+detalle.idConsultaMedica)}>
-                        <EditIcon fontSize="large" />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Eliminar" arrow>
-                    <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
-                        <RemoveCircleIcon fontSize="large" />
-                    </IconButton>
-                </Tooltip>
+            {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Medico") ? 
+                    <Tooltip title="Editar" arrow>
+                        <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/consultaNutricion/editar/"+detalle.idConsultaNutricional)}>
+                            <EditIcon fontSize="large" />
+                        </IconButton>
+                    </Tooltip>
+                :
+                    <></>
+                }
+                {Cookies.get("roles").includes("Administrador") ? 
+                    <Tooltip title="Eliminar" arrow>
+                        <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
+                            <RemoveCircleIcon fontSize="large" />
+                        </IconButton>
+                    </Tooltip>
+                :
+                    <></>
+                }
             </div>
         </div>
         <div id="datosMedicos">

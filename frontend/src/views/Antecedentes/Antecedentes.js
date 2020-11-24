@@ -7,6 +7,8 @@ import DetallesAntecedentesFamiliares from './seccionesDetalles/DetallesAntecede
 import DetallesAntecedentesPersonales from './seccionesDetalles/DetallesAntecedentesPersonales';
 import DetallesDatosVivienda from './seccionesDetalles/DetallesDatosVivienda';
 import DetallesAntecedentesGinecoObstetricos from './seccionesDetalles/DetallesAntecedentesGinecoObstetricos';
+import EliminarAntecedentes from './EliminarAntecedentes';
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
 flexTitulo:{
@@ -90,22 +92,41 @@ return(
             <Typography variant="h5">{fecha}</Typography>
             <Typography variant="h3">{detalle.nombreBeneficiario}</Typography>
             <div id="botones">
-                <Tooltip title="Editar" arrow>
-                    <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/antecedentes/editar/"+detalle.idAntecedentes)}>
-                        <EditIcon fontSize="large" />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Eliminar" arrow>
-                    <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
-                        <RemoveCircleIcon fontSize="large" />
-                    </IconButton>
-                </Tooltip>
+            {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Medico") ? 
+                    <Tooltip title="Editar" arrow>
+                        <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/consultaNutricion/editar/"+detalle.idConsultaNutricional)}>
+                            <EditIcon fontSize="large" />
+                        </IconButton>
+                    </Tooltip>
+                :
+                    <></>
+                }
+                {Cookies.get("roles").includes("Administrador") ? 
+                    <Tooltip title="Eliminar" arrow>
+                        <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
+                            <RemoveCircleIcon fontSize="large" />
+                        </IconButton>
+                    </Tooltip>
+                :
+                    <></>
+                }
             </div>
         </div>
         <DetallesDatosVivienda classes={classes} detalle={detalle} />
         <DetallesAntecedentesPersonales classes={classes} detalle={detalle} />
         <DetallesAntecedentesFamiliares classes={classes} detalle={detalle} />
         <DetallesAntecedentesGinecoObstetricos classes={classes} detalle={detalle} />
+
+        <EliminarAntecedentes
+                open={eliminarOpen}
+                handleOpen={handleEliminarOpen}
+                handleClose={handleEliminarClose}
+                history={props.history}
+                idBeneficiario={detalle.idBeneficiario}
+                idAntecedentes={detalle.idAntecedentes}
+                nombre={detalle.nombreBeneficiario}
+                fecha={fecha}
+        />
     </center>
 )
 }
