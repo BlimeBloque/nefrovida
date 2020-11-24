@@ -184,6 +184,13 @@ const BeneficiarioDetalles = (props) => {
         mensajeExito={"Se registraron los antecedentes."}
         mensajeError={"Hubo un error al registrar los antecedentes"}
       />
+
+      {/* ELIMINAR ANTECEDENTES RETRO*/}
+      <Mensaje 
+        success={args.includes("eliminarAntecedentes") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminaron los antecedentes."}
+        mensajeError={"Hubo un error al eliminar los antecedentes."}
+      />
       
       {/*AGREGAR EXAMEN ORINA RETRO*/}
       <Mensaje 
