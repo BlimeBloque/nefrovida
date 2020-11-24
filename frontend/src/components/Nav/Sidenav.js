@@ -9,6 +9,7 @@ import ArchiveIcon from '@material-ui/icons/Archive';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import HomeIcon from '@material-ui/icons/Home';
 import clsx from 'clsx';
 
 import { useOktaAuth } from "@okta/okta-react"; 
@@ -95,6 +96,11 @@ const Sidenav = props => {
     
     
     const itemsNav = [{
+      texto: 'Inicio',
+      icono: <HomeIcon />,
+      onClick: () => history.push("/")
+    },
+    {
         texto: 'Beneficiarios',
         icono: <FolderSharedIcon />,
         onClick: () => history.push("/beneficiarios")
