@@ -92,7 +92,7 @@ return(
             <Typography variant="h5">{fecha}</Typography>
             <Typography variant="h3">{detalle.nombreBeneficiario}</Typography>
             <div id="botones">
-            {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Medicina") ? 
+            {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Medico") ? 
                     <Tooltip title="Editar" arrow>
                         <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/consultaNutricion/editar/"+detalle.idConsultaNutricional)}>
                             <EditIcon fontSize="large" />
