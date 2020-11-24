@@ -50,7 +50,7 @@ const DetalleConsultaMedica = (props) => {
                     </IconButton>
                 </Link>
                 
-                <ConsultaMedica detalle={detalle} history={props.history}/>
+                <ConsultaMedica detalle={detalle} history={props.history} idConsultaMedica={idConsultaMedica} idBeneficiario={detalle.idBeneficiario}/>
             </Paper>
             </Container>
 
