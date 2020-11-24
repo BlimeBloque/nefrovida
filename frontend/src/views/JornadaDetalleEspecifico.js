@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { API } from "../config";
 import { Fab, Grid, Tooltip, Typography } from "@material-ui/core";
-import AddIcon from '@material-ui/icons/Add'; 
-
+import AddIcon from "@material-ui/icons/Add";
 
 export default class JornadaDetalleEspecifico extends Component {
   constructor(props) {
@@ -90,15 +89,18 @@ export default class JornadaDetalleEspecifico extends Component {
               </Grid>
               <Grid container justify="flex-end" spacing="3">
                 <Grid item xs={1}>
-                  <a href={"/jornadas/" + detalle.idJornada + "/agregarBeneficiario"}>
-                    <Tooltip title = "agregar beneficiario a jornada" arrow>
+                  <a
+                    href={
+                      "/jornadas/" + detalle.idJornada + "/agregarBeneficiario"
+                    }
+                  >
+                    <Tooltip title="agregar beneficiario a jornada" arrow>
                       <Fab color="primary">
-                          <AddIcon/>
+                        <AddIcon />
                       </Fab>
                     </Tooltip>
-                   
-                    </a>
-                  </Grid>
+                  </a>
+                </Grid>
               </Grid>
             </div>
           ))}

@@ -13,6 +13,7 @@ import DetallesDatosAntropometricos from './seccionesDetalles/DetallesDatosAntro
 import DetallesNecesidades from './seccionesDetalles/DetallesNecesidades';
 import {obtenerDiagnosticoIMC, obtenerIMC, getAge} from '../../components/utils';
 import DetallesPlanAlimentacion from './seccionesDetalles/DetallesPlanAlimentacion';
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
     flexTitulo:{
@@ -97,6 +98,8 @@ const ConsultaNutricion = (props) => {
     const classes = useStyle();
     const [eliminarOpen, setEliminarOpen] = useState(false);
 
+    
+
     const handleEliminarOpen = () => {
         setEliminarOpen(true);
     }
@@ -121,16 +124,24 @@ const ConsultaNutricion = (props) => {
                 <Typography variant="h5">{fecha}</Typography>
                 <Typography variant="h3">{detalle.nombreBeneficiario}</Typography>
                 <div id="botones">
+                {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Nutriologia") ? 
                     <Tooltip title="Editar" arrow>
                         <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/consultaNutricion/editar/"+detalle.idConsultaNutricional)}>
                             <EditIcon fontSize="large" />
                         </IconButton>
                     </Tooltip>
+                :
+                    <></>
+                }
+                {Cookies.get("roles").includes("Administrador") ? 
                     <Tooltip title="Eliminar" arrow>
                         <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
                             <RemoveCircleIcon fontSize="large" />
                         </IconButton>
                     </Tooltip>
+                :
+                    <></>
+                }
                 </div>
             </div>
             <DetallesDatosNutrimentales classes={classes} detalle={detalle} />

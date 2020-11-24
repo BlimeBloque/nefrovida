@@ -2,11 +2,11 @@ import { Typography, makeStyles, Paper, Tooltip } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
 import AddIcon from '@material-ui/icons/Add'; 
 import Fab from '@material-ui/core/Fab';
-import axios from 'axios';
+import http from '../http-common';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
-
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
     flex:{
@@ -30,7 +30,7 @@ const SeccionConsultaNutricion = (props) => {
     const [consultas, setConsultas] = useState([]);
 
     useEffect ( () => {
-        axios.get('http://localhost:8000/api/consultaNutricion/beneficiario/'+props.idBeneficiario)
+        http.get('/consultaNutricion/beneficiario/'+props.idBeneficiario)
             .then(res => { setConsultas(res.data)
                 })
                     .catch((e) => {
@@ -45,11 +45,15 @@ const SeccionConsultaNutricion = (props) => {
                 <Typography className={classes.flexContent} style={{margin: "10px 0px 0px 0px"}} variant="h6">
                 <strong>Consultas de Nutrición</strong>
                 </Typography>
-                <Tooltip title="Agregar Consulta de Nutrición" arrow>
-                <Fab className={classes.flexContent} color="primary" onClick={() => props.history.push("/beneficiarios/"+props.idBeneficiario+"/agregarConsultaNutricion")}>
-                    <AddIcon/>
-                </Fab>
-                </Tooltip>
+                {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Nutriologia") ? 
+                    <Tooltip title="Agregar Consulta de Nutrición" arrow>
+                    <Fab className={classes.flexContent} color="primary" onClick={() => props.history.push("/beneficiarios/"+props.idBeneficiario+"/agregarConsultaNutricion")}>
+                        <AddIcon/>
+                    </Fab>
+                    </Tooltip> 
+                :
+                    <></>
+                }
             </div>
 
                 <Grid container justify="center" spacing={4}>

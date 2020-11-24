@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import http from '../../../http-common';
 import Sidenav from "../../../components/Nav/Sidenav";
-import { Paper, makeStyles, Container, Button, Typography, Tooltip } from "@material-ui/core";
+import { Paper, makeStyles, Container, Typography, Tooltip } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
@@ -9,6 +9,7 @@ import Mensaje from '../../../components/Mensaje';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import EliminarQuimicaSanguinea from './EliminarQuimicaSanguinea';
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -191,16 +192,24 @@ const DetalleQuimicaSanguinea = (props) => {
                     <Typography variant="h5">{fecha}</Typography>
                     <Typography variant="h3">{detalle.nombreBeneficiario}</Typography>
                     <div id="botones">
+                    {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Laboratorio") ? 
                         <Tooltip title="Editar" arrow>
                             <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/quimicaSanguinea/editar/"+detalle.idQuimicaSanguinea)}>
                                 <EditIcon fontSize="large" />
                             </IconButton>
                         </Tooltip>
+                    :
+                        <></>
+                    }
+                    {Cookies.get("roles").includes("Administrador") ? 
                         <Tooltip title="Eliminar" arrow>
                             <IconButton aria-label="Eliminar" color="secondary" onClick={handleEliminarOpen}>
                                 <RemoveCircleIcon fontSize="large" />
                             </IconButton>
                         </Tooltip>
+                    :
+                        <></>
+                    }
                     </div>
                 </div>
                 <div className={classes.flex}>

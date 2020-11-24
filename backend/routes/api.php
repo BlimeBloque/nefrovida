@@ -39,7 +39,7 @@ Route::get('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@sear
 Route::post('/jornadas', 'App\Http\Controllers\JornadaController@insert');
 Route::post('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@edit');
 Route::delete('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@delete');
-
+Route::get('/jornadas/{idJornada}/beneficiarios', 'App\Http\Controllers\JornadaController@searchBenefs');
 
 Route::get('/escolaridades', 'App\Http\Controllers\EscolaridadesController@all');
 Route::get('/tiponota', 'App\Http\Controllers\TipoNotaController@all');
