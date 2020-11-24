@@ -44,6 +44,7 @@ import EditarMicroalbuminuria from './views/AnalisisLab/Microalbuminuria/EditarM
 import EditarEvaluacion from "./views/Evaluaciones/EditarEvaluacion";
 import EditarQuimicaSanguinea from "./views/AnalisisLab/QuimicaSanguinea/EditarQuimicaSanguinea";
 import EditarPreguntasEvaluacion from "./views/Evaluaciones/EditarPreguntasEvaluacion";
+import JornadaComparar from "./views/JornadaComparar"
 
 
 export default withRouter(
@@ -69,6 +70,7 @@ export default withRouter(
             <SecureRoute path='/jornadas' exact={true} component={Jornadas} />
             <SecureRoute path='/jornadas/:idJornada([0-9]*)' exact={true} component={JornadaDetalles} />
             <SecureRoute path='/reportes' exact={true} component={Reportes} />
+            <SecureRoute path='/jornadas/comparar' exact={true} component={JornadaComparar} />
 
             <SecureRoute path='/jornadas/:idJornada([0-9]*)/agregarBeneficiario' exact={true} component={AgregarBeneficiario}/>
 

@@ -76,4 +76,70 @@ class JornadaController extends Controller {
 
         return response()->json(null, 204);
     }
+
+    public function compararAll() {
+        return DB::table('jornadas')->select('idJornada as value', 'nombre as label')->get();
+    }
+
+    public function compare($id0, $id1, $id2, $id3, $id4) {
+        $arrSocioDemografico = [];
+        $arrTamizaje = [];
+
+        if ($id0 != -1) {
+            $Bid0 = DB::table('beneficiarios')->select('idBeneficiario as id')->where('idJornada', '=', $id0)->get();
+            $SocioDemografico0 = [0 => [DB::table('beneficiarios')->select('fechaNacimiento as fecha', 'seguimiento', 'sexo')->where('idJornada', '=', $id0)->get()]];
+            $arrSocioDemografico = ["SocioDemografico" => $SocioDemografico0];
+            $T0 = [];
+            foreach ($Bid0 as &$id) {
+                $T0 = array_merge($T0, [DB::table('tamizajes')->where('idBeneficiario', '=',  intval($id->id))->orderByDesc('created_at')->limit(1)->get()]);
+            }
+            $arrTamizaje = ["Tamizaje" => [$T0]];
+        }
+
+        if ($id1 != -1) {
+            $Bid1 = DB::table('beneficiarios')->select('idBeneficiario as id')->where('idJornada', '=', $id1)->get();
+            $SocioDemografico1 = [1 => [DB::table('beneficiarios')->select('fechaNacimiento as fecha', 'seguimiento', 'sexo')->where('idJornada', '=', $id1)->get()]];
+            $arrSocioDemografico = ["SocioDemografico" => $arrSocioDemografico["SocioDemografico"] + $SocioDemografico1];
+            $T1 = [];
+            foreach ($Bid1 as &$id) {
+                $T1 = array_merge($T1, [DB::table('tamizajes')->where('idBeneficiario', '=',  intval($id->id))->orderByDesc('created_at')->limit(1)->get()]);
+            }
+            $arrTamizaje = ["Tamizaje" => [$T0, $T1]];
+        }
+
+        if ($id2 != -1) {
+            $Bid2 = DB::table('beneficiarios')->select('idBeneficiario as id')->where('idJornada', '=', $id2)->get();
+            $SocioDemografico2 = [2 => [DB::table('beneficiarios')->select('fechaNacimiento as fecha', 'seguimiento', 'sexo')->where('idJornada', '=', $id2)->get()]];
+            $arrSocioDemografico = ["SocioDemografico" => $arrSocioDemografico["SocioDemografico"] + $SocioDemografico2];
+            $T2 = [];
+            foreach ($Bid2 as &$id) {
+                $T2 = array_merge($T2, [DB::table('tamizajes')->where('idBeneficiario', '=',  intval($id->id))->orderByDesc('created_at')->limit(1)->get()]);
+            }
+            $arrTamizaje = ["Tamizaje" => [$T0, $T1, $T2]];
+        }
+
+        if ($id3 != -1) {
+            $Bid3 = DB::table('beneficiarios')->select('idBeneficiario as id')->where('idJornada', '=', $id3)->get();
+            $SocioDemografico3 = [3 => [DB::table('beneficiarios')->select('fechaNacimiento as fecha', 'seguimiento', 'sexo')->where('idJornada', '=', $id3)->get()]];
+            $arrSocioDemografico = ["SocioDemografico" => $arrSocioDemografico["SocioDemografico"] + $SocioDemografico3];
+            $T3 = [];
+            foreach ($Bid3 as &$id) {
+                $T3 = array_merge($T3, [DB::table('tamizajes')->where('idBeneficiario', '=',  intval($id->id))->orderByDesc('created_at')->limit(1)->get()]);
+            }
+            $arrTamizaje = ["Tamizaje" => [$T0, $T1, $T2, $T3]];
+        }
+
+        if ($id4 != -1) {
+            $Bid4 = DB::table('beneficiarios')->select('idBeneficiario as id')->where('idJornada', '=', $id4)->get();
+            $SocioDemografico4 = [4 => [DB::table('beneficiarios')->select('fechaNacimiento as fecha', 'seguimiento', 'sexo')->where('idJornada', '=', $id4)->get()]];
+            $arrSocioDemografico = ["SocioDemografico" => $arrSocioDemografico["SocioDemografico"] + $SocioDemografico4];
+            $T4  = [];
+            foreach ($Bid4 as &$id) {
+                $T4  = array_merge($T4, [DB::table('tamizajes')->where('idBeneficiario', '=',  intval($id->id))->orderByDesc('created_at')->limit(1)->get()]);
+            }
+            $arrTamizaje = ["Tamizaje" => [$T0, $T1, $T2, $T3, $T4]];
+        }
+
+        return $arrSocioDemografico + $arrTamizaje;
+    }
 }

@@ -38,6 +38,9 @@ Route::post('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@edi
 Route::delete('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@delete');
 Route::get('/jornadas/{idJornada}/beneficiarios', 'App\Http\Controllers\JornadaController@searchBenefs');
 
+Route::get('/jornada/comparar', 'App\Http\Controllers\JornadaController@compararAll');
+Route::get('/comparar/{id0}/{id1}/{id2}/{id3}/{id4}', 'App\Http\Controllers\JornadaController@compare');
+
 Route::get('/escolaridades', 'App\Http\Controllers\EscolaridadesController@all');
 Route::get('/tiponota', 'App\Http\Controllers\TipoNotaController@all');
 
