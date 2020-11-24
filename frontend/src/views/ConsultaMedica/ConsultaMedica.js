@@ -1,8 +1,8 @@
-import { makeStyles, Typography, IconButton, Tooltip, Card, CardContent, Paper, Table, TableBody, TableCell, 
-    TableContainer, TableHead, TableRow} from '@material-ui/core';
-import React from 'react'
+import { makeStyles, Typography, IconButton, Tooltip} from '@material-ui/core';
+import React, {useState} from 'react';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import EliminarConsultaMedica from './EliminarConsultaMedica';
 
 const useStyle = makeStyles(theme => ({
 flexTitulo:{
@@ -53,8 +53,17 @@ table: {
 
 
 const ConsultaMedica = (props) => {
-const detalle = props.detalle;
-const classes = useStyle();
+    const detalle = props.detalle;
+    const classes = useStyle();
+    const [eliminarOpen, setEliminarOpen] = useState(false);
+
+    const handleEliminarOpen = () => {
+        setEliminarOpen(true);
+    }
+
+    const handleEliminarClose = () => {
+        setEliminarOpen(false);
+    }
 
 //Dar formato a fecha
 const date = new Date(detalle.created_at);
@@ -72,7 +81,7 @@ return(
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Eliminar" arrow>
-                    <IconButton aria-label="Eliminar" color="secondary"  onClick={() => props.history.push("/consultaMedica/eliminar/"+detalle.idConsultaMedica)}>
+                    <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
                         <RemoveCircleIcon fontSize="large" />
                     </IconButton>
                 </Tooltip>
@@ -153,6 +162,16 @@ return(
                     </Typography>
                 </div>
             </div>
+            <EliminarConsultaMedica
+                open={eliminarOpen}
+                handleOpen={handleEliminarOpen}
+                handleClose={handleEliminarClose}
+                history={props.history}
+                idBeneficiario={detalle.idBeneficiario}
+                idConsultaMedica={detalle.idConsultaMedica}
+                nombre={detalle.nombreBeneficiario}
+                fecha={fecha}
+            />
         </div>
     </center>
 )

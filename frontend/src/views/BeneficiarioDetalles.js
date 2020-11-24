@@ -239,6 +239,9 @@ const BeneficiarioDetalles = (props) => {
         success={args.includes("eliminarMicroalbuminuria") ? args.slice(-1) : -1} 
         mensajeExito={"Se eliminó el análisis de microalbuminuría."}
         mensajeError={"Hubo un error al eliminar análisis de microalbuminuría."}
+        success={args.includes("eliminarMedica") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminó la consulta médica."}
+        mensajeError={"Hubo un error al eliminar la consulta médica."}
       />
       
 
