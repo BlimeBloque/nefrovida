@@ -170,7 +170,7 @@ export default function TamizajeAgregarForm(props) {
           id="outlined-basic"
           variant="outlined"
           name="peso"
-          label="Peso"
+          label="Peso (Kg)"
           value={values.peso}
           onChange={handleInputChange}
           error={typeof errors.peso !== "undefined"}
@@ -200,7 +200,7 @@ export default function TamizajeAgregarForm(props) {
           id="outlined-basic"
           variant="outlined"
           name="talla"
-          label="Talla"
+          label="Talla (m)"
           value={values.talla}
           onChange={handleInputChange}
           error={typeof errors.talla !== "undefined"}

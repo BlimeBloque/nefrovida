@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { CssBaseline, makeStyles } from "@material-ui/core";
-import axios from "axios";
-
-import Controls from "../components/FormComponents/Controls";
+import {
+  CssBaseline,
+  makeStyles,
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@material-ui/core";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import http from "../http-common";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -25,19 +37,12 @@ const initialFValues = {
   idEstado: "",
 };
 
-const ErrorDValues = {
-  nombre: "",
-  fecha: new Date(),
-  localidad: "",
-  municipio: "",
-  idEstado: "",
-};
-
-export default function JornadasAgregarForm() {
+export default function JornadasAgregarForm(props) {
   const [values, setValues] = useState(initialFValues);
-  const [errors, setErrors] = useState(ErrorDValues);
+  const [errors, setErrors] = useState([]);
   const classes = useStyle();
   const [EstadosCollection, setEstados] = useState([]);
+  const [wait, setWait] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,139 +50,162 @@ export default function JornadasAgregarForm() {
       ...values,
       [name]: value,
     });
-    console.log(e.target);
-    console.log(values);
   };
 
+  useEffect(() => {
+    if (props.editar) {
+      var date = new Date(Date.parse(props.jornada.fecha));
+      date.setDate(date.getDate() + 1);
+      props.jornada.fecha = date;
+      setValues(props.jornada);
+    }
+    setEstados(props.estados);
+    setWait(true);
+  }, []);
+
   const validateFront = () => {
+    console.log("ewew");
     let val = {};
     val.nombre = values.nombre ? "" : "Este campo es requerido";
     val.localidad = values.localidad ? "" : "Este campo es requerido";
     val.municipio = values.municipio ? "" : "Este campo es requerido";
-    val.idEstado =
-      values.idEstado.length !== 0 ? "" : "Este campo es requerido";
+    val.idEstado = values.idEstado ? "" : "Este campo es requerido";
     setErrors({
       ...val,
     });
-
     return Object.values(val).every((x) => x === "");
   };
 
   const validateBack = (backResponse) => {
-    if (typeof backResponse === "undefined") {
-      window.location.replace("http://localhost:3000/jornadas");
-    } else {
-      let val = {};
-      val.nombre =
-        typeof backResponse.nombre === "undefined"
-          ? ""
-          : "Este campo es requerido";
-      val.localidad =
-        typeof backResponse.localidad === "undefined"
-          ? ""
-          : "Este campo es requerido";
-      val.municipio =
-        typeof backResponse.municipio === "undefined"
-          ? ""
-          : "Este campo es requerido";
-      val.idEstado =
-        typeof backResponse.idEstado === "undefined"
-          ? ""
-          : "Este campo es requerido";
-
-      setErrors({
-        ...val,
-      });
-    }
+    setErrors({
+      ...backResponse,
+    });
   };
 
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/estados")
-      .then((res) => {
-        setEstados(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+  const handleDateAtOnChange = (event) => {
+    setValues({ ...values, fecha: event });
+  };
 
-  const onSubmit = (e) => {
-    console.log(errors);
+  const handleSubmit = (e) => {
     e.preventDefault();
-    //? Front validation
     if (validateFront()) {
-      let day = values.fecha.getUTCDay();
-      let month = values.fecha.getUTCMonth() + 1;
-      let year = values.fecha.getUTCFullYear();
-      fetch("http://localhost:8000/api/jornadas", {
-        method: "POST",
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
-          "Access-Control-Allow-Credentials": "true",
-          Accept: "application/json",
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          nombre: values.nombre,
-          fecha: year + "/" + month + "/" + day,
-          localidad: values.localidad,
-          municipio: values.municipio,
-          idEstado: values.idEstado,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => validateBack(data.errors));
+      let day = values.fecha.getDate();
+      let month = values.fecha.getMonth() + 1;
+      let year = values.fecha.getFullYear();
+      let date = year + "-" + month + "-" + day;
+      values.fecha = date;
+      //setValues({ ...values, fecha: date });
+      if (props.editar) {
+        http
+          .post("/jornadas/" + props.idJornada, values)
+          .then((res) => {
+            props.history.push("/jornadas");
+          })
+          .catch((err) => {
+            validateBack(err.response.data.errors);
+          });
+      } else {
+        http
+          .post("/jornadas", values)
+          .then((res) => {
+            props.history.push("/jornadas");
+          })
+          .catch((err) => {
+            validateBack(err.response.data.errors);
+          });
+      }
     }
   };
+
   return (
     <div className={classes.form}>
       <CssBaseline />
-      <form className={classes.root}>
-        <Controls.Input
-          name="nombre"
-          label="Nombre"
-          value={values.nombre}
-          onChange={handleInputChange}
-          error={errors.nombre}
-        />
-        <Controls.DatePicker
-          name="fecha"
-          label="Fecha"
-          value={values.fecha}
-          onChange={handleInputChange}
-        />
-        <Controls.Input
-          name="localidad"
-          label="Localidad"
-          value={values.localidad}
-          onChange={handleInputChange}
-          error={errors.localidad}
-        />
-        <Controls.Input
-          name="municipio"
-          label="Municipio"
-          value={values.municipio}
-          onChange={handleInputChange}
-          error={errors.municipio}
-        />
-        <Controls.Select
-          name="idEstado"
-          label="Estado"
-          value={values.idEstado}
-          onChange={handleInputChange}
-          options={EstadosCollection}
-          error={errors.idEstado}
-        />
-        <Controls.Button
-          text="Agregar Jornada"
-          variant="contained"
-          color="primary"
-          size="large"
-          type="submit"
-          onClick={onSubmit}
-        />
-      </form>
+      {wait && (
+        <form className={classes.root}>
+          <TextField
+            id="outlined-basic"
+            variant="outlined"
+            name="nombre"
+            label="Nombre"
+            value={values.nombre}
+            onChange={handleInputChange}
+            error={typeof errors.nombre !== "undefined" && errors.nombre !== ""}
+            helperText={errors.nombre}
+          />
+
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="yyyy/MM/dd"
+              margin="normal"
+              name="fecha"
+              label="Fecha"
+              value={values.fecha}
+              onChange={handleDateAtOnChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+          </MuiPickersUtilsProvider>
+
+          <TextField
+            id="outlined-basic"
+            variant="outlined"
+            name="localidad"
+            label="Localidad"
+            value={values.localidad}
+            onChange={handleInputChange}
+            error={
+              typeof errors.localidad !== "undefined" && errors.localidad !== ""
+            }
+            helperText={errors.localidad}
+          />
+          <TextField
+            id="outlined-basic"
+            variant="outlined"
+            name="municipio"
+            label="Municipio"
+            value={values.municipio}
+            onChange={handleInputChange}
+            error={
+              typeof errors.municipio !== "undefined" && errors.municipio !== ""
+            }
+            helperText={errors.municipio}
+          />
+
+          <FormControl style={{ minWidth: 120 }}>
+            <InputLabel id="LEstado">Estado</InputLabel>
+            <Select
+              labelId="LEstado"
+              width="50%"
+              variant="outlined"
+              name="idEstado"
+              label="Estado"
+              value={values.idEstado}
+              onChange={handleInputChange}
+              error={
+                typeof errors.municipio !== "undefined" &&
+                errors.idEstado !== ""
+              }
+            >
+              {EstadosCollection.map((item) => (
+                <MenuItem key={item.id} value={item.id}>
+                  {item.nombre}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            {props.editar ? "Editar" : "Agregar"} Jornada
+          </Button>
+        </form>
+      )}
     </div>
   );
 }

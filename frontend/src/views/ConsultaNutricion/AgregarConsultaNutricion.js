@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidenav from "../../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from '@material-ui/core';
 import ConsultaNutricionForm from './ConsultaNutricionForm';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -20,6 +21,14 @@ const useStyle = makeStyles(theme => ({
 
 const AgregarConsultaNutricion = (props) => {
     const classes = useStyle();
+
+    useEffect( () => {
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Nutriologia"))
+        {
+            props.history.goBack();
+        }
+    }, []);
+
     return (
         <div className={classes.container}>
             <Sidenav titulo="Registrar Consulta de Nutriología" />        

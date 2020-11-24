@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
 import http from "../../../http-common";
 import MicroalbuminuriaForm from "./MicroalbuminuriaForm";
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -24,7 +25,10 @@ const EditarMicroalbuminuria = (props) => {
     const [analisis, setAnalisis] = useState();
 
     useEffect ( () => {
-
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Laboratorio"))
+        {
+            props.history.goBack();
+        }
         http.get('/microalbuminuria/'+props.match.params.idMicroalbuminuria)
             .then(res => { 
                 setAnalisis(res.data[0]);
