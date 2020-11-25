@@ -2,6 +2,8 @@ import {CssBaseline, InputAdornment, makeStyles} from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
 import { Grid } from 'semantic-ui-react';
 import axios from 'axios'
+import Cookies from 'js-cookie';
+
 
 import Controls from "../components/FormComponents/Controls";
 
@@ -73,7 +75,16 @@ export default function AgregarBeneficiarioForm(props) {
         })
     }
 
+    useEffect( () => {
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Social"))
+        {
+            props.history.goBack();
+        }
+    }, []);
+
     useEffect ( () => {
+
+         
 
         axios.get('http://127.0.0.1:8000/api/escolaridades')
         .then(res => { setEscolaridades (res.data.data)
