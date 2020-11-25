@@ -1,6 +1,6 @@
-import React, {useState, useEffect } from 'react'
+import React, {useState, useEffect } from 'react';
 
-import axios from 'axios'
+import http from "../../http-common";
 
 import {CssBaseline, FormLabel, makeStyles, Typography, Button, RadioGroup, FormControlLabel, Radio, Divider, FormControl, CircularProgress} from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
@@ -69,7 +69,7 @@ function AgregarFactorForm(props) {
     };
     
     useEffect (() => {
-        axios.get('http://localhost:8000/api/opcionFormulario/formularios/'+idFormulario)
+        http.get('http://localhost:8000/api/opcionFormulario/formularios/'+idFormulario)
         .then(res => { setOpciones (res.data)
         })
         .catch((e) => {
