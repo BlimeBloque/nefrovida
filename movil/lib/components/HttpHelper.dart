@@ -4,6 +4,8 @@ import 'package:movil/classes/Jornada.dart';
 import 'package:movil/classes/TipoNota.dart';
 import 'package:movil/classes/Nota.dart';
 import 'package:movil/classes/ConsultaNutricion.dart';
+import 'package:movil/classes/ConsultaMedica.dart';
+import 'package:movil/classes/Antecedentes.dart';
 import 'package:http/http.dart' as http;
 
 class HttpHelper {
@@ -13,7 +15,7 @@ class HttpHelper {
     Mau: 192.168.100.12
     Jan: 192.168.42.50 / 192.168.42.138
     Saul:
-    Randy:
+    Randy: 192.168.0.108
   */
   String ip = "http://192.168.100.12";
   String baseUrl = ":8000/api";
@@ -63,6 +65,78 @@ class HttpHelper {
         consulta = new ConsultaNutricion.fromJsonMap(item);
       }
       return consulta;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<ConsultaMedicaGeneral>> getConsultasMedicas(
+      idBeneficiario) async {
+    String path =
+        "/consultaMedica/beneficiario/" + idBeneficiario.toString();
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      ConsultasMedica listaConsultas =
+      new ConsultasMedica.fromJsonList(decodedJsonMap);
+      return listaConsultas.consultasMedica;
+    } else {
+      return null;
+    }
+  }
+
+  Future<ConsultaMedica> getDetalleConsultaM(idConsultaMedica) async {
+    String path = "/consultaMedica/" + idConsultaMedica.toString();
+    String uri = ip + baseUrl + path;
+    print(uri);
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      ConsultaMedica consulta;
+      for (var item in decodedJsonMap) {
+        consulta = new ConsultaMedica.fromJsonMap(item);
+      }
+      return consulta;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<AntecedentesGeneral>> getAntecedentes(
+      idBeneficiario) async {
+    String path =
+        "/antecedentes/beneficiario/" + idBeneficiario.toString();
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      Antecedente listaAntecedentes =
+      new Antecedente.fromJsonList(decodedJsonMap);
+      return listaAntecedentes.antecedente;
+    } else {
+      return null;
+    }
+  }
+
+  Future<Antecedentes> getDetalleAntecedentes(idAntecedentes) async {
+    String path = "/antecedentes/" + idAntecedentes.toString();
+    String uri = ip + baseUrl + path;
+    print(uri);
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      Antecedentes antecedentes;
+      for (var item in decodedJsonMap) {
+        antecedentes = new Antecedentes.fromJsonMap(item);
+      }
+      return antecedentes;
     } else {
       return null;
     }
