@@ -159,7 +159,9 @@ const SeccionEvaluacion = (props) => {
 
                 }
             </Grid> 
-            <BotonEvaluaciones idBeneficiario={props.idBeneficiario} hasEvalInit={hasEvalInit} hasEvalFin={hasEvalFin}/>
+            {!(Cookies.get("roles").includes('Social') || Cookies.get("roles").includes("Administrador")) ?
+            <></>:<BotonEvaluaciones idBeneficiario={props.idBeneficiario} hasEvalInit={hasEvalInit} hasEvalFin={hasEvalFin}/>
+            }
         </div>
     );
 }
