@@ -45,8 +45,8 @@ class ReportesController extends Controller
     //Contar el numero de hombres y mujeres en una jornada en específico
     public function countBySexAndJourney($idJornada)
     {
-        $hombres =  DB::table('beneficiarios')->where('idJornada', '=', $idJornada)->where('$sexo', '=', 'H')->count();
-        $mujeres =  DB::table('beneficiarios')->where('idJornada', '=', $idJornada)->where('$sexo', '=', 'M')->count();
+        $hombres =  DB::table('beneficiarios')->where('idJornada', '=', $idJornada)->where('sexo', '=', 'H')->count();
+        $mujeres =  DB::table('beneficiarios')->where('idJornada', '=', $idJornada)->where('sexo', '=', 'M')->count();
         return [$hombres, $mujeres];
     }
 
@@ -72,6 +72,41 @@ class ReportesController extends Controller
     {
         $tamizajes = DB::table('beneficiarios')->count();
         return $tamizajes;
+    }
+
+    public function countTamizajesJornada($idJornada){
+        $tamizajes = DB::table('beneficiarios')->where('idJornada','=', $idJornada)->count();
+        return $tamizajes;
+    }
+
+    public function countEvaluaciones(){
+
+        $evaluacionesRespuesta = array();
+
+        for ($i = 1; $i < 19; $i++){
+            $tempSi = DB::table('evaluaciones_respuestas')->where('idOpcionEvaluacion', '=', $i)->where('respuestasPosibles', '=', 'Sí')->count();
+            $tempNo = DB::table('evaluaciones_respuestas')->where('idOpcionEvaluacion', '=', $i)->where('respuestasPosibles', '=', 'No')->count();
+            array_push($evaluacionesRespuesta, $tempSi);
+            array_push($evaluacionesRespuesta, $tempNo);
+        }
+
+        return $evaluacionesRespuesta;
+
+    }
+
+    public function countEvaluacionesJornada($idJornada){
+
+        $evaluacionesRespuesta = array();
+
+        for ($i = 1; $i < 19; $i++){
+            $tempSi = DB::table('evaluaciones_respuestas')->leftJoin('beneficiarios', 'evaluaciones_respuestas.idBeneficiario', '=', 'beneficiarios.idBeneficiario')->where('beneficiarios.idJornada', '=', $idJornada)->where('idOpcionEvaluacion', '=', $i)->where('respuestasPosibles', '=', 'Sí')->count();
+            $tempNo = DB::table('evaluaciones_respuestas')->leftJoin('beneficiarios', 'evaluaciones_respuestas.idBeneficiario', '=', 'beneficiarios.idBeneficiario')->where('beneficiarios.idJornada', '=', $idJornada)->where('idOpcionEvaluacion', '=', $i)->where('respuestasPosibles', '=', 'No')->count();
+            array_push($evaluacionesRespuesta, $tempSi);
+            array_push($evaluacionesRespuesta, $tempNo);
+        }
+
+        return $evaluacionesRespuesta;
+
     }
 
 
@@ -510,6 +545,20 @@ public function conutBenefSinAnalisis()
     return [count($total),count($res)];
 }
 
+public function conutBenefSinAnalisisJornada($idJornada)
+{
+    $total = DB::table('beneficiarios')->where('idJornada','=', $idJornada)->pluck('idBeneficiario')->toArray();
+    $orina =  DB::table('examen_orina')->leftJoin('beneficiarios', 'examen_orina.idBeneficiario', '=', 'beneficiarios.idBeneficiario')->groupBy('examen_orina.idBeneficiario')->where('beneficiarios.idJornada', '=', $idJornada)->pluck('examen_orina.idBeneficiario')->toArray();
+    $quimica =  DB::table('quimica_sanguinea')->leftJoin('beneficiarios', 'quimica_sanguinea.idBeneficiario', '=', 'beneficiarios.idBeneficiario')->groupBy('quimica_sanguinea.idBeneficiario')->where('beneficiarios.idJornada', '=', $idJornada)->pluck('quimica_sanguinea.idBeneficiario')->toArray();
+    $micro =  DB::table('microalbuminuria')->leftJoin('beneficiarios', 'microalbuminuria.idBeneficiario', '=', 'beneficiarios.idBeneficiario')->groupBy('microalbuminuria.idBeneficiario')->where('beneficiarios.idJornada', '=', $idJornada)->pluck('microalbuminuria.idBeneficiario')->toArray();
+    $depuracion =  DB::table('depuracion_creatinina')->leftJoin('beneficiarios', 'depuracion_creatinina.idBeneficiario', '=', 'beneficiarios.idBeneficiario')->groupBy('depuracion_creatinina.idBeneficiario')->where('beneficiarios.idJornada', '=', $idJornada)->pluck('depuracion_creatinina.idBeneficiario')->toArray();
+
+   $examenes = array_merge($orina, $quimica, $micro, $depuracion);
+
+    $res = array_diff($total, $examenes);
+    return [count($total),count($res)];
+}
+
 public function countIMCGeneral(){
 
     $imcTotales = array();
@@ -524,6 +573,54 @@ public function countIMCGeneral(){
     foreach($consultas as $consulta){
 
         $actual = DB::table('consulta_nutricional')->select('idConsultaNutricional', 'idBeneficiario', 'altura', 'peso')->where('idBeneficiario','=',$consulta->idBeneficiario)->latest()->get();
+        //return $actual;
+        $consultaReciente = $consulta->idConsultaNutricional == $actual[0]->idConsultaNutricional ? true : false;
+        if($consultaReciente){
+            $beneficiario = Beneficiarios::find($consulta->idBeneficiario);
+            $edad = Carbon::parse($beneficiario->fechaNacimiento)->age;
+            $sexo = $beneficiario->sexo;
+            $imc = $this->obtenerIMC($consulta->altura, $consulta->peso);
+            $res = $this->calcularIMC($imc,  $sexo, $edad);
+            if(strcmp($res, 'BAJO PESO') == 0){
+                $bajoPesoCount ++;
+            } else if (strcmp($res, 'NORMAL') == 0){
+                $normalCount++;
+            } else if (strcmp($res, 'SOBREPESO') == 0){
+                $sobrepesoCount++;
+            } else if (strcmp($res, 'OBESIDAD')== 0){
+                $obesidadCount++;
+            }  
+        }        
+    }
+
+    $totalCuentasIMC =  $bajoPesoCount + $normalCount + $sobrepesoCount + $obesidadCount;
+    $bajoPesoPorcientaje = ($bajoPesoCount * 100) / $totalCuentasIMC;
+    $normalPorcentaje = ($normalCount * 100) / $totalCuentasIMC;
+    $sobrepesoPorcentaje = ($sobrepesoCount * 100) / $totalCuentasIMC;
+    $obesidadPorcentaje = ($obesidadCount * 100) / $totalCuentasIMC;
+
+    array_push($imcTotales, $bajoPesoPorcientaje);
+    array_push($imcTotales, $normalPorcentaje);
+    array_push($imcTotales, $sobrepesoPorcentaje);
+    array_push($imcTotales, $obesidadPorcentaje);
+
+    return ($imcTotales);
+}
+
+public function countIMCJornada($idJornada){
+
+    $imcTotales = array();
+    $bajoPesoCount = 0;
+    $normalCount = 0;
+    $sobrepesoCount = 0;
+    $obesidadCount = 0;
+
+
+    $consultas = DB::table('consulta_nutricional')->leftJoin('beneficiarios', 'consulta_nutricional.idBeneficiario', '=', 'beneficiarios.idBeneficiario')->where('beneficiarios.idJornada', '=', $idJornada)->select('idConsultaNutricional','consulta_nutricional.idBeneficiario', 'altura', 'peso')->get();
+
+    foreach($consultas as $consulta){
+
+        $actual = DB::table('consulta_nutricional')->select('idConsultaNutricional', 'consulta_nutricional.idBeneficiario', 'altura', 'peso')->where('consulta_nutricional.idBeneficiario','=',$consulta->idBeneficiario)->latest()->get();
         //return $actual;
         $consultaReciente = $consulta->idConsultaNutricional == $actual[0]->idConsultaNutricional ? true : false;
         if($consultaReciente){
@@ -574,6 +671,98 @@ public function countIMCPorSexo(){
 
 
     $consultas = DB::table('consulta_nutricional')->select('idConsultaNutricional','idBeneficiario', 'altura', 'peso')->get();
+
+    foreach($consultas as $consulta){
+
+        $actual = DB::table('consulta_nutricional')->select('idConsultaNutricional', 'idBeneficiario', 'altura', 'peso')->where('idBeneficiario','=',$consulta->idBeneficiario)->latest()->get();
+        //return $actual;
+        $consultaReciente = $consulta->idConsultaNutricional == $actual[0]->idConsultaNutricional ? true : false;
+        if($consultaReciente){
+            $beneficiario = Beneficiarios::find($consulta->idBeneficiario);
+            $edad = Carbon::parse($beneficiario->fechaNacimiento)->age;
+            $sexo = $beneficiario->sexo;
+            $imc = $this->obtenerIMC($consulta->altura, $consulta->peso);
+            $res = $this->calcularIMC($imc,  $sexo, $edad);
+            if(strcmp($res, 'BAJO PESO') == 0){
+                if(strcmp($sexo, 'H')== 0){
+                    $bajoPesoCountH ++;
+                } else {
+                    $bajoPesoCountM ++;
+                }
+                
+            } else if (strcmp($res, 'NORMAL') == 0){
+                if(strcmp($sexo, 'H') == 0){
+                    $normalCountH ++;
+                } else {
+                    $normalCountM++;
+                }
+                
+            } else if (strcmp($res, 'SOBREPESO') == 0){
+                if(strcmp($sexo, 'H')== 0){
+                    $sobrepesoCountH ++;
+                } else {
+                    $sobrepesoCountM ++;
+                }
+                
+            } else if (strcmp($res, 'OBESIDAD')== 0){
+                if(strcmp($sexo, 'H')== 0){
+                    $obesidadCountH ++;
+                } else {
+                    $obesidadCountM ++;
+                }
+                
+            }  
+        } else {
+            $errores++;
+        }        
+    }
+
+    $totalBajoPeso =  $bajoPesoCountH + $bajoPesoCountM ;
+    $totalNormal =  $normalCountH + $normalCountM ;
+    $totalSobrepeso =  $sobrepesoCountH + $sobrepesoCountM;
+    $totalObesidad =  $obesidadCountM + $obesidadCountH;
+
+    $bajoPesoPorcientajeH = $totalBajoPeso == 0 ? 0 : ($bajoPesoCountH * 100) / $totalBajoPeso;
+    $bajoPesoPorcientajeM = $totalBajoPeso == 0 ? 0 : ($bajoPesoCountM * 100) / $totalBajoPeso;
+
+    $normalPorcentajeH = $totalNormal == 0 ? 0 : ($normalCountH * 100) / $totalNormal;
+    $normalPorcentajeM = $totalNormal == 0 ? 0 : ($normalCountM * 100) / $totalNormal;
+
+    $sobrepesoPorcentajeH = $totalSobrepeso == 0 ? 0 : ($sobrepesoCountH * 100) / $totalSobrepeso;
+    $sobrepesoPorcentajeM = $totalSobrepeso == 0 ? 0 : ($sobrepesoCountM * 100) / $totalSobrepeso;
+
+    $obesidadPorcentajeM = $totalObesidad == 0 ? 0 : ($obesidadCountM * 100) / $totalObesidad;
+    $obesidadPorcentajeH = $totalObesidad == 0 ? 0 : ($obesidadCountH * 100) / $totalObesidad;
+
+    array_push($imcTotales, $bajoPesoPorcientajeH);
+    array_push($imcTotales, $normalPorcentajeH);
+    array_push($imcTotales, $sobrepesoPorcentajeH);
+    array_push($imcTotales, $obesidadPorcentajeH);
+
+    array_push($imcTotales, $bajoPesoPorcientajeM);
+    array_push($imcTotales, $normalPorcentajeM);
+    array_push($imcTotales, $sobrepesoPorcentajeM);
+    array_push($imcTotales, $obesidadPorcentajeM);
+
+    return ($imcTotales);
+}
+
+public function countIMCPorSexoJornada($idJornada){
+
+    $imcTotales = array();
+    $bajoPesoCountH = 0;
+    $normalCountH = 0;
+    $sobrepesoCountH = 0;
+    $obesidadCountH = 0;
+    $bajoPesoCountM = 0;
+    $normalCountM = 0;
+    $sobrepesoCountM = 0;
+    $obesidadCountM = 0;
+
+    $errores = 0;
+
+
+    $consultas = DB::table('consulta_nutricional')->leftJoin('beneficiarios', 'consulta_nutricional.idBeneficiario', '=', 'beneficiarios.idBeneficiario')->where('beneficiarios.idJornada', '=', $idJornada)->select('idConsultaNutricional','consulta_nutricional.idBeneficiario', 'altura', 'peso')->get();
 
     foreach($consultas as $consulta){
 

@@ -104,11 +104,15 @@ Route::get('reportes/getEdadesJornada/{idJornada}', 'App\Http\Controllers\Report
 Route::get('reportes/getPruebas', 'App\Http\Controllers\ReportesController@countPruebas');
 Route::get('reportes/getPruebas/{idJornada}', 'App\Http\Controllers\ReportesController@countPruebasJornada');
 Route::get('reportes/getTamizajes', 'App\Http\Controllers\ReportesController@countTamizajes');
-Route::get('reportes/getTamizajes/{idJornada}', 'App\Http\Controllers\ReportesController@ccountTamizajesJornada');
+Route::get('reportes/getTamizajes/{idJornada}', 'App\Http\Controllers\ReportesController@countTamizajesJornada');
 Route::get('reportes/getCountBeneficiariosConPruebas', 'App\Http\Controllers\ReportesController@conutBenefSinAnalisis');
-Route::get('reportes/getCountBeneficiariosConPruebas/{idJornada}', 'App\Http\Controllers\ReportesController@conutBenefSinAnalisis');
+Route::get('reportes/getCountBeneficiariosConPruebas/{idJornada}', 'App\Http\Controllers\ReportesController@conutBenefSinAnalisisJornada');
 Route::get('reportes/getCountIMC', 'App\Http\Controllers\ReportesController@countIMCGeneral');
+Route::get('reportes/getCountIMC/{idJornada}', 'App\Http\Controllers\ReportesController@countIMCJornada');
 Route::get('reportes/getCountIMCPorSexo', 'App\Http\Controllers\ReportesController@countIMCPorSexo');
+Route::get('reportes/getCountIMCPorSexo/{idJornada}', 'App\Http\Controllers\ReportesController@countIMCPorSexoJornada');
+Route::get('reportes/getCountEvaluaciones', 'App\Http\Controllers\ReportesController@countEvaluaciones');
+Route::get('reportes/getCountEvaluaciones/{idJornada}', 'App\Http\Controllers\ReportesController@countEvaluacionesJornada');
 
 
 

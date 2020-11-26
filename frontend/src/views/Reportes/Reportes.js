@@ -13,6 +13,7 @@ const[pruebas, setPruebas] = useState([]);
 const[tamizajes, setTamizajes] = useState([]);
 const[IMC, setIMC] = useState([]);
 const[IMCSexo, setIMCSexo] = useState([]);
+const[respuestasEvaluaciones, setrespuestasEvaluaciones] = useState([]);
 
 
 
@@ -60,6 +61,13 @@ useEffect ( () => {
         console.log(e)
     })
 
+    http.get('reportes/getCountEvaluaciones')
+    .then(res => { setrespuestasEvaluaciones (res.data) 
+})
+    .catch((e) => {
+        console.log(e)
+    })
+
 }, []);
 
     const dataSexo = {
@@ -98,7 +106,7 @@ useEffect ( () => {
         }]
     }
     
-    console.log(tamizajes);   
+    console.log(respuestasEvaluaciones);   
 
     const counts = [];
     edades.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
@@ -162,6 +170,114 @@ useEffect ( () => {
           {
             label: '% Mujeres',
             data: [IMCSexo[4], IMCSexo[5], IMCSexo[6], IMCSexo[7]],
+            backgroundColor: '#63707A',
+            hoverBackgroundColor: '#7DCFDF',
+          },
+        ],
+      }
+
+      const dataPlaticaMedicaInicio = {
+        labels: ['Pregunta 1', 'Pregunta 3', 'Pregunta 3'],
+        datasets: [
+          {
+            label: 'Contestó Si',
+            data: [respuestasEvaluaciones[0], respuestasEvaluaciones[2], respuestasEvaluaciones[4]],
+            backgroundColor: '#7DCFDF',
+            hoverBackgroundColor: '#63707A',
+          },
+          {
+            label: 'Contestó No',
+            data: [respuestasEvaluaciones[1], respuestasEvaluaciones[3], respuestasEvaluaciones[5]],
+            backgroundColor: '#63707A',
+            hoverBackgroundColor: '#7DCFDF',
+          },
+        ],
+      }
+
+      const dataPlaticaMedicaFin = {
+        labels: ['Pregunta 1', 'Pregunta 2', 'Pregunta 3'],
+        datasets: [
+          {
+            label: 'Contestó Si',
+            data: [respuestasEvaluaciones[18], respuestasEvaluaciones[20], respuestasEvaluaciones[22]],
+            backgroundColor: '#7DCFDF',
+            hoverBackgroundColor: '#63707A',
+          },
+          {
+            label: 'Contestó No',
+            data: [respuestasEvaluaciones[19], respuestasEvaluaciones[21], respuestasEvaluaciones[23]],
+            backgroundColor: '#63707A',
+            hoverBackgroundColor: '#7DCFDF',
+          },
+        ],
+      }
+
+      const dataPlaticaNutriciaInicio = {
+        labels: ['Pregunta 4', 'Pregunta 5', 'Pregunta 6'],
+        datasets: [
+          {
+            label: 'Contestó Si',
+            data: [respuestasEvaluaciones[6], respuestasEvaluaciones[8], respuestasEvaluaciones[10]],
+            backgroundColor: '#7DCFDF',
+            hoverBackgroundColor: '#63707A',
+          },
+          {
+            label: 'Contestó No',
+            data: [respuestasEvaluaciones[7], respuestasEvaluaciones[9], respuestasEvaluaciones[11]],
+            backgroundColor: '#63707A',
+            hoverBackgroundColor: '#7DCFDF',
+          },
+        ],
+      }
+
+      const dataPlaticaNutriciaFin = {
+        labels: ['Pregunta 4', 'Pregunta 5', 'Pregunta 6'],
+        datasets: [
+          {
+            label: 'Contestó Si',
+            data: [respuestasEvaluaciones[24], respuestasEvaluaciones[26], respuestasEvaluaciones[28]],
+            backgroundColor: '#7DCFDF',
+            hoverBackgroundColor: '#63707A',
+          },
+          {
+            label: 'Contestó No',
+            data: [respuestasEvaluaciones[25], respuestasEvaluaciones[27], respuestasEvaluaciones[29]],
+            backgroundColor: '#63707A',
+            hoverBackgroundColor: '#7DCFDF',
+          },
+        ],
+      }
+
+      const dataPlaticaPsicoInicio = {
+        labels: ['Pregunta 7', 'Pregunta 8', 'Pregunta 9'],
+        datasets: [
+          {
+            label: 'Contestó Si',
+            data: [respuestasEvaluaciones[12], respuestasEvaluaciones[14], respuestasEvaluaciones[16]],
+            backgroundColor: '#7DCFDF',
+            hoverBackgroundColor: '#63707A',
+          },
+          {
+            label: 'Contestó No',
+            data: [respuestasEvaluaciones[13], respuestasEvaluaciones[15], respuestasEvaluaciones[17]],
+            backgroundColor: '#63707A',
+            hoverBackgroundColor: '#7DCFDF',
+          },
+        ],
+      }
+
+      const dataPlaticaPsicoFin = {
+        labels: ['Pregunta 7', 'Pregunta 8', 'Pregunta 9'],
+        datasets: [
+          {
+            label: 'Contestó Si',
+            data: [respuestasEvaluaciones[30], respuestasEvaluaciones[32], respuestasEvaluaciones[34]],
+            backgroundColor: '#7DCFDF',
+            hoverBackgroundColor: '#63707A',
+          },
+          {
+            label: 'Contestó No',
+            data: [respuestasEvaluaciones[31], respuestasEvaluaciones[33], respuestasEvaluaciones[35]],
             backgroundColor: '#63707A',
             hoverBackgroundColor: '#7DCFDF',
           },
@@ -237,7 +353,7 @@ useEffect ( () => {
           </Paper>
           <br/>
           <Paper>
-          <h2>Incide de masa corporal / IMC por sexo</h2>
+          <h2>Incide de masa corporal general/ IMC por sexo</h2>
             <Grid container spacing={1} justify='space-evenly'>
                 <Grid item xs={5}>
                     <br/>
@@ -274,14 +390,14 @@ useEffect ( () => {
           </Paper>
           <br/>
           <Paper>
-          <h2>Reporte de pláticas nutricias</h2>
+          <h2>Reporte de pláticas (Seccion Médica)</h2>
             <Grid container spacing={1} justify='space-evenly'>
                 <Grid item xs={5}>
                     <br/>
-                    Promedio en encuesta nutrimentaria
+                    Respuestas cuestionario inicial
                     <br/>
                     <Bar 
-                        data={dataIMCSexo} 
+                        data={dataPlaticaMedicaInicio} 
                         width={500}
                         height={200}
                         options={options}/>
@@ -289,22 +405,64 @@ useEffect ( () => {
 
                 <Grid item xs={5}>
                     <br/>
-                    Respuestas cuestionario inicial
+                    Respuestas cuestionario Final
                     <br/>
                     <Bar 
-                        data={dataIMCSexo} 
+                        data={dataPlaticaMedicaFin} 
                         width={500}
                         height={200}
                         options={options}/>
                 </Grid>
             </Grid>
+          </Paper>
+          <br/>
+          <Paper>
+          <h2>Reporte de pláticas (Seccion Nutricia)</h2>
             <Grid container spacing={1} justify='space-evenly'>
                 <Grid item xs={5}>
                     <br/>
-                    Respuestas cuestionario final
+                    Respuestas cuestionario inicial
                     <br/>
                     <Bar 
-                        data={dataIMCSexo} 
+                        data={dataPlaticaNutriciaInicio} 
+                        width={500}
+                        height={200}
+                        options={options}/>
+                </Grid>
+
+                <Grid item xs={5}>
+                    <br/>
+                    Respuestas cuestionario Final
+                    <br/>
+                    <Bar 
+                        data={dataPlaticaNutriciaFin} 
+                        width={500}
+                        height={200}
+                        options={options}/>
+                </Grid>
+            </Grid>
+          </Paper>
+          <br/>
+          <Paper>
+          <h2>Reporte de pláticas (Seccion Psicología)</h2>
+            <Grid container spacing={1} justify='space-evenly'>
+                <Grid item xs={5}>
+                    <br/>
+                    Respuestas cuestionario inicial
+                    <br/>
+                    <Bar 
+                        data={dataPlaticaPsicoInicio} 
+                        width={500}
+                        height={200}
+                        options={options}/>
+                </Grid>
+
+                <Grid item xs={5}>
+                    <br/>
+                    Respuestas cuestionario Final
+                    <br/>
+                    <Bar 
+                        data={dataPlaticaPsicoFin} 
                         width={500}
                         height={200}
                         options={options}/>
