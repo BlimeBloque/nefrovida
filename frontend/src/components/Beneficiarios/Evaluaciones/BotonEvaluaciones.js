@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {  useEffect } from 'react';
 import { BrowserRouter as Router, Route, NavLink, withRouter } from 'react-router-dom'
 
 import Grid from '@material-ui/core/Grid';
@@ -15,7 +15,7 @@ import MenuList from '@material-ui/core/MenuList';
 const options = ['Agregar evaluación inicial', 'Agregar evaluación final'];
 
 function BotonEvaluaciones(props) {
-  const history = props.history;
+  const {history, hasEvalInit, hasEvalFin} = props;
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -23,12 +23,23 @@ function BotonEvaluaciones(props) {
 
   const handleClick = () => {
     setIdEval(selectedIndex+1);
+    
     if(selectedIndex == 0) {
-      history.push('/beneficiarios/'+props.idBeneficiario+'/agregarEvaluacionInicio');
+      if(hasEvalInit) {
+        history.push('/beneficiarios/'+props.idBeneficiario+'?permitirEvaluacionInicio=0');
+        window.location.reload();
+      } else {
+        history.push('/beneficiarios/'+props.idBeneficiario+'/agregarEvaluacionInicio');
+      }
     }
     else {
       setIdEval(2);
-      history.push('/beneficiarios/'+props.idBeneficiario+'/agregarEvaluacionFin');
+      if(hasEvalFin) {
+        history.push('/beneficiarios/'+props.idBeneficiario+'?permitirEvaluacionFin=0');
+        window.location.reload();
+      } else {
+        history.push('/beneficiarios/'+props.idBeneficiario+'/agregarEvaluacionFin');
+      }
     }
     console.log(idEval)
   };
@@ -50,8 +61,13 @@ function BotonEvaluaciones(props) {
     setOpen(false);
   };
 
+  useEffect(() => {
+    
+  }, []);
+
   return (
     <Grid container direction="column" alignItems="center">
+      {console.log(hasEvalInit)}
       <Grid item xs={12}>
         <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
           <Button onClick={handleClick}>{options[selectedIndex]}</Button>

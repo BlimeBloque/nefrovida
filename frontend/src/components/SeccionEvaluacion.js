@@ -51,11 +51,15 @@ const SeccionEvaluacion = (props) => {
     const [evaluacionesInicio, setEvaluacionesIncio] = useState();
     const [evaluacionesFin, setEvaluacionesFin] = useState();
     const [anchorEl, setAnchorEl] = useState(null);
+    const [hasEvalInit, setHasEvalInit] = useState(false);
+    const [hasEvalFin, setHasEvalFin] = useState(false);
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/evaluacionesInicio/' + props.idBeneficiario)
             .then(res => {
                 setEvaluacionesIncio(res.data)
+                res.data.length !== 0 && setHasEvalInit(true)
+                console.log(hasEvalInit)
             })
             .catch((e) => {
                 console.log(e)
@@ -64,6 +68,8 @@ const SeccionEvaluacion = (props) => {
             axios.get('http://localhost:8000/api/evaluacionesFin/' + props.idBeneficiario)
             .then(res => {
                 setEvaluacionesFin(res.data)
+                res.data.length !== 0 && setHasEvalFin(true)
+                console.log(hasEvalFin)
             })
             .catch((e) => {
                 console.log(e)
@@ -143,7 +149,7 @@ const SeccionEvaluacion = (props) => {
 
                 }
             </Grid> 
-            <BotonEvaluaciones idBeneficiario={props.idBeneficiario} />
+            <BotonEvaluaciones idBeneficiario={props.idBeneficiario} hasEvalInit={hasEvalInit} hasEvalFin={hasEvalFin}/>
         </div>
     );
 }

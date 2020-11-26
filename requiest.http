@@ -1,1 +1,13 @@
-GET http://localhost:8000/api/detalles/92
+POST https://dev-377919.okta.com/oauth2/default/v1/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Cookie: DT=DI0SZuRxKydSIiO8OjxSZIhYw; JSESSIONID=3B74CAC1BEA9788732F4C740BCAE27A7
+Content-Length: 135
+
+{
+"grant_type": "client_credentials",
+"client_id": "0oa1d45i5MRmrcHiN5d6",
+"client_secret": "bA3TjtmBvH_VMus-akv3spczbot6bYW2j0VhyJFC",
+"scope":"nefrovida_api"
+}
+
+
