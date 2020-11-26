@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 import { Container, Tooltip } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { Table } from "semantic-ui-react";
-import http from "../../http-common";
+import http from "../http-common";
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';

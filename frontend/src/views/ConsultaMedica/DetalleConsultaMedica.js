@@ -29,7 +29,7 @@ const DetalleConsultaMedica = (props) => {
     const args = props.location.search;
 
     useEffect ( () => {
-        http.get('http://localhost:8000/api/consultaMedica/'+idConsultaMedica)
+        http.get('consultaMedica/'+idConsultaMedica)
             .then(res => { setDetalle(res.data[0])
                 })
                     .catch((e) => {

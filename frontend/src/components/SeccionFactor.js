@@ -1,6 +1,6 @@
 import { Typography, makeStyles, Paper, Menu, MenuItem } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import http from "../http-common";
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
@@ -52,7 +52,7 @@ const SeccionFactor = (props) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/formulario/' + props.idBeneficiario)
+        http.get('formulario/' + props.idBeneficiario)
             .then(res => {
                 setFactorRiesgo(res.data)
             })

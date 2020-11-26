@@ -29,7 +29,7 @@ const DetalleAntecedentes = (props) => {
     const args = props.location.search;
 
     useEffect ( () => {
-        http.get('http://localhost:8000/api/antecedentes/'+idAntecedentes)
+        http.get('antecedentes/'+idAntecedentes)
             .then(res => { setDetalle(res.data[0])
                 })
                     .catch((e) => {

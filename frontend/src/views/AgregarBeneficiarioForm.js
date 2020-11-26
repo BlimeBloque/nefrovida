@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {CssBaseline, makeStyles} from '@material-ui/core';
 import { Grid } from 'semantic-ui-react';
-import http from "../../http-common";
+import http from "../http-common";
 
 import Controls from "../components/FormComponents/Controls";
 
