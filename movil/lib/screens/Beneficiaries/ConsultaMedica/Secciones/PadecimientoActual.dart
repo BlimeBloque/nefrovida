@@ -30,13 +30,18 @@ class PadecimientoActual extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              consulta.padecimientoActual != null ? consulta.padecimientoActual : 'No registrado',
+            Flexible(
+                child: Text(
+              consulta.padecimientoActual != null
+                  ? consulta.padecimientoActual
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.padecimientoActual != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.padecimientoActual != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
       ],

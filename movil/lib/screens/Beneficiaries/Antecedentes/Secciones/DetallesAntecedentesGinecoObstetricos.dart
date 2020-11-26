@@ -3,7 +3,8 @@ import 'package:movil/classes/Antecedentes.dart';
 
 class DetallesAntecedentesGinecoObstetricos extends StatelessWidget {
   final Antecedentes antecedentes;
-  DetallesAntecedentesGinecoObstetricos({Key key, @required this.antecedentes}) : super(key: key);
+  DetallesAntecedentesGinecoObstetricos({Key key, @required this.antecedentes})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +32,14 @@ class DetallesAntecedentesGinecoObstetricos extends StatelessWidget {
               ),
             ),
             Text(
-              antecedentes.menarquia != null ? antecedentes.menarquia : 'No registrado',
+              antecedentes.menarquia != null
+                  ? antecedentes.menarquia
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.menarquia != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.menarquia != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -54,7 +59,9 @@ class DetallesAntecedentesGinecoObstetricos extends StatelessWidget {
               antecedentes.ritmo != null ? antecedentes.ritmo : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.ritmo != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.ritmo != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -74,7 +81,9 @@ class DetallesAntecedentesGinecoObstetricos extends StatelessWidget {
               antecedentes.fum != null ? antecedentes.fum : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.fum != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.fum != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -91,10 +100,14 @@ class DetallesAntecedentesGinecoObstetricos extends StatelessWidget {
               ),
             ),
             Text(
-              antecedentes.gestaciones != null ? antecedentes.gestaciones : 'No registrado',
+              antecedentes.gestaciones != null
+                  ? antecedentes.gestaciones
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.gestaciones != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.gestaciones != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -111,10 +124,14 @@ class DetallesAntecedentesGinecoObstetricos extends StatelessWidget {
               ),
             ),
             Text(
-              antecedentes.partos != null ? antecedentes.partos : 'No registrado',
+              antecedentes.partos != null
+                  ? antecedentes.partos
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.partos != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.partos != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -131,10 +148,14 @@ class DetallesAntecedentesGinecoObstetricos extends StatelessWidget {
               ),
             ),
             Text(
-              antecedentes.abortos != null ? antecedentes.abortos : 'No registrado',
+              antecedentes.abortos != null
+                  ? antecedentes.abortos
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.abortos != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.abortos != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -151,10 +172,14 @@ class DetallesAntecedentesGinecoObstetricos extends StatelessWidget {
               ),
             ),
             Text(
-              antecedentes.cesareas != null ? antecedentes.cesareas : 'No registrado',
+              antecedentes.cesareas != null
+                  ? antecedentes.cesareas
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.cesareas != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.cesareas != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -174,7 +199,9 @@ class DetallesAntecedentesGinecoObstetricos extends StatelessWidget {
               antecedentes.ivsa != null ? antecedentes.ivsa : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.ivsa != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.ivsa != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -190,13 +217,18 @@ class DetallesAntecedentesGinecoObstetricos extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              antecedentes.metodosAnticonceptivos != null ? antecedentes.metodosAnticonceptivos : 'No registrado',
+            Flexible(
+                child: Text(
+              antecedentes.metodosAnticonceptivos != null
+                  ? antecedentes.metodosAnticonceptivos
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.metodosAnticonceptivos != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.metodosAnticonceptivos != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
       ],

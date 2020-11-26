@@ -15,7 +15,9 @@ class DetalleConsultaMedicaScreen extends StatelessWidget {
   final ConsultaMedicaGeneral consultaGeneral;
   final Beneficiario beneficiario;
 
-  DetalleConsultaMedicaScreen({Key key, @required this.consultaGeneral, @required this.beneficiario}) : super(key: key);
+  DetalleConsultaMedicaScreen(
+      {Key key, @required this.consultaGeneral, @required this.beneficiario})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +31,15 @@ class DetalleConsultaMedicaScreen extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: FutureBuilder(
-              future: consultaHelper.getDetalleConsulta(consultaGeneral.idConsultaMedica),
+              future: consultaHelper
+                  .getDetalleConsultaM(consultaGeneral.idConsultaMedica),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 print(consultaGeneral.idConsultaMedica);
-                if(snapshot.hasData != null)
-                {
+                if (snapshot.hasData != null) {
                   ConsultaMedica consulta = snapshot.data;
-                  if(consulta == null)
-                  {
+                  if (consulta == null) {
                     return Center(child: CircularProgressIndicator());
-                  }
-                  else
-                  {
+                  } else {
                     return Card(
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -81,13 +80,10 @@ class DetalleConsultaMedicaScreen extends StatelessWidget {
                       ),
                     );
                   }
-                }
-                else
-                {
+                } else {
                   return Center(child: CircularProgressIndicator());
                 }
-              }
-          ),
+              }),
         ),
       ),
     );

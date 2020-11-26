@@ -3,7 +3,8 @@ import 'package:movil/classes/Antecedentes.dart';
 
 class DetallesAntecedentesPersonales extends StatelessWidget {
   final Antecedentes antecedentes;
-  DetallesAntecedentesPersonales({Key key, @required this.antecedentes}) : super(key: key);
+  DetallesAntecedentesPersonales({Key key, @required this.antecedentes})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +31,18 @@ class DetallesAntecedentesPersonales extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              antecedentes.personalesPatologicos != null ? antecedentes.personalesPatologicos : 'No registrado',
+            Flexible(
+                child: Text(
+              antecedentes.personalesPatologicos != null
+                  ? antecedentes.personalesPatologicos
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.personalesPatologicos != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.personalesPatologicos != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
         //P. No Patológicos
@@ -50,13 +56,18 @@ class DetallesAntecedentesPersonales extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              antecedentes.personalesNoPatologicos != null ? antecedentes.personalesNoPatologicos : 'No registrado',
+            Flexible(
+                child: Text(
+              antecedentes.personalesNoPatologicos != null
+                  ? antecedentes.personalesNoPatologicos
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.personalesNoPatologicos != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.personalesNoPatologicos != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
       ],

@@ -22,9 +22,9 @@ class HttpHelper {
     Mau: 192.168.100.12
     Jan: 192.168.42.50 / 192.168.42.138
     Saul: 192.168.100.7
-    Randy: 192.168.0.108
+    Randy: 192.168.42.2
   */
-  String ip = "http://192.168.42.50";
+  String ip = "http://192.168.42.2";
   String baseUrl = ":8000/api";
 
   Future<List<Beneficiario>> getAllBeneficiarios() async {

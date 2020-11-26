@@ -34,7 +34,9 @@ class ExploracionFisica extends StatelessWidget {
               consulta.taDerecho != null ? consulta.taDerecho : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.taDerecho != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.taDerecho != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -51,10 +53,14 @@ class ExploracionFisica extends StatelessWidget {
               ),
             ),
             Text(
-              consulta.taIzquierdo != null ? consulta.taIzquierdo : 'No registrado',
+              consulta.taIzquierdo != null
+                  ? consulta.taIzquierdo
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.taIzquierdo != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.taIzquierdo != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -71,10 +77,14 @@ class ExploracionFisica extends StatelessWidget {
               ),
             ),
             Text(
-              consulta.frecuenciaCardiaca != null ? consulta.frecuenciaCardiaca : 'No registrado',
+              consulta.frecuenciaCardiaca != null
+                  ? consulta.frecuenciaCardiaca
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.frecuenciaCardiaca != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.frecuenciaCardiaca != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -91,10 +101,14 @@ class ExploracionFisica extends StatelessWidget {
               ),
             ),
             Text(
-              consulta.frecuenciaRespiratoria != null ? consulta.frecuenciaRespiratoria : 'No registrado',
+              consulta.frecuenciaRespiratoria != null
+                  ? consulta.frecuenciaRespiratoria
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.frecuenciaRespiratoria != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.frecuenciaRespiratoria != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -111,10 +125,14 @@ class ExploracionFisica extends StatelessWidget {
               ),
             ),
             Text(
-              consulta.temperatura != null ? consulta.temperatura : 'No registrado',
+              consulta.temperatura != null
+                  ? consulta.temperatura
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.temperatura != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.temperatura != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -134,7 +152,8 @@ class ExploracionFisica extends StatelessWidget {
               consulta.peso != null ? consulta.peso : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.peso != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle:
+                    consulta.peso != null ? FontStyle.normal : FontStyle.italic,
               ),
             ),
           ],
@@ -154,7 +173,9 @@ class ExploracionFisica extends StatelessWidget {
               consulta.talla != null ? consulta.talla : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.talla != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.talla != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -170,13 +191,18 @@ class ExploracionFisica extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              consulta.cabezaCuello != null ? consulta.cabezaCuello : 'No registrado',
+            Flexible(
+                child: Text(
+              consulta.cabezaCuello != null
+                  ? consulta.cabezaCuello
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.cabezaCuello != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.cabezaCuello != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
         //Tórax
@@ -190,13 +216,16 @@ class ExploracionFisica extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
+            Flexible(
+                child: Text(
               consulta.torax != null ? consulta.torax : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.torax != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.torax != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
         //Abdomen
@@ -210,13 +239,16 @@ class ExploracionFisica extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
+            Flexible(
+                child: Text(
               consulta.abdomen != null ? consulta.abdomen : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.abdomen != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.abdomen != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
         //Extremidades
@@ -230,13 +262,18 @@ class ExploracionFisica extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              consulta.extremidades != null ? consulta.extremidades : 'No registrado',
+            Flexible(
+                child: Text(
+              consulta.extremidades != null
+                  ? consulta.extremidades
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.extremidades != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.extremidades != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
       ],

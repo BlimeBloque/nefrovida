@@ -30,13 +30,18 @@ class DiagnosticoTratamiento extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              consulta.diagnosticos != null ? consulta.diagnosticos : 'No registrado',
+            Flexible(
+                child: Text(
+              consulta.diagnosticos != null
+                  ? consulta.diagnosticos
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.diagnosticos != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.diagnosticos != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
         //Plan de tratamiento
@@ -50,13 +55,18 @@ class DiagnosticoTratamiento extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              consulta.planDeTratamiento != null ? consulta.planDeTratamiento : 'No registrado',
+            Flexible(
+                child: Text(
+              consulta.planDeTratamiento != null
+                  ? consulta.planDeTratamiento
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.planDeTratamiento != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.planDeTratamiento != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
       ],

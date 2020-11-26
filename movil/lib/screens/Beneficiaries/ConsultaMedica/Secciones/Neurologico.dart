@@ -30,13 +30,18 @@ class Neurologico extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              consulta.neurologicoEstadoMental != null ? consulta.neurologicoEstadoMental : 'No registrado',
+            Flexible(
+                child: Text(
+              consulta.neurologicoEstadoMental != null
+                  ? consulta.neurologicoEstadoMental
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.neurologicoEstadoMental != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.neurologicoEstadoMental != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
       ],

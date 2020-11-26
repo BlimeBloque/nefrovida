@@ -30,13 +30,16 @@ class Otros extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
+            Flexible(
+                child: Text(
               consulta.otros != null ? consulta.otros : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: consulta.otros != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: consulta.otros != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
       ],

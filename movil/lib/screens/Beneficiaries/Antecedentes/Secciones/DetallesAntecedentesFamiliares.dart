@@ -3,7 +3,8 @@ import 'package:movil/classes/Antecedentes.dart';
 
 class DetallesAntecedentesFamiliares extends StatelessWidget {
   final Antecedentes antecedentes;
-  DetallesAntecedentesFamiliares({Key key, @required this.antecedentes}) : super(key: key);
+  DetallesAntecedentesFamiliares({Key key, @required this.antecedentes})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +32,14 @@ class DetallesAntecedentesFamiliares extends StatelessWidget {
               ),
             ),
             Text(
-              antecedentes.padreVivo != null ? (antecedentes.padreVivo == 1 ? "Sí" : "No") : 'No registrado',
+              antecedentes.padreVivo != null
+                  ? (antecedentes.padreVivo == 1 ? "Sí" : "No")
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.padreVivo != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.padreVivo != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -50,13 +55,18 @@ class DetallesAntecedentesFamiliares extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              antecedentes.enfermedadesPadre != null ? antecedentes.enfermedadesPadre : 'No registrado',
+            Flexible(
+                child: Text(
+              antecedentes.enfermedadesPadre != null
+                  ? antecedentes.enfermedadesPadre
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.enfermedadesPadre != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.enfermedadesPadre != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
         //Madre Viva
@@ -71,10 +81,14 @@ class DetallesAntecedentesFamiliares extends StatelessWidget {
               ),
             ),
             Text(
-              antecedentes.madreVivo != null ? (antecedentes.madreVivo == 1 ? "Sí" : "No") : 'No registrado',
+              antecedentes.madreVivo != null
+                  ? (antecedentes.madreVivo == 1 ? "Sí" : "No")
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.madreVivo != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.madreVivo != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -90,13 +104,18 @@ class DetallesAntecedentesFamiliares extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              antecedentes.enfermedadesMadre != null ? antecedentes.enfermedadesMadre : 'No registrado',
+            Flexible(
+                child: Text(
+              antecedentes.enfermedadesMadre != null
+                  ? antecedentes.enfermedadesMadre
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.enfermedadesMadre != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.enfermedadesMadre != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
         //Núm. Hermanos
@@ -111,10 +130,14 @@ class DetallesAntecedentesFamiliares extends StatelessWidget {
               ),
             ),
             Text(
-              antecedentes.numHermanos != null ? antecedentes.numHermanos : 'No registrado',
+              antecedentes.numHermanos != null
+                  ? antecedentes.numHermanos
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.numHermanos != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.numHermanos != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -131,10 +154,14 @@ class DetallesAntecedentesFamiliares extends StatelessWidget {
               ),
             ),
             Text(
-              antecedentes.numHermanosVivos != null ? antecedentes.numHermanosVivos : 'No registrado',
+              antecedentes.numHermanosVivos != null
+                  ? antecedentes.numHermanosVivos
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.numHermanosVivos != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.numHermanosVivos != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
             ),
           ],
@@ -150,13 +177,18 @@ class DetallesAntecedentesFamiliares extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              antecedentes.enfermedadesHermanos != null ? antecedentes.enfermedadesHermanos : 'No registrado',
+            Flexible(
+                child: Text(
+              antecedentes.enfermedadesHermanos != null
+                  ? antecedentes.enfermedadesHermanos
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.enfermedadesHermanos != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.enfermedadesHermanos != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
         //Otros Hermanos
@@ -170,13 +202,18 @@ class DetallesAntecedentesFamiliares extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              antecedentes.otrosHermanos != null ? antecedentes.otrosHermanos : 'No registrado',
+            Flexible(
+                child: Text(
+              antecedentes.otrosHermanos != null
+                  ? antecedentes.otrosHermanos
+                  : 'No registrado',
               style: TextStyle(
                 fontSize: 16,
-                fontStyle: antecedentes.otrosHermanos != null ? FontStyle.normal : FontStyle.italic,
+                fontStyle: antecedentes.otrosHermanos != null
+                    ? FontStyle.normal
+                    : FontStyle.italic,
               ),
-            ),
+            )),
           ],
         ),
       ],
