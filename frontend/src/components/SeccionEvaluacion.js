@@ -55,7 +55,7 @@ const SeccionEvaluacion = (props) => {
     const [hasEvalFin, setHasEvalFin] = useState(false);
 
     useEffect(() => {
-        http.get('http://localhost:8000/api/evaluacionesInicio/' + props.idBeneficiario)
+        http.get('/evaluacionesInicio/' + props.idBeneficiario)
             .then(res => {
                 setEvaluacionesIncio(res.data)
                 res.data.length !== 0 && setHasEvalInit(true)
@@ -64,7 +64,7 @@ const SeccionEvaluacion = (props) => {
                 console.log(e)
             });
 
-        http.get('http://localhost:8000/api/evaluacionesFin/' + props.idBeneficiario)
+        http.get('/evaluacionesFin/' + props.idBeneficiario)
         .then(res => {
             setEvaluacionesFin(res.data)
             res.data.length !== 0 && setHasEvalFin(true)

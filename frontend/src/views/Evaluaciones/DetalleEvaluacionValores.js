@@ -32,7 +32,7 @@ export default function DetalleEvaluacionValores(props) {
 
     useEffect (() => {
         if(idEvaluacion == 1) {
-            http.get('http://localhost:8000/api/detallesEvaluacionesInicio/'+ props.idBeneficiario)
+            http.get('/detallesEvaluacionesInicio/'+ props.idBeneficiario)
             .then(res => { 
                 setValoresInicio(res.data)
             })
@@ -40,7 +40,7 @@ export default function DetalleEvaluacionValores(props) {
                 console.log(e)
             })
         } else {
-            http.get('http://localhost:8000/api/detallesEvaluacionesFin/'+ props.idBeneficiario)
+            http.get('/detallesEvaluacionesFin/'+ props.idBeneficiario)
             .then(res => { 
                 setValoresFin(res.data)
             })
