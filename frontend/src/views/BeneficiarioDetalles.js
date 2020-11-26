@@ -174,6 +174,12 @@ const BeneficiarioDetalles = (props) => {
       />
 
       <Mensaje 
+        success={args.includes("eliminarFactor") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminó el factor de riesgo correctamente."}
+        mensajeError={"Hubo un error al eliminar el factor de riesgo."}
+      />
+
+      <Mensaje 
         success={args.includes("agregarMedica") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró la consulta médica."}
         mensajeError={"Hubo un error al registrar la consulta médica"}

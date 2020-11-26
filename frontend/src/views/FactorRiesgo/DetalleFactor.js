@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import DetalleFactorValores from './DetalleFactorValores';
 import Cookies from 'js-cookie';
 import Mensaje from '../../components/Mensaje';
-//import EliminarEvaluacion from './EliminarEvaluacion'
+import EliminarFactor from './EliminarFactor';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -85,14 +85,13 @@ export default function DetalleFactor(props) {
 
                     <DetalleFactorValores idBeneficiario={props.match.params.idBeneficiario}/>
 
-                    {/*<EliminarEvaluacion
+                    <EliminarFactor
                         open={eliminarOpen}
                         handleOpen={handleEliminarOpen}
                         handleClose={handleEliminarClose}
                         history={props.history}
                         idBeneficiario={idBeneficiario}
-                        tipo={inicio}
-                    />*/}
+                    />
                 </Paper>
             </Container>
 
