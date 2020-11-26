@@ -38,7 +38,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/eswtrdtf', 'App\Http\Controllers\JWTController@getToken');
-Route::prefix('')->middleware('jwt')->group(function () {
+//Route::prefix('')->middleware('jwt')->group(function () {
     Route::get('/jornadas', 'App\Http\Controllers\JornadaController@all');
     Route::get('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@search');
     Route::post('/jornadas', 'App\Http\Controllers\JornadaController@insert');
@@ -110,7 +110,7 @@ Route::prefix('')->middleware('jwt')->group(function () {
     Route::post('/tamizaje', 'App\Http\Controllers\TamizajeController@insert');
     Route::post('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@edit');
     Route::delete('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@delete');
-});
+//});
 
 Route::get('/token', fn () => Http::asForm()
     ->withBasicAuth(

@@ -9,7 +9,7 @@ import TarjetaEvaluaciones from './Beneficiarios/Evaluaciones/TarjetaEvaluacione
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withRouter } from 'react-router-dom';
-
+import Cookies from 'js-cookie'
 
 
 const useStyle = makeStyles(theme => ({
@@ -90,31 +90,41 @@ const SeccionEvaluacion = (props) => {
 
     return (
         <div>
-            <div className={classes.header}>
-                <div />
-                <div className={classes.centerTitle}>
-                    <Typography variant="h6" align="center">
-                        <strong>
-                            Evaluaciones
-                        </strong>
-                    </Typography>
+            {!(Cookies.get("roles").includes('Laboratorio')) ?
+            
+                <div className={classes.header}>
+                    <div className={classes.centerTitle}>
+                        <Typography variant="h6">
+                            <strong>
+                                Evaluaciones
+                            </strong>
+                        </Typography>
+                    </div>
+                    <div className={classes.options}>
+                        <IconButton aria-label="more" aria-haspopup="true" onClick={handleClick}>
+                            <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                            id="editar-preguntas-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={handleEditarPreguntas}>Editar preguntas</MenuItem>
+                        </Menu>
+                        
+                    </div>
                 </div>
-                <div>
-                    <IconButton aria-label="more" aria-haspopup="true" onClick={handleClick}>
-                        <MoreVertIcon />
-                    </IconButton>
-                    <Menu
-                        id="editar-preguntas-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                    >
-                        <MenuItem onClick={handleEditarPreguntas}>Editar preguntas</MenuItem>
-                    </Menu>
-                </div>
-                
+            :
+            <div className={classes.centerTitle}>
+                <Typography variant="h6" align="center">
+                    <strong>
+                        Evaluaciones
+                    </strong>
+                </Typography>
             </div>
+            }
             <Grid container spacing={2} justify="center" alignItems="baseline" className={classes.grid}>
                 {console.log(evaluacionesInicio)}
                 {   
