@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movil/providers/OktaProvider.dart';
 import 'package:movil/screens/Beneficiaries/BuscarBeneficiariosScreen.dart';
-import 'package:movil/screens/Beneficiaries/DetalleBeneficiarioScreen.dart';
 import 'package:movil/screens/Jornadas/BuscarJornadasScreen.dart';
 import 'package:movil/screens/LoginScreen.dart';
 import 'package:movil/screens/MainScreen.dart';

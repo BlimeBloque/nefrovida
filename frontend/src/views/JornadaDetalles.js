@@ -3,6 +3,7 @@ import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import JornadaDetalleEspecifico from "./JornadaDetalleEspecifico";
 import Mensaje from "../components/Mensaje";
+import JornadaBeneficiarios from "./JornadaBeneficiarios";
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -27,6 +28,7 @@ const JornadaDetalles = (props) => {
         <Paper className={classes.pageContent}>
           <JornadaDetalleEspecifico history={props.history} idJornada={props.match.params.idJornada} />
         </Paper>
+          <JornadaBeneficiarios idJornada={props.match.params.idJornada} history={props.history}/>
       </Container>
 
       <Mensaje 

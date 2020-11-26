@@ -46,7 +46,7 @@ class ConsultaNutricion
   comeEntreComidas, alimentosPreferidos, alimentosOdiados, suplementos, medicamentosActuales, consumoAguaNatural, fecha,
   recordatorioDesayuno, recordatorioColacionManana, recordatorioComida, recordatorioColacionTarde, recordatorioCena, tipoDieta, diagnostico,
   peso, altura, kilocaloriasTotales, porcentajeHidratosCarbono, kilocaloriasHidratosCarbono, porcentajeProteinas, porcentajeGrasas, 
-  pesoIdeal, imc, diagnosticoIMC, sexoBeneficiario, edadBeneficiario;
+  pesoIdeal, imc, diagnosticoIMC, sexoBeneficiario, edadBeneficiario, nota;
 
   ConsultaNutricion(this.idConsultaNutricion, this.idBeneficiario, this.ocupacion, this.horariosComida, this.cantidadDestinadaAlimentos, 
                     this.apetito, this.distension, this.estrenimiento, this.flatulencias, this.vomitos, this.caries, this.edema,
@@ -56,7 +56,7 @@ class ConsultaNutricion
                     this.recordatorioDesayuno, this.recordatorioColacionManana, this.recordatorioComida, this.recordatorioColacionTarde,
                     this.recordatorioCena, this.tipoDieta, this.diagnostico, this.peso, this.altura, this.kilocaloriasTotales, 
                     this.porcentajeHidratosCarbono, this.kilocaloriasHidratosCarbono, this.porcentajeProteinas, this.porcentajeGrasas,
-                    this.pesoIdeal, this.imc, this.diagnosticoIMC, this.sexoBeneficiario, this.edadBeneficiario);
+                    this.pesoIdeal, this.imc, this.diagnosticoIMC, this.sexoBeneficiario, this.edadBeneficiario, this.nota);
   
   formatoFecha(fecha)
   {
@@ -576,5 +576,6 @@ obtenerDiagnosticoIMC(imc, sexo, edad)
     this.pesoIdeal = obtenerPesoIdeal(json['sexo'], json['altura']);
     this.imc = getIMC(json['altura'], json['peso']);
     this.diagnosticoIMC = obtenerDiagnosticoIMC(this.imc, this.sexoBeneficiario, this.edadBeneficiario);
+    this.nota = json['nota'];
   }
 }

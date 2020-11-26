@@ -6,6 +6,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
 import http from "../../http-common";
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -23,8 +24,13 @@ const EditarConsultaNutricion = (props) => {
     const classes = useStyle();
     const [consulta, setConsulta] = useState();
 
-    useEffect ( () => {
 
+
+    useEffect ( () => {
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Nutriologia"))
+        {
+            props.history.goBack();
+        }
         http.get('/consultaNutricion/'+props.match.params.idConsultaNutricion)
             .then(res => { 
                 setConsulta(res.data[0]);

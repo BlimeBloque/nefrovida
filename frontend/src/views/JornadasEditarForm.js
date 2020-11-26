@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CssBaseline, InputAdornment, makeStyles } from "@material-ui/core";
-import { Grid } from "semantic-ui-react";
+import { CssBaseline, makeStyles } from "@material-ui/core";
 import axios from "axios";
 
 import Controls from "../components/FormComponents/Controls";
@@ -100,17 +99,19 @@ export default function JornadasAgregarForm(props) {
       .catch((e) => {
         console.log(e);
       });
-
-    axios
-      .get("http://127.0.0.1:8000/api/jornadas/" + props.idJornada)
-      .then((res) => {
-        let temp = res.data[0].fecha.split("-");
-        res.data[0].fecha = new Date(temp[0], temp[1], temp[2]);
-        setValues(res.data[0]);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    if (props.editar) {
+      axios
+        .get("http://127.0.0.1:8000/api/jornadas/" + props.idJornada)
+        .then((res) => {
+          let temp = res.data[0].fecha.split("-");
+          res.data[0].fecha = new Date(temp[0], temp[1], temp[2]);
+          setValues(res.data[0]);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+    }
   }, []);
 
   const onSubmit = (e) => {
