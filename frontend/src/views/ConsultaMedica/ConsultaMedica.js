@@ -78,13 +78,13 @@ return(
             <div id="botones">
             {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Medico") ? 
                     <Tooltip title="Editar" arrow>
-                        <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/consultaNutricion/editar/"+detalle.idConsultaNutricional)}>
+                        <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/consultaMedica/editar/"+detalle.idConsultaMedica)}>
                             <EditIcon fontSize="large" />
                         </IconButton>
                     </Tooltip>
                 :
                     <></>
-                }
+            }
                 {Cookies.get("roles").includes("Administrador") ? 
                     <Tooltip title="Eliminar" arrow>
                         <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>

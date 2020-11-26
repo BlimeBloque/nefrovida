@@ -174,7 +174,7 @@ class RespuestasController extends Controller
             ->join('beneficiarios AS b', 'r.idBeneficiario' , '=', 'b.idBeneficiario')
             ->where('b.idBeneficiario', '=', $idBeneficiario)
             ->where('f.idFormulario', '=', 1)
-            ->select('f.idFormulario', 'of.idOpcionFormulario', 'p.pregunta', 'r.respuesta', 'f.nombre', 'r.idRespuesta')
+            ->select('f.idFormulario', 'of.idOpcionFormulario', 'p.pregunta', 'r.respuesta', 'f.nombre', 'r.idRespuesta', 'r.ponderacion')
             ->get();
     }
 }
