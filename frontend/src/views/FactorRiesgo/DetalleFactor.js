@@ -8,6 +8,7 @@ import Sidenav from '../../components/Nav/Sidenav';
 import { Link } from 'react-router-dom';
 import DetalleFactorValores from './DetalleFactorValores';
 import Cookies from 'js-cookie';
+import Mensaje from '../../components/Mensaje';
 //import EliminarEvaluacion from './EliminarEvaluacion'
 
 const useStyle = makeStyles(theme => ({
@@ -35,6 +36,7 @@ export default function DetalleFactor(props) {
     const idBeneficiario = props.match.params.idBeneficiario
     const classes = useStyle();
     const [eliminarOpen, setEliminarOpen] = useState(false);
+    const args = props.location.search;
 
     const handleEliminarOpen = () => {
         setEliminarOpen(true);
@@ -93,6 +95,12 @@ export default function DetalleFactor(props) {
                     />*/}
                 </Paper>
             </Container>
+
+            <Mensaje 
+                success={args.includes("editarFactor") ? args.slice(-1) : -1} 
+                mensajeExito={"Se actualizó el factor de riesgo."}
+                mensajeError={"Hubo un error al editar el factor de riesgo."}
+            />
         </div>
     )
 }

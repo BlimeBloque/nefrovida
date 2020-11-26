@@ -138,6 +138,24 @@ class RespuestasController extends Controller
 
         $formulario->respuesta = $request->input('respuesta');
         $formulario->textoRespuesta = $request->input('textoRespuesta');
+
+        if(strcmp(($request -> input('respuesta')), 'Sí') == 0){
+            switch($request -> input('idOpcionFormulario')){
+                case 5: case 7: case 8: case 9: case 10: case 12:
+                    $numPond = 2;
+                break;
+                default:
+                    $numPond = 3;
+                break;
+            }
+        } else if(strcmp(($request -> input('respuesta')), 'No') == 0){
+            $numPond = 0;
+        } else {
+            $numPond = 1;
+        }
+
+        $formulario->ponderacion = $numPond;
+
         $formulario->save();
     }
 
