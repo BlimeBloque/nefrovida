@@ -4,6 +4,7 @@ import 'package:movil/classes/DepuracionCreatinina.dart';
 import 'package:movil/classes/Escolaridad.dart';
 import 'package:movil/classes/ExamenOrina.dart';
 import 'package:movil/classes/Estado.dart';
+import 'package:movil/classes/FactorDeRiesgo.dart';
 import 'package:movil/classes/Jornada.dart';
 import 'package:movil/classes/Microalbuminuria.dart';
 import 'package:movil/classes/QuimicaSanguinea.dart';
@@ -159,6 +160,21 @@ class HttpHelper {
       print(decodedJsonMap);
       Notas listaNotas = new Notas.fromJsonList(decodedJsonMap);
       return listaNotas.notasGenerales;
+    } else {
+      return null;
+    }
+  }
+
+    Future<List<FactorDeRiesgoItem>> getFactorRiesgo(idBeneficiario) async {
+     String path = "/detalles/" + idBeneficiario.toString();
+     String uri = ip + baseUrl + path;
+ 
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      FactoresDeRiesgo listaFactores = new FactoresDeRiesgo.fromJsonList(decodedJsonMap);
+      return listaFactores.factores;
     } else {
       return null;
     }

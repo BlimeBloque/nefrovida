@@ -17,6 +17,8 @@ import { Grid, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {getAge} from '../components/utils';
+import Cookies from 'js-cookie';
+
 
 
 import { API } from "../config";
@@ -235,12 +237,15 @@ class DetallesTabla extends Component {
           </div>
            ))}  
         <Grid container justify="flex-end" spacing="2">
-          <Grid justify="flex-end" item xs={2} spacing="2"> 
+          <Grid justify="flex-end" item xs={2} spacing="2">
+          {Cookies.get("roles").includes("Administrador")  ?  
           <Tooltip title="Dar de baja beneficiario" arrow>
               <IconButton  color="secondary" onClick={this.handleDialogOpen}>
                 <RemoveCircleOutlineIcon fontSize="large"/>
               </IconButton >
             </Tooltip>
+            : <></>
+         }
             {this.state.detalles.map((detalle) => (
             <Dialog
               open={this.state.open}
@@ -263,13 +268,18 @@ class DetallesTabla extends Component {
               </DialogActions>
             </Dialog>
             ))}
+          
               {this.state.detalles.map((detalle) => (
             <a href={"/beneficiarios/" + detalle.idBeneficiario + "/editar"}>
+               {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Social") ? 
               <Tooltip title="Editar beneficiario" arrow>
                   <IconButton  color="primary" >
                   <EditIcon fontSize="large"/>
                 </IconButton >
               </Tooltip>
+              : 
+              <></>
+             }
             </a>
             ))}
         </Grid>

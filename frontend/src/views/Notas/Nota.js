@@ -6,6 +6,8 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import axios from 'axios'
 import EliminarNota from './EliminarNota'
+import Cookies from 'js-cookie';
+
 
 const useStyle = makeStyles(theme => ({
     flexTitulo:{
@@ -137,11 +139,15 @@ export default function Nota(props) {
                                 <EditIcon fontSize="large" />
                             </IconButton>
                         </Tooltip>
+                    {Cookies.get("roles").includes("Administrador")  ? 
                         <Tooltip title="Eliminar" arrow>
                             <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
                                 <RemoveCircleIcon fontSize="large" />
                             </IconButton>
                         </Tooltip>
+                        : 
+                        <></>
+    }
                     </div>
             </div>
             <Typography align="center" variant="h4">{detalle.tituloNota}</Typography>
