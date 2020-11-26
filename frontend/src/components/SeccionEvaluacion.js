@@ -1,6 +1,6 @@
 import { Typography, makeStyles, Paper, Menu, MenuItem } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import http from '../http-common';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
@@ -55,25 +55,23 @@ const SeccionEvaluacion = (props) => {
     const [hasEvalFin, setHasEvalFin] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/evaluacionesInicio/' + props.idBeneficiario)
+        http.get('http://localhost:8000/api/evaluacionesInicio/' + props.idBeneficiario)
             .then(res => {
                 setEvaluacionesIncio(res.data)
                 res.data.length !== 0 && setHasEvalInit(true)
-                console.log(hasEvalInit)
             })
             .catch((e) => {
                 console.log(e)
             });
 
-            axios.get('http://localhost:8000/api/evaluacionesFin/' + props.idBeneficiario)
-            .then(res => {
-                setEvaluacionesFin(res.data)
-                res.data.length !== 0 && setHasEvalFin(true)
-                console.log(hasEvalFin)
-            })
-            .catch((e) => {
-                console.log(e)
-            });
+        http.get('http://localhost:8000/api/evaluacionesFin/' + props.idBeneficiario)
+        .then(res => {
+            setEvaluacionesFin(res.data)
+            res.data.length !== 0 && setHasEvalFin(true)
+        })
+        .catch((e) => {
+            console.log(e)
+        });
     }, []);
 
     const handleClick = (event) => {
@@ -126,7 +124,6 @@ const SeccionEvaluacion = (props) => {
             </div>
             }
             <Grid container spacing={2} justify="center" alignItems="baseline" className={classes.grid}>
-                {console.log(evaluacionesInicio)}
                 {   
                         evaluacionesInicio ?
                         evaluacionesInicio.map((evaluacionInicio) => (
@@ -140,7 +137,7 @@ const SeccionEvaluacion = (props) => {
                             </Grid>
                         ))
                         :
-                        <Typography variant="caption">No hay evaluaciones de inicio.</Typography>   
+                        <></>   
                 }
                 {
                     evaluacionesFin ?
