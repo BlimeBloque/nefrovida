@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {CssBaseline, makeStyles} from '@material-ui/core';
 import { Grid } from 'semantic-ui-react';
-import axios from 'axios'
+import http from "../http-common";
 
 import Controls from "../components/FormComponents/Controls";
 
@@ -53,7 +53,7 @@ export default function AgregarBeneficiarioForm(props) {
 
     useEffect ( () => {
 
-        axios.get('http://127.0.0.1:8000/api/escolaridades')
+        http.get('http://127.0.0.1:8000/api/escolaridades')
         .then(res => { setEscolaridades (res.data.data)
     })
         .catch((e) => {

@@ -1,7 +1,7 @@
 import {CssBaseline, InputAdornment, makeStyles} from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
 import { Grid } from 'semantic-ui-react';
-import axios from 'axios'
+import http from "../http-common";
 
 import Controls from "../components/FormComponents/Controls";
 
@@ -51,7 +51,7 @@ export default function AgregarBeneficiarioForm(props) {
 
     useEffect ( () => {
 
-        axios.get('http://127.0.0.1:8000/api/beneficiarios/' + props.idBenef)
+        http.get('http://127.0.0.1:8000/api/beneficiarios/' + props.idBenef)
         .then((res) => {
             let temp = res.data[0].fechaNacimiento.split("-");
             res.data[0].fechaNacimiento = new Date(temp[0], temp[1]-1, temp[2]);
@@ -75,7 +75,7 @@ export default function AgregarBeneficiarioForm(props) {
 
     useEffect ( () => {
 
-        axios.get('http://127.0.0.1:8000/api/escolaridades')
+        http.get('escolaridades')
         .then(res => { setEscolaridades (res.data.data)
     })
         .catch((e) => {
@@ -85,7 +85,7 @@ export default function AgregarBeneficiarioForm(props) {
 
    useEffect ( () => {
 
-    axios.get('http://127.0.0.1:8000/api/jornadas')
+    http.get('jornadas')
     .then(res => { setJornadas (res.data)
 })
     .catch((e) => {

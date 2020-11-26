@@ -94,9 +94,18 @@ class RespuestasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idBeneficiario)
     {
-        //
+        return DB::table('respuestas AS r')
+                ->leftJoin('opcion_formulario AS of', 'r.idOpcionFormulario', '=', 'of.idOpcionFormulario')
+                ->leftJoin('formularios AS f', 'of.idFormulario', '=', 'f.idFormulario')
+                ->where('r.idBeneficiario', '=', $idBeneficiario)
+                ->where('of.idFormulario', '=', 1)
+                ->orderBy('r.idRespuesta')
+                ->groupBy('r.grupo', 'f.nombre', 'r.created_at')
+                ->select('r.grupo', 'f.nombre', 'r.created_at')
+                ->limit(1)
+                ->get();
     }
 
     /**

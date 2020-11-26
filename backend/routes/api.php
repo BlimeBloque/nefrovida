@@ -81,7 +81,6 @@ Route::delete('eliminarEvaluacionesFin/{idBeneficiario}', 'App\Http\Controllers\
 Route::resource('formulario', RespuestasController::class);
 Route::resource('preguntas', PreguntasController::class);
 Route::get('/opcionFormulario/formularios/{idFormulario}', 'App\Http\Controllers\OpcionFormularioController@searchByForm');
-Route::get('formulario/{idBeneficiario}', 'App\Http\Controllers\RespuestasController@searchByBenef');
 Route::get('detalles/{idBeneficiario}', 'App\Http\Controllers\RespuestasController@detalle');
 Route::delete('eliminar/{idBeneficiario}', 'App\Http\Controllers\RespuestasController@destroy');
 

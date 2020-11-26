@@ -1,6 +1,6 @@
-import React, {useState, useEffect } from 'react'
+import React, {useState, useEffect } from 'react';
 
-import axios from 'axios'
+import http from "../../http-common";
 
 import {CssBaseline, FormLabel, makeStyles, Typography, Button, RadioGroup, FormControlLabel, Radio, Divider, FormControl, CircularProgress} from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
@@ -69,7 +69,7 @@ function AgregarFactorForm(props) {
     };
     
     useEffect (() => {
-        axios.get('http://localhost:8000/api/opcionFormulario/formularios/'+idFormulario)
+        http.get('opcionFormulario/formularios/'+idFormulario)
         .then(res => { setOpciones (res.data)
         })
         .catch((e) => {
@@ -101,7 +101,7 @@ function AgregarFactorForm(props) {
         if(arrayForm.every((value) => value.respuesta != "")) { // Valida que haya contestado todas las respuestas
             for (let i = 1; i < 13; i++) {
                 
-                axios.post('http://localhost:8000/api/formulario', arrayForm[i], {headers: {"Accept": "application/json"}})
+                http.post('formulario', arrayForm[i], {headers: {"Accept": "application/json"}})
                     .then(res => {
                         props.history.push("/beneficiarios/"+props.match.params.idBeneficiario+"?agregarFactor=1");
     
