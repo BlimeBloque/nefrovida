@@ -18,6 +18,7 @@ use App\Http\Controllers\MicroalbuminuriaController;
 use App\Http\Controllers\RespuestasController;
 use App\Http\Controllers\PreguntasController;
 use App\Http\Controllers\OpcionFormularioController;
+use App\Http\Controllers\JWTController;
 
 use Illuminate\Support\Facades\Http;
 
@@ -36,7 +37,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::prefix('')->middleware('jwt')->group(function () {
+Route::get('/eswtrdtf', 'App\Http\Controllers\JWTController@getToken');
+Route::prefix('')->middleware('jwt')->group(function () {
     Route::get('/jornadas', 'App\Http\Controllers\JornadaController@all');
     Route::get('/jornadas/{idJornada}', 'App\Http\Controllers\JornadaController@search');
     Route::post('/jornadas', 'App\Http\Controllers\JornadaController@insert');
@@ -84,7 +86,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::resource('formulario', RespuestasController::class);
     Route::resource('preguntas', PreguntasController::class);
     Route::get('/opcionFormulario/formularios/{idFormulario}', 'App\Http\Controllers\OpcionFormularioController@searchByForm');
-    Route::get('formulario/{idBeneficiario}', 'App\Http\Controllers\RespuestasController@searchByBenef');
     Route::get('detalles/{idBeneficiario}', 'App\Http\Controllers\RespuestasController@detalle');
     Route::delete('eliminar/{idBeneficiario}', 'App\Http\Controllers\RespuestasController@destroy');
 
@@ -109,7 +110,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::post('/tamizaje', 'App\Http\Controllers\TamizajeController@insert');
     Route::post('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@edit');
     Route::delete('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@delete');
-//});
+});
 
 Route::get('/token', fn () => Http::asForm()
     ->withBasicAuth(
