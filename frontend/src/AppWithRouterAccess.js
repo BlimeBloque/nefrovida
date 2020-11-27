@@ -44,6 +44,10 @@ import EditarMicroalbuminuria from './views/AnalisisLab/Microalbuminuria/EditarM
 import EditarEvaluacion from "./views/Evaluaciones/EditarEvaluacion";
 import EditarQuimicaSanguinea from "./views/AnalisisLab/QuimicaSanguinea/EditarQuimicaSanguinea";
 import EditarPreguntasEvaluacion from "./views/Evaluaciones/EditarPreguntasEvaluacion";
+import AgregarFactor from './views/FactorRiesgo/AgregarFactor';
+import DetalleFactor from "./views/FactorRiesgo/DetalleFactor";
+import EditarFactor from "./views/FactorRiesgo/EditarFactor";
+import JornadaComparar from "./views/JornadaComparar"
 
 
 export default withRouter(
@@ -69,6 +73,7 @@ export default withRouter(
             <SecureRoute path='/jornadas' exact={true} component={Jornadas} />
             <SecureRoute path='/jornadas/:idJornada([0-9]*)' exact={true} component={JornadaDetalles} />
             <SecureRoute path='/reportes' exact={true} component={Reportes} />
+            <SecureRoute path='/jornadas/comparar' exact={true} component={JornadaComparar} />
 
             <SecureRoute path='/jornadas/:idJornada([0-9]*)/agregarBeneficiario' exact={true} component={AgregarBeneficiario}/>
 
@@ -81,6 +86,10 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarEvaluacionInicio' exact={true} component={EditarEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarEvaluacionFin' exact={true} component={EditarEvaluacion}/>
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarPreguntasEvaluacion' exact={true} component={EditarPreguntasEvaluacion}/>
+
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarFactor' exact={true} component={AgregarFactor}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/detalleFactor' exact={true} component={DetalleFactor}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarFactor' exact={true} component={EditarFactor}/>
             
             {/* Tamizaje */}
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/agregar' exact={true} component={AgregarTamizaje}/>

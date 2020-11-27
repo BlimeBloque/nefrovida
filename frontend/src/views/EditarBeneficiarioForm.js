@@ -1,8 +1,8 @@
 import {CssBaseline, InputAdornment, makeStyles} from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
 import { Grid } from 'semantic-ui-react';
-import http from '../http-common'
-
+import http from "../http-common";
+import Cookies from 'js-cookie';
 import Controls from "../components/FormComponents/Controls";
 
 
@@ -72,6 +72,13 @@ export default function AgregarBeneficiarioForm(props) {
             [name]:value 
         })
     }
+
+    useEffect( () => {
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Social"))
+        {
+            props.history.goBack();
+        }
+    }, []);
 
     useEffect ( () => {
 

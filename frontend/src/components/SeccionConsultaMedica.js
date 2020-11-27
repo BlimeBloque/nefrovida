@@ -2,7 +2,7 @@ import { Typography, makeStyles, Paper } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
-import axios from 'axios';
+import http from "../http-common";
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
@@ -31,7 +31,11 @@ const SeccionConsultaMedica = (props) => {
     const [consultas, setConsultas] = useState([]);
 
     useEffect(() => {
+<<<<<<< HEAD
         http.get('/consultaMedica/beneficiario/' + props.idBeneficiario)
+=======
+        http.get('consultaMedica/beneficiario/' + props.idBeneficiario)
+>>>>>>> develop
             .then(res => {
                 setConsultas(res.data)
             })

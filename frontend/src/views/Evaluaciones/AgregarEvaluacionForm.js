@@ -1,10 +1,7 @@
 import React, {useState, useEffect } from 'react'
-
-import http from '../../http-common'
-
 import {CssBaseline, FormLabel, makeStyles, Typography, Button, RadioGroup, FormControlLabel, Radio, Divider, FormControl, CircularProgress} from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
-
+import http from '../../http-common'
 
 const useStyle = makeStyles(theme => ({
     root:{

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import http from "../../http-common";
 import Sidenav from "../../components/Nav/Sidenav";
 import ConsultaMedica from './ConsultaMedica';
 import { Paper, makeStyles, Container, Button } from "@material-ui/core";
@@ -30,7 +30,11 @@ const DetalleConsultaMedica = (props) => {
     const args = props.location.search;
 
     useEffect ( () => {
+<<<<<<< HEAD
         http.get('/consultaMedica/'+idConsultaMedica)
+=======
+        http.get('consultaMedica/'+idConsultaMedica)
+>>>>>>> develop
             .then(res => { setDetalle(res.data[0])
                 })
                     .catch((e) => {
@@ -51,7 +55,7 @@ const DetalleConsultaMedica = (props) => {
                     </IconButton>
                 </Link>
                 
-                <ConsultaMedica detalle={detalle} history={props.history}/>
+                <ConsultaMedica detalle={detalle} history={props.history} idConsultaMedica={idConsultaMedica} idBeneficiario={detalle.idBeneficiario}/>
             </Paper>
             </Container>
 

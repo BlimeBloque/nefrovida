@@ -5,15 +5,18 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import ScheduleIcon from '@material-ui/icons/Schedule';
-import ArchiveIcon from '@material-ui/icons/Archive';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import TableChartIcon from '@material-ui/icons/TableChart';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import HomeIcon from '@material-ui/icons/Home';
 import clsx from 'clsx';
+import Cookies from 'js-cookie'
 
 import { useOktaAuth } from "@okta/okta-react"; 
 
-const drawerWidth = 200;
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -91,10 +94,18 @@ const Sidenav = props => {
     
     const { authState, authService } = useOktaAuth();
     const [userInfo, setUserInfo] = useState(null);
-    const logout = () => authService.logout('/');
+    const logout = () => {
+      Cookies.remove("JWT");  
+      authService.logout('/');
+    }
     
     
     const itemsNav = [{
+      texto: 'Inicio',
+      icono: <HomeIcon />,
+      onClick: () => history.push("/")
+    },
+    {
         texto: 'Beneficiarios',
         icono: <FolderSharedIcon />,
         onClick: () => history.push("/beneficiarios")
@@ -105,8 +116,13 @@ const Sidenav = props => {
         onClick: () => history.push("/jornadas")
     },
     {
+      texto: 'Comparar jornadas',
+      icono: <TableChartIcon />,
+      onClick: () => history.push('/jornadas/comparar')
+    },
+    {
         texto: 'Reportes',
-        icono: <ArchiveIcon />,
+        icono: <BarChartIcon />,
         onClick: () => history.push("/reportes")
     }];
 

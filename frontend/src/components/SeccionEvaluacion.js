@@ -1,6 +1,6 @@
 import { Typography, makeStyles, Paper, Menu, MenuItem } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import http from '../http-common';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
@@ -9,8 +9,12 @@ import TarjetaEvaluaciones from './Beneficiarios/Evaluaciones/TarjetaEvaluacione
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withRouter } from 'react-router-dom';
+<<<<<<< HEAD
 import http from '../http-common'
 
+=======
+import Cookies from 'js-cookie'
+>>>>>>> develop
 
 
 const useStyle = makeStyles(theme => ({
@@ -52,16 +56,20 @@ const SeccionEvaluacion = (props) => {
     const [evaluacionesInicio, setEvaluacionesIncio] = useState();
     const [evaluacionesFin, setEvaluacionesFin] = useState();
     const [anchorEl, setAnchorEl] = useState(null);
+    const [hasEvalInit, setHasEvalInit] = useState(false);
+    const [hasEvalFin, setHasEvalFin] = useState(false);
 
     useEffect(() => {
         http.get('/evaluacionesInicio/' + props.idBeneficiario)
             .then(res => {
                 setEvaluacionesIncio(res.data)
+                res.data.length !== 0 && setHasEvalInit(true)
             })
             .catch((e) => {
                 console.log(e)
             });
 
+<<<<<<< HEAD
             http.get('/evaluacionesFin/' + props.idBeneficiario)
             .then(res => {
                 setEvaluacionesFin(res.data)
@@ -69,6 +77,16 @@ const SeccionEvaluacion = (props) => {
             .catch((e) => {
                 console.log(e)
             });
+=======
+        http.get('/evaluacionesFin/' + props.idBeneficiario)
+        .then(res => {
+            setEvaluacionesFin(res.data)
+            res.data.length !== 0 && setHasEvalFin(true)
+        })
+        .catch((e) => {
+            console.log(e)
+        });
+>>>>>>> develop
     }, []);
 
     const handleClick = (event) => {
@@ -85,33 +103,42 @@ const SeccionEvaluacion = (props) => {
 
     return (
         <div>
-            <div className={classes.header}>
-                <div />
-                <div className={classes.centerTitle}>
-                    <Typography variant="h6" align="center">
-                        <strong>
-                            Evaluaciones
-                        </strong>
-                    </Typography>
+            {!(Cookies.get("roles").includes('Laboratorio')) ?
+            
+                <div className={classes.header}>
+                    <div className={classes.centerTitle}>
+                        <Typography variant="h6">
+                            <strong>
+                                Evaluaciones
+                            </strong>
+                        </Typography>
+                    </div>
+                    <div className={classes.options}>
+                        <IconButton aria-label="more" aria-haspopup="true" onClick={handleClick}>
+                            <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                            id="editar-preguntas-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={handleEditarPreguntas}>Editar preguntas</MenuItem>
+                        </Menu>
+                        
+                    </div>
                 </div>
-                <div>
-                    <IconButton aria-label="more" aria-haspopup="true" onClick={handleClick}>
-                        <MoreVertIcon />
-                    </IconButton>
-                    <Menu
-                        id="editar-preguntas-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                    >
-                        <MenuItem onClick={handleEditarPreguntas}>Editar preguntas</MenuItem>
-                    </Menu>
-                </div>
-                
+            :
+            <div className={classes.centerTitle}>
+                <Typography variant="h6" align="center">
+                    <strong>
+                        Evaluaciones
+                    </strong>
+                </Typography>
             </div>
+            }
             <Grid container spacing={2} justify="center" alignItems="baseline" className={classes.grid}>
-                {console.log(evaluacionesInicio)}
                 {   
                         evaluacionesInicio ?
                         evaluacionesInicio.map((evaluacionInicio) => (
@@ -125,7 +152,7 @@ const SeccionEvaluacion = (props) => {
                             </Grid>
                         ))
                         :
-                        <Typography variant="caption">No hay evaluaciones de inicio.</Typography>   
+                        <></>   
                 }
                 {
                     evaluacionesFin ?
@@ -144,7 +171,9 @@ const SeccionEvaluacion = (props) => {
 
                 }
             </Grid> 
-            <BotonEvaluaciones idBeneficiario={props.idBeneficiario} />
+            {!(Cookies.get("roles").includes('Social') || Cookies.get("roles").includes("Administrador")) ?
+            <></>:<BotonEvaluaciones idBeneficiario={props.idBeneficiario} hasEvalInit={hasEvalInit} hasEvalFin={hasEvalFin}/>
+            }
         </div>
     );
 }

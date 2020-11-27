@@ -8,7 +8,7 @@ import Sidenav from '../../components/Nav/Sidenav';
 import { Link } from 'react-router-dom';
 import DetalleEvaluacionValores from './DetalleEvaluacionValores';
 import EliminarEvaluacion from './EliminarEvaluacion'
-
+import Cookies from 'js-cookie'
 const useStyle = makeStyles(theme => ({
     pageContent:{
         margin: theme.spacing(5),
@@ -59,19 +59,27 @@ export default function DetalleEvaluacion(props) {
                                 </IconButton>
                             </Link>
                             <div>
-                                <Tooltip title='Editar' arrow>
-                                    <Link variant="body2" to={"/beneficiarios/"+idBeneficiario+'/editarEvaluacion'+inicio}>
-                                        <IconButton color="primary" aria-label="edit">
-                                            <EditIcon/>
+                                {
+                                    !(Cookies.get("roles").includes('Social') || Cookies.get("roles").includes("Administrador")) ?
+                                    <></>:
+                                    <Tooltip title='Editar' arrow>
+                                        <Link variant="body2" to={"/beneficiarios/"+idBeneficiario+'/editarEvaluacion'+inicio}>
+                                            <IconButton color="primary" aria-label="edit">
+                                                <EditIcon/>
+                                            </IconButton>
+                                        </Link>
+                                    </Tooltip>
+                                }
+                                {
+                                    !Cookies.get("roles").includes('Administrador') ?
+                                    <></>:
+                                    <Tooltip title='Eliminar' arrow>
+                                        <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
+                                            <RemoveCircleIcon fontSize="large" />
                                         </IconButton>
-                                    </Link>
-                                </Tooltip>
-
-                                <Tooltip title='Eliminar' arrow>
-                                    <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
-                                        <RemoveCircleIcon fontSize="large" />
-                                    </IconButton>
-                                </Tooltip>
+                                    </Tooltip>
+                                }
+                                
                             </div>
                     </div>
 

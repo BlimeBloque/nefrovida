@@ -64,7 +64,7 @@ export default function JornadasAgregarForm(props) {
 
   const validateBack = (backResponse) => {
     if (typeof backResponse === "undefined") {
-      window.location.replace("http://localhost:3000/jornadas");
+      window.location.replace("https://snefrovidaac.com/jornadas");
     } else {
       let val = {};
       val.nombre =

@@ -7,6 +7,8 @@ import 'package:movil/screens/Beneficiaries/Secciones/SeccionAnalisisLab.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionConsultas.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionNotas.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionTamizaje.dart';
+import 'package:movil/screens/Beneficiaries/Secciones/SeccionAntecedentes.dart';
+import 'package:movil/screens/Beneficiaries/Secciones/SeccionFactorDeRiesgo.dart';
 
 class BeneficiarioTabs extends StatefulWidget {
   final Beneficiario beneficiario;
@@ -39,20 +41,20 @@ class _BeneficiarioTabsState extends State<BeneficiarioTabs> {
               Tab(text: "Consultas"),
               Tab(text: "Análisis"),
               Tab(text: "Notas"),
-              Tab(text: "Evidencias"),
+              Tab(text: "Factor de riesgo"),
             ],
           ),
         ),
         body: TabBarView(
           children: [
             CardBeneficiario(beneficiario: this.beneficiario),
-            Center(child: Text("Antecedentes")),
+            SeccionAntecedentes(beneficiario: this.beneficiario),
             SeccionTamizaje(beneficiario: this.beneficiario),
             Center(child: Text("Evaluaciones")),
             SeccionConsultas(beneficiario: this.beneficiario),
             SeccionAnalisisLab(beneficiario: this.beneficiario),
             SeccionNotas(beneficiario: this.beneficiario),
-            Center(child: Text("Evidencias")),
+            SeccionFactorDeRiesgo(beneficiario: this.beneficiario),
           ],
         ),
         drawer: new NefrovidaDrawer(),

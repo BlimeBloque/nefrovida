@@ -11,6 +11,7 @@ import SeccionEvaluacion from "../components/SeccionEvaluacion";
 import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 import SeccionAnalisisLab from "../components/SeccionAnalisisLab";
 import Tamizaje from "../components/Tamizaje";
+import SeccionFactor from "../components/SeccionFactor";
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -76,6 +77,11 @@ const BeneficiarioDetalles = (props) => {
               <SeccionEvaluacion idBeneficiario={props.match.params.idBeneficiario} history={props.history}/>
             </Paper>
           </div>
+          <div id="factores">
+            <Paper className={classes.consultaNutricion}>
+              <SeccionFactor idBeneficiario={props.match.params.idBeneficiario} history={props.history}/>
+            </Paper>
+          </div>
         <div id="notas">
           <Paper className={classes.consultaMedica}>
             <SeccionNota
@@ -98,6 +104,24 @@ const BeneficiarioDetalles = (props) => {
           </Paper>
         </div>
       </Container>
+
+       {/* PERMITIR EVALUACIÓN INICIO*/}
+       <Mensaje 
+        success={args.includes("permitirEvaluacionInicio") ? args.slice(-1) : -1} 
+        mensajeError={"El beneficiario ya tiene una evaluación inicial registrada."}
+      />
+
+       {/* PERMITIR EVALUACIÓN INICIO*/}
+       <Mensaje 
+        success={args.includes("permitirEvaluacionFin") ? args.slice(-1) : -1} 
+        mensajeError={"El beneficiario ya tiene una evaluación final registrada."}
+      />
+
+      {/* PERMITIR EVALUACIÓN INICIO*/}
+      <Mensaje 
+        success={args.includes("permitirFact") ? args.slice(-1) : -1} 
+        mensajeError={"El beneficiario ya tiene un factor de riesgo registrado."}
+      />
 
       {/* ELIMINAR NOTA RETRO*/}
       <Mensaje 
@@ -161,6 +185,18 @@ const BeneficiarioDetalles = (props) => {
         mensajeError={"Hubo un error al registrar la evaluación."}
       />
 
+      <Mensaje
+        success={args.includes("agregarFactor") ? args.slice(-1) : -1}
+        mensajeExito={"Se registró el factor de riesgo."}
+        mensajeError={"Hubo un error al registrar el factor de riesgo."}
+      />
+
+      <Mensaje 
+        success={args.includes("eliminarFactor") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminó el factor de riesgo correctamente."}
+        mensajeError={"Hubo un error al eliminar el factor de riesgo."}
+      />
+
       <Mensaje 
         success={args.includes("agregarMedica") ? args.slice(-1) : -1} 
         mensajeExito={"Se registró la consulta médica."}
@@ -171,6 +207,16 @@ const BeneficiarioDetalles = (props) => {
         success={args.includes("agregarAntecedentes") ? args.slice(-1) : -1} 
         mensajeExito={"Se registraron los antecedentes."}
         mensajeError={"Hubo un error al registrar los antecedentes"}
+      />
+
+      {/* ELIMINAR ANTECEDENTES RETRO*/}
+      <Mensaje 
+        success={args.includes("eliminarAntecedentes") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminaron los antecedentes."}
+        mensajeError={"Hubo un error al eliminar los antecedentes."}
+        success={args.includes("eliminarMedica") ? args.slice(-1) : -1} 
+        mensajeExito={"Se eliminó la consulta médica."}
+        mensajeError={"Hubo un error al eliminar la consulta médica."}
       />
       
       {/*AGREGAR EXAMEN ORINA RETRO*/}

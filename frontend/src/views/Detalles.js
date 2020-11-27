@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 import { Container, Tooltip } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { Table } from "semantic-ui-react";
-import axios from "axios";
+import http from "../http-common";
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
@@ -18,7 +18,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {getAge} from '../components/utils';
 import http from '../http-common'
-
+import Cookies from 'js-cookie';
 import { API } from "../config";
 import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 
@@ -140,7 +140,7 @@ class DetallesTabla extends Component {
   }
 
   getDetalles() {
-    axios
+    http
       .get(API + "/beneficiarios/" + this.props.idBenef)
       .then((detalles) => {
         this.setState({ detalles: detalles.data});
@@ -225,12 +225,15 @@ class DetallesTabla extends Component {
           </div>
            ))}  
         <Grid container justify="flex-end" spacing="2">
-          <Grid justify="flex-end" item xs={2} spacing="2"> 
+          <Grid justify="flex-end" item xs={2} spacing="2">
+          {Cookies.get("roles").includes("Administrador")  ?  
           <Tooltip title="Dar de baja beneficiario" arrow>
               <IconButton  color="secondary" onClick={this.handleDialogOpen}>
                 <RemoveCircleOutlineIcon fontSize="large"/>
               </IconButton >
             </Tooltip>
+            : <></>
+         }
             {this.state.detalles.map((detalle) => (
             <Dialog
               open={this.state.open}
@@ -253,13 +256,18 @@ class DetallesTabla extends Component {
               </DialogActions>
             </Dialog>
             ))}
+          
               {this.state.detalles.map((detalle) => (
             <a href={"/beneficiarios/" + detalle.idBeneficiario + "/editar"}>
+               {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Social") ? 
               <Tooltip title="Editar beneficiario" arrow>
                   <IconButton  color="primary" >
                   <EditIcon fontSize="large"/>
                 </IconButton >
               </Tooltip>
+              : 
+              <></>
+             }
             </a>
             ))}
         </Grid>

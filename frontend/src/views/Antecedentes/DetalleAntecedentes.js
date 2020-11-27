@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import http from "../../http-common";
 import Sidenav from "../../components/Nav/Sidenav";
 import Antecedentes from './Antecedentes';
 import { Paper, makeStyles, Container, Button } from "@material-ui/core";
@@ -30,7 +30,11 @@ const DetalleAntecedentes = (props) => {
     const args = props.location.search;
 
     useEffect ( () => {
+<<<<<<< HEAD
         http.get('/antecedentes/'+idAntecedentes)
+=======
+        http.get('antecedentes/'+idAntecedentes)
+>>>>>>> develop
             .then(res => { setDetalle(res.data[0])
                 })
                     .catch((e) => {
