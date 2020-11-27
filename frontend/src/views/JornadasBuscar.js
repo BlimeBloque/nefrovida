@@ -15,6 +15,7 @@ import AddIcon from "@material-ui/icons/Add";
 import JornadasDataService from "../services/jornadas.service";
 
 import TablaJornadas from "./JornadasBuscarTabla";
+import Cookies from "js-cookie";
 
 export default class JornadasBuscar extends Component {
   constructor(props) {
@@ -125,14 +126,17 @@ export default class JornadasBuscar extends Component {
               ))}
             </Select>
           </FormControl>
-          <Tooltip title="Agregar una jornada">
-            <Fab
-              color="primary"
-              onClick={() => history.push("/jornadas/agregar")}
-            >
-              <AddIcon />
-            </Fab>
-          </Tooltip>
+          {(Cookies.get("roles").includes("Administrador") ||
+            Cookies.get("roles").includes("Medico")) && (
+            <Tooltip title="Agregar una jornada">
+              <Fab
+                color="primary"
+                onClick={() => history.push("/jornadas/agregar")}
+              >
+                <AddIcon />
+              </Fab>
+            </Tooltip>
+          )}
         </div>
         <TablaJornadas
           data={jornadas}
