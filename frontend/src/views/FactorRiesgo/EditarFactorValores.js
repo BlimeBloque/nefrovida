@@ -138,7 +138,7 @@ function EditarFactorValores(props) {
                 }
                
                 <div className={classes.formItems}>
-                        <Button color="default" className={classes.back} onClick={() => history.push('/beneficiarios/'+props.match.params.idBeneficiario)}>Cancelar</Button>
+                        <Button color="default" className={classes.back} onClick={() => history.push('/beneficiarios/'+props.match.params.idBeneficiario+'/detalleFactor')}>Cancelar</Button>
                         <Button 
                             disabled={disabled} 
                             variant="contained" 
