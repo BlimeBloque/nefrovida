@@ -1,7 +1,6 @@
 
 import {makeStyles, CssBaseline, Typography, Stepper, Step, Grid, IconButton, Tooltip} from '@material-ui/core';
-import React, {useState, useEffect} from 'react'
-import axios from 'axios'
+import React, {useState, useEffect} from 'react';
 import Controls from "../../components/FormComponents/Controls";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
