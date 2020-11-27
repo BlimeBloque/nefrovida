@@ -88,6 +88,24 @@ useEffect ( () => {
         }]
     }
 
+    const dataAltoRiesgo = {
+      labels: [
+          'Hombres en alto riesgo',
+          'Mujeres en alto riesgo',
+      ],
+      datasets: [{
+          data: [IMCSexo[8], IMCSexo[9]],
+          backgroundColor: [
+          '#63707A',
+          '#7DCFDF',
+          ],
+          hoverBackgroundColor: [
+          '#63707A',
+          '#7DCFDF',
+          ]
+      }]
+  }
+
     const dataTamizadas = {
         labels: [
             'Personas con muestra',
@@ -381,7 +399,7 @@ useEffect ( () => {
                 <Grid item xs={12}>
                     <br/>
                     <Pie 
-                        data={dataSexo} 
+                        data={dataAltoRiesgo} 
                         width={500}
                         height={200}
                         options={{ maintainAspectRatio: false}}/>
