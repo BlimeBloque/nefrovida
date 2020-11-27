@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidenav from "../../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import TamizajeForm from "./TamizajeForm";
+import Cookies from "js-cookie";
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -16,6 +17,16 @@ const useStyle = makeStyles((theme) => ({
 
 const TamizajeAgregar = (props) => {
   const classes = useStyle();
+
+  useEffect(() => {
+    if (
+      !Cookies.get("roles").includes("Administrador") &&
+      !Cookies.get("roles").includes("Medico")
+    ) {
+      props.history.goBack();
+    }
+  }, []);
+
   return (
     <div className={classes.container}>
       <Sidenav titulo="Registrar Tamizaje" />

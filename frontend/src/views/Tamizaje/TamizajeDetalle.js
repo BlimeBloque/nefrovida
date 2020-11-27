@@ -17,6 +17,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import Sidenav from "../../components/Nav/Sidenav";
 import http from "../../http-common";
+import Cookies from "js-cookie";
+s;
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -122,34 +124,37 @@ const DetalleConsultaNutricion = (props) => {
               <Typography variant="h3">
                 {tamizaje.nombreBeneficiario}
               </Typography>
-              <div id="botones">
-                <Tooltip title="Editar" arrow>
-                  <IconButton
-                    aria-label="Editar"
-                    color="primary"
-                    onClick={() =>
-                      props.history.push(
-                        "/beneficiarios/" +
-                          idBeneficiario +
-                          "/tamizaje/" +
-                          idTamizaje +
-                          "/editar"
-                      )
-                    }
-                  >
-                    <EditIcon fontSize="large" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Eliminar" arrow>
-                  <IconButton
-                    aria-label="Eliminar"
-                    color="secondary"
-                    onClick={() => handleClickOpen()}
-                  >
-                    <RemoveCircleIcon fontSize="large" />
-                  </IconButton>
-                </Tooltip>
-              </div>
+              {(Cookies.get("roles").includes("Administrador") ||
+                Cookies.get("roles").includes("Medico")) && (
+                <div id="botones">
+                  <Tooltip title="Editar" arrow>
+                    <IconButton
+                      aria-label="Editar"
+                      color="primary"
+                      onClick={() =>
+                        props.history.push(
+                          "/beneficiarios/" +
+                            idBeneficiario +
+                            "/tamizaje/" +
+                            idTamizaje +
+                            "/editar"
+                        )
+                      }
+                    >
+                      <EditIcon fontSize="large" />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Eliminar" arrow>
+                    <IconButton
+                      aria-label="Eliminar"
+                      color="secondary"
+                      onClick={() => handleClickOpen()}
+                    >
+                      <RemoveCircleIcon fontSize="large" />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+              )}
             </div>
 
             <div id="datosNutrimentales">

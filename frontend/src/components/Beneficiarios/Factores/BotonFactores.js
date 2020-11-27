@@ -15,7 +15,7 @@ import MenuList from '@material-ui/core/MenuList';
 const options = ['Agregar factores de riesgo'];
 
 function BotonFactores(props) {
-  const history = props.history;
+  const {history, hasFact} = props;
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -23,7 +23,13 @@ function BotonFactores(props) {
 
   const handleClick = () => {
     setIdFact(selectedIndex+1);
-    history.push('/beneficiarios/'+props.idBeneficiario+'/agregarFactor');
+    if(hasFact) {
+      history.push('/beneficiarios/'+props.idBeneficiario+'?permitirFactor=0');
+      window.location.reload();
+    } else {
+      history.push('/beneficiarios/'+props.idBeneficiario+'/agregarFactor');
+
+    }
     console.log(idFact)
   };
   

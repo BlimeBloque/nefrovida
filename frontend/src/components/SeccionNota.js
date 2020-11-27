@@ -2,10 +2,11 @@ import { Typography, makeStyles, Paper, Tooltip } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
 import AddIcon from '@material-ui/icons/Add'; 
 import Fab from '@material-ui/core/Fab';
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import http from "../http-common";
+
 
 
 const useStyle = makeStyles(theme => ({
@@ -30,7 +31,7 @@ const SeccionNota = (props) => {
     const [notas, setNotas] = useState([]);
 
     useEffect ( () => {
-        axios.get('http://localhost:8000/api/notas/beneficiario/'+props.idBeneficiario)
+        http.get('/notas/beneficiario/'+props.idBeneficiario)
             .then(res => { setNotas(res.data)
                 })
                     .catch((e) => {

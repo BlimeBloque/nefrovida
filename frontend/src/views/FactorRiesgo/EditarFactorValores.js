@@ -76,11 +76,7 @@ function EditarFactorValores(props) {
         let respuestaFinal = opciones.map((r) => (r.respuesta))
         let idRespuesta = opciones.map((id) => (id.idRespuesta))
         let i = 1
-        /* 
-            Todos los operadores ternarios aquí los utilicé para no hacer dos ciclos for.
-            El que está dentro de la declaración del ciclo delimita si termina en 10 o 19
-            El que está en el valor de respuestasPosibles agrega el valor sacado del arreglo correspondiente (valueInicio/valueFin)
-        */
+
         for (i; i < 13; i++) {
             console.log(valoresFactor[i])
             valueRespuesta = {
@@ -94,17 +90,24 @@ function EditarFactorValores(props) {
         }
         console.log(arrayForm) 
         
+        let success = true;
         for (let i = 1; i < 13; i++) {
             http.put('/formulario/'+props.idBeneficiario, arrayForm[i])
                 .then(res => {
-                    props.history.push("/beneficiarios/"+props.idBeneficiario+"/detalleFactor"+"?editarFactor=1");
-
+                    console.log(res);
                 })
                 .catch(err => {
                     console.log(err)
-                    props.history.push("/beneficiarios/"+props.idBeneficiario+"/detalleFactor"+"?editarFactor=0");
+                    success = false;
+                    
                 });
         } 
+        if(success)
+        {
+            props.history.push("/beneficiarios/"+props.idBeneficiario+"/detalleFactor"+"?editarFactor=1");
+        }
+        else
+            props.history.push("/beneficiarios/"+props.idBeneficiario+"/detalleFactor"+"?editarFactor=0");
     }
 
     return (

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CssBaseline, makeStyles } from "@material-ui/core";
-import axios from "axios";
-
 import Controls from "../components/FormComponents/Controls";
+import http from "../http-common";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -91,8 +90,8 @@ export default function JornadasAgregarForm(props) {
   };
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/estados")
+    http
+      .get("/estados")
       .then((res) => {
         setEstados(res.data);
       })
@@ -100,8 +99,8 @@ export default function JornadasAgregarForm(props) {
         console.log(e);
       });
     if (props.editar) {
-      axios
-        .get("http://127.0.0.1:8000/api/jornadas/" + props.idJornada)
+      http
+        .get("/jornadas/" + props.idJornada)
         .then((res) => {
           let temp = res.data[0].fecha.split("-");
           res.data[0].fecha = new Date(temp[0], temp[1], temp[2]);
@@ -120,23 +119,10 @@ export default function JornadasAgregarForm(props) {
       let day = values.fecha.getUTCDay();
       let month = values.fecha.getUTCMonth() + 1;
       let year = values.fecha.getUTCFullYear();
-      fetch("http://localhost:8000/api/jornadas/" + props.idJornada, {
-        method: "POST",
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
-          "Access-Control-Allow-Credentials": "true",
-          Accept: "application/json",
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          idJornada: values.idJornada,
-          nombre: values.nombre,
-          fecha: year + "/" + month + "/" + day,
-          localidad: values.localidad,
-          municipio: values.municipio,
-          idEstado: values.idEstado,
-        }),
-      })
+
+      values.fecha = year + "/" + month + "/" + day;
+
+      http.post('/jornadas/' + props.idJornada, values)
         .then((response) => response.json())
         .then((data) => validateBack(data.errors));
     }

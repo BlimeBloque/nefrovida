@@ -1,8 +1,8 @@
 import React from 'react'
 import { makeStyles } from "@material-ui/core/styles";
-import Sidenav from '../components/Nav/Sidenav';
+import Sidenav from '../../components/Nav/Sidenav';
 import { Container, IconButton, Paper } from '@material-ui/core';
-import Reporte from './Reportes/Reportes'
+import ReportesPorJornadaDetalle from './ReportesPorJornadaDetalle'
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -18,7 +18,9 @@ const useStyle = makeStyles(theme => ({
     }
   }))
 
-const Reportes = () => {
+const ReportesPorJornada = (props) => {
+
+    console.log(props);
     const classes = useStyle()
     return (
         <div className={classes.container}>
@@ -30,11 +32,11 @@ const Reportes = () => {
                     <ArrowBackIcon/>
                 </IconButton>
             </Link>
-                    <Reporte/>
+                    <ReportesPorJornadaDetalle idJornada = {props.match.params.idJornada}/>
                 </Paper>
             </Container>
         </div>
     );
 }
 
-export default Reportes;
+export default ReportesPorJornada;

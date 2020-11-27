@@ -105,6 +105,24 @@ const BeneficiarioDetalles = (props) => {
         </div>
       </Container>
 
+       {/* PERMITIR EVALUACIÓN INICIO*/}
+       <Mensaje 
+        success={args.includes("permitirEvaluacionInicio") ? args.slice(-1) : -1} 
+        mensajeError={"El beneficiario ya tiene una evaluación inicial registrada."}
+      />
+
+       {/* PERMITIR EVALUACIÓN INICIO*/}
+       <Mensaje 
+        success={args.includes("permitirEvaluacionFin") ? args.slice(-1) : -1} 
+        mensajeError={"El beneficiario ya tiene una evaluación final registrada."}
+      />
+
+      {/* PERMITIR EVALUACIÓN INICIO*/}
+      <Mensaje 
+        success={args.includes("permitirFact") ? args.slice(-1) : -1} 
+        mensajeError={"El beneficiario ya tiene un factor de riesgo registrado."}
+      />
+
       {/* ELIMINAR NOTA RETRO*/}
       <Mensaje 
         success={args.includes("eliminarNota") ? args.slice(-1) : -1} 
