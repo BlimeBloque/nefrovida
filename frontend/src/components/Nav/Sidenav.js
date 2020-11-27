@@ -5,7 +5,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import ScheduleIcon from '@material-ui/icons/Schedule';
-import ArchiveIcon from '@material-ui/icons/Archive';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import TableChartIcon from '@material-ui/icons/TableChart';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -15,7 +16,7 @@ import Cookies from 'js-cookie'
 
 import { useOktaAuth } from "@okta/okta-react"; 
 
-const drawerWidth = 200;
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -115,8 +116,13 @@ const Sidenav = props => {
         onClick: () => history.push("/jornadas")
     },
     {
+      texto: 'Comparar jornadas',
+      icono: <TableChartIcon />,
+      onClick: () => history.push('/jornadas/comparar')
+    },
+    {
         texto: 'Reportes',
-        icono: <ArchiveIcon />,
+        icono: <BarChartIcon />,
         onClick: () => history.push("/reportes")
     }];
 
