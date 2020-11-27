@@ -2,11 +2,12 @@ import { Typography, makeStyles, Paper, Tooltip } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
 import AddIcon from '@material-ui/icons/Add'; 
 import Fab from '@material-ui/core/Fab';
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 import Cookies from 'js-cookie';
+import http from "../http-common";
+
 
 const useStyle = makeStyles(theme => ({
     flex:{
@@ -33,28 +34,28 @@ const SeccionAnalisisLab = (props) => {
     const [microalbuminuria, setMicroalbuminuria] = useState([]);
 
     useEffect ( () => {
-        axios.get('http://localhost:8000/api/examenOrina/beneficiario/'+props.idBeneficiario)
+        http.get('/examenOrina/beneficiario/'+props.idBeneficiario)
             .then(res => { 
                     setExamenOrina(res.data)
             })
             .catch((e) => {
                 console.log(e)
             });
-        axios.get('http://localhost:8000/api/depuracionCreatinina/beneficiario/'+props.idBeneficiario)
+        http.get('/depuracionCreatinina/beneficiario/'+props.idBeneficiario)
             .then(res => { 
                     setDepuracionCreatinina(res.data)
             })
             .catch((e) => {
                 console.log(e)
             });
-        axios.get('http://localhost:8000/api/quimicaSanguinea/beneficiario/'+props.idBeneficiario)
+        http.get('/quimicaSanguinea/beneficiario/'+props.idBeneficiario)
             .then(res => { 
                     setQuimicaSanguinea(res.data)
             })
             .catch((e) => {
                 console.log(e)
             });
-        axios.get('http://localhost:8000/api/microalbuminuria/beneficiario/'+props.idBeneficiario)
+        http.get('/microalbuminuria/beneficiario/'+props.idBeneficiario)
             .then(res => { 
                     setMicroalbuminuria(res.data)
             })

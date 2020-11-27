@@ -18,9 +18,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {getAge} from '../components/utils';
 import Cookies from 'js-cookie';
-
-
-
 import { API } from "../config";
 import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";
 
@@ -111,24 +108,8 @@ class DetallesTabla extends Component {
       this.state.idJornada = detalle.idJornada
     ))
 
-    console.log(this.state.detalles);
-
-    e.preventDefault();
-    try {
-
-      let activoVal = 0;
-      let result = fetch(
-        "http://localhost:8000/api/beneficiarios/" + this.state.idBeneficiario ,
-        {
-          method: "PUT",
-          headers: {
-            "Access-Control-Allow-Origin": "http://localhost:3000/",
-            "Access-Control-Allow-Credentials": "true",
-            'Accept': "application/json",
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            nombreBeneficiario: this.state.nombre,
+    let valores = {
+      nombreBeneficiario: this.state.nombre,
             idEscolaridad: this.state.idEscolaridad,
             sexo: this.state.sexo, 
             telefono: this.state.telefono,
@@ -137,15 +118,22 @@ class DetallesTabla extends Component {
             activo: 0,
             fechaNacimiento:  this.state.fecha,
             idJornada: this.state.idJornada,
-          }),
-        }
-      );
-      this.setState({open: false});
-      window.alert("Se dio de baja correctamente al beneficiario");
-    } catch (e) {
-      console.log(e);
     }
-  }
+    console.log(this.state.detalles);
+
+    e.preventDefault();
+      let activoVal = 0;
+
+      http.put('/beneficiarios/' +  this.state.idBeneficiario, valores)
+            .then(res => {
+              //window.alert("Se dio de baja correctamente al beneficiario");
+              window.location.reload();
+            })
+            .catch(e => {
+              console.log(e);            })
+   
+      this.setState({open: false});
+      }
    
   componentDidMount() {
     this.getDetalles();
