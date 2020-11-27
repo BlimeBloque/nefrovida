@@ -6,6 +6,7 @@ import http from "../http-common";
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import Cookies from 'js-cookie';
 
 
 const useStyle = makeStyles(theme => ({
@@ -46,9 +47,13 @@ const SeccionConsultaMedica = (props) => {
                 <Typography className={classes.flexContent} style={{ margin: "10px 0px 0px 0px" }} variant="h6">
                     <strong>Consultas Médicas</strong>
                 </Typography>
-                <Fab className={classes.flexContent} color="primary" onClick={() => props.history.push("/beneficiarios/" + props.idBeneficiario + "/agregarConsultaMedica")}>
-                    <AddIcon />
-                </Fab>
+                {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Medico") ?
+                    <Fab className={classes.flexContent} color="primary" onClick={() => props.history.push("/beneficiarios/" + props.idBeneficiario + "/agregarConsultaMedica")}>
+                        <AddIcon />
+                    </Fab>
+                    :
+                    <></>
+                }
             </div>
 
             <Grid container justify="center" spacing={4}>

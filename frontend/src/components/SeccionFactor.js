@@ -9,6 +9,7 @@ import TarjetaFactor from './Beneficiarios/Evaluaciones/TarjetaEvaluaciones';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withRouter } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 
 
@@ -107,7 +108,11 @@ const SeccionFactor = (props) => {
                         <Typography variant="caption">No hay factores de riesgo.</Typography>   
                 }
             </Grid> 
-            <BotonFactores idBeneficiario={props.idBeneficiario} hasFact={hasFact} />
+            {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Social") ?
+                <BotonFactores idBeneficiario={props.idBeneficiario} hasFact={hasFact} />
+                :
+                <></>
+            }
         </div>
     );
 }

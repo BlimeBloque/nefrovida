@@ -18,7 +18,6 @@ import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import Sidenav from "../../components/Nav/Sidenav";
 import http from "../../http-common";
 import Cookies from "js-cookie";
-s;
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
