@@ -7,7 +7,11 @@ import Beneficiarios from "./views/Beneficiarios";
 import Jornadas from "./views/Jornadas";
 import JornadasAgregar from "./views/JornadasAgregar";
 import JornadasEditar from "./views/JornadasEditar";
+
 import Reportes from "./views/Reportes";
+import SelectReporte from "./views/Reportes/SelectReporte";
+import ReportesPorJornada from "./views/Reportes/ReportesPorJornada";
+
 import AgregarBeneficiario from "./views/AgregarBeneficiario";
 import EditarBeneficiario from "./views/EditarBeneficiario";
 import AgregarConsultaNutricion from './views/ConsultaNutricion/AgregarConsultaNutricion';
@@ -72,8 +76,10 @@ export default withRouter(
             <SecureRoute path='/beneficiarios' exact={true} component={Beneficiarios} />
             <SecureRoute path='/jornadas' exact={true} component={Jornadas} />
             <SecureRoute path='/jornadas/:idJornada([0-9]*)' exact={true} component={JornadaDetalles} />
-            <SecureRoute path='/reportes' exact={true} component={Reportes} />
             <SecureRoute path='/jornadas/comparar' exact={true} component={JornadaComparar} />
+            <SecureRoute path='/reportes' exact={true} component={SelectReporte} />
+            <SecureRoute path='/reportes/general' exact={true} component={Reportes} />
+            <SecureRoute path='/reportes/:idJornada([0-9]*)' exact={true} component={ReportesPorJornada} />
 
             <SecureRoute path='/jornadas/:idJornada([0-9]*)/agregarBeneficiario' exact={true} component={AgregarBeneficiario}/>
 

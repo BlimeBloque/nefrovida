@@ -21,6 +21,7 @@ use App\Http\Controllers\OpcionFormularioController;
 use App\Http\Controllers\JWTController;
 
 use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\ReportesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,6 +111,24 @@ Route::prefix('')->middleware('jwt')->group(function () {
     Route::post('/tamizaje', 'App\Http\Controllers\TamizajeController@insert');
     Route::post('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@edit');
     Route::delete('/tamizaje/{idBeneficiario}/{idTamizaje}', 'App\Http\Controllers\TamizajeController@delete');
+
+
+    Route::get('reportes/getSexoTotal', 'App\Http\Controllers\ReportesController@countBySex');
+    Route::get('reportes/getSexoJornada/{idJornada}', 'App\Http\Controllers\ReportesController@countBySexAndJourney');
+    Route::get('reportes/getEdadesTotal', 'App\Http\Controllers\ReportesController@getEdadesTotales');
+    Route::get('reportes/getEdadesJornada/{idJornada}', 'App\Http\Controllers\ReportesController@getEdadesJornada');
+    Route::get('reportes/getPruebas', 'App\Http\Controllers\ReportesController@countPruebas');
+    Route::get('reportes/getPruebas/{idJornada}', 'App\Http\Controllers\ReportesController@countPruebasJornada');
+    Route::get('reportes/getTamizajes', 'App\Http\Controllers\ReportesController@countTamizajes');
+    Route::get('reportes/getTamizajes/{idJornada}', 'App\Http\Controllers\ReportesController@countTamizajesJornada');
+    Route::get('reportes/getCountBeneficiariosConPruebas', 'App\Http\Controllers\ReportesController@conutBenefSinAnalisis');
+    Route::get('reportes/getCountBeneficiariosConPruebas/{idJornada}', 'App\Http\Controllers\ReportesController@conutBenefSinAnalisisJornada');
+    Route::get('reportes/getCountIMC', 'App\Http\Controllers\ReportesController@countIMCGeneral');
+    Route::get('reportes/getCountIMC/{idJornada}', 'App\Http\Controllers\ReportesController@countIMCJornada');
+    Route::get('reportes/getCountIMCPorSexo', 'App\Http\Controllers\ReportesController@countIMCPorSexo');
+    Route::get('reportes/getCountIMCPorSexo/{idJornada}', 'App\Http\Controllers\ReportesController@countIMCPorSexoJornada');
+    Route::get('reportes/getCountEvaluaciones', 'App\Http\Controllers\ReportesController@countEvaluaciones');
+    Route::get('reportes/getCountEvaluaciones/{idJornada}', 'App\Http\Controllers\ReportesController@countEvaluacionesJornada');
 });
 
 Route::get('/token', fn () => Http::asForm()
@@ -123,3 +142,13 @@ Route::get('/token', fn () => Http::asForm()
     ])
     ->throw()
     ->json());
+
+
+//todas las notas de reportes
+
+
+
+
+
+
+
