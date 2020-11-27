@@ -1,6 +1,6 @@
 import { Typography, makeStyles, Paper, Menu, MenuItem } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import http from "../http-common";
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
@@ -50,11 +50,13 @@ const SeccionFactor = (props) => {
     const classes = useStyle();
     const [factorRiesgo, setFactorRiesgo] = useState();
     const [anchorEl, setAnchorEl] = useState(null);
+    const [hasFact, setHasFact] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/formulario/' + props.idBeneficiario)
+        http.get('formulario/' + props.idBeneficiario)
             .then(res => {
                 setFactorRiesgo(res.data)
+                res.data.length !== 0 && setHasFact(true)
             })
             .catch((e) => {
                 console.log(e)
@@ -105,7 +107,7 @@ const SeccionFactor = (props) => {
                         <Typography variant="caption">No hay factores de riesgo.</Typography>   
                 }
             </Grid> 
-            <BotonFactores idBeneficiario={props.idBeneficiario} />
+            <BotonFactores idBeneficiario={props.idBeneficiario} hasFact={hasFact} />
         </div>
     );
 }

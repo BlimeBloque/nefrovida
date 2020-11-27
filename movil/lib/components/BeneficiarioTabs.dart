@@ -7,6 +7,7 @@ import 'package:movil/screens/Beneficiaries/Secciones/SeccionAnalisisLab.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionConsultas.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionNotas.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionTamizaje.dart';
+import 'package:movil/screens/Beneficiaries/Secciones/SeccionAntecedentes.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionFactorDeRiesgo.dart';
 
 class BeneficiarioTabs extends StatefulWidget {
@@ -47,7 +48,7 @@ class _BeneficiarioTabsState extends State<BeneficiarioTabs> {
         body: TabBarView(
           children: [
             CardBeneficiario(beneficiario: this.beneficiario),
-            Center(child: Text("Antecedentes")),
+            SeccionAntecedentes(beneficiario: this.beneficiario),
             SeccionTamizaje(beneficiario: this.beneficiario),
             Center(child: Text("Evaluaciones")),
             SeccionConsultas(beneficiario: this.beneficiario),

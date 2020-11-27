@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 import { Container, Tooltip } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { Table } from "semantic-ui-react";
-import axios from "axios";
+import http from "../http-common";
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
@@ -152,7 +152,7 @@ class DetallesTabla extends Component {
   }
 
   getDetalles() {
-    axios
+    http
       .get(API + "/beneficiarios/" + this.props.idBenef)
       .then((detalles) => {
         this.setState({ detalles: detalles.data});

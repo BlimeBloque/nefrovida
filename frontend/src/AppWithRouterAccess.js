@@ -45,6 +45,8 @@ import EditarEvaluacion from "./views/Evaluaciones/EditarEvaluacion";
 import EditarQuimicaSanguinea from "./views/AnalisisLab/QuimicaSanguinea/EditarQuimicaSanguinea";
 import EditarPreguntasEvaluacion from "./views/Evaluaciones/EditarPreguntasEvaluacion";
 import AgregarFactor from './views/FactorRiesgo/AgregarFactor';
+import DetalleFactor from "./views/FactorRiesgo/DetalleFactor";
+import EditarFactor from "./views/FactorRiesgo/EditarFactor";
 import JornadaComparar from "./views/JornadaComparar"
 
 
@@ -86,6 +88,8 @@ export default withRouter(
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarPreguntasEvaluacion' exact={true} component={EditarPreguntasEvaluacion}/>
 
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/agregarFactor' exact={true} component={AgregarFactor}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/detalleFactor' exact={true} component={DetalleFactor}/>
+            <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/editarFactor' exact={true} component={EditarFactor}/>
             
             {/* Tamizaje */}
             <SecureRoute path='/beneficiarios/:idBeneficiario([0-9]*)/tamizaje/agregar' exact={true} component={AgregarTamizaje}/>

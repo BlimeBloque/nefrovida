@@ -20,7 +20,7 @@ class PreguntasTableSeeder extends Seeder
             1 => '¿Padece Diabetes Mellitus?',
             2 => '¿Sus padres padecen alguna enfermedad crónica? ¿Cuál?',
             3 => '¿Ha sido o actualmente está siendo tratado por presión arterial Alta (Hipertensión)?',
-            4 => '¿Tiene algún familiar que padezca enfermedad renal crónica (Es decir con tratamiento de diálisis peritoneal o hemodiálisis??',
+            4 => '¿Tiene algún familiar que padezca enfermedad renal crónica (Es decir con tratamiento de diálisis peritoneal o hemodiálisis?',
             5 => '¿Regularmente se auto medica con analgésicos de venta libre (Como ibuprofeno o naproxeno)?',
             6 => '¿Se le ha diagnosticado VIH/SIDA, lupus o Hepatitis C?',
             7 => '¿Padece frecuentemente infecciones urinarias?',

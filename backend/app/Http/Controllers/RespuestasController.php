@@ -94,9 +94,18 @@ class RespuestasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idBeneficiario)
     {
-        //
+        return DB::table('respuestas AS r')
+                ->leftJoin('opcion_formulario AS of', 'r.idOpcionFormulario', '=', 'of.idOpcionFormulario')
+                ->leftJoin('formularios AS f', 'of.idFormulario', '=', 'f.idFormulario')
+                ->where('r.idBeneficiario', '=', $idBeneficiario)
+                ->where('of.idFormulario', '=', 1)
+                ->orderBy('r.idRespuesta')
+                ->groupBy('r.grupo', 'f.nombre', 'r.created_at')
+                ->select('r.grupo', 'f.nombre', 'r.created_at')
+                ->limit(1)
+                ->get();
     }
 
     /**
@@ -129,6 +138,24 @@ class RespuestasController extends Controller
 
         $formulario->respuesta = $request->input('respuesta');
         $formulario->textoRespuesta = $request->input('textoRespuesta');
+
+        if(strcmp(($request -> input('respuesta')), 'Sí') == 0){
+            switch($request -> input('idOpcionFormulario')){
+                case 5: case 7: case 8: case 9: case 10: case 12:
+                    $numPond = 2;
+                break;
+                default:
+                    $numPond = 3;
+                break;
+            }
+        } else if(strcmp(($request -> input('respuesta')), 'No') == 0){
+            $numPond = 0;
+        } else {
+            $numPond = 1;
+        }
+
+        $formulario->ponderacion = $numPond;
+
         $formulario->save();
     }
 
@@ -165,7 +192,7 @@ class RespuestasController extends Controller
             ->join('beneficiarios AS b', 'r.idBeneficiario' , '=', 'b.idBeneficiario')
             ->where('b.idBeneficiario', '=', $idBeneficiario)
             ->where('f.idFormulario', '=', 1)
-            ->select('f.idFormulario', 'of.idOpcionFormulario', 'p.pregunta', 'r.respuesta', 'f.nombre', 'r.idRespuesta')
+            ->select('f.idFormulario', 'of.idOpcionFormulario', 'p.pregunta', 'r.respuesta', 'f.nombre', 'r.idRespuesta', 'r.ponderacion')
             ->get();
     }
 }

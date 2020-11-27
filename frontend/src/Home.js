@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Sidenav from './components/Nav/Sidenav';
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import http from './http-common'
 import {API_KEY} from './config'
 
 const useStyles = makeStyles({
@@ -30,6 +31,13 @@ const Home = () => {
       // When user isn't authenticated, forget any user info
       setUserInfo(null);
     } else {
+      http.get('/eswtrdtf')
+          .then(res => {
+            Cookies.set("JWT", res.data)
+          })
+          .catch(e => {
+            console.log(e);
+          })
       authService.getUser().then(info => {
         setUserInfo(info);
         console.log(info.sub)

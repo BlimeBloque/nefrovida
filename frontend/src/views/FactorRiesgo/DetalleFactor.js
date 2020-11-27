@@ -6,9 +6,11 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 import { Container, Paper, makeStyles, IconButton, Tooltip } from '@material-ui/core';
 import Sidenav from '../../components/Nav/Sidenav';
 import { Link } from 'react-router-dom';
-import DetalleEvaluacionValores from './DetalleEvaluacionValores';
-import EliminarEvaluacion from './EliminarEvaluacion'
-import Cookies from 'js-cookie'
+import DetalleFactorValores from './DetalleFactorValores';
+import Cookies from 'js-cookie';
+import Mensaje from '../../components/Mensaje';
+import EliminarFactor from './EliminarFactor';
+
 const useStyle = makeStyles(theme => ({
     pageContent:{
         margin: theme.spacing(5),
@@ -30,12 +32,11 @@ const useStyle = makeStyles(theme => ({
       }
 }))
 
-export default function DetalleEvaluacion(props) {
+export default function DetalleFactor(props) {
     const idBeneficiario = props.match.params.idBeneficiario
     const classes = useStyle();
-    const [idEvaluacion] = useState(window.location.pathname.split("/").pop() === 'detalleEvaluacionesInicio' ? 1 : 2);
-    const inicio = idEvaluacion == 1 ? 'Inicio' : 'Fin'
     const [eliminarOpen, setEliminarOpen] = useState(false);
+    const args = props.location.search;
 
     const handleEliminarOpen = () => {
         setEliminarOpen(true);
@@ -48,7 +49,7 @@ export default function DetalleEvaluacion(props) {
 
     return (
         <div className={classes.container}>
-            <Sidenav titulo='Detalle de Evaluación'/>
+            <Sidenav titulo='Detalle de Factor de Riesgo'/>
             <Container>
                 <Paper className={classes.pageContent}>
                         
@@ -59,42 +60,46 @@ export default function DetalleEvaluacion(props) {
                                 </IconButton>
                             </Link>
                             <div>
-                                {
-                                    !(Cookies.get("roles").includes('Social') || Cookies.get("roles").includes("Administrador")) ?
-                                    <></>:
-                                    <Tooltip title='Editar' arrow>
-                                        <Link variant="body2" to={"/beneficiarios/"+idBeneficiario+'/editarEvaluacion'+inicio}>
-                                            <IconButton color="primary" aria-label="edit">
-                                                <EditIcon/>
-                                            </IconButton>
-                                        </Link>
-                                    </Tooltip>
-                                }
-                                {
-                                    !Cookies.get("roles").includes('Administrador') ?
-                                    <></>:
-                                    <Tooltip title='Eliminar' arrow>
-                                        <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
-                                            <RemoveCircleIcon fontSize="large" />
+                            {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Social") ? 
+                                <Tooltip title='Editar' arrow>
+                                    <Link variant="body2" to={"/beneficiarios/"+idBeneficiario+'/editarFactor'}>
+                                        <IconButton color="primary" aria-label="edit">
+                                            <EditIcon/>
                                         </IconButton>
-                                    </Tooltip>
-                                }
-                                
+                                    </Link>
+                                </Tooltip>
+                                :
+                                <></>
+                            }
+                            {Cookies.get("roles").includes("Administrador") ? 
+                                <Tooltip title='Eliminar' arrow>
+                                    <IconButton aria-label="Eliminar" color="secondary"  onClick={handleEliminarOpen}>
+                                        <RemoveCircleIcon fontSize="large" />
+                                    </IconButton>
+                                </Tooltip>
+                                :
+                                <></>
+                            }
                             </div>
                     </div>
 
-                    <DetalleEvaluacionValores idBeneficiario={props.match.params.idBeneficiario}/>
+                    <DetalleFactorValores idBeneficiario={props.match.params.idBeneficiario}/>
 
-                    <EliminarEvaluacion
+                    <EliminarFactor
                         open={eliminarOpen}
                         handleOpen={handleEliminarOpen}
                         handleClose={handleEliminarClose}
                         history={props.history}
                         idBeneficiario={idBeneficiario}
-                        tipo={inicio}
                     />
                 </Paper>
             </Container>
+
+            <Mensaje 
+                success={args.includes("editarFactor") ? args.slice(-1) : -1} 
+                mensajeExito={"Se actualizó el factor de riesgo."}
+                mensajeError={"Hubo un error al editar el factor de riesgo."}
+            />
         </div>
     )
 }
