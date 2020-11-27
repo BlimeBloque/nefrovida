@@ -11,6 +11,7 @@ import React, { useState, useEffect } from "react";
 import AddIcon from "@material-ui/icons/Add";
 import IconTamizaje from "@material-ui/icons/Accessibility";
 import http from "../http-common";
+import Cookies from "js-cookie";
 
 const useStyle = makeStyles((theme) => ({
   flex: {
@@ -55,19 +56,22 @@ const Tamizaje = (props) => {
         >
           <strong>Tamizaje</strong>
         </Typography>
-        <Tooltip title="Agregar tamizaje" arrow>
-          <Fab
-            className={classes.flexContent}
-            color="primary"
-            onClick={() =>
-              props.history.push(
-                "/beneficiarios/" + props.idBeneficiario + "/tamizaje/agregar"
-              )
-            }
-          >
-            <AddIcon />
-          </Fab>
-        </Tooltip>
+        {(Cookies.get("roles").includes("Administrador") ||
+          Cookies.get("roles").includes("Medico")) && (
+          <Tooltip title="Agregar tamizaje" arrow>
+            <Fab
+              className={classes.flexContent}
+              color="primary"
+              onClick={() =>
+                props.history.push(
+                  "/beneficiarios/" + props.idBeneficiario + "/tamizaje/agregar"
+                )
+              }
+            >
+              <AddIcon />
+            </Fab>
+          </Tooltip>
+        )}
       </div>
 
       <Grid container justify="center" spacing={4}>
