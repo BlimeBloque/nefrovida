@@ -24,9 +24,9 @@ class BeneficiariosSeeder extends Seeder
                 'telefono' => $faker->tollFreePhoneNumber,
                 'direccion' => $faker->address,
                 'activo' => $faker->numberBetween($min = 0, $max = 1),
-                'fechaNacimiento' => $faker->date($format = 'Y-m-d', $max = '2012-10-01'),
+                'fechaNacimiento' => explode( " ", ($faker->dateTimeBetween($startDate = '-19 years', $endDate = '-4 years', $timezone = null)->format('Y-m-d')))[0],
                 'seguimiento' => $faker->numberBetween($min = 0, $max = 1),
-                'idJornada' => $faker->numberBetween($min = 1, $max = 50),
+                'idJornada' => $faker->numberBetween($min = 1, $max = 1),
             ]);
         }
     }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {FormControl, Input, InputLabel, makeStyles, MenuItem, Select, Typography, Button, FormHelperText, TextField} from '@material-ui/core';
 import http from '../../../http-common';
 import {hasNumber, isNullOrWhitespace, isDecimal} from '../../../components/utils';
+import Cookies from 'js-cookie'; 
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -646,7 +647,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorCreatininaBajoMujerChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorCreatininaBajoMujer ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -661,7 +662,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorCreatininaAltoMujerChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorCreatininaAltoMujer ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -678,7 +679,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorCreatininaBajoHombreChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorCreatininaBajoHombre ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -693,7 +694,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorCreatininaAltoHombreChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorCreatininaAltoHombre ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -732,7 +733,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorDepuracionBajoMujerChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorDepuracionBajoMujer ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -747,7 +748,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorDepuracionAltoMujerChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorDepuracionAltoMujer ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -764,7 +765,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorDepuracionBajoHombreChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorDepuracionBajoHombre ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -779,7 +780,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorDepuracionAltoHombreChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorDepuracionAltoHombre ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
