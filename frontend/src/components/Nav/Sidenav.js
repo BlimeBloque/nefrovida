@@ -11,6 +11,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
 import clsx from 'clsx';
+import Cookies from 'js-cookie'
 
 import { useOktaAuth } from "@okta/okta-react"; 
 
@@ -92,7 +93,10 @@ const Sidenav = props => {
     
     const { authState, authService } = useOktaAuth();
     const [userInfo, setUserInfo] = useState(null);
-    const logout = () => authService.logout('/');
+    const logout = () => {
+      Cookies.remove("JWT");  
+      authService.logout('/');
+    }
     
     
     const itemsNav = [{

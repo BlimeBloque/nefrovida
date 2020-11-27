@@ -50,11 +50,13 @@ const SeccionFactor = (props) => {
     const classes = useStyle();
     const [factorRiesgo, setFactorRiesgo] = useState();
     const [anchorEl, setAnchorEl] = useState(null);
+    const [hasFact, setHasFact] = useState(false);
 
     useEffect(() => {
         http.get('formulario/' + props.idBeneficiario)
             .then(res => {
                 setFactorRiesgo(res.data)
+                res.data.length !== 0 && setHasFact(true)
             })
             .catch((e) => {
                 console.log(e)
@@ -105,7 +107,7 @@ const SeccionFactor = (props) => {
                         <Typography variant="caption">No hay factores de riesgo.</Typography>   
                 }
             </Grid> 
-            <BotonFactores idBeneficiario={props.idBeneficiario} />
+            <BotonFactores idBeneficiario={props.idBeneficiario} hasFact={hasFact} />
         </div>
     );
 }
