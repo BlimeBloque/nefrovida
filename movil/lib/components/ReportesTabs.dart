@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
+import 'package:movil/screens/Reportes/Secciones/ReporteIMC.dart';
+import 'package:movil/screens/Reportes/Secciones/ReportePruebasRealizadas.dart';
 
 class ReportesTabs extends StatefulWidget {
 
@@ -16,7 +18,7 @@ class _ReportesTabsState extends State<ReportesTabs> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 8,
+      length: 12,
       child: Scaffold(
         appBar: AppBar(
           title: Text("Reporte General"),
@@ -27,24 +29,32 @@ class _ReportesTabsState extends State<ReportesTabs> {
               Tab(text: "Sociodemográfico"),
               Tab(text: "Pruebas Realizadas"),
               Tab(text: "Personas Tamizadas"),
-              Tab(text: "IMC"),
-              Tab(text: "Factor de Riesgo"),
-              Tab(text: "Evaluación Médica"),
-              Tab(text: "Evaluación Nutricia"),
-              Tab(text: "Evaluación Psicológica"),
+              Tab(text: "IMC General"),
+              Tab(text: "IMC Por Sexo"),
+              Tab(text: "Consultas Nutricias de Alto Riesgo"),
+              Tab(text: "Evaluación Médica Inicial"),
+              Tab(text: "Evaluación Médica Final"),
+              Tab(text: "Evaluación Nutricia Inicial"),
+              Tab(text: "Evaluación Nutricia Final"),
+              Tab(text: "Evaluación Psicológica Inicial"),
+              Tab(text: "Evaluación Psicológica Final"),
             ],
           ),
         ),
         body: TabBarView(
           children: [
             Center(child: Text("Sociodemográfico")),
-            Center(child: Text("Pruebas Realizadas")),
+            ReportePruebasRealizadas(),
             Center(child: Text("Personas Tamizadas")),
-            Center(child: Text("IMC")),
-            Center(child: Text("Factor de Riesgo")),
-            Center(child: Text("Evaluación Médica")),
-            Center(child: Text("Evaluación Nutricia")),
-            Center(child: Text("Evaluación Psicológica")),
+            ReporteIMC(),
+            Tab(text: "IMC Por Sexo"),
+            Tab(text: "Consultas Nutricias de Alto Riesgo"),
+            Tab(text: "Evaluación Médica Inicial"),
+            Tab(text: "Evaluación Médica Final"),
+            Tab(text: "Evaluación Nutricia Inicial"),
+            Tab(text: "Evaluación Nutricia Final"),
+            Tab(text: "Evaluación Psicológica Inicial"),
+            Tab(text: "Evaluación Psicológica Final"),
           ],
         ),
         drawer: new NefrovidaDrawer(),

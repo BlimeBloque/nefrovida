@@ -7,6 +7,8 @@ import 'package:movil/classes/Estado.dart';
 import 'package:movil/classes/FactorDeRiesgo.dart';
 import 'package:movil/classes/Jornada.dart';
 import 'package:movil/classes/Microalbuminuria.dart';
+import 'package:movil/classes/PruebasRegistradas.dart';
+import 'package:movil/classes/IMCGeneral.dart';
 import 'package:movil/classes/QuimicaSanguinea.dart';
 import 'package:movil/classes/TipoNota.dart';
 import 'package:movil/classes/Nota.dart';
@@ -503,4 +505,87 @@ class HttpHelper {
     print("${response.body}");
     return response;
   }
+
+//----REPORTES----
+  Future<List<PruebasRegistradas>> getPruebasRegistradas() async {
+    String path =
+        "/reportes/getPruebas/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<PruebasRegistradas> resultados = new List();
+      int contador = 1;
+      for(var item in decodedJsonMap)
+      {
+        PruebasRegistradas prueba;
+        switch(contador)
+        {
+          case 1:
+            prueba = new PruebasRegistradas(item,  "EGO");
+          break;
+          case 2:
+            prueba = new PruebasRegistradas(item, "M/C");
+          break;
+          case 3:
+          prueba = new PruebasRegistradas(item, "QS3");
+          break;
+          case 4:
+          prueba = new PruebasRegistradas(item, "DEP");
+          break;
+        }
+        resultados.add(prueba);
+        print(resultados);
+        contador++;
+      }
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<IMCGeneral>> getIMCGeneral() async {
+    String path =
+        "/reportes/getCountIMC/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<IMCGeneral> resultados = new List();
+      int contador = 1;
+      for(var item in decodedJsonMap)
+      {
+        IMCGeneral prueba;
+        switch(contador)
+        {
+          case 1:
+            prueba = new IMCGeneral(item,  "Bajo Peso");
+          break;
+          case 2:
+            prueba = new IMCGeneral(item, "Normal");
+          break;
+          case 3:
+          prueba = new IMCGeneral(item, "Sobrepeso");
+          break;
+          case 4:
+          prueba = new IMCGeneral(item, "Obesidad");
+          break;
+        }
+        resultados.add(prueba);
+        print(resultados);
+        contador++;
+      }
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+
 }
+
+
