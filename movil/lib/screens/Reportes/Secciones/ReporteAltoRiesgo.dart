@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:movil/classes/AltoRiesgo.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:movil/classes/Tamizados.dart';
 import 'package:movil/components/HttpHelper.dart';
 
-class ReportePersonasTamizadas extends StatefulWidget {
+class ReporteAltoRiesgo extends StatefulWidget {
   @override
-  _ReportePersonasTamizadasState createState() => _ReportePersonasTamizadasState();
+  _ReporteAltoRiesgoState createState() => _ReporteAltoRiesgoState();
 }
 
-class _ReportePersonasTamizadasState extends State<ReportePersonasTamizadas> {
+class _ReporteAltoRiesgoState extends State<ReporteAltoRiesgo> {
   final HttpHelper reportesHelper = HttpHelper();
 
-  List<charts.Series<Tamizados, String>> _seriesPieData;
-  List<Tamizados> myData;
+  List<charts.Series<AltoRiesgo, String>> _seriesPieData;
+  List<AltoRiesgo> myData;
 
   _generateData(myData)
   {
-    _seriesPieData = List<charts.Series<Tamizados, String>>();
+    _seriesPieData = List<charts.Series<AltoRiesgo, String>>();
     _seriesPieData.add(
       charts.Series(
-        domainFn: (Tamizados resultado, _)=> resultado.label,//x axis value
-        measureFn: (Tamizados resultado, _)=> resultado.numero, //y axis value
-        id: 'PersonasTamizadas',
+        domainFn: (AltoRiesgo resultado, _)=> resultado.label,//x axis value
+        measureFn: (AltoRiesgo resultado, _)=> resultado.numero, //y axis value
+        id: 'AltoRiesgo',
         data: myData,
-        labelAccessorFn: (Tamizados resultado, _)=> resultado.label,
+        labelAccessorFn: (AltoRiesgo resultado, _)=> resultado.label,
       )
     );
   }
@@ -37,11 +37,11 @@ class _ReportePersonasTamizadasState extends State<ReportePersonasTamizadas> {
     return  Padding(
         padding: EdgeInsets.all(8.0),
         child: FutureBuilder(
-          future: reportesHelper.getTamizados(),
+          future: reportesHelper.getAltoRiesgo(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if(snapshot.hasData != null)
             {
-              List<Tamizados> res = snapshot.data;
+              List<AltoRiesgo> res = snapshot.data;
               if(res == null)
               {
                 return Center(child: CircularProgressIndicator());
@@ -61,7 +61,7 @@ class _ReportePersonasTamizadasState extends State<ReportePersonasTamizadas> {
     );
   }
 
-  Widget _buildChart(BuildContext context, List<Tamizados> res)
+  Widget _buildChart(BuildContext context, List<AltoRiesgo> res)
   {
     myData = res;
     _generateData(myData);
@@ -71,7 +71,7 @@ class _ReportePersonasTamizadasState extends State<ReportePersonasTamizadas> {
         child: Column(
           children: <Widget>[
             Text(
-              'Personas Tamizadas',
+              'Consultas nutricias de alto riesgo',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10.0, ),

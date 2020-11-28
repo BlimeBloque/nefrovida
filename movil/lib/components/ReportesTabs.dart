@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
+import 'package:movil/screens/Reportes/Secciones/ReporteAltoRiesgo.dart';
+import 'package:movil/screens/Reportes/Secciones/ReporteEvaluacionMedicaFinal.dart';
+import 'package:movil/screens/Reportes/Secciones/ReporteEvaluacionMedicaInicial.dart';
+import 'package:movil/screens/Reportes/Secciones/ReporteEvaluacionNutriciaFinal.dart';
+import 'package:movil/screens/Reportes/Secciones/ReporteEvaluacionNutriciaInicial.dart';
+import 'package:movil/screens/Reportes/Secciones/ReporteEvaluacionPsicologiaFinal.dart';
+import 'package:movil/screens/Reportes/Secciones/ReporteEvaluacionPsicologicaInicial.dart';
 import 'package:movil/screens/Reportes/Secciones/ReporteIMC.dart';
+import 'package:movil/screens/Reportes/Secciones/ReporteIMCSexo.dart';
+import 'package:movil/screens/Reportes/Secciones/ReportePersonasTamizadas.dart';
 import 'package:movil/screens/Reportes/Secciones/ReportePruebasRealizadas.dart';
+import 'package:movil/screens/Reportes/Secciones/ReporteSociodemografico.dart';
 
 class ReportesTabs extends StatefulWidget {
 
@@ -43,18 +53,18 @@ class _ReportesTabsState extends State<ReportesTabs> {
         ),
         body: TabBarView(
           children: [
-            Center(child: Text("Sociodemográfico")),
+            ReporteSociodemografico(),
             ReportePruebasRealizadas(),
-            Center(child: Text("Personas Tamizadas")),
+            ReportePersonasTamizadas(),
             ReporteIMC(),
-            Tab(text: "IMC Por Sexo"),
-            Tab(text: "Consultas Nutricias de Alto Riesgo"),
-            Tab(text: "Evaluación Médica Inicial"),
-            Tab(text: "Evaluación Médica Final"),
-            Tab(text: "Evaluación Nutricia Inicial"),
-            Tab(text: "Evaluación Nutricia Final"),
-            Tab(text: "Evaluación Psicológica Inicial"),
-            Tab(text: "Evaluación Psicológica Final"),
+            ReporteIMCSexo(),
+            ReporteAltoRiesgo(),
+            ReporteEvaluacionMedicaInicial(),
+            ReporteEvaluacionMedicaFinal(),
+            ReporteEvaluacionNutriciaInicial(),
+            ReporteEvaluacionNutriciaFinal(),
+            ReporteEvaluacionPsicologiaInicial(),
+            ReporteEvaluacionPsicologiaFinal(),
           ],
         ),
         drawer: new NefrovidaDrawer(),

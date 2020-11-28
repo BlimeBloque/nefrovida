@@ -1,30 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:movil/classes/IMCGeneral.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:movil/classes/Platicas.dart';
 import 'package:movil/components/HttpHelper.dart';
 
-class ReporteIMC extends StatefulWidget {
+class ReporteEvaluacionMedicaFinal extends StatefulWidget {
   @override
-  _ReporteIMCState createState() => _ReporteIMCState();
+  _ReporteEvaluacionMedicaFinalState createState() => _ReporteEvaluacionMedicaFinalState();
 }
 
-class _ReporteIMCState extends State<ReporteIMC> {
+class _ReporteEvaluacionMedicaFinalState extends State<ReporteEvaluacionMedicaFinal> {
   final HttpHelper reportesHelper = HttpHelper();
 
-  List<charts.Series<IMCGeneral, String>> _seriesBarData;
-  List<IMCGeneral> myData;
+  List<charts.Series<Platicas, String>> _seriesBarData;
+  List<Platicas> si, no;
 
-  _generateData(myData)
+  _generateData(si, no)
   {
-    _seriesBarData = List<charts.Series<IMCGeneral, String>>();
+    _seriesBarData = List<charts.Series<Platicas, String>>();
     _seriesBarData.add(
       charts.Series(
-        domainFn: (IMCGeneral imc, _)=> imc.label,//x axis value
-        measureFn: (IMCGeneral imc, _)=> imc.porcentaje, //y axis value
-        id: 'IMCGeneral',
-        data: myData,
-        labelAccessorFn: (IMCGeneral prueba, _)=> prueba.label,
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (Platicas platica, _)=> platica.label,//x axis value
+        measureFn: (Platicas platica, _)=> platica.numero, //y axis value
+        id: 'Si',
+        data: si,
+        labelAccessorFn: (Platicas prueba, _)=> prueba.label,
+      )
+    );
+    _seriesBarData.add(
+      charts.Series(
+        domainFn: (Platicas platica, _)=> platica.label,//x axis value
+        measureFn: (Platicas platica, _)=> platica.numero, //y axis value
+        id: 'No',
+        data: no,
+        labelAccessorFn: (Platicas prueba, _)=> prueba.label,
       )
     );
   }
@@ -38,11 +46,11 @@ class _ReporteIMCState extends State<ReporteIMC> {
     return  Padding(
         padding: EdgeInsets.all(8.0),
         child: FutureBuilder(
-          future: reportesHelper.getIMCGeneral(),
+          future: reportesHelper.getMedicaFinal(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if(snapshot.hasData != null)
             {
-              List<IMCGeneral> resultados = snapshot.data;
+              List<List<Platicas>> resultados = snapshot.data;
               if(resultados == null)
               {
                 return Center(child: CircularProgressIndicator());
@@ -62,27 +70,29 @@ class _ReporteIMCState extends State<ReporteIMC> {
     );
   }
 
-  Widget _buildChart(BuildContext context, List<IMCGeneral> resultados)
+  Widget _buildChart(BuildContext context, List<List<Platicas>> resultados)
   {
-    myData = resultados;
-    _generateData(myData);
+    si = resultados[0];
+    no = resultados[1];
+    _generateData(si, no);
 
     return Container(
       child: Center(
         child: Column(
           children: <Widget>[
             Text(
-              'Porcentaje IMC General',
+              'Respuestas cuestionario final',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10.0, ),
             Expanded(
               child: charts.BarChart(
                 _seriesBarData,
+                barGroupingType: charts.BarGroupingType.grouped,
                 animate: true,
                 animationDuration: Duration(seconds: 2),
                 behaviors: [
-                  
+                  new charts.SeriesLegend(),
                 ],
               ),
             ),
