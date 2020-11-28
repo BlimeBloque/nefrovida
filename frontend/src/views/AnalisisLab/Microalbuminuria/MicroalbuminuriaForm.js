@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {FormControl, Input, InputLabel, makeStyles, MenuItem, Select, Typography, Button, FormHelperText, TextField} from '@material-ui/core';
 import http from '../../../http-common';
 import {hasNumber, isNullOrWhitespace, isDecimal} from '../../../components/utils';
+import Cookies from 'js-cookie'; 
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -560,7 +561,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorMicroAlbuminaBajoChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorMicroAlbuminaBajo ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -575,7 +576,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorMicroAlbuminaAltoChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorMicroAlbuminaAlto ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -610,7 +611,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorCreatininaBajoChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorCreatininaBajo ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -625,7 +626,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorCreatininaAltoChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorCreatininaAlto ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -661,7 +662,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorRelacionNormalBajoChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorRelacionNormalBajo ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -676,7 +677,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorRelacionNormalAltoChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorRelacionNormalAlto ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -694,7 +695,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorRelacionAnormalBajoChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorRelacionAnormalBajo ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -709,7 +710,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorRelacionAnormalAltoChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorRelacionAnormalAlto ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -727,7 +728,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorRelacionAnormalAltoBajoChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorRelacionAnormalAltoBajo ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).
@@ -742,7 +743,7 @@ export default function DepuracionCreatininaForm (props) {
                                 onChange={handleValorRelacionAnormalAltoAltoChange}
                                 aria-describedby="component-error-text"
                                 type="number"
-                                disabled
+                                disabled={Cookies.get("roles").includes("Administrador") ? false : true}
                                 />
                                 <FormHelperText style={{display: errores.valorRelacionAnormalAltoAlto ? "block" : "none"}} id="component-error-text">
                                     Escribe un valor válido<br/>(Si es número cerrado escribir .0 Ej. 17.0).

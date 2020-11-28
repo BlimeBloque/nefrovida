@@ -77,6 +77,10 @@ export default withRouter(
             <SecureRoute path='/jornadas' exact={true} component={Jornadas} />
             <SecureRoute path='/jornadas/:idJornada([0-9]*)' exact={true} component={JornadaDetalles} />
             <SecureRoute path='/jornadas/comparar' exact={true} component={JornadaComparar} />
+<<<<<<< HEAD
+=======
+
+>>>>>>> eric/ver-reportes-movil
             <SecureRoute path='/reportes' exact={true} component={SelectReporte} />
             <SecureRoute path='/reportes/general' exact={true} component={Reportes} />
             <SecureRoute path='/reportes/:idJornada([0-9]*)' exact={true} component={ReportesPorJornada} />
