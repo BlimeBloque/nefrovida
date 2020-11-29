@@ -40,10 +40,8 @@ const Home = () => {
           })
       authService.getUser().then(info => {
         setUserInfo(info);
-        console.log(info.sub)
         axios.get('https://dev-377919.okta.com/api/v1/users/'+info.sub+'/groups', {headers: {"Accept": "application/json", "Authorization": "SSWS "+API_KEY}})
               .then(res => {
-                  console.log(res)
                   let roles = ""
                   res.data.forEach(grupo => {
                     if(grupo.profile.name != 'a') {
@@ -52,7 +50,6 @@ const Home = () => {
                       
                     }
                   });
-                  console.log(roles)
                   Cookies.set("roles", roles)
                 })
               .catch(err => {

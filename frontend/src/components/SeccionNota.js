@@ -2,7 +2,6 @@ import { Typography, makeStyles, Paper, Tooltip } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
 import AddIcon from '@material-ui/icons/Add'; 
 import Fab from '@material-ui/core/Fab';
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import AssignmentIcon from '@material-ui/icons/Assignment';
@@ -39,10 +38,8 @@ const SeccionNota = (props) => {
                 });
     }, []);
 
-    console.log(notas);
     return(
         <div>
-        {console.log(notas)}
             <div className={classes.flex}>
                 <Typography className={classes.flexContent} style={{margin: "10px 0px 0px 0px"}} variant="h6">
                 <strong>Notas de beneficiario</strong>

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Sidenav from "../../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import TamizajeForm from "./TamizajeForm";
-import http from "../../http-common"
+import http from "../../http-common";
+import Cookies from "js-cookie";
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -18,18 +19,30 @@ const useStyle = makeStyles((theme) => ({
 const TamizajeEditar = (props) => {
   const classes = useStyle();
   const [tamizaje, setTamizaje] = useState([]);
-  const [retrieve, setRetrieve ]= useState([false]);
+  const [retrieve, setRetrieve] = useState([false]);
 
   useEffect(() => {
+    if (
+      !Cookies.get("roles").includes("Administrador") &&
+      !Cookies.get("roles").includes("Medico")
+    ) {
+      props.history.goBack();
+    }
+
     http
-    .get("/tamizaje/" + props.match.params.idBeneficiario + "/"+ props.match.params.idTamizaje)
-    .then((res) => {
-      setTamizaje(res.data[0]);
-      setRetrieve(true);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+      .get(
+        "/tamizaje/" +
+          props.match.params.idBeneficiario +
+          "/" +
+          props.match.params.idTamizaje
+      )
+      .then((res) => {
+        setTamizaje(res.data[0]);
+        setRetrieve(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }, []);
 
   return (
@@ -37,12 +50,12 @@ const TamizajeEditar = (props) => {
       <Sidenav titulo="Editar Tamizaje" />
       <Container>
         <Paper className={classes.pageContent}>
-          {retrieve===true &&(
+          {retrieve === true && (
             <TamizajeForm
-            history={props.history}
-            idBeneficiario={props.match.params.idBeneficiario}
-            editar={true}
-            tamizaje={tamizaje}
+              history={props.history}
+              idBeneficiario={props.match.params.idBeneficiario}
+              editar={true}
+              tamizaje={tamizaje}
             />
           )}
         </Paper>

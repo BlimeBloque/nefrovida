@@ -27,7 +27,6 @@ const ACCESS_TOKEN = Cookies.get('JWT');
 axios.post('https://dev-377919.okta.com/oauth2/default/v1/token', data)
   .then(response => {
     Cookies.set("JWT", response.data.access_token)
-    console.log(JSON.stringify(response.data));
   })
   .catch(error => {
     console.log(error);

@@ -30,7 +30,6 @@ function BotonFactores(props) {
       history.push('/beneficiarios/'+props.idBeneficiario+'/agregarFactor');
 
     }
-    console.log(idFact)
   };
   
   const handleMenuItemClick = (event, index) => {

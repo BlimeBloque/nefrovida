@@ -6,6 +6,8 @@ import http from "../http-common";
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import HistoryIcon from '@material-ui/icons/History';
+import Cookies from 'js-cookie';
+
 import http from '../http-common'
 
 const useStyle = makeStyles(theme => ({
@@ -30,11 +32,8 @@ const SeccionAntecedentes = (props) => {
     const [antecedentes, setAntecedentes] = useState([]);
 
     useEffect(() => {
-<<<<<<< HEAD
+
         http.get('/antecedentes/beneficiario/' + props.idBeneficiario)
-=======
-        http.get('antecedentes/beneficiario/' + props.idBeneficiario)
->>>>>>> develop
             .then(res => {
                 setAntecedentes(res.data)
             })
@@ -45,14 +44,17 @@ const SeccionAntecedentes = (props) => {
 
     return (
         <div>
-            {console.log(antecedentes)}
             <div className={classes.flex}>
                 <Typography className={classes.flexContent} style={{ margin: "10px 0px 0px 0px" }} variant="h6">
                     <strong>Antecedentes</strong>
                 </Typography>
-                <Fab className={classes.flexContent} color="primary" onClick={() => props.history.push("/beneficiarios/" + props.idBeneficiario + "/agregarAntecedentes")}>
-                    <AddIcon />
-                </Fab>
+                {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Medico") ? 
+                    <Fab className={classes.flexContent} color="primary" onClick={() => props.history.push("/beneficiarios/" + props.idBeneficiario + "/agregarAntecedentes")}>
+                        <AddIcon />
+                    </Fab>
+                    :
+                    <></>
+                }
             </div>
 
             <Grid container justify="center" spacing={4}>

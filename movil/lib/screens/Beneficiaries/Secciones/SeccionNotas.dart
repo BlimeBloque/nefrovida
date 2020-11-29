@@ -25,7 +25,7 @@ class SeccionNotas extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => AgregarNotaScreen(
-                              id: beneficiario.idBeneficiario)));
+                              id: beneficiario.idBeneficiario, beneficiario: beneficiario)));
                 },
                 child: Icon(Icons.add),
                 backgroundColor: Colors.green,

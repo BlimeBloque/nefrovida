@@ -64,7 +64,6 @@ export default function JornadasAgregarForm(props) {
   }, []);
 
   const validateFront = () => {
-    console.log("ewew");
     let val = {};
     val.nombre = values.nombre ? "" : "Este campo es requerido";
     val.localidad = values.localidad ? "" : "Este campo es requerido";

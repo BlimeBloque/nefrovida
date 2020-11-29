@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CssBaseline, makeStyles } from "@material-ui/core";
-import http from '../http-common'
-
 import Controls from "../components/FormComponents/Controls";
+import http from "../http-common";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -120,21 +119,12 @@ export default function JornadasAgregarForm(props) {
       let day = values.fecha.getUTCDay();
       let month = values.fecha.getUTCMonth() + 1;
       let year = values.fecha.getUTCFullYear();
-      let valores = JSON.stringify({
-        idJornada: values.idJornada,
-        nombre: values.nombre,
-        fecha: year + "/" + month + "/" + day,
-        localidad: values.localidad,
-        municipio: values.municipio,
-        idEstado: values.idEstado,
-      })
-      http.post('/jornadas/'+props.idJornada, valores)
-      .then(res => {
-        response.json()
-      })
-      .then(data => {
-        validateBack(data.errors)
-      });
+
+      values.fecha = year + "/" + month + "/" + day;
+
+      http.post('/jornadas/' + props.idJornada, values)
+        .then((response) => response.json())
+        .then((data) => validateBack(data.errors));
     }
   };
 

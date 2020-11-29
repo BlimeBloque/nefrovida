@@ -1,13 +1,20 @@
 import 'dart:convert';
+import 'package:movil/classes/AltoRiesgo.dart';
 import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/classes/DepuracionCreatinina.dart';
 import 'package:movil/classes/Escolaridad.dart';
 import 'package:movil/classes/ExamenOrina.dart';
 import 'package:movil/classes/Estado.dart';
 import 'package:movil/classes/FactorDeRiesgo.dart';
+import 'package:movil/classes/IMCSexo.dart';
 import 'package:movil/classes/Jornada.dart';
 import 'package:movil/classes/Microalbuminuria.dart';
+import 'package:movil/classes/Platicas.dart';
+import 'package:movil/classes/PruebasRegistradas.dart';
+import 'package:movil/classes/IMCGeneral.dart';
 import 'package:movil/classes/QuimicaSanguinea.dart';
+import 'package:movil/classes/Sociodemografico.dart';
+import 'package:movil/classes/Tamizados.dart';
 import 'package:movil/classes/TipoNota.dart';
 import 'package:movil/classes/Nota.dart';
 import 'package:movil/classes/ConsultaNutricion.dart';
@@ -503,4 +510,368 @@ class HttpHelper {
     print("${response.body}");
     return response;
   }
+
+//----REPORTES----
+  Future<List<PruebasRegistradas>> getPruebasRegistradas() async {
+    String path =
+        "/reportes/getPruebas/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<PruebasRegistradas> resultados = new List();
+      int contador = 1;
+      for(var item in decodedJsonMap)
+      {
+        PruebasRegistradas prueba;
+        switch(contador)
+        {
+          case 1:
+            prueba = new PruebasRegistradas(item,  "EGO");
+          break;
+          case 2:
+            prueba = new PruebasRegistradas(item, "M/C");
+          break;
+          case 3:
+          prueba = new PruebasRegistradas(item, "QS3");
+          break;
+          case 4:
+          prueba = new PruebasRegistradas(item, "DEP");
+          break;
+        }
+        resultados.add(prueba);
+        print(resultados);
+        contador++;
+      }
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<IMCGeneral>> getIMCGeneral() async {
+    String path =
+        "/reportes/getCountIMC/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<IMCGeneral> resultados = new List();
+      int contador = 1;
+      for(var item in decodedJsonMap)
+      {
+        IMCGeneral prueba;
+        switch(contador)
+        {
+          case 1:
+            prueba = new IMCGeneral(double.parse(item.toString()),  "Bajo Peso");
+          break;
+          case 2:
+            prueba = new IMCGeneral(double.parse(item.toString()), "Normal");
+          break;
+          case 3:
+          prueba = new IMCGeneral(double.parse(item.toString()), "Sobrepeso");
+          break;
+          case 4:
+          prueba = new IMCGeneral(double.parse(item.toString()), "Obesidad");
+          break;
+        }
+        resultados.add(prueba);
+        print(resultados);
+        contador++;
+      }
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<Sociodemografico>> getSociodemografico() async {
+    String path =
+        "/reportes/getSexoTotal/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<Sociodemografico> resultados = new List();
+      int contador = 1;
+      for(var item in decodedJsonMap)
+      {
+        Sociodemografico prueba;
+        switch(contador)
+        {
+          case 1:
+            prueba = new Sociodemografico(item,  "Hombres");
+          break;
+          case 2:
+            prueba = new Sociodemografico(item, "Mujeres");
+          break;
+        }
+        resultados.add(prueba);
+        print(resultados);
+        contador++;
+      }
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<Tamizados>> getTamizados() async {
+    String path =
+        "/reportes/getCountBeneficiariosConPruebas/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<Tamizados> resultados = new List();
+      resultados.add(new Tamizados(decodedJsonMap[0]-decodedJsonMap[1], "Personas sin muestra"));
+      resultados.add(new Tamizados(decodedJsonMap[1], "Personas con muestra"));
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<AltoRiesgo>> getAltoRiesgo() async {
+    String path =
+        "/reportes/getCountIMCPorSexo/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<AltoRiesgo> resultados = new List();
+      resultados.add(new AltoRiesgo(decodedJsonMap[8], "Hombres en alto riesgo"));
+      resultados.add(new AltoRiesgo(decodedJsonMap[9], "Mujeres en alto riesgo"));
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<List<IMCSexo>>> getIMCSexo() async {
+    String path =
+        "/reportes/getCountIMCPorSexo/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<List<IMCSexo>> resultados = new List();
+      //hacer lista de resultados de hombres
+      List<IMCSexo> hombres = new List();
+      hombres.add(new IMCSexo(double.parse(decodedJsonMap[0].toString()), "Bajo Peso"));
+      hombres.add(new IMCSexo(double.parse(decodedJsonMap[1].toString()), "Normal"));
+      hombres.add(new IMCSexo(double.parse(decodedJsonMap[2].toString()), "Sobrepeso"));
+      hombres.add(new IMCSexo(double.parse(decodedJsonMap[3].toString()), "Obesidad"));
+      //hacer lista de resultados de mujeres
+      List<IMCSexo> mujeres = new List();
+      mujeres.add(new IMCSexo(double.parse(decodedJsonMap[4].toString()), "Bajo Peso"));
+      mujeres.add(new IMCSexo(double.parse(decodedJsonMap[5].toString()), "Normal"));
+      mujeres.add(new IMCSexo(double.parse(decodedJsonMap[6].toString()), "Sobrepeso"));
+      mujeres.add(new IMCSexo(double.parse(decodedJsonMap[7].toString()), "Obesidad"));
+      //agregar a lista de resultados
+      resultados.add(hombres);
+      resultados.add(mujeres);
+    
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+  
+  Future<List<List<Platicas>>> getMedicaInicial() async {
+    String path =
+        "/reportes/getCountEvaluaciones/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<List<Platicas>> resultados = new List();
+      //hacer lista de resultados de si
+      List<Platicas> si = new List();
+      si.add(new Platicas(decodedJsonMap[0], "Pregunta 1"));
+      si.add(new Platicas(decodedJsonMap[2], "Pregunta 2"));
+      si.add(new Platicas(decodedJsonMap[4], "Pregunta 3"));
+      //hacer lista de resultados de no
+      List<Platicas> no = new List();
+      no.add(new Platicas(decodedJsonMap[1], "Pregunta 1"));
+      no.add(new Platicas(decodedJsonMap[3], "Pregunta 2"));
+      no.add(new Platicas(decodedJsonMap[5], "Pregunta 3"));
+      //agregar a lista de resultados
+      resultados.add(si);
+      resultados.add(no);
+    
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<List<Platicas>>> getNutriciaInicial() async {
+    String path =
+        "/reportes/getCountEvaluaciones/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<List<Platicas>> resultados = new List();
+      //hacer lista de resultados de si
+      List<Platicas> si = new List();
+      si.add(new Platicas(decodedJsonMap[6], "Pregunta 1"));
+      si.add(new Platicas(decodedJsonMap[8], "Pregunta 2"));
+      si.add(new Platicas(decodedJsonMap[10], "Pregunta 3"));
+      //hacer lista de resultados de no
+      List<Platicas> no = new List();
+      no.add(new Platicas(decodedJsonMap[7], "Pregunta 1"));
+      no.add(new Platicas(decodedJsonMap[9], "Pregunta 2"));
+      no.add(new Platicas(decodedJsonMap[11], "Pregunta 3"));
+      //agregar a lista de resultados
+      resultados.add(si);
+      resultados.add(no);
+    
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<List<Platicas>>> getPsicologiaInicial() async {
+    String path =
+        "/reportes/getCountEvaluaciones/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<List<Platicas>> resultados = new List();
+      //hacer lista de resultados de si
+      List<Platicas> si = new List();
+      si.add(new Platicas(decodedJsonMap[12], "Pregunta 1"));
+      si.add(new Platicas(decodedJsonMap[14], "Pregunta 2"));
+      si.add(new Platicas(decodedJsonMap[16], "Pregunta 3"));
+      //hacer lista de resultados de no
+      List<Platicas> no = new List();
+      no.add(new Platicas(decodedJsonMap[13], "Pregunta 1"));
+      no.add(new Platicas(decodedJsonMap[15], "Pregunta 2"));
+      no.add(new Platicas(decodedJsonMap[17], "Pregunta 3"));
+      //agregar a lista de resultados
+      resultados.add(si);
+      resultados.add(no);
+    
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<List<Platicas>>> getMedicaFinal() async {
+    String path =
+        "/reportes/getCountEvaluaciones/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<List<Platicas>> resultados = new List();
+      //hacer lista de resultados de si
+      List<Platicas> si = new List();
+      si.add(new Platicas(decodedJsonMap[18], "Pregunta 1"));
+      si.add(new Platicas(decodedJsonMap[20], "Pregunta 2"));
+      si.add(new Platicas(decodedJsonMap[22], "Pregunta 3"));
+      //hacer lista de resultados de no
+      List<Platicas> no = new List();
+      no.add(new Platicas(decodedJsonMap[19], "Pregunta 1"));
+      no.add(new Platicas(decodedJsonMap[21], "Pregunta 2"));
+      no.add(new Platicas(decodedJsonMap[23], "Pregunta 3"));
+      //agregar a lista de resultados
+      resultados.add(si);
+      resultados.add(no);
+    
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<List<Platicas>>> getNutriciaFinal() async {
+    String path =
+        "/reportes/getCountEvaluaciones/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<List<Platicas>> resultados = new List();
+      //hacer lista de resultados de si
+      List<Platicas> si = new List();
+      si.add(new Platicas(decodedJsonMap[24], "Pregunta 1"));
+      si.add(new Platicas(decodedJsonMap[26], "Pregunta 2"));
+      si.add(new Platicas(decodedJsonMap[28], "Pregunta 3"));
+      //hacer lista de resultados de no
+      List<Platicas> no = new List();
+      no.add(new Platicas(decodedJsonMap[25], "Pregunta 1"));
+      no.add(new Platicas(decodedJsonMap[27], "Pregunta 2"));
+      no.add(new Platicas(decodedJsonMap[29], "Pregunta 3"));
+      //agregar a lista de resultados
+      resultados.add(si);
+      resultados.add(no);
+    
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<List<Platicas>>> getPsicologiaFinal() async {
+    String path =
+        "/reportes/getCountEvaluaciones/";
+    String uri = ip + baseUrl + path;
+
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      List<List<Platicas>> resultados = new List();
+      //hacer lista de resultados de si
+      List<Platicas> si = new List();
+      si.add(new Platicas(decodedJsonMap[30], "Pregunta 1"));
+      si.add(new Platicas(decodedJsonMap[32], "Pregunta 2"));
+      si.add(new Platicas(decodedJsonMap[34], "Pregunta 3"));
+      //hacer lista de resultados de no
+      List<Platicas> no = new List();
+      no.add(new Platicas(decodedJsonMap[31], "Pregunta 1"));
+      no.add(new Platicas(decodedJsonMap[33], "Pregunta 2"));
+      no.add(new Platicas(decodedJsonMap[35], "Pregunta 3"));
+      //agregar a lista de resultados
+      resultados.add(si);
+      resultados.add(no);
+    
+      return resultados;
+    } else {
+      return null;
+    }
+  }
+
+
 }
+
+

@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from 'react';
 
 import http from "../../http-common";
-
+import Cookies from 'js-cookie';
 import {CssBaseline, FormLabel, makeStyles, Typography, Button, RadioGroup, FormControlLabel, Radio, Divider, FormControl, CircularProgress} from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
@@ -69,6 +69,10 @@ function AgregarFactorForm(props) {
     };
     
     useEffect (() => {
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Social"))
+        {
+            props.history.goBack();
+        }
         http.get('opcionFormulario/formularios/'+idFormulario)
         .then(res => { setOpciones (res.data)
         })

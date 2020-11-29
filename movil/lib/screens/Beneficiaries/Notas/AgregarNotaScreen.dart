@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
 import 'package:movil/components/HttpHelper.dart';
 import 'package:movil/classes/TipoNota.dart';
 import 'package:dio/dio.dart';
+import 'package:movil/screens/Beneficiaries/DetalleBeneficiarioScreen.dart';
 import 'package:path/path.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -11,8 +13,9 @@ class AgregarNotaScreen extends StatelessWidget {
   static const String route = '/beneficiariosDetalle';
 
   final int id;
+  final Beneficiario beneficiario;
 
-  AgregarNotaScreen({Key key, @required this.id}) : super(key: key);
+  AgregarNotaScreen({Key key, @required this.id, @required this.beneficiario}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class AgregarNotaScreen extends StatelessWidget {
         title: Text("Agregar Nota de Beneficiario"),
         centerTitle: true,
       ),
-      body: AgregarNotaForm(id: id),
+      body: AgregarNotaForm(id: id, beneficiario: beneficiario),
       drawer: new NefrovidaDrawer(),
     );
   }
@@ -29,12 +32,18 @@ class AgregarNotaScreen extends StatelessWidget {
 
 class AgregarNotaForm extends StatefulWidget {
   final int id;
-  AgregarNotaForm({Key key, @required this.id}) : super(key: key);
+  final Beneficiario beneficiario;
+  AgregarNotaForm({Key key, @required this.id, @required this.beneficiario}) : super(key: key);
   @override
-  _AgregarNotaFormState createState() => _AgregarNotaFormState();
+  _AgregarNotaFormState createState() => _AgregarNotaFormState(beneficiario: beneficiario);
 }
 
 class _AgregarNotaFormState extends State<AgregarNotaForm> {
+
+  final Beneficiario beneficiario;
+
+    _AgregarNotaFormState({Key key, @required this.beneficiario}) : super();
+
   HttpHelper tipoHelper = new HttpHelper();
   String _contenido;
   int _idTipoNota;
@@ -67,7 +76,7 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
         "file": await MultipartFile.fromFile(filePath.path, filename: fileName),
       });
       Response response = await Dio()
-          .post('http://192.168.100.50:8000/api/upload', data: formData);
+          .post('http://api.snefrovidaac.com/api/movil/upload', data: formData);
       print('File upload response: $response');
       setState(() {
         var tempArchivo = response.toString();
@@ -222,6 +231,8 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
                           _idBeneficiario,
                           _selectedTipo.idTipoNombre,
                           _url_archivo);
+
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => DetalleBeneficiarioScreen(beneficiario: beneficiario)));
                     },
                   )
                 ],

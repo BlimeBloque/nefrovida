@@ -24,7 +24,7 @@ const useStyle = makeStyles(theme => ({
 }))
 
 const initialFValues = {
-    nombre: '',
+    nombreBeneficiario: '',
     idEscolaridad: '',
     sexo: 'H',
     telefono: '',
@@ -62,12 +62,11 @@ export default function AgregarBeneficiarioForm(props) {
     
    values.idJornada = props.idJornada;
 
-  console.log(values)
 
 
   const validate = () => {
       let temp = {}
-      temp.nombre = values.nombre?"":"Este campo es requerido"
+      temp.nombreBeneficiario = values.nombreBeneficiario?"":"Este campo es requerido"
       temp.telefono = (values.telefono.length > 9 || values.telefono.length == 0 )?"":"Este campo debe tener al menos 10 digitos"
       temp.idEscolaridad = values.idEscolaridad.length!=0?"":"Este campo es requerido"
       setErrors({
@@ -77,17 +76,13 @@ export default function AgregarBeneficiarioForm(props) {
       return Object.values(temp).every(x => x == "")
   }
 
-/*
-    const printObject = e => {
-        console.log(values)
-    }
-*/
+
     const onSubmit = e => {
 
         let day = values.fechaNacimiento.getDate();
         let month = values.fechaNacimiento.getUTCMonth() + 1;
         let year = values.fechaNacimiento.getUTCFullYear();
-        console.log(day + "/" + month + "/" + year);
+        values.fechaNacimiento = year + "-" + month + "-" + day;
 
         e.preventDefault();
 
@@ -98,31 +93,17 @@ export default function AgregarBeneficiarioForm(props) {
             } else {
                 values.seguimiento = 0
             }
-            let valores = JSON.stringify({
-                nombreBeneficiario: values.nombre,
-                idEscolaridad: values.idEscolaridad,
-                sexo: values.sexo, 
-                telefono: values.telefono,
-                direccion: values.direccion,
-                seguimiento: values.seguimiento,
-                activo: values.activo,
-                fechaNacimiento: year + "-" + month + "-" + day,
-                idJornada: values.idJornada,
-            });
             
-            http.post('/beneficiarios', valores)
+            http.post('/beneficiarios' , values)
             .then(res => {
-                props.history.push("/jornadas/"+ props.idJornada +"?agregarBeneficiario=1");
-
+                props.history.push("/jornadas");
             })
-            .catch(err => {
-                console.log(err)
-                props.history.push("/jornadas/"+ props.idJornada +"?agregarBeneficiario=0");
-
-            });
+            .catch( e => {
+                props.history.push("/jornadas");
+            })
 
         } else {
-           window.alert("Todos los campos obligatorios deben ser llenados")
+          
         }
 
  
@@ -136,11 +117,11 @@ export default function AgregarBeneficiarioForm(props) {
             <Grid container spacing={3} >
                 <Grid item xs={6}>
                     <Controls.Input 
-                        name="nombre" 
+                        name="nombreBeneficiario" 
                         label="Nombre Completo *" 
-                        value={values.nombre}
+                        value={values.nombreBeneficiario}
                         onChange = {handleInputChange}
-                        error={errors.nombre}
+                        error={errors.nombreBeneficiario}
                     />
                         <Controls.Input 
                         variant="outlined"

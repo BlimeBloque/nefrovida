@@ -41,7 +41,6 @@ function BotonEvaluaciones(props) {
         history.push('/beneficiarios/'+props.idBeneficiario+'/agregarEvaluacionFin');
       }
     }
-    console.log(idEval)
   };
   
   const handleMenuItemClick = (event, index) => {
@@ -67,7 +66,6 @@ function BotonEvaluaciones(props) {
 
   return (
     <Grid container direction="column" alignItems="center">
-      {console.log(hasEvalInit)}
       <Grid item xs={12}>
         <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
           <Button onClick={handleClick}>{options[selectedIndex]}</Button>

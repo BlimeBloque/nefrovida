@@ -27,7 +27,6 @@ export default withOktaAuth(class Login extends Component {
   }
 
   render() {
-    {console.log(this.props.authState.isPending)}
     //if (this.props.authState.isPending) return <div>Cargando...</div>;
     return this.props.authState.isAuthenticated && !this.props.authState.isPending ?
       <Redirect to={{ pathname: '/' }}/> :

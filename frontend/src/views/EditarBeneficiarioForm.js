@@ -50,12 +50,14 @@ export default function AgregarBeneficiarioForm(props) {
 
 
     useEffect ( () => {
-
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Social"))
+        {
+            props.history.goBack();
+        }
         http.get('/beneficiarios/' + props.idBenef)
         .then((res) => {
             let temp = res.data[0].fechaNacimiento.split("-");
             res.data[0].fechaNacimiento = new Date(temp[0], temp[1]-1, temp[2]);
-            console.log(res.data[0]);
             setValues(res.data[0]);
           })
         .catch((e) => {
@@ -63,7 +65,6 @@ export default function AgregarBeneficiarioForm(props) {
         })
    }, []);
 
-   console.log(values)
 
     const handleInputChange= e => {
         const {name , value} = e.target
@@ -101,7 +102,6 @@ export default function AgregarBeneficiarioForm(props) {
 }, []);
     
     
-  console.log(jornadasCollection)
 
 
   const validate = () => {
@@ -126,6 +126,7 @@ export default function AgregarBeneficiarioForm(props) {
         let month = values.fechaNacimiento.getUTCMonth() + 1;
         let year = values.fechaNacimiento.getUTCFullYear();
 
+        values.fechaNacimiento = year + "-" + month + "-" + day;
 
         e.preventDefault();
 
@@ -136,27 +137,19 @@ export default function AgregarBeneficiarioForm(props) {
             } else {
                 values.seguimiento = 0
             }
-            let valores = JSON.stringify({
-                nombreBeneficiario: values.nombreBeneficiario,
-                idEscolaridad: values.idEscolaridad,
-                sexo: values.sexo, 
-                telefono: values.telefono,
-                direccion: values.direccion,
-                seguimiento:  values.seguimiento,
-                activo: values.activo,
-                fechaNacimiento: year + "-" + month + "-" + day,
-                idJornada: values.idJornada,
-              });
-            http.put('/beneficiarios/'+values.idBeneficiario, valores)
-            .then(res => {
-                props.history.push("/beneficiarios/"+ props.idBenef +"?editarBeneficiario=1");
-
-            })
-            .catch(err => {
-                console.log(err)
-                props.history.push("/beneficiarios/" + props.idBenef + "?editarBeneficiario=0");
-
-            });
+            http.put('/beneficiarios/' + props.idBenef, values)
+                .then(res => {
+                    props.history.push("/beneficiarios/"+ props.idBenef +"?editarBeneficiario=1");
+                })
+                .catch( e => {
+                    props.history.push("/beneficiarios/" + props.idBenef + "?editarBeneficiario=0");
+                })
+            
+           
+               // console.log(e);
+               
+               
+          
         } else {
         }
 

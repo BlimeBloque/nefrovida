@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { API } from "../config";
 import { Fab, Grid, Tooltip, Typography } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import http from "../http-common";
+
 
 export default class JornadaDetalleEspecifico extends Component {
   constructor(props) {
@@ -21,11 +22,9 @@ export default class JornadaDetalleEspecifico extends Component {
   }
 
   getDetallesJornada() {
-    axios
-      .get(API + "/jornadas/" + this.props.idJornada)
+    http
+      .get("/jornadas/" + this.props.idJornada)
       .then((detalles) => {
-        console.log(detalles.data);
-        console.log(detalles.data.length !== 0);
         this.setState({ detalles: detalles.data });
         if (detalles.data.length !== 0) {
           this.setState({ retrieve: 0 });
@@ -39,7 +38,6 @@ export default class JornadaDetalleEspecifico extends Component {
   }
 
   render() {
-    console.log(this.state.detalles);
     if (this.state.retrieve === 1) {
       return (
         <Typography variant="h4" gutterBottom align="center">

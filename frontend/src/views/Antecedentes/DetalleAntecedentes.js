@@ -30,11 +30,8 @@ const DetalleAntecedentes = (props) => {
     const args = props.location.search;
 
     useEffect ( () => {
-<<<<<<< HEAD
+
         http.get('/antecedentes/'+idAntecedentes)
-=======
-        http.get('antecedentes/'+idAntecedentes)
->>>>>>> develop
             .then(res => { setDetalle(res.data[0])
                 })
                     .catch((e) => {

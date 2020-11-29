@@ -40,7 +40,6 @@ const SeccionConsultaNutricion = (props) => {
 
     return(
         <div>
-        {console.log(consultas)}
             <div className={classes.flex}>
                 <Typography className={classes.flexContent} style={{margin: "10px 0px 0px 0px"}} variant="h6">
                 <strong>Consultas de Nutrición</strong>

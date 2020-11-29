@@ -95,7 +95,6 @@ class DetallesTabla extends Component {
 
   handleDialogDischarge = (e) => {
 
-    console.log(this.state.detalles[0]);
 
     this.state.detalles.map((detalle) => (
       this.state.idBeneficiario = detalle.idBeneficiario,
@@ -109,31 +108,31 @@ class DetallesTabla extends Component {
       this.state.idJornada = detalle.idJornada
     ))
 
-    console.log(this.state.detalles);
+    let valores = {
+      nombreBeneficiario: this.state.nombre,
+            idEscolaridad: this.state.idEscolaridad,
+            sexo: this.state.sexo, 
+            telefono: this.state.telefono,
+            direccion: this.state.direccion,
+            seguimiento:  this.state.seguimiento,
+            activo: 0,
+            fechaNacimiento:  this.state.fecha,
+            idJornada: this.state.idJornada,
+    }
 
     e.preventDefault();
-
       let activoVal = 0;
-      let valores = JSON.stringify({
-        nombreBeneficiario: this.state.nombre,
-        idEscolaridad: this.state.idEscolaridad,
-        sexo: this.state.sexo, 
-        telefono: this.state.telefono,
-        direccion: this.state.direccion,
-        seguimiento:  this.state.seguimiento,
-        activo: 0,
-        fechaNacimiento:  this.state.fecha,
-        idJornada: this.state.idJornada,
-      });
-      http.put('/beneficiarios/'+this.state.idBeneficiario, valores)
-      .then(res => {
-        this.setState({open: false});
-        window.alert("Se dio de baja correctamente al beneficiario");
-      })
-      .catch(err => {
-          console.log(err)
-      });
-  }
+
+      http.put('/beneficiarios/' +  this.state.idBeneficiario, valores)
+            .then(res => {
+              //window.alert("Se dio de baja correctamente al beneficiario");
+              window.location.reload();
+            })
+            .catch(e => {
+              console.log(e);            })
+   
+      this.setState({open: false});
+      }
    
   componentDidMount() {
     this.getDetalles();
@@ -158,7 +157,6 @@ class DetallesTabla extends Component {
 
     const {detalles, history} = this.state;
     
-    console.log(detalles);
     return (
       <Container>
 

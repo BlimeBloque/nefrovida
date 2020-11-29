@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import http from "../http-common";
 import { getAge } from "../components/utils";
+import Cookies from 'js-cookie'
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -59,6 +60,11 @@ const JornadaComparar = () => {
   const [infohiper, setInfoHiper] = useState([]);
 
   useEffect(() => {
+    if(!Cookies.get('cargado'))
+    {
+      Cookies.set('cargado', true)
+      window.location.reload();
+    }
     http
       .get("/jornada/comparar")
       .then((res) => {
@@ -94,7 +100,6 @@ const JornadaComparar = () => {
     http
       .get("/comparar/" + ids)
       .then((res) => {
-        console.log("comparar -> res.data", res.data);
         res.data.SocioDemografico.map(function (e) {
           e[0].map(function (i) {
             i.fecha = getAge(i.fecha);

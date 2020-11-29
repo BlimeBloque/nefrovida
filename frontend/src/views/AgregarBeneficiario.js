@@ -18,7 +18,6 @@ const useStyle = makeStyles(theme => ({
 
 const AgregarBeneficiario = (props) => {
   const classes = useStyle();
-  console.log(props);
     return (
       <div className={classes.container}>
         <Sidenav titulo="Registrar Beneficiario" />        

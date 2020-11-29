@@ -47,6 +47,8 @@ class DetalleNotaScreen extends StatelessWidget {
                                   Navigator.pop(context);
                                 },
                               ),
+                            ),
+                            ListTile(
                               title: Center(
                                 child: Text(
                                   nota.tituloNota,
@@ -62,13 +64,23 @@ class DetalleNotaScreen extends StatelessWidget {
                                 children: <Widget>[
                                   ListTile(
                                     title:
-                                        Text('                  Comentario: '),
-                                    subtitle: Text('                      ' +
-                                        nota.comentario),
+                                        Text('Comentario: '),
+                                    subtitle: Text(nota.comentario),
                                   ),
-                                  Text(
-                                    '     Nota: para descargar archivos ingrese a la nota desde la aplicacion web',
-                                  )
+                                  Card(
+                                    child: Center (
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          const ListTile(
+                                            title: Text('Nota: '),
+                                            subtitle: Text('Para descargar archivos ingrese desde la aplicacion web de la asociación'),
+                                          )
+                                        ],
+                                    ),
+                                    ),
+                                   
+                                  ),
                                 ],
                               ),
                             ),

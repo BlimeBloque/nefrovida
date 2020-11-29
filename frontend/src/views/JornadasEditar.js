@@ -3,6 +3,7 @@ import Sidenav from "../components/Nav/Sidenav";
 import { Paper, makeStyles, Container } from "@material-ui/core";
 import JornadaEditarForm from "./JornadasAgregarForm";
 import http from "../http-common";
+import Cookies from "js-cookie";
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -22,6 +23,13 @@ const JornadasAgregar = (props) => {
   const [retrieve, setRetrieve] = useState([false]);
 
   useEffect(() => {
+    if (
+      !Cookies.get("roles").includes("Administrador") &&
+      !Cookies.get("roles").includes("Social")
+    ) {
+      props.history.goBack();
+    }
+
     http
       .get("/estados")
       .then((res) => {

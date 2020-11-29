@@ -6,7 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 import Cookies from 'js-cookie';
-import http from '../http-common'
+import http from "../http-common";
+
 
 const useStyle = makeStyles(theme => ({
     flex:{
@@ -65,7 +66,6 @@ const SeccionAnalisisLab = (props) => {
 
     return(
         <div>
-        {console.log(examenOrina)}
             <div className={classes.flex}>
                 <Typography className={classes.flexContent} style={{margin: "10px 0px 0px 0px"}} variant="h6">
                 <strong>Análisis de Laboratorio</strong>

@@ -94,7 +94,7 @@ return(
             <div id="botones">
             {Cookies.get("roles").includes("Administrador") || Cookies.get("roles").includes("Medico") ? 
                     <Tooltip title="Editar" arrow>
-                        <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/consultaNutricion/editar/"+detalle.idConsultaNutricional)}>
+                        <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/antecedentes/editar/"+detalle.idAntecedentes)}>
                             <EditIcon fontSize="large" />
                         </IconButton>
                     </Tooltip>
