@@ -5,6 +5,8 @@ import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/CardBeneficiario.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionAnalisisLab.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionConsultas.dart';
+import 'package:movil/screens/Beneficiaries/Secciones/SeccionEvaluacionesInicio.dart';
+import 'package:movil/screens/Beneficiaries/Secciones/SeccionEvaluacionesFin.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionNotas.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionTamizaje.dart';
 import 'package:movil/screens/Beneficiaries/Secciones/SeccionAntecedentes.dart';
@@ -26,7 +28,7 @@ class _BeneficiarioTabsState extends State<BeneficiarioTabs> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 8,
+      length: 9,
       child: Scaffold(
         appBar: AppBar(
           title: Text("Detalle Beneficiario"),
@@ -37,7 +39,8 @@ class _BeneficiarioTabsState extends State<BeneficiarioTabs> {
               Tab(text: "General"),
               Tab(text: "Antecedentes"),
               Tab(text: "Tamizajes"),
-              Tab(text: "Evaluaciones"),
+              Tab(text: "Evaluacion Inicial"),
+              Tab(text: "Evaluacion Final"),
               Tab(text: "Consultas"),
               Tab(text: "Análisis"),
               Tab(text: "Notas"),
@@ -50,7 +53,8 @@ class _BeneficiarioTabsState extends State<BeneficiarioTabs> {
             CardBeneficiario(beneficiario: this.beneficiario),
             SeccionAntecedentes(beneficiario: this.beneficiario),
             SeccionTamizaje(beneficiario: this.beneficiario),
-            Center(child: Text("Evaluaciones")),
+            SeccionEvaluacionesInicio(beneficiario: this.beneficiario),
+            SeccionEvaluacionesFin(beneficiario: this.beneficiario),
             SeccionConsultas(beneficiario: this.beneficiario),
             SeccionAnalisisLab(beneficiario: this.beneficiario),
             SeccionNotas(beneficiario: this.beneficiario),

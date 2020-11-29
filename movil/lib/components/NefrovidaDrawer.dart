@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movil/providers/OktaProvider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NefrovidaDrawer extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -52,9 +54,10 @@ class NefrovidaDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.person),
               title: Text('Mi Perfil'),
-              onTap: () {
+              onTap: () { 
                 Navigator.pop(context);
-              },
+                _launchURL();
+              }
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
@@ -69,4 +72,13 @@ class NefrovidaDrawer extends StatelessWidget {
         ),
       );
   }
+
+  _launchURL() async {
+  const url = "https://dev-377919.okta.com/enduser/profile";
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 }

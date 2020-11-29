@@ -3,6 +3,7 @@ import 'package:movil/classes/AltoRiesgo.dart';
 import 'package:movil/classes/Beneficiario.dart';
 import 'package:movil/classes/DepuracionCreatinina.dart';
 import 'package:movil/classes/Escolaridad.dart';
+import 'package:movil/classes/Evaluaciones.dart';
 import 'package:movil/classes/ExamenOrina.dart';
 import 'package:movil/classes/Estado.dart';
 import 'package:movil/classes/FactorDeRiesgo.dart';
@@ -183,6 +184,36 @@ class HttpHelper {
       print(decodedJsonMap);
       FactoresDeRiesgo listaFactores = new FactoresDeRiesgo.fromJsonList(decodedJsonMap);
       return listaFactores.factores;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<Evaluacion>> getEvalacionInicial(idBeneficiario) async {
+     String path = "/detallesEvaluacionesInicio/" + idBeneficiario.toString();
+     String uri = ip + baseUrl + path;
+ 
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      Evaluaciones listaEvaluacionesInicial = new Evaluaciones.fromJsonList(decodedJsonMap);
+      return listaEvaluacionesInicial.evaluaciones;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<Evaluacion>> getEvaluacionFinal(idBeneficiario) async {
+     String path = "/detallesEvaluacionesFin/" + idBeneficiario.toString();
+     String uri = ip + baseUrl + path;
+ 
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      print(decodedJsonMap);
+      Evaluaciones listaEvaluacionesFinal = new Evaluaciones.fromJsonList(decodedJsonMap);
+      return listaEvaluacionesFinal.evaluaciones;
     } else {
       return null;
     }
