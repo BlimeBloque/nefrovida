@@ -3,8 +3,6 @@ import React, {useState, useEffect} from 'react'
 import { Grid } from 'semantic-ui-react';
 import http from "../http-common";
 import Cookies from 'js-cookie';
-
-
 import Controls from "../components/FormComponents/Controls";
 
 

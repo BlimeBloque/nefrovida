@@ -17,6 +17,7 @@ import { Grid, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {getAge} from '../components/utils';
+import http from '../http-common'
 import Cookies from 'js-cookie';
 import { API } from "../config";
 import TarjetaEvaluaciones from "../components/Beneficiarios/Evaluaciones/TarjetaEvaluaciones";

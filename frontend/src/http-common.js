@@ -21,7 +21,7 @@ const data = qs.stringify({
 
 const headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
-    'Origin': 'http://localhost:8000/'
+    'Origin': 'https://api.snefrovidaac.com'
 };
 const ACCESS_TOKEN = Cookies.get('JWT');
 axios.post('https://dev-377919.okta.com/oauth2/default/v1/token', data)
@@ -34,7 +34,7 @@ axios.post('https://dev-377919.okta.com/oauth2/default/v1/token', data)
   })
 
 export default axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://api.snefrovidaac.com/api",
   headers: {
     "Content-type": "application/json",
     Accept: "application/json",
