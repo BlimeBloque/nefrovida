@@ -593,6 +593,8 @@ public function countIMCGeneral(){
     }
 
     $totalCuentasIMC =  $bajoPesoCount + $normalCount + $sobrepesoCount + $obesidadCount;
+    if($totalCuentasIMC == 0)
+        $totalCuentasIMC = 1;
     $bajoPesoPorcientaje = ($bajoPesoCount * 100) / $totalCuentasIMC;
     $normalPorcentaje = ($normalCount * 100) / $totalCuentasIMC;
     $sobrepesoPorcentaje = ($sobrepesoCount * 100) / $totalCuentasIMC;
