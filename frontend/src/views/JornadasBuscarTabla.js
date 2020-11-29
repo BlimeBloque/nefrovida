@@ -195,8 +195,16 @@ export default function JornadasBuscarTabla(props) {
     setOpen(false);
   };
 
+  /*
   let jornadas = props.estado
     ? props.data.filter((x) => x["nombreEstado"].includes(props.estado))
+    : props.data;
+    */
+
+  let jornadas = props.localidad
+    ? props.data.filter((x) =>
+        x["localidad"].toLowerCase().includes(props.localidad.toLowerCase())
+      )
     : props.data;
 
   jornadas = props.nombre

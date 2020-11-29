@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import {
   FormControl,
   Tooltip,
-  Select,
-  MenuItem,
-  InputLabel,
   TextField,
   InputAdornment,
   Fab,
@@ -28,7 +25,7 @@ export default class JornadasBuscar extends Component {
       jornadas: [],
       estados: [],
       filtrarNombre: "",
-      filtrarEstado: "",
+      filtrarLoc: "",
       page: 0,
       history: props.history,
       retrieve: -1,
@@ -52,14 +49,6 @@ export default class JornadasBuscar extends Component {
       .catch((e) => {
         console.log(e);
       });
-
-    JornadasDataService.getEstados()
-      .then((estados) => {
-        this.setState({ estados: estados.data });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   }
 
   setPage(newPage) {
@@ -71,20 +60,13 @@ export default class JornadasBuscar extends Component {
     this.setPage(0);
   };
 
-  handleEstado = (event) => {
-    this.setState({ filtrarEstado: event.target.value });
+  handleLoc = (event) => {
+    this.setState({ filtrarLoc: event.target.value });
     this.setPage(0);
   };
 
   render() {
-    const {
-      jornadas,
-      estados,
-      filtrarEstado,
-      filtrarNombre,
-      page,
-      history,
-    } = this.state;
+    const { jornadas, filtrarLoc, filtrarNombre, page, history } = this.state;
 
     return (
       <div>
@@ -95,7 +77,7 @@ export default class JornadasBuscar extends Component {
             margin: " 40px 40px 20px 40px",
           }}
         >
-          <FormControl style={{ width: "60%" }}>
+          <FormControl style={{ width: "40%" }}>
             <TextField
               label="Buscar por nombre"
               value={this.state.filtrarNombre}
@@ -110,22 +92,21 @@ export default class JornadasBuscar extends Component {
             />
           </FormControl>
 
-          <FormControl style={{ minWidth: "20%" }}>
-            <InputLabel id="buscarEstadoLabel">Buscar por estado</InputLabel>
-            <Select
-              labelId="buscarEstadoLabel"
-              value={this.state.filtrarEstado}
-              onChange={this.handleEstado}
-              options={estados}
-            >
-              <MenuItem value="">Todos</MenuItem>
-              {this.state.estados.map((estado) => (
-                <MenuItem value={estado.nombre} key={estado.id}>
-                  {estado.nombre}
-                </MenuItem>
-              ))}
-            </Select>
+          <FormControl style={{ width: "40%" }}>
+            <TextField
+              label="Buscar por localidad"
+              value={this.state.filtrarLoc}
+              onChange={this.handleLoc}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
           </FormControl>
+
           {(Cookies.get("roles").includes("Administrador") ||
             Cookies.get("roles").includes("Medico")) && (
             <Tooltip title="Agregar una jornada">
@@ -141,7 +122,7 @@ export default class JornadasBuscar extends Component {
         <TablaJornadas
           data={jornadas}
           nombre={filtrarNombre}
-          estado={filtrarEstado}
+          localidad={filtrarLoc}
           setPage={this.setPage}
           page={page}
           url={history}
