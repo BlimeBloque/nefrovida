@@ -5,7 +5,8 @@ import { Container, IconButton, Paper } from '@material-ui/core';
 import Reporte from './Reportes/Reportes'
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
+import Cookies from 'js-cookie'
+import { useEffect } from 'react';
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -20,6 +21,15 @@ const useStyle = makeStyles(theme => ({
 
 const Reportes = () => {
     const classes = useStyle()
+
+    useEffect(() => {
+        if(!Cookies.get('cargado'))
+        {
+            Cookies.set('cargado', true)
+            window.location.reload();
+        }
+    }, [])
+
     return (
         <div className={classes.container}>
             <Sidenav titulo="Reportes" />

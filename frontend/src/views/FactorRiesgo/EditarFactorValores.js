@@ -2,6 +2,7 @@ import React, {useState, useEffect } from 'react'
 import { CssBaseline, Typography, makeStyles, CircularProgress, Divider, FormControl, Radio, RadioGroup, FormControlLabel, Button } from '@material-ui/core'
 import http from '../../http-common';
 import { withRouter } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
     root:{
@@ -67,6 +68,10 @@ function EditarFactorValores(props) {
     }, []);
 
     const handleSubmit = (event) => {
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Social"))
+        {
+            props.history.goBack();
+        }
         setDisabled(true);
         setValoresFactor({
             ...valoresFactor

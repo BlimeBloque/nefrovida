@@ -52,7 +52,7 @@ export default function AgregarBeneficiarioForm(props) {
     }
 
     useEffect ( () => {
-
+        
         http.get('/escolaridades')
         .then(res => { setEscolaridades (res.data.data)
     })

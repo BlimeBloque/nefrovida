@@ -96,6 +96,8 @@ const Sidenav = props => {
     const [userInfo, setUserInfo] = useState(null);
     const logout = () => {
       Cookies.remove("JWT");  
+      Cookies.remove("roles");
+      Cookies.remove("cargado");
       authService.logout('/');
     }
     

@@ -2,7 +2,7 @@ import React, {useState, useEffect } from 'react'
 import http from '../../http-common';
 import { withRouter } from 'react-router-dom';
 import { CssBaseline, Typography, makeStyles, CircularProgress, Divider, FormControl, Radio, RadioGroup, FormControlLabel, Button, TextField } from '@material-ui/core'
-
+import Cookies from 'js-cookie';
 
 const useStyle = makeStyles(theme => ({
     root:{
@@ -44,6 +44,11 @@ function EditarPreguntasEvaluacionForm(props) {
 
 
     useEffect (() => {
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Social") && !Cookies.get("roles").includes("Medico")
+        && !Cookies.get("roles").includes("Psicologia") && !Cookies.get("roles").includes("Nutriologia"))
+        {
+            props.history.goBack();
+        }
         http.get('/evaluacionesPreguntas/')
             .then(res => { 
                 setValoresPreguntas(res.data.data)

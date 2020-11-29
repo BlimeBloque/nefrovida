@@ -30,7 +30,9 @@ const DetalleAntecedentes = (props) => {
 
     useEffect ( () => {
         http.get('antecedentes/'+idAntecedentes)
-            .then(res => { setDetalle(res.data[0])
+            .then(res => { 
+                    setDetalle(res.data[0])
+                    console.log(res.data[0])
                 })
                     .catch((e) => {
                     console.log(e)

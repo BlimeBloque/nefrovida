@@ -24,7 +24,7 @@ import {
 import { Alert } from "@material-ui/lab";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-
+import Cookies from 'js-cookie';
 import JornadasDataService from "../services/jornadas.service";
 
 function descendingComparator(a, b, orderBy) {
@@ -281,6 +281,8 @@ export default function JornadasBuscarTabla(props) {
                         {jornada.nombreEstado}
                       </TableCell>
                       <TableCell align="center">
+                      {(Cookies.get("roles").includes("Administrador") ||
+                        Cookies.get("roles").includes("Social")) && (
                         <Tooltip title="Editar" arrow>
                           <IconButton
                             color="primary"
@@ -294,6 +296,8 @@ export default function JornadasBuscarTabla(props) {
                             <EditIcon />
                           </IconButton>
                         </Tooltip>
+                        )}
+                        {Cookies.get("roles").includes("Administrador") && (
                         <Tooltip title="Eliminar" arrow>
                           <IconButton
                             color="secondary"
@@ -303,6 +307,7 @@ export default function JornadasBuscarTabla(props) {
                             <DeleteIcon />
                           </IconButton>
                         </Tooltip>
+                        )}
                       </TableCell>
                     </TableRow>
                   );
