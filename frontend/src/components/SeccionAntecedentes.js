@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import HistoryIcon from '@material-ui/icons/History';
 import Cookies from 'js-cookie';
 
-import http from '../http-common'
 
 const useStyle = makeStyles(theme => ({
     flex: {

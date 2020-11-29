@@ -7,7 +7,6 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Link} from "react-router-dom";
 import Mensaje from '../../components/Mensaje';
 import IconButton from '@material-ui/core/IconButton';
-import http from '../../http-common'
 
 const useStyle = makeStyles(theme => ({
     pageContent:{

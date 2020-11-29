@@ -9,12 +9,7 @@ import TarjetaEvaluaciones from './Beneficiarios/Evaluaciones/TarjetaEvaluacione
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withRouter } from 'react-router-dom';
-<<<<<<< HEAD
-import http from '../http-common'
-
-=======
 import Cookies from 'js-cookie'
->>>>>>> develop
 
 
 const useStyle = makeStyles(theme => ({
@@ -69,15 +64,6 @@ const SeccionEvaluacion = (props) => {
                 console.log(e)
             });
 
-<<<<<<< HEAD
-            http.get('/evaluacionesFin/' + props.idBeneficiario)
-            .then(res => {
-                setEvaluacionesFin(res.data)
-            })
-            .catch((e) => {
-                console.log(e)
-            });
-=======
         http.get('/evaluacionesFin/' + props.idBeneficiario)
         .then(res => {
             setEvaluacionesFin(res.data)
@@ -86,7 +72,6 @@ const SeccionEvaluacion = (props) => {
         .catch((e) => {
             console.log(e)
         });
->>>>>>> develop
     }, []);
 
     const handleClick = (event) => {
