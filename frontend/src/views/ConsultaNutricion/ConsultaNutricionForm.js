@@ -221,7 +221,6 @@ export default function ConsultaNutricionForm(props) {
             ...values,
             url_archivo: null,
         })
-        console.log(archivo);
     }
 
     const fileSelectedHandler = (e) => {
@@ -230,7 +229,6 @@ export default function ConsultaNutricionForm(props) {
             archivo: e.target.files[0] ? e.target.files[0] : null,
             archivoNombre: e.target.files[0] ? e.target.files[0].name : null,
         })
-        console.log(archivo);
     }
 
     const getFileName = () => {
@@ -351,7 +349,6 @@ export default function ConsultaNutricionForm(props) {
         if(next)
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
-        console.log(values);
     };
 
     const handleBack = () => {
@@ -364,7 +361,6 @@ export default function ConsultaNutricionForm(props) {
             submit = false;
         if(submit)
         {
-            console.log(values);
 
             if(props.editar)
             {
@@ -372,7 +368,6 @@ export default function ConsultaNutricionForm(props) {
                 {
                     http.put('/consultaNutricion/'+props.consulta.idConsultaNutricional, values)
                         .then(res => {
-                            console.log(res)
                             props.history.push("/consultaNutricion/"+props.consulta.idConsultaNutricional+"?editarNutricion=1");
                         })
                         .catch(err => {
@@ -390,12 +385,9 @@ export default function ConsultaNutricionForm(props) {
                         }
                     })
                     .then(res => {
-                        console.log(res.data.result);
                         values.url_archivo = res.data.result;
-                        console.log(values);
                         http.put('/consultaNutricion/'+props.consulta.idConsultaNutricional, values)
                         .then(res => {
-                            console.log(res)
                             props.history.push("/consultaNutricion/"+props.consulta.idConsultaNutricional+"?editarNutricion=1");
                         })
                         .catch(err => {
@@ -415,7 +407,6 @@ export default function ConsultaNutricionForm(props) {
                 {
                     http.post('/consultaNutricion', values)
                         .then(res => {
-                            console.log(res)
                             props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=1");
                         })
                         .catch(err => {
@@ -433,12 +424,9 @@ export default function ConsultaNutricionForm(props) {
                         }
                     })
                         .then(res => {
-                            console.log(res.data.result);
                             values.url_archivo = res.data.result;
-                            console.log(values);
                             http.post('/consultaNutricion', values)
                             .then(res => {
-                                console.log(res)
                                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNutricion=1");
                             })
                             .catch(err => {

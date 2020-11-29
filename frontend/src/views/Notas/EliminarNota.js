@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
 export default function EliminarNota(props)
 {
     const classes = useStyles();
-    console.log(props)
 
     const eliminar = () => {
 
@@ -25,7 +24,6 @@ export default function EliminarNota(props)
 
         http.delete('/nota/'+props.idNota)
             .then( res => {
-                console.log(res);
                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?eliminarNota=1");
             })
             .catch( err => {

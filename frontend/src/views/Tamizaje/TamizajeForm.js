@@ -52,7 +52,6 @@ export default function TamizajeAgregarForm(props) {
       [name]: value,
     });
     console.log(e.target);
-    console.log(values);
   };
 
   useEffect(() => {

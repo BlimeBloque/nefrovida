@@ -18,7 +18,6 @@ export default function EliminarEvaluacion(props) {
     const eliminar = () => {
         http.delete('/eliminarEvaluaciones'+tipo+'/'+idBeneficiario)
             .then( res => {
-                console.log(res);
                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?eliminarEvaluacion=1");
             })
             .catch( err => {

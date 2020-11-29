@@ -47,8 +47,6 @@ function EditarEvaluacionValores(props) {
 
     const handleChange = (event) => {
         const idRespuesta = event.target.parentElement.parentElement.parentElement.parentElement.id; 
-        console.log(idRespuesta)
-        console.log(event.target.value)
         if(idEvaluacion == 1) {
             setValoresInicio({
                 ...valoresInicio,
@@ -61,7 +59,6 @@ function EditarEvaluacionValores(props) {
                 [idRespuesta]: event.target.value
             })
         }
-        console.log(valoresInicio)
         
     };
 
@@ -75,7 +72,6 @@ function EditarEvaluacionValores(props) {
             http.get('/detallesEvaluacionesInicio/'+ props.idBeneficiario)
             .then(res => { 
                 setOpciones(res.data)
-                console.log(res.data)
             })
             .catch((e) => {
                 console.log(e)
@@ -84,7 +80,6 @@ function EditarEvaluacionValores(props) {
             http.get('/detallesEvaluacionesFin/'+ props.idBeneficiario)
             .then(res => { 
                 setOpciones(res.data)
-                console.log(res.data)
             })
             .catch((e) => {
                 console.log(e)
@@ -113,7 +108,6 @@ function EditarEvaluacionValores(props) {
             El que está en el valor de respuestasPosibles agrega el valor sacado del arreglo correspondiente (valueInicio/valueFin)
         */
         for (i; i < (idEvaluacion == 1 ? 10 : 19); i++) {
-            console.log(valoresInicio[i])
             valueRespuesta = {
                 idOpcionEvaluacion: i,
                 idBeneficiario: props.match.params.idBeneficiario,
@@ -124,7 +118,6 @@ function EditarEvaluacionValores(props) {
             if(idEvaluacion == 1) arrayForm[i] = valueRespuesta;
             else arrayForm[i-9] = valueRespuesta;
         }
-        console.log(arrayForm)
 
          for (let i = 1; i < 10; i++) {
             http.put('/evaluacion/'+props.idBeneficiario, arrayForm[i])

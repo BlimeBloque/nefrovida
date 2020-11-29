@@ -23,7 +23,7 @@ class TamizajeController extends Controller {
     public function insert(Request $request) {
         $rules = [
             'idBeneficiario' => 'required',
-            'presionArterial' => 'required|alpha_num',
+            'presionArterial' => 'required|string',
             'peso' => 'required|numeric',
             'circunferenciaCintura' => 'required|numeric',
             'circunferenciaCadera' => 'required|numeric',
@@ -34,7 +34,7 @@ class TamizajeController extends Controller {
         $customMessages = [
             'required' => 'Este campo es requerido.',
             'numeric' => 'Este campo debe contener solo números.',
-            'alpha_num' => 'Este campo debe ser texto.',
+            'string' => 'Este campo debe ser texto.',
         ];
 
 

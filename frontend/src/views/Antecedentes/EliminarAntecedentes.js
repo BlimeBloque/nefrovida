@@ -16,7 +16,6 @@ export default function EliminarAntecedentes(props)
     const eliminar = () => {
         http.delete('/antecedentes/'+props.idAntecedentes)
             .then( res => {
-                console.log(res);
                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?eliminarAntecedentes=1");
             })
             .catch( err => {

@@ -505,7 +505,6 @@ export default function DepuracionCreatininaForm (props) {
                 {
                     http.put('/microalbuminuria/'+props.analisis.idMicroalbuminuria, values)
                     .then(res => {
-                        console.log(res)
                         props.history.push("/microalbuminuria/"+props.analisis.idMicroalbuminuria+"?editarMicroalbuminuria=1");
                     })
                     .catch(err => {
@@ -517,7 +516,6 @@ export default function DepuracionCreatininaForm (props) {
                 {
                     http.post('/microalbuminuria', values)
                     .then(res => {
-                        console.log(res)
                         props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarMicroalbuminuria=1");
                     })
                     .catch(err => {

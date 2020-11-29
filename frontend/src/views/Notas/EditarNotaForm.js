@@ -74,7 +74,6 @@ export default function EditarNotaForm(props) {
     }
 
 
-    console.log(props.idNota);
 
     useEffect ( () => {
 
@@ -137,14 +136,12 @@ const onSubmit = e => {
     editedValues.url_archivo =  values.url_archivo
     editedValues.tituloNota =  values.tituloNota
  
-    console.log("submit")
 
     if(validate()){
 
         if (archivo.archivo === null) {
             http.put('/nota/'+values.idNota, editedValues)
             .then(res => {
-                console.log(res)
                 props.history.push("/beneficiarios/"+values.idBeneficiario+"?editarNota=1");
             })
             .catch(err => {
@@ -160,12 +157,9 @@ const onSubmit = e => {
                 }
             })
                  .then(res => {
-                     console.log(res.data.result);
                      editedValues.url_archivo = res.data.result;
-                     console.log(editedValues);
                         http.put('/nota/'+values.idNota, editedValues)
                         .then(res => {
-                            console.log(res)
                             props.history.push("/beneficiarios/"+values.idBeneficiario+"?editarNota=1");
                         })
                         .catch(err => {
@@ -181,7 +175,6 @@ const onSubmit = e => {
     }
 }
 
-   console.log(values);
 
 
     return (

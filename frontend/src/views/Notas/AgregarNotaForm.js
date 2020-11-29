@@ -105,7 +105,6 @@ export default function AgregarNotaForm(props) {
     })
 }, []);
 
-   console.log(tiposNotas)
 
 
    const validate = () => {
@@ -130,9 +129,7 @@ const fileSelectedHandler = (e) => {
 
 
 const onSubmit = e => {
-    console.log('submit');
     values.idBeneficiario = props.idBeneficiario;
-    console.log(archivo.archivoNombre);
 
     e.preventDefault();
 
@@ -141,7 +138,6 @@ const onSubmit = e => {
         if (archivo.archivo === null) {
             http.post('/nota', values)
             .then(res => {
-                console.log(res)
                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNota=1");
             })
             .catch(err => {
@@ -157,12 +153,9 @@ const onSubmit = e => {
                 }
             })
                  .then(res => {
-                     console.log(res.data.result);
                      values.url_archivo = res.data.result;
-                     console.log(values);
                         http.post('/nota', values)
                         .then(res => {
-                            console.log(res)
                             props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarNota=1");
                         })
                         .catch(err => {

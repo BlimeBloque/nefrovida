@@ -72,7 +72,7 @@ const useStyle = makeStyles(theme => ({
 function download(props){
 
     axios({
-        url: 'http://api.snefrovidaac.com/api/download/' + props, //your url
+        url: 'https://api.snefrovidaac.com/api/download/' + props, //your url
         method: 'GET',
         responseType: 'blob', // important
       }).then((response) => {
@@ -80,7 +80,6 @@ function download(props){
          const link = document.createElement('a');
          link.href = url;
          const arr = props.split('.');
-         console.log(arr);
          link.setAttribute('download', 'archivo.'+arr[1]); //or any other extension
          document.body.appendChild(link);
          link.click();
@@ -115,7 +114,6 @@ export default function Nota(props) {
 
     const detalle = props.detalle;
     const classes = useStyle();
-    console.log(detalle);
     const [eliminarOpen, setEliminarOpen] = useState(false);
 
     const handleEliminarOpen = () => {

@@ -20,8 +20,15 @@ const useStyle = makeStyles(theme => ({
 
 export default function SelectReporte(props){
 
+    useEffect(() => {
+        if(!Cookies.get('cargado'))
+        {
+            Cookies.set('cargado', true)
+            window.location.reload();
+        }
+    }, [])
+    
     const classes = useStyle();
-    console.log(props)
     return (
         <div className={classes.container}>
             <Sidenav titulo="Selecciona el tipo de reporte que quieres consultar" />        

@@ -529,7 +529,6 @@ export default function DepuracionCreatininaForm (props) {
             {
                 http.put('/quimicaSanguinea/'+props.analisis.idQuimicaSanguinea, values)
                     .then(res => {
-                        console.log(res)
                         props.history.push("/quimicaSanguinea/"+props.analisis.idQuimicaSanguinea+"?editarQuimicaSanguinea=1");
                     })
                     .catch(err => {
@@ -541,7 +540,6 @@ export default function DepuracionCreatininaForm (props) {
             {
                 http.post('/quimicaSanguinea', values)
                     .then(res => {
-                        console.log(res)
                         props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarQuimicaSanguinea=1");
                     })
                     .catch(err => {

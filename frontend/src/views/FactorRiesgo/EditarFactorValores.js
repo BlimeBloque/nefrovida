@@ -46,13 +46,10 @@ function EditarFactorValores(props) {
 
     const handleChange = (event) => {
         const idRespuesta = event.target.parentElement.parentElement.parentElement.parentElement.id; 
-        console.log(idRespuesta)
-        console.log(event.target.value)
         setValoresFactor({
             ...valoresFactor,
             [idRespuesta]: event.target.value
         })
-        console.log(valoresFactor)
         
     };
 
@@ -60,7 +57,6 @@ function EditarFactorValores(props) {
         http.get('/detalles/'+ props.idBeneficiario)
         .then(res => { 
             setOpciones(res.data)
-            console.log(res.data)
         })
         .catch((e) => {
             console.log(e)
@@ -83,7 +79,6 @@ function EditarFactorValores(props) {
         let i = 1
 
         for (i; i < 13; i++) {
-            console.log(valoresFactor[i])
             valueRespuesta = {
                 idOpcionFormulario: i,
                 idBeneficiario: props.match.params.idBeneficiario,
@@ -93,13 +88,11 @@ function EditarFactorValores(props) {
             }
             arrayForm[i] = valueRespuesta;
         }
-        console.log(arrayForm) 
         
         let success = true;
         for (let i = 1; i < 13; i++) {
             http.put('/formulario/'+props.idBeneficiario, arrayForm[i])
                 .then(res => {
-                    console.log(res);
                 })
                 .catch(err => {
                     console.log(err)

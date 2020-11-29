@@ -115,11 +115,7 @@ export default function AgregarBeneficiarioForm(props) {
       return Object.values(temp).every(x => x == "")
   }
 
-/*
-    const printObject = e => {
-        console.log(values)
-    }
-*/
+
     const onSubmit = e => {
 
         let day = values.fechaNacimiento.getDate();
@@ -146,7 +142,6 @@ export default function AgregarBeneficiarioForm(props) {
                 })
             
            
-               // console.log(e);
                
                
           

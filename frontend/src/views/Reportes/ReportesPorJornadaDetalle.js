@@ -104,7 +104,6 @@ useEffect ( () => {
       }]
   }
 
-    console.log(IMC);
 
     const dataTamizadas = {
       labels: [
@@ -124,7 +123,6 @@ useEffect ( () => {
       }]
   }
  
-    console.log(edades);   
     const counts = [];
     edades.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
 

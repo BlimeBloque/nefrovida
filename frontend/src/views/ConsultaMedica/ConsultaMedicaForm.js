@@ -206,7 +206,6 @@ export default function ConsultaMedicaForm(props) {
         if(next)
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
-        console.log(values);
     };
 
     const handleBack = () => {
@@ -219,13 +218,10 @@ export default function ConsultaMedicaForm(props) {
             submit = false;
         if(submit)
         {
-            console.log(values);
-
             if(props.editar)
             {
                 http.put('/consultaMedica/'+props.consulta.idConsultaMedica, values)
                     .then(res => {
-                        console.log(res)
                         props.history.push("/consultaMedica/"+props.consulta.idConsultaMedica+"?editarMedica=1");
                     })
                     .catch(err => {
@@ -236,7 +232,6 @@ export default function ConsultaMedicaForm(props) {
             else{
                 http.post('/consultaMedica', values)
                     .then(res => {
-                        console.log(res)
                         props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarMedica=1");
                     })
                     .catch(err => {

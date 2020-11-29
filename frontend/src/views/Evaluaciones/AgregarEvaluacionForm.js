@@ -118,7 +118,6 @@ function AgregarEvaluacionForm(props) {
             if(idEvaluacion == 1) arrayForm[i] = valueRespuesta;
             else arrayForm[i-9] = valueRespuesta;
         }
-        console.log(arrayForm)
         if(arrayForm.every((value) => value.respuestasPosibles != "")) { // Valida que haya contestado todas las respuestas
             for (let i = 1; i < 10; i++) {
                 

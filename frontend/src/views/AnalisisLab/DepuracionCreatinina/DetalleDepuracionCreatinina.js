@@ -114,7 +114,6 @@ const DetalleDepuracionCreatinina = (props) => {
     const fecha = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
 
     const obtenerClasePorSexo = (valor, valorBajoHombre, valorAltoHombre, valorBajoMujer, valorAltoMujer) => {
-        console.log(valor);
         if(valor)
         {
             if(detalle.sexo == "H")

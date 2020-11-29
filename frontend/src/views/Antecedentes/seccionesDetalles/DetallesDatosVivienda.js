@@ -5,7 +5,6 @@ export default function DetallesDatosVivienda (props)
 {
     const classes = props.classes;
     const detalle = props.detalle;
-    console.log(detalle.serviciosBasicos);
 
     return (
         <div id="datosVivienda">

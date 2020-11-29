@@ -74,7 +74,6 @@ function EditarPreguntasEvaluacionForm(props) {
         let preguntaFinal = valoresPreguntas.map((e) => (e.pregunta))
 
         for (let i = 0; i < 9; i++) {
-            console.log(nuevasPreguntas[i])
             valuePregunta = {
                 idEvaluacionPregunta: i+1,
                 evaluacionPregunta: nuevasPreguntas[i] != undefined ? nuevasPreguntas[i] : preguntaFinal[i]

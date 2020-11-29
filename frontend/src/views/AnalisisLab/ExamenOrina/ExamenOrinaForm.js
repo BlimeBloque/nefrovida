@@ -625,7 +625,6 @@ export default function ExamenOrinaForm (props)
             {
                 http.put('/examenOrina/'+props.analisis.idExamenOrina, values)
                         .then(res => {
-                            console.log(res)
                             props.history.push("/examenOrina/"+props.analisis.idExamenOrina+"?editarExamenOrina=1");
                         })
                         .catch(err => {
@@ -637,7 +636,6 @@ export default function ExamenOrinaForm (props)
             {
                 http.post('/examenOrina', values)
                         .then(res => {
-                            console.log(res)
                             props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarExamenOrina=1");
                         })
                         .catch(err => {

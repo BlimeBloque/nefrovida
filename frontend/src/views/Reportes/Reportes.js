@@ -124,11 +124,9 @@ useEffect ( () => {
         }]
     }
     
-    console.log(respuestasEvaluaciones);   
 
     const counts = [];
     edades.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
-    console.log(counts[10]);  
    
 
     const dataEdedes = {

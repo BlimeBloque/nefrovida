@@ -101,7 +101,6 @@ function AgregarFactorForm(props) {
             }
             arrayForm[i] = valueRespuesta;
         }
-        console.log(arrayForm)
         if(arrayForm.every((value) => value.respuesta != "")) { // Valida que haya contestado todas las respuestas
             for (let i = 1; i < 13; i++) {
                 

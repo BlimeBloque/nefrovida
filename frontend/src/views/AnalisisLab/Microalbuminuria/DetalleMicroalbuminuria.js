@@ -144,7 +144,6 @@ const DetalleMicroalbuminuria = (props) => {
     }
 
     const obtenerClaseRelacion = (valor, valorAnormal, valorAlto) => {
-        console.log(valorAnormal+","+valor+","+valorAlto)
         if(valor)
         {
             if(Number(valorAnormal) < Number(valor) & Number(valor) < Number(valorAlto))

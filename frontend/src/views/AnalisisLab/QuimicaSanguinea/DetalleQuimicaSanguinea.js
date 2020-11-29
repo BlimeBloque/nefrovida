@@ -114,7 +114,6 @@ const DetalleQuimicaSanguinea = (props) => {
     const fecha = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
 
     const obtenerClase = (valor, valorBajo, valorAlto) => {
-        console.log(valor);
         if(valor)
         {
             if(Number(valor) < Number(valorBajo))
@@ -137,7 +136,6 @@ const DetalleQuimicaSanguinea = (props) => {
     }
 
     const obtenerClasePorSexo = (valor, valorBajoHombre, valorAltoHombre, valorBajoMujer, valorAltoMujer) => {
-        console.log(valor);
         if(valor)
         {
             if(detalle.sexo == "H")

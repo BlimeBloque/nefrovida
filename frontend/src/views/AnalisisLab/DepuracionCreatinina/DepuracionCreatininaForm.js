@@ -531,7 +531,6 @@ export default function DepuracionCreatininaForm (props) {
             {
                 http.put('/depuracionCreatinina/'+props.analisis.idDepuracionCreatinina, values)
                         .then(res => {
-                            console.log(res)
                             props.history.push("/depuracionCreatinina/"+props.analisis.idDepuracionCreatinina+"?editarDepuracionCreatinina=1");
                         })
                         .catch(err => {
@@ -543,7 +542,6 @@ export default function DepuracionCreatininaForm (props) {
             {
                 http.post('/depuracionCreatinina', values)
                         .then(res => {
-                            console.log(res)
                             props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarDepuracionCreatinina=1");
                         })
                         .catch(err => {

@@ -15,7 +15,6 @@ export default function EliminarConsultaMedica(props)
     const eliminar = () => {
         http.delete('/consultaMedica/'+props.idConsultaMedica)
             .then( res => {
-                console.log(res);
                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?eliminarMedica=1");
             })
             .catch( err => {

@@ -20,7 +20,6 @@ const useStyle = makeStyles(theme => ({
 
 const ReportesPorJornada = (props) => {
 
-    console.log(props);
     const classes = useStyle()
     return (
         <div className={classes.container}>

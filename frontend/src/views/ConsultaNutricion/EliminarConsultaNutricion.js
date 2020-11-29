@@ -16,7 +16,6 @@ export default function EliminarConsultaNutricion(props)
     const eliminar = () => {
         http.delete('/consultaNutricion/'+props.idConsultaNutricional)
             .then( res => {
-                console.log(res);
                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?eliminarNutricion=1");
             })
             .catch( err => {

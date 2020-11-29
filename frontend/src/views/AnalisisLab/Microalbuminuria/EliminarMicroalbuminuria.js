@@ -16,7 +16,6 @@ export default function EliminarMicroalbuminuria(props)
     const eliminar = () => {
         http.delete('/microalbuminuria/'+props.idMicroalbuminuria)
             .then( res => {
-                console.log(res);
                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?eliminarMicroalbuminuria=1");
             })
             .catch( err => {

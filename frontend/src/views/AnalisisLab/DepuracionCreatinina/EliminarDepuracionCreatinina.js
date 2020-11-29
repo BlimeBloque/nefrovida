@@ -16,7 +16,6 @@ export default function EliminarDepuracionCreatinina(props)
     const eliminar = () => {
         http.delete('/depuracionCreatinina/'+props.idDepuracionCreatinina)
             .then( res => {
-                console.log(res);
                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?eliminarDepuracionCreatinina=1");
             })
             .catch( err => {

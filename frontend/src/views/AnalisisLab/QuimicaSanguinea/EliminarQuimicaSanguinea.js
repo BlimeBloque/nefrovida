@@ -16,7 +16,6 @@ export default function EliminarQuimicaSanguinea(props)
     const eliminar = () => {
         http.delete('/quimicaSanguinea/'+props.idQuimicaSanguinea)
             .then( res => {
-                console.log(res);
                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?eliminarQuimicaSanguinea=1");
             })
             .catch( err => {

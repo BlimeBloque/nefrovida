@@ -217,7 +217,6 @@ export default function AntecedentesForm(props) {
         if(next)
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
-        console.log(values);
     };
 
     const handleBack = () => {
@@ -230,7 +229,6 @@ export default function AntecedentesForm(props) {
                 let day = values.fum.getDate();
                 let month = values.fum.getUTCMonth() + 1;
                 let year = values.fum.getUTCFullYear();
-                console.log(year);
                 values.fum = year + "-" + month + "-" + day;
             }
         }
@@ -246,7 +244,6 @@ export default function AntecedentesForm(props) {
             {
                 http.put('/antecedentes/'+props.antecedentes.idAntecedentes, values)
                     .then(res => {
-                        console.log(res)
                         props.history.push("/antecedentes/"+props.antecedentes.idAntecedentes+"?editarAntecedentes=1");
                     })
                     .catch(err => {
@@ -257,7 +254,6 @@ export default function AntecedentesForm(props) {
             else{
                 http.post('/antecedentes', values)
                     .then(res => {
-                        console.log(res)
                         props.history.push("/beneficiarios/"+props.idBeneficiario+"?agregarAntecedentes=1");
                     })
                     .catch(err => {
@@ -272,7 +268,6 @@ export default function AntecedentesForm(props) {
 
     return (
         <center className={classes.root}>
-            {console.log(values)}
             <Typography variant="h5">Antecedentes de {props.editar ?  props.antecedentes.nombreBeneficiario :  beneficiario.nombreBeneficiario} 
             </Typography>
 

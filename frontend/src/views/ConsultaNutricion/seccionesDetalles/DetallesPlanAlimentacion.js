@@ -11,7 +11,6 @@ function download(props){
             const link = document.createElement('a');
             link.href = url;
             const arr = props.split('.');
-            console.log(arr);
             link.setAttribute('download', 'plan_de_alimentacion.'+arr[1]); //or any other extension
             document.body.appendChild(link);
             link.click();

@@ -16,7 +16,6 @@ export default function EliminarFactor(props) {
     const eliminar = () => {
         http.delete('/eliminar/'+idBeneficiario)
             .then( res => {
-                console.log(res);
                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?eliminarFactor=1");
             })
             .catch( err => {

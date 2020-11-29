@@ -18,7 +18,6 @@ const useStyle = makeStyles(theme => ({
 
 const EditarNota = (props) => {
     const classes = useStyle();
-    console.log(props);
     return (
         <div className={classes.container}>
             <Sidenav titulo="Editar Nota" />        

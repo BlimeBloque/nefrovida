@@ -28,11 +28,10 @@ const DetalleNota = (props) => {
     const idNota = props.match.params.idConsultaMedica;
     const args = props.location.search;
 
-    console.log(props)
 
     useEffect ( () => {
         http.get('/nota/'+ idNota)
-            .then(res => { setDetalle(res.data[0]); console.log(res)
+            .then(res => { setDetalle(res.data[0]); 
                 })
                     .catch((e) => {
                     console.log(e)

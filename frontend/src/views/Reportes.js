@@ -22,13 +22,7 @@ const useStyle = makeStyles(theme => ({
 const Reportes = () => {
     const classes = useStyle()
 
-    useEffect(() => {
-        if(!Cookies.get('cargado'))
-        {
-            Cookies.set('cargado', true)
-            window.location.reload();
-        }
-    }, [])
+    
 
     return (
         <div className={classes.container}>

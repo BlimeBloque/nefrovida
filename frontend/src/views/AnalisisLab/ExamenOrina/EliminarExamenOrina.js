@@ -16,7 +16,6 @@ export default function EliminarExamenOrina(props)
     const eliminar = () => {
         http.delete('/examenOrina/'+props.idExamenOrina)
             .then( res => {
-                console.log(res);
                 props.history.push("/beneficiarios/"+props.idBeneficiario+"?eliminarExamenOrina=1");
             })
             .catch( err => {
