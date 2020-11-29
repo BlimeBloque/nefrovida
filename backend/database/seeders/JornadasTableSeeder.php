@@ -15,8 +15,8 @@ class JornadasTableSeeder extends Seeder {
      * 
      */
     public function run() {
-        $Estados = array("Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas", "Chihuahua", "Coahuila", "Colima", "Distrito Federal", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "México", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán	", "Zacatecas");
-        $Siglas = array("Ags.", "BCN.", "BCS.", "Camp.", "Chis.", "Chih.", "Coah.", "Col.", "D.F.", "Dgo.", "Gto.", "Gro.", "Hgo.", "Jal.", "Edo. Mex.", "Mich.", "Mor.", "Nay.", "MTY.", "Oax.", "Pue.", "Roo.", "SLP.", "Sin.", "Son.	", "Tab.", "Tam.", "Tlx.", "Ver.", "Yuc.", "Zac.");
+        $Estados = array("Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas", "Chihuahua", "Coahuila", "Colima", "Distrito Federal", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "México", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán	", "Zacatecas");
+        $Siglas = array("Ags.", "BCN.", "BCS.", "Camp.", "Chis.", "Chih.", "Coah.", "Col.", "D.F.", "Dgo.", "Gto.", "Gro.", "Hgo.", "Jal.", "Edo. Mex.", "Mich.", "Mor.", "Nay.", "MTY.", "Oax.", "Pue.", "Qro", "Roo.", "SLP.", "Sin.", "Son.	", "Tab.", "Tam.", "Tlx.", "Ver.", "Yuc.", "Zac.");
         for ($i = 0; $i < 31; $i++) {
             Estados::create([
                 'nombreEstado' => $Estados[$i],
