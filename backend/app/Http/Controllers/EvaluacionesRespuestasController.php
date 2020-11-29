@@ -147,7 +147,6 @@ class EvaluacionesRespuestasController extends Controller
                 ->leftJoin('evaluacion AS e', 'oe.idEvaluacion', '=', 'e.idEvaluacion')
                 ->where('er.idBeneficiario', '=', $idBeneficiario)
                 ->where('oe.idEvaluacion', '=', 1)
-                ->orderBy('er.idEvaluacionRespuesta')
                 ->groupBy('er.grupo', 'e.nombreEvaluacion')
                 ->select('e.nombreEvaluacion', 'er.grupo')
                 ->get();
@@ -165,7 +164,6 @@ class EvaluacionesRespuestasController extends Controller
                 ->leftJoin('evaluacion AS e', 'oe.idEvaluacion', '=', 'e.idEvaluacion')
                 ->where('er.idBeneficiario', '=', $idBeneficiario)
                 ->where('oe.idEvaluacion', '=', 2)
-                ->orderBy('er.idEvaluacionRespuesta')
                 ->groupBy('er.grupo', 'e.nombreEvaluacion')
                 ->select('e.nombreEvaluacion', 'er.grupo')
                 ->get();

@@ -178,7 +178,6 @@ class RespuestasController extends Controller
                 ->leftJoin('formularios AS f', 'of.idFormulario', '=', 'f.idFormulario')
                 ->where('r.idBeneficiario', '=', $idBeneficiario)
                 ->where('of.idFormulario', '=', 1)
-                ->orderBy('r.idRespuesta')
                 ->groupBy('r.grupo', 'f.nombre')
                 ->select('f.nombre', 'r.grupo')
                 ->get();
