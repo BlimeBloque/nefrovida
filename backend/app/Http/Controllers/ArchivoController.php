@@ -14,12 +14,12 @@ class ArchivoController extends Controller
 
     function download(Request $req, String $folder, String $file){
 
-        $path = storage_path('app\\' . $folder . '\\' . $file);
+        $path = storage_path('app/' . $folder . '/' . $file);
         return response()->download($path);
     }
 
     function deleteFile(String $folder, String $file){
-        $path = storage_path('app\\' . $folder . '\\' . $file);
+        $path = storage_path('app/' . $folder . '/' . $file);
         File::delete($path);
     }
 }
