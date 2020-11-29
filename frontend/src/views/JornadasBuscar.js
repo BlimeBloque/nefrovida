@@ -33,6 +33,11 @@ export default class JornadasBuscar extends Component {
   }
 
   componentDidMount() {
+    if(!Cookies.get('cargado'))
+    {
+      Cookies.set('cargado', true)
+      window.location.reload();
+    }
     this.retrieveJornadas();
   }
 
@@ -106,18 +111,16 @@ export default class JornadasBuscar extends Component {
               }}
             />
           </FormControl>
-
-          {(Cookies.get("roles").includes("Administrador") ||
-            Cookies.get("roles").includes("Medico")) && (
-            <Tooltip title="Agregar una jornada">
-              <Fab
-                color="primary"
-                onClick={() => history.push("/jornadas/agregar")}
-              >
-                <AddIcon />
-              </Fab>
-            </Tooltip>
-          )}
+          
+          <Tooltip title="Agregar una jornada">
+            <Fab
+              color="primary"
+              onClick={() => history.push("/jornadas/agregar")}
+            >
+              <AddIcon />
+            </Fab>
+          </Tooltip>
+          
         </div>
         <TablaJornadas
           data={jornadas}

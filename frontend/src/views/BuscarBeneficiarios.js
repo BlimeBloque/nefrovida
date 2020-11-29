@@ -39,11 +39,12 @@ export default class BuscarBeneficiarios extends Component
 
     componentDidMount()
     {
-        this.retrieveBeneficiarios();
-        console.log(Cookies.get("roles"))
-        if(Cookies.get("roles").includes("Administrador")) {
-            console.log("Soy admin >:)")
+        if(!Cookies.get('cargado'))
+        {
+            Cookies.set('cargado', true)
+            window.location.reload();
         }
+        this.retrieveBeneficiarios();
     }
 
 

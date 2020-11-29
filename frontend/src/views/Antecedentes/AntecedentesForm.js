@@ -6,7 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import http from "../../http-common";
-
+import Cookies from 'js-cookie';
 import Secciones from './secciones/Secciones';
 
 function hasNumber(myString) {
@@ -147,7 +147,10 @@ export default function AntecedentesForm(props) {
         })
     }
     useEffect ( () => {
-
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Medico"))
+        {
+            props.history.goBack();
+        }
         if(props.editar){
             setValues({
                 idBeneficiario: props.antecedentes.idBeneficiario,

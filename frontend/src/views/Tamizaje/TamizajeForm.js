@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Button, TextField } from "@material-ui/core";
 import http from "../../http-common";
+import Cookies from 'js-cookie';
 
 function hasNumber(myString) {
   return /\d/.test(myString);
@@ -55,6 +56,10 @@ export default function TamizajeAgregarForm(props) {
   };
 
   useEffect(() => {
+    if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Medico"))
+    {
+        props.history.goBack();
+    }
     if (props.editar) {
       setValues(props.tamizaje);
     } else {

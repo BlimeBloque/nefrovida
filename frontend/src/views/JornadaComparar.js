@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import http from "../http-common";
 import { getAge } from "../components/utils";
+import Cookies from 'js-cookie'
 
 const useStyle = makeStyles((theme) => ({
   pageContent: {
@@ -59,6 +60,11 @@ const JornadaComparar = () => {
   const [infohiper, setInfoHiper] = useState([]);
 
   useEffect(() => {
+    if(!Cookies.get('cargado'))
+    {
+      Cookies.set('cargado', true)
+      window.location.reload();
+    }
     http
       .get("/jornada/comparar")
       .then((res) => {

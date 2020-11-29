@@ -52,7 +52,10 @@ export default function AgregarBeneficiarioForm(props) {
 
 
     useEffect ( () => {
-
+        if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Social"))
+        {
+            props.history.goBack();
+        }
         http.get('/beneficiarios/' + props.idBenef)
         .then((res) => {
             let temp = res.data[0].fechaNacimiento.split("-");
