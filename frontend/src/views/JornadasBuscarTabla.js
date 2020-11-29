@@ -229,14 +229,20 @@ export default function JornadasBuscarTabla(props) {
   };
 
   const EliminarJornada = (id) => {
-    let length = jornadas.length;
-    for (let i = 0; i < length; i++) {
-      if (jornadas[i].idJornada === id) {
-        jornadas.splice(i, 1);
-        handleClose();
-        break;
-      }
-    }
+    JornadasDataService.delete(id)
+      .then(res => {
+        let length = jornadas.length;
+        for (let i = 0; i < length; i++) {
+          if (jornadas[i].idJornada === id) {
+            jornadas.splice(i, 1);
+            handleClose();
+            break;
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   };
 
   return (
