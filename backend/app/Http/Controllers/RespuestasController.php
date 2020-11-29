@@ -101,7 +101,6 @@ class RespuestasController extends Controller
                 ->leftJoin('formularios AS f', 'of.idFormulario', '=', 'f.idFormulario')
                 ->where('r.idBeneficiario', '=', $idBeneficiario)
                 ->where('of.idFormulario', '=', 1)
-                ->orderBy('r.idRespuesta')
                 ->groupBy('r.grupo', 'f.nombre', 'r.created_at')
                 ->select('r.grupo', 'f.nombre', 'r.created_at')
                 ->limit(1)
@@ -191,6 +190,7 @@ class RespuestasController extends Controller
             ->join('beneficiarios AS b', 'r.idBeneficiario' , '=', 'b.idBeneficiario')
             ->where('b.idBeneficiario', '=', $idBeneficiario)
             ->where('f.idFormulario', '=', 1)
+            ->orderBy('r.idRespuesta')
             ->select('f.idFormulario', 'of.idOpcionFormulario', 'p.pregunta', 'r.respuesta', 'f.nombre', 'r.idRespuesta', 'r.ponderacion')
             ->get();
     }
