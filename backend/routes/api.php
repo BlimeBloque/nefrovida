@@ -94,9 +94,7 @@ Route::prefix('')->middleware('jwt')->group(function () {
     Route::get('/notas/beneficiario/{idBeneficiario}', 'App\Http\Controllers\NotaController@searchByBenef');
 
 
-    Route::post("upload", [ArchivoController::class, 'upload']);
-    Route::get("download/{folder?}/{file?}", [ArchivoController::class, 'download']);
-    Route::get("deleteFile/{folder?}/{file?}", [ArchivoController::class, 'deleteFile']);
+    
 
 
     Route::resource('consultaMedica', ConsultaMedicaController::class);
@@ -222,7 +220,9 @@ Route::get('/token', fn () => Http::asForm()
 
 
 //todas las notas de reportes
-
+Route::post("upload", [ArchivoController::class, 'upload']);
+    Route::get("download/{folder?}/{file?}", [ArchivoController::class, 'download']);
+    Route::get("deleteFile/{folder?}/{file?}", [ArchivoController::class, 'deleteFile']);
 
 
 

@@ -128,11 +128,12 @@ export default function Nota(props) {
 
     const date = new Date(detalle.created_at);
     const fecha = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
-
+    
     return (
+        
         <div>
             <div id="header" className={classes.flexTitulo} >
-                <Typography variant="h5">{fecha}</Typography>
+                <Typography variant="h5"></Typography>
                     <div id="botones">
                         <Tooltip title="Editar" arrow>
                             <IconButton aria-label="Editar" color="primary"  onClick={() => props.history.push("/nota/editar/"+detalle.idNota)}>
