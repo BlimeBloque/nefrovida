@@ -66,36 +66,51 @@ class DetalleJornadaScreen extends StatelessWidget {
                         fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
-                Text(
-                  'Fecha:   ${setfecha(jornada.fecha)}',
-                  style: const TextStyle(
+                ListTile(
+                  leading: Icon(Icons.calendar_today),
+                  title: Text(
+                    'Fecha:   ${setfecha(jornada.fecha)}',
+                    style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w300,
+                    ),
                   ),
                 ),
-                Text(
-                  'Localidad:   ${jornada.localidad}',
-                  style: const TextStyle(
+                ListTile(
+                  leading: Icon(Icons.location_on),
+                  title: Text(
+                    'Localidad:   ${jornada.localidad}',
+                    style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w300,
+                    ),
                   ),
                 ),
-                Text(
-                  'Municipio:   ${jornada.municipio}',
-                  style: const TextStyle(
+                ListTile(
+                  leading: Icon(Icons.location_city),
+                  title: Text(
+                    'Municipio:   ${jornada.municipio}',
+                    style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w300,
+                    ),
                   ),
                 ),
-                Text(
-                  'Estado:   ${jornada.nombreEstado}',
-                  style: const TextStyle(
+                ListTile(
+                  leading: Icon(Icons.map_outlined),
+                  title: Text(
+                    'Estado:   ${jornada.nombreEstado}',
+                    style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w300,
+                    ),
                   ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.add), 
+                Padding(
+                  padding: EdgeInsets.only(left: 335.0),
+                  child: IconButton(
+                  alignment: Alignment.bottomRight,
+                  icon: Icon(Icons.add, color: Colors.green,), 
                   onPressed: () {
                     Navigator.push(
                           context,
@@ -105,7 +120,9 @@ class DetalleJornadaScreen extends StatelessWidget {
                                   )
                                   );
                   }
-                  ),
+                  )
+                ),
+                
               ]),
         ),
       ),

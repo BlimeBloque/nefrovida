@@ -86,63 +86,75 @@ class CardBeneficiario extends StatelessWidget {
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
-            Text(
-              '         Nacimiento: ${getNacimiento(beneficiario.fechaNacimiento)}',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-            Text(
-              '         Sexo: ${getSexo(beneficiario.sexo.toString())}',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-            Text(
-              '         Escolaridad: ${getEscolaridad(beneficiario.idEscolaridad)}',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-            Text(
-              '         Telefono: ${beneficiario.telefono}',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-            Text('         Direccion: ${beneficiario.direccion}',
+            ListTile(
+              leading: Icon(Icons.calendar_today),
+              title: Text(
+                'Nacimiento: ${getNacimiento(beneficiario.fechaNacimiento)}',
                 style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
-                ),
-                softWrap: true),
-            Text(
-              '         De Seguimiento: ${boolToString(beneficiario.seguimiento)}',
-              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w300,
+                ),
               ),
             ),
-            Text(
-              '         Activo: ${boolToString(beneficiario.activo)}',
-              style: const TextStyle(
+            ListTile(
+              leading: Icon(Icons.person_pin_circle_rounded),
+              title: Text(
+                'Sexo: ${getSexo(beneficiario.sexo.toString())}',
+                style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w300,
+                ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.edit),
-                  tooltip: 'Editar Beneficiario',
-                  onPressed: () {},
+            ListTile(
+              leading: Icon(Icons.school),
+              title: Text(
+                'Escolaridad: ${getEscolaridad(beneficiario.idEscolaridad)}',
+                style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
                 ),
-              ],
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.phone),
+              title: Text(
+                'Telefono: ${beneficiario.telefono}',
+                style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.location_on),
+              title: Text(
+                'Direccion: ${beneficiario.direccion}',
+                style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.check_box),
+              title: Text(
+                'De Seguimiento: ${boolToString(beneficiario.seguimiento)}',
+                style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.arrow_forward_ios),
+              title: Text(
+                'Activo: ${boolToString(beneficiario.activo)}',
+                style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
+                ),
+              ),
             ),
           ],
         ),

@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
               await AuthProvider.of(context).authService.authorize();
               Navigator.of(context).pushNamed('main');
             },
-            child: Text('Authorize'),
+            child: Text('Iniciar sesión'),
           ),
         ),
       ),

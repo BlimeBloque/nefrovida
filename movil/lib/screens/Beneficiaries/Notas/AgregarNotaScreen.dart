@@ -76,7 +76,7 @@ class _AgregarNotaFormState extends State<AgregarNotaForm> {
         "file": await MultipartFile.fromFile(filePath.path, filename: fileName),
       });
       Response response = await Dio()
-          .post('http://192.168.100.12:8000/api/movil/upload', data: formData);
+          .post('https://api.snefrovidaac.com/api/movil/upload', data: formData);
       print('File upload response: $response');
       setState(() {
         var tempArchivo = response.toString();
