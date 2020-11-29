@@ -90,7 +90,7 @@ class _ReporteEvaluacionNutriciaInicialState extends State<ReporteEvaluacionNutr
                 _seriesBarData,
                 barGroupingType: charts.BarGroupingType.grouped,
                 animate: true,
-                animationDuration: Duration(seconds: 2),
+                animationDuration: Duration(seconds: 1),
                 behaviors: [
                   new charts.SeriesLegend(),
                 ],

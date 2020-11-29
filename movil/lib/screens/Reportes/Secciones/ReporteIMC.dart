@@ -80,7 +80,7 @@ class _ReporteIMCState extends State<ReporteIMC> {
               child: charts.BarChart(
                 _seriesBarData,
                 animate: true,
-                animationDuration: Duration(seconds: 2),
+                animationDuration: Duration(seconds: 1),
                 behaviors: [
                   
                 ],

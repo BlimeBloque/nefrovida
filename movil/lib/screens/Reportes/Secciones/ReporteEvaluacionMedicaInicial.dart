@@ -90,7 +90,7 @@ class _ReporteEvaluacionMedicaInicialState extends State<ReporteEvaluacionMedica
                 _seriesBarData,
                 barGroupingType: charts.BarGroupingType.grouped,
                 animate: true,
-                animationDuration: Duration(seconds: 2),
+                animationDuration: Duration(seconds: 1),
                 behaviors: [
                   new charts.SeriesLegend(),
                 ],

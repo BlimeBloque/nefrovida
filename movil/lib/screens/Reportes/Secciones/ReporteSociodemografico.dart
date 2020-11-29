@@ -80,7 +80,7 @@ class _ReporteSociodemograficoState extends State<ReporteSociodemografico> {
               child: charts.PieChart(
                 _seriesPieData,
                 animate: true,
-                animationDuration: Duration(seconds: 2),
+                animationDuration: Duration(seconds: 1),
                 behaviors: [
                   new charts.DatumLegend(
                     position: charts.BehaviorPosition.inside,
