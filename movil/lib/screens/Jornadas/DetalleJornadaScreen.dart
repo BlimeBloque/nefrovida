@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:movil/classes/Jornada.dart';
+import 'package:movil/classes/BenefJornadas.dart';
+import 'package:movil/components/HttpHelper.dart';
 import 'package:movil/components/NefrovidaDrawer.dart';
 import 'package:movil/screens/Beneficiaries/AgregarBeneficiarioScreen.dart';
 
@@ -53,63 +55,123 @@ class DetalleJornadaScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(8),
-        child: Card(
-          child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ListTile(
-                  leading: Icon(Icons.access_time),
-                  title: Text(
-                    jornada.nombre,
+        child: Column(
+                  children: <Widget>[Card(
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.access_time),
+                    title: Text(
+                      jornada.nombre,
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Text(
+                    'Fecha:   ${setfecha(jornada.fecha)}',
                     style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
-                ),
-                Text(
-                  'Fecha:   ${setfecha(jornada.fecha)}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
+                  Text(
+                    'Localidad:   ${jornada.localidad}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
-                ),
-                Text(
-                  'Localidad:   ${jornada.localidad}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
+                  Text(
+                    'Municipio:   ${jornada.municipio}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
-                ),
-                Text(
-                  'Municipio:   ${jornada.municipio}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
+                  Text(
+                    'Estado:   ${jornada.nombreEstado}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
-                ),
-                Text(
-                  'Estado:   ${jornada.nombreEstado}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
+                  
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child:Text(
+                      "Beneficiarios de la Jornada",
+                      style: const TextStyle( 
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.add), 
-                  onPressed: () {
-                    Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AgregarBeneficiarioScreen(
-                                  jornada: jornada)
-                                  )
-                                  );
-                  }
-                  ),
-              ]),
-        ),
+                  IconButton(
+                    icon: Icon(Icons.add), 
+                    onPressed: () {
+                      Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AgregarBeneficiarioScreen(
+                                    jornada: jornada)
+                                    )
+                                    );
+                    }
+                    ),
+                
+                ]),
+          ),
+          BeneficiariosJornadasWidget(jornada: jornada)
+          ]),
+
       ),
       drawer: new NefrovidaDrawer(),
+    );
+  }
+}
+
+class BeneficiariosJornadasWidget extends StatelessWidget {
+  HttpHelper benefsHelper = new HttpHelper();
+  List<BenefJornada> _beneficiarios;
+  final Jornada jornada;
+  BeneficiariosJornadasWidget({Key key, @required this.jornada}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: FutureBuilder(
+        future: benefsHelper.getBeneficiariosJornadas(jornada.idJornada.toString()),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData != null) {
+            _beneficiarios = snapshot.data;
+            if (_beneficiarios == null) {
+              return Center(child: CircularProgressIndicator());
+            } else {
+              if (_beneficiarios.length <= 0) {
+                return Center(
+                    child: Text(
+                        "Esta jornada no tiene ningún beneficiario registrado.",
+                        textAlign: TextAlign.center));
+              }
+              print(_beneficiarios);
+              return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: _beneficiarios.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title:Text(_beneficiarios[index].nombreBeneficiario)
+                  );
+                },
+              );
+            }
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
     );
   }
 }

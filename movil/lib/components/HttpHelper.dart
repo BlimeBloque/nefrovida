@@ -6,6 +6,7 @@ import 'package:movil/classes/ExamenOrina.dart';
 import 'package:movil/classes/Estado.dart';
 import 'package:movil/classes/FactorDeRiesgo.dart';
 import 'package:movil/classes/Jornada.dart';
+import 'package:movil/classes/BenefJornadas.dart';
 import 'package:movil/classes/Microalbuminuria.dart';
 import 'package:movil/classes/QuimicaSanguinea.dart';
 import 'package:movil/classes/TipoNota.dart';
@@ -25,7 +26,7 @@ class HttpHelper {
     Saul: 192.168.100.7
     Randy: 192.168.42.2
   */
-  String ip = "http://192.168.42.2";
+  String ip = "http://192.168.100.12";
   String baseUrl = ":8000/api";
 
   Future<List<Beneficiario>> getAllBeneficiarios() async {
@@ -379,6 +380,19 @@ class HttpHelper {
   }
 
   //----JORNADAS-----
+  Future<List<BenefJornada>> getBeneficiariosJornadas(String idJornada) async {
+    String path = "/jornadas/"+idJornada.toString()+"/beneficiarios";
+    String uri = ip + baseUrl + path;
+    http.Response resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      final decodedJsonMap = json.decode(resp.body);
+      BenefJornadas listaBenefJornadas = new BenefJornadas.fromJsonList(decodedJsonMap);
+      return listaBenefJornadas.benefs;
+    } else {
+      return null;
+    }
+  }
+
   Future<List<Jornada>> getAllJornadas() async {
     String path = "/jornadas";
     String uri = ip + baseUrl + path;
