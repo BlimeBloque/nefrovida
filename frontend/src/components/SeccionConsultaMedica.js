@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import Cookies from 'js-cookie';
+import http from '../http-common'
 
 
 const useStyle = makeStyles(theme => ({
@@ -31,7 +32,7 @@ const SeccionConsultaMedica = (props) => {
     const [consultas, setConsultas] = useState([]);
 
     useEffect(() => {
-        http.get('consultaMedica/beneficiario/' + props.idBeneficiario)
+        http.get('/consultaMedica/beneficiario/' + props.idBeneficiario)
             .then(res => {
                 setConsultas(res.data)
             })

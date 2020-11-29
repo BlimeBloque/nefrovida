@@ -7,6 +7,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Link} from "react-router-dom";
 import Mensaje from '../../components/Mensaje';
 import IconButton from '@material-ui/core/IconButton';
+import http from '../../http-common'
 
 const useStyle = makeStyles(theme => ({
     pageContent:{
@@ -29,10 +30,8 @@ const DetalleAntecedentes = (props) => {
     const args = props.location.search;
 
     useEffect ( () => {
-        http.get('antecedentes/'+idAntecedentes)
-            .then(res => { 
-                    setDetalle(res.data[0])
-                    console.log(res.data[0])
+        http.get('/antecedentes/'+idAntecedentes)
+            .then(res => { setDetalle(res.data[0])
                 })
                     .catch((e) => {
                     console.log(e)

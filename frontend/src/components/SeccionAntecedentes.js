@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import HistoryIcon from '@material-ui/icons/History';
 import Cookies from 'js-cookie';
 
+import http from '../http-common'
 
 const useStyle = makeStyles(theme => ({
     flex: {
@@ -31,7 +32,7 @@ const SeccionAntecedentes = (props) => {
     const [antecedentes, setAntecedentes] = useState([]);
 
     useEffect(() => {
-        http.get('antecedentes/beneficiario/' + props.idBeneficiario)
+        http.get('/antecedentes/beneficiario/' + props.idBeneficiario)
             .then(res => {
                 setAntecedentes(res.data)
             })
