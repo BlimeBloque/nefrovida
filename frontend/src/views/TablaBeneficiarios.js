@@ -168,7 +168,7 @@ export default function TablaBeneficiarios(props) {
     
     beneficiarios = props.activo != null ? beneficiarios.filter(x => x['activo'] === props.activo) : beneficiarios;
     
-    beneficiarios = props.edad ? beneficiarios.filter(x => getAge(x['fechaNacimiento']).includes(props.edad)) : beneficiarios;
+    beneficiarios = props.edad ? beneficiarios.filter(x => getAge(x['fechaNacimiento']) === Number(props.edad)) : beneficiarios;
 
     beneficiarios = props.nombre ? beneficiarios.filter(x => x['nombreBeneficiario'].toLowerCase().includes(props.nombre.toLowerCase())) : beneficiarios;
 
