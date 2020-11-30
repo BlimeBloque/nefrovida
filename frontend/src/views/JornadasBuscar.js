@@ -5,6 +5,7 @@ import {
   TextField,
   InputAdornment,
   Fab,
+  Grid,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
@@ -32,9 +33,8 @@ export default class JornadasBuscar extends Component {
   }
 
   componentDidMount() {
-    if(!Cookies.get('cargado'))
-    {
-      Cookies.set('cargado', true)
+    if (!Cookies.get("cargado")) {
+      Cookies.set("cargado", true);
       window.location.reload();
     }
     this.retrieveJornadas();
@@ -81,45 +81,51 @@ export default class JornadasBuscar extends Component {
             margin: " 40px 40px 20px 40px",
           }}
         >
-          <FormControl style={{ width: "40%" }}>
-            <TextField
-              label="Buscar por nombre"
-              value={this.state.filtrarNombre}
-              onChange={this.handleNombre}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
+          <Grid container spacing={3}>
+            <Grid item sm={12} md={5}>
+              <FormControl style={{ width: "100%" }}>
+                <TextField
+                  label="Buscar por nombre"
+                  value={this.state.filtrarNombre}
+                  onChange={this.handleNombre}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </FormControl>
+            </Grid>
 
-          <FormControl style={{ width: "40%" }}>
-            <TextField
-              label="Buscar por localidad"
-              value={this.state.filtrarLoc}
-              onChange={this.handleLoc}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
-          
-          <Tooltip title="Agregar una jornada">
-            <Fab
-              color="primary"
-              onClick={() => history.push("/jornadas/agregar")}
-            >
-              <AddIcon />
-            </Fab>
-          </Tooltip>
-          
+            <Grid item sm={12} md={5}>
+              <FormControl style={{ width: "100%" }}>
+                <TextField
+                  label="Buscar por localidad"
+                  value={this.state.filtrarLoc}
+                  onChange={this.handleLoc}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item sm={12} md={2}>
+              <Tooltip title="Agregar una jornada">
+                <Fab
+                  color="primary"
+                  onClick={() => history.push("/jornadas/agregar")}
+                >
+                  <AddIcon />
+                </Fab>
+              </Tooltip>
+            </Grid>
+          </Grid>
         </div>
         <TablaJornadas
           data={jornadas}
