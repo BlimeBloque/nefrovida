@@ -25,7 +25,7 @@ const JornadasAgregar = (props) => {
     //Roles
     if (
       !Cookies.get("roles").includes("Administrador") &&
-      !Cookies.get("roles").includes("Medico")
+      !Cookies.get("roles").includes("Social")
     ) {
       props.history.goBack();
     }

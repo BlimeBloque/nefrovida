@@ -49,7 +49,7 @@ function EditarPreguntasEvaluacionForm(props) {
         {
             props.history.goBack();
         }
-        http.get('/evaluacionesPreguntas/')
+        http.get('/evaluacionesPreguntas')
             .then(res => { 
                 setValoresPreguntas(res.data.data)
             })
