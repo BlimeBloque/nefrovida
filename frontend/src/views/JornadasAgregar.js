@@ -22,13 +22,6 @@ const JornadasAgregar = (props) => {
   const [retrieve, setRetrieve] = useState([false]);
 
   useEffect(() => {
-    //Roles
-    if (
-      !Cookies.get("roles").includes("Administrador") &&
-      !Cookies.get("roles").includes("Social")
-    ) {
-      props.history.goBack();
-    }
 
     http
       .get("/estados")

@@ -123,9 +123,10 @@ const DetalleConsultaNutricion = (props) => {
               <Typography variant="h3">
                 {tamizaje.nombreBeneficiario}
               </Typography>
-              {(Cookies.get("roles").includes("Administrador") ||
-                Cookies.get("roles").includes("Medico")) && (
+              
                 <div id="botones">
+                {(Cookies.get("roles").includes("Administrador") ||
+                Cookies.get("roles").includes("Social")) && (
                   <Tooltip title="Editar" arrow>
                     <IconButton
                       aria-label="Editar"
@@ -142,7 +143,10 @@ const DetalleConsultaNutricion = (props) => {
                     >
                       <EditIcon fontSize="large" />
                     </IconButton>
+                    
                   </Tooltip>
+                )}
+                  {(Cookies.get("roles").includes("Administrador") && (
                   <Tooltip title="Eliminar" arrow>
                     <IconButton
                       aria-label="Eliminar"
@@ -152,8 +156,8 @@ const DetalleConsultaNutricion = (props) => {
                       <RemoveCircleIcon fontSize="large" />
                     </IconButton>
                   </Tooltip>
+                    ))}
                 </div>
-              )}
             </div>
 
             <div id="datosNutrimentales">
