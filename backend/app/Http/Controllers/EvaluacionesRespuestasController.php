@@ -188,6 +188,7 @@ class EvaluacionesRespuestasController extends Controller
             ->join('beneficiarios AS b', 'er.idBeneficiario' , '=', 'b.idBeneficiario')
             ->where('b.idBeneficiario', '=', $idBeneficiario)
             ->where('e.idEvaluacion', '=', 1)
+            ->orderBy('er.idOpcionEvaluacion')
             ->select('e.idEvaluacion', 'oe.idOpcionEvaluacion', 'ep.evaluacionPregunta', 'er.respuestasPosibles', 'e.nombreEvaluacion', 'er.idEvaluacionRespuesta')
             ->get();
     }
@@ -200,6 +201,7 @@ class EvaluacionesRespuestasController extends Controller
             ->join('beneficiarios AS b', 'er.idBeneficiario' , '=', 'b.idBeneficiario')
             ->where('b.idBeneficiario', '=', $idBeneficiario)
             ->where('e.idEvaluacion', '=', 2)
+            ->orderBy('er.idOpcionEvaluacion')
             ->select('e.idEvaluacion', 'oe.idOpcionEvaluacion', 'ep.evaluacionPregunta', 'er.respuestasPosibles', 'e.nombreEvaluacion', 'er.idEvaluacionRespuesta')
             ->get();
     }
