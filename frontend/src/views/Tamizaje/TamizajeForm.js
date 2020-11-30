@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Button, TextField } from "@material-ui/core";
+import { Typography, Button, TextField, Grid } from "@material-ui/core";
 import http from "../../http-common";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 function hasNumber(myString) {
   return /\d/.test(myString);
@@ -18,10 +18,15 @@ function isDecimal(input) {
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiFormControl-root": {
-      width: "47%",
+      width: "100%",
       margin: theme.spacing(1),
     },
   },
+
+  TextField: {
+    width: "100%",
+  },
+
   form: {
     display: "flex",
     justifyContent: "space-evenly",
@@ -55,9 +60,11 @@ export default function TamizajeAgregarForm(props) {
   };
 
   useEffect(() => {
-    if(!Cookies.get("roles").includes("Administrador") && !Cookies.get("roles").includes("Medico"))
-    {
-        props.history.goBack();
+    if (
+      !Cookies.get("roles").includes("Administrador") &&
+      !Cookies.get("roles").includes("Medico")
+    ) {
+      props.history.goBack();
     }
     if (props.editar) {
       setValues(props.tamizaje);
@@ -150,83 +157,107 @@ export default function TamizajeAgregarForm(props) {
       </Typography>
 
       <form>
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          name="presionArterial"
-          label="Presión Arterial"
-          value={values.presionArterial}
-          onChange={handleInputChange}
-          error={typeof errors.presionArterial !== "undefined"}
-          helperText={errors.presionArterial}
-        />
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          name="circunferenciaCintura"
-          label="Circunferencia en Cintura"
-          value={values.circunferenciaCintura}
-          onChange={handleInputChange}
-          error={typeof errors.circunferenciaCintura !== "undefined"}
-          helperText={errors.circunferenciaCintura}
-        />
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          name="peso"
-          label="Peso (Kg)"
-          value={values.peso}
-          onChange={handleInputChange}
-          error={typeof errors.peso !== "undefined"}
-          helperText={errors.peso}
-        />
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          name="circunferenciaCadera"
-          label="Circunferencia en Cadera"
-          value={values.circunferenciaCadera}
-          onChange={handleInputChange}
-          error={typeof errors.circunferenciaCadera !== "undefined"}
-          helperText={errors.circunferenciaCadera}
-        />
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          name="glucosaCapilar"
-          label="Glucosa Capilar"
-          value={values.glucosaCapilar}
-          onChange={handleInputChange}
-          error={typeof errors.glucosaCapilar !== "undefined"}
-          helperText={errors.glucosaCapilar}
-        />
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          name="talla"
-          label="Talla (m)"
-          value={values.talla}
-          onChange={handleInputChange}
-          error={typeof errors.talla !== "undefined"}
-          helperText={errors.talla}
-        />
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          name="comentario"
-          label="Comentario"
-          value={values.comentario}
-          onChange={handleInputChange}
-        />
-        <br></br>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          onClick={handleSubmit}
-        >
-          {props.editar ? "Editar" : "Registrar"} Tamizaje
-        </Button>
+        <Grid container spacing={3}>
+          <Grid item sm={12} md={6}>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              name="presionArterial"
+              label="Presión Arterial"
+              value={values.presionArterial}
+              onChange={handleInputChange}
+              error={typeof errors.presionArterial !== "undefined"}
+              helperText={errors.presionArterial}
+            />
+          </Grid>
+
+          <Grid item sm={12} md={6}>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              name="circunferenciaCintura"
+              label="Circunferencia en Cintura"
+              value={values.circunferenciaCintura}
+              onChange={handleInputChange}
+              error={typeof errors.circunferenciaCintura !== "undefined"}
+              helperText={errors.circunferenciaCintura}
+            />
+          </Grid>
+
+          <Grid item sm={12} md={6}>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              name="peso"
+              label="Peso (Kg)"
+              value={values.peso}
+              onChange={handleInputChange}
+              error={typeof errors.peso !== "undefined"}
+              helperText={errors.peso}
+            />
+          </Grid>
+
+          <Grid item sm={12} md={6}>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              name="circunferenciaCadera"
+              label="Circunferencia en Cadera"
+              value={values.circunferenciaCadera}
+              onChange={handleInputChange}
+              error={typeof errors.circunferenciaCadera !== "undefined"}
+              helperText={errors.circunferenciaCadera}
+            />
+          </Grid>
+
+          <Grid item sm={12} md={6}>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              name="glucosaCapilar"
+              label="Glucosa Capilar"
+              value={values.glucosaCapilar}
+              onChange={handleInputChange}
+              error={typeof errors.glucosaCapilar !== "undefined"}
+              helperText={errors.glucosaCapilar}
+            />
+          </Grid>
+
+          <Grid item sm={12} md={6}>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              name="talla"
+              label="Talla (m)"
+              value={values.talla}
+              onChange={handleInputChange}
+              error={typeof errors.talla !== "undefined"}
+              helperText={errors.talla}
+            />
+          </Grid>
+
+          <Grid item sm={12}>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              name="comentario"
+              label="Comentario"
+              value={values.comentario}
+              onChange={handleInputChange}
+            />
+          </Grid>
+
+          <Grid item sm={12} style={{ textAlign: "center" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              {props.editar ? "Editar" : "Registrar"} Tamizaje
+            </Button>
+          </Grid>
+        </Grid>
       </form>
     </center>
   );
