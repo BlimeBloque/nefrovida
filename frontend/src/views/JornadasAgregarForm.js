@@ -8,6 +8,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Grid,
 } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -19,9 +20,13 @@ import http from "../http-common";
 const useStyle = makeStyles((theme) => ({
   root: {
     "& .MuiFormControl-root": {
-      width: "47%",
+      width: "100%",
       margin: theme.spacing(1),
     },
+  },
+
+  TextField: {
+    width: "100%",
   },
   form: {
     display: "flex",
@@ -121,88 +126,108 @@ export default function JornadasAgregarForm(props) {
       <CssBaseline />
       {wait && (
         <form className={classes.root}>
-          <TextField
-            id="outlined-basic"
-            variant="outlined"
-            name="nombre"
-            label="Nombre"
-            value={values.nombre}
-            onChange={handleInputChange}
-            error={typeof errors.nombre !== "undefined" && errors.nombre !== ""}
-            helperText={errors.nombre}
-          />
+          <Grid container spacing={3}>
+            <Grid item sm={12} md={6}>
+              <TextField
+                id="outlined-basic"
+                variant="outlined"
+                name="nombre"
+                label="Nombre"
+                value={values.nombre}
+                onChange={handleInputChange}
+                error={
+                  typeof errors.nombre !== "undefined" && errors.nombre !== ""
+                }
+                helperText={errors.nombre}
+              />
+            </Grid>
 
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="yyyy/MM/dd"
-              margin="normal"
-              name="fecha"
-              label="Fecha"
-              value={values.fecha}
-              onChange={handleDateAtOnChange}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
-          </MuiPickersUtilsProvider>
+            <Grid item sm={12} md={6}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  format="yyyy/MM/dd"
+                  margin="normal"
+                  name="fecha"
+                  label="Fecha"
+                  value={values.fecha}
+                  onChange={handleDateAtOnChange}
+                  KeyboardButtonProps={{
+                    "aria-label": "change date",
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </Grid>
 
-          <TextField
-            id="outlined-basic"
-            variant="outlined"
-            name="localidad"
-            label="Localidad"
-            value={values.localidad}
-            onChange={handleInputChange}
-            error={
-              typeof errors.localidad !== "undefined" && errors.localidad !== ""
-            }
-            helperText={errors.localidad}
-          />
-          <TextField
-            id="outlined-basic"
-            variant="outlined"
-            name="municipio"
-            label="Municipio"
-            value={values.municipio}
-            onChange={handleInputChange}
-            error={
-              typeof errors.municipio !== "undefined" && errors.municipio !== ""
-            }
-            helperText={errors.municipio}
-          />
+            <Grid item sm={12} md={6}>
+              <TextField
+                id="outlined-basic"
+                variant="outlined"
+                name="localidad"
+                label="Localidad"
+                value={values.localidad}
+                onChange={handleInputChange}
+                error={
+                  typeof errors.localidad !== "undefined" &&
+                  errors.localidad !== ""
+                }
+                helperText={errors.localidad}
+              />
+            </Grid>
 
-          <FormControl style={{ minWidth: 120 }}>
-            <InputLabel id="LEstado">Estado</InputLabel>
-            <Select
-              labelId="LEstado"
-              width="50%"
-              variant="outlined"
-              name="idEstado"
-              label="Estado"
-              value={values.idEstado}
-              onChange={handleInputChange}
-              error={
-                typeof errors.municipio !== "undefined" &&
-                errors.idEstado !== ""
-              }
-            >
-              {EstadosCollection.map((item) => (
-                <MenuItem key={item.id} value={item.id}>
-                  {item.nombre}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            onClick={handleSubmit}
-          >
-            {props.editar ? "Editar" : "Agregar"} Jornada
-          </Button>
+            <Grid item sm={12} md={6}>
+              <TextField
+                id="outlined-basic"
+                variant="outlined"
+                name="municipio"
+                label="Municipio"
+                value={values.municipio}
+                onChange={handleInputChange}
+                error={
+                  typeof errors.municipio !== "undefined" &&
+                  errors.municipio !== ""
+                }
+                helperText={errors.municipio}
+              />
+            </Grid>
+
+            <Grid item sm={12} md={6}>
+              <FormControl style={{ minWidth: 120 }}>
+                <InputLabel id="LEstado">Estado</InputLabel>
+                <Select
+                  labelId="LEstado"
+                  width="50%"
+                  variant="outlined"
+                  name="idEstado"
+                  label="Estado"
+                  value={values.idEstado}
+                  onChange={handleInputChange}
+                  error={
+                    typeof errors.municipio !== "undefined" &&
+                    errors.idEstado !== ""
+                  }
+                >
+                  {EstadosCollection.map((item) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.nombre}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item sm={12} style={{ textAlign: "center" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                onClick={handleSubmit}
+              >
+                {props.editar ? "Editar" : "Agregar"} Jornada
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       )}
     </div>
