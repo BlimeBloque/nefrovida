@@ -90,6 +90,13 @@ const DetalleConsultaNutricion = (props) => {
     setOpen(false);
   };
 
+  const calcularIndice = (cintura, cadera) => {
+    if(cintura == 0 || cadera == 0)
+      return 0;
+    else
+      return cintura/cadera;
+  }
+
   const EliminarTamizaje = () => {
     http
       .delete("/tamizaje/" + idBeneficiario + "/" + idTamizaje)
@@ -209,6 +216,17 @@ const DetalleConsultaNutricion = (props) => {
                   ? tamizaje.circunferenciaCadera
                   : "No registrado"}
               </Typography>
+
+              <Typography
+                variant="body1"
+                className={classes.normal}
+              >
+                <strong className={classes.normal}>
+                  Índice Cintura/Cadera:{" "}
+                </strong>
+                {calcularIndice(tamizaje.circunferenciaCintura, tamizaje.circunferenciaCadera)}
+              </Typography>
+              
               <Typography
                 variant="body1"
                 className={

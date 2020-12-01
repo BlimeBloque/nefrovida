@@ -193,7 +193,7 @@ useEffect ( () => {
       }
 
       const dataPlaticaMedicaInicio = {
-        labels: ['Pregunta 1', 'Pregunta 3', 'Pregunta 3'],
+        labels: ['Pregunta 1', 'Pregunta 2', 'Pregunta 3'],
         datasets: [
           {
             label: 'Contestó Si',
