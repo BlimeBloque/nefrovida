@@ -23,7 +23,6 @@ export default function DetallesDatosNutrimentales (props)
                         <TableRow>
                             <TableCell align="center">Nutrimento</TableCell>
                             <TableCell align="center">Porcentaje</TableCell>
-                            <TableCell align="center">Kilocalorías</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -31,9 +30,6 @@ export default function DetallesDatosNutrimentales (props)
                             <TableCell align="center"><strong>HC</strong></TableCell>
                             <TableCell align="center" className={detalle.porcentajeHidratosCarbono ? classes.normal : classes.faltante}>
                                 {detalle.porcentajeHidratosCarbono ? detalle.porcentajeHidratosCarbono : "No registrado"}
-                            </TableCell>
-                            <TableCell align="center" className={detalle.kilocaloriasHidratosCarbono ? classes.normal : classes.faltante}>
-                                {detalle.kilocaloriasHidratosCarbono ? detalle.kilocaloriasHidratosCarbono : "No registrado"}
                             </TableCell>
                         </TableRow>
                         <TableRow hover>

@@ -200,21 +200,6 @@ export default function Necesidades(props)
                         Escribe un porcentaje válido<br/>(Si es número cerrado escribir .0 Ej. 50.0).
                     </FormHelperText>
                 </FormControl>
-
-                <FormControl error={errores.kilocaloriasHidratosCarbono} className={classes.xs}>
-                    <InputLabel htmlFor="component-error">Kilocalorías HC</InputLabel>
-                    <Input
-                    id="component-error"
-                    name="kilocaloriasHidratosCarbono"
-                    value={values.kilocaloriasHidratosCarbono}
-                    onChange={handleKilocaloriasHidratosCarbonoChange}
-                    aria-describedby="component-error-text"
-                    type="number"
-                    />
-                    <FormHelperText style={{display: errores.kilocaloriasHidratosCarbono ? "block" : "none"}} id="component-error-text">
-                        Escribe un número válido<br/> (Si es número cerrado escribir .0 Ej. 170.0).
-                    </FormHelperText>
-                </FormControl>
             </div>
 
             <div className={classes.flex}>

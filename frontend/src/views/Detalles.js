@@ -142,6 +142,7 @@ class DetallesTabla extends Component {
       .get(API + "/beneficiarios/" + this.props.idBenef)
       .then((detalles) => {
         this.setState({ detalles: detalles.data});
+
       })
       .catch((e) => {
         console.log(e);
@@ -161,7 +162,7 @@ class DetallesTabla extends Component {
 
   { this.state.detalles.map ((detalle) => (
     <div>
-        <Link variant="body2" to="/beneficiarios">
+        <Link variant="body2" to={ detalle.idJornada ? "/jornadas/"+detalle.idJornada : "/beneficiarios"}>
               <IconButton color="primary" aria-label="edit">
                   <ArrowBackIcon/>
               </IconButton>
